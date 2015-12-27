@@ -1,0 +1,25 @@
+// file: hdp_01.cc
+// version: hdp_01.cc 2013-07-25  Amir Harati $
+//
+
+// isip include files
+//
+#include "HDP.h"
+#include <Console.h>
+
+// method: debug
+//
+// arguments:
+//  const unichar* msg: (input) message to print
+//
+// return: bool8 value indicating status
+//
+// this is the debug method
+//
+bool8 HDP::debug(const unichar* msg_a) const {
+
+
+  // return gracefully
+  //
+  return true;
+}

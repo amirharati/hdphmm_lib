@@ -1,0 +1,145 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="DstrBase" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="name">
+<b>
+name:
+<a href="/perl/ifc_document.pl?file=$isip/class/dstr/DstrBase/DstrBase.h">DstrBase;</a>
+</b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+This class is never directly invoked since it has
+no data or member functions.
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+none
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The DstrBase class defines some common enumerations used in the dstr
+classes. This class is inherited by other data structure classes, such
+as Vector, DoubleLinkedList, SingleLinkedList. Since this class is
+inherited by the Node class, it is important that this class not have
+any internal data. Otherwise, every element of a list or hash table
+will include the memory allocated in DstrBase - something which is
+very bad for large applications such as speech recognition.  The main
+reason this class exists is make some constants internal to the data
+structure classes, such as ALLOCATION and LIST_TYPE, available to all
+classes in this library.
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li>
+       <a href="../../math/scalar/String/index.html">String</a>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+
+<ul>
+  <li> define sort algorithm choices:
+
+       <pre>enum SORT_ALGO { RAND_QUICK = 0, MERGE, QUICK, INSERTION, DEF_SORT_ALGO = RAND_QUICK };</pre>
+
+  <li> define list types
+
+       <pre>enum LIST_TYPE { SINGLE = 0, DOUBLE, DEF_LIST_TYPE = DOUBLE };</pre>
+
+  <li> define allocation modes
+
+       <pre>enum ALLOCATION { SYSTEM = 0, USER, DEF_ALLOCATION = SYSTEM };</pre> 
+</ul>
+       
+<a name="error">       
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> error codes indicating a general error:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00042000"">static const long ERR = 42000;</a></pre>
+
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> none
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li> destructor/constructor(s)
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DstrBase/DstrBase.h&method=destructor">~DstrBase();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DstrBase/DstrBase.h&method=default+constructor">DstrBase();</a></pre>
+       
+  <li> other required methods are omitted since this class does not have data members and operations
+</ul>
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>
+  <li> none
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>       
+  <li> none
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+  <li> Since this class is never called directly, there are no examples ;-)
+       See any of the data structre classes for an example of how this
+       class is inherited by other classes.
+</ul>
+       
+<a name="notes">
+<b>notes:</b>
+
+<ul>
+  <li> none.
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

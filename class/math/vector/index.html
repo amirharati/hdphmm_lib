@@ -1,0 +1,384 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+<!--#set var="isip_page_title" value="MATH VECTOR" -->
+<!--#include virtual="/hse/ies/templates/documentation/body/title.html" -->
+
+<b>Library Name:</b>
+lib_math_vector.a
+
+<br><br>
+
+<b>Introduction:</b>
+
+<br><br>
+
+<ul>
+  The vector classes provide support for a wide variety of
+  complex mathematical operations. Since vectors are used
+  extensively in signal processing applications, these classes centralize
+  core mathematical functions, and augment the traditional concept of a
+  vector with functions useful for signal processing.
+</ul>
+
+<b>Example:</b>
+
+<ul>
+  The following
+
+  <a href="../../../doc/examples/class/math/vector/math_vector_example_00/">
+  example</a>
+
+  illustrates how easy it is to do mathematics
+  with the vector classes:
+  
+<pre>
+  01  // isip include files
+  02  //
+  03  #include &lt;VectorFloat.h&gt;
+  04  #include &lt;Console.h&gt;
+  05
+  06  // main program starts here
+  07  //
+  08  int main() {
+  09    
+  10    // declare two vectors and a scalar
+  11    //
+  12    VectorFloat u;
+  13    VectorFloat v;
+  14    Float distance;
+  15    
+  16    // define the elements of the two vectors
+  17    //
+  18    u.assign(L"3.5, 6.4, 5.9, 0.11, 0.76");
+  19    v.assign(L"4.6, 8.9, 11.2, 22.2, 7.7");
+  20    
+  21    // calculate the euclidean distance between two vectors
+  22    //
+  23    distance = u.norm(v);
+  24    
+  25    // writing the result to the console
+  26    //
+  27    String output;
+  28    String tmp;
+  29    output.concat(L"the euclidean distance between u and v is ");
+  30    tmp.assign(distance);
+  31    output.concat(tmp);
+  32    Console::put(output);
+  33
+  34    // exit gracefully
+  35    //
+  36    Integral::exit();
+  37  }
+</pre>
+</ul>
+
+<b>Explanation:</b>
+
+<ul>
+  The above program calculates the Euclidean distance between vectors "u"
+  and "v". This is done in just one step on line 23 using the "norm" function.
+  Since this function returns an integral type, we assign it to a scalar
+  object. The norm function does all of the following in one step:
+  
+  <br><br>
+
+  <ol>
+    <li> computes the differences element by element for each vector
+    <li> squares these differences
+    <li> computes the sum of the squares
+    <li> computes the square root of the sum
+  </ol>
+
+  <br>
+
+  The output generated from the above program is:  
+
+  <br><br>
+
+  <ul>
+    the euclidean distance between u and v is 23.9099
+  </ul>
+
+  <br>
+  
+  The vector classes build upon the
+
+  <a href="../scalar/index.html">scalar</a>
+
+  classes. The vector classes incorporate many of the methods
+  included in the scalar classes, as well as some interesting
+  higher-level functions. 
+</ul>
+
+<b>Example:</b>
+
+<ul>
+  Here is another
+
+  <a href="../../../doc/examples/class/math/vector/math_vector_example_01/">
+  example</a>
+
+  which demonstrates some of the more advanced
+  functions available in the vector classes:
+  
+<pre>
+  01  // isip include files
+  02  //
+  03  #include &lt;VectorFloat.h&gt;
+  04  #include &lt;VectorLong.h&gt;
+  05  #include &lt;Console.h&gt;
+  06
+  07  // main program starts here:
+  08  //  this example demonstrates the use of math vector methods to 
+  09  //  manipulat the values of a vector.
+  10  //
+  11  int main () {
+  12    
+  13    // define a vector of floats that is 5 elements long
+  14    // and a vector of integers
+  15    //
+  16    VectorFloat signal(5);
+  17    VectorLong idx;
+  18    
+  19    // generate a ramp. it will start at 1.0 with a slope of 2.0.
+  20    //
+  21    signal.ramp(1.0, 2.0);
+  22    
+  23    // print the signal using the debug method
+  24    //
+  25    signal.debug(L"The signal is ");
+  26    
+  27    // generate an index array for reordering
+  28    //
+  29    idx.assign(L"4, 3, 2, 1, 0");
+  30    
+  31    // time-reverse the signal via the reorder method.
+  32    // another alternative implementation is via the reverse mehtod.
+  33    // Ex. signal.reverse();
+  34    //
+  35    signal.reorder(idx);
+  36 
+  37    // verify that the signal is reversed
+  38    //
+  39    signal.debug(L"The time-reversed signal is ");
+  40    
+  41    // increase the length of the signal to 10 elements.
+  42    //
+  43    signal.setLength(10);
+  44  
+  45    // zero-out the new elements. this step is not strictly needed,
+  46    // since the values were initially zero and the program has never
+  47    // assigned them to other elements. however, the setLength() method
+  48    // does NOT zero out new elements, so if this vector was previously
+  49    // a longer length with non-zero elements in these new positions
+  50    // somewhat unpredictable results could occur.
+  51    //
+  52    for (long i = 5; i < 10; i++) {
+  53      signal(i) = 0;
+  54    }
+  55    
+  56    // verify that the signal has been zero-stuffed
+  57    //
+  58    signal.debug(L"The zero-stuffed signal is ");
+  59    
+  60    // exit gracefully
+  61    //
+  62    Integral::exit();
+  63  }
+</pre>
+</ul>
+
+<b>Explanation:</b>
+
+<ul>
+
+  On line 21 in this program, we generate a ramp signal using the
+  "ramp" method available in the
+
+  <a href="./VectorFloat/index.html">VectorFloat</a>
+
+  class. The first input argument to the ramp method is
+  the offset value of the ramp (1.0) and the second argument (2.0)
+  specifies the increment of the ramp. The debug method is used
+  to verify the contents of the signal. All classes have a debug
+  method - these are particularly useful during program development.
+
+  <br><br>
+
+  Next, on line 29, we generate a vector of indices that will be
+  used to time-reverse the signal. The function call on line 35
+  time reverses the signal using a reordering method (also available
+  in all vector classes). The result is again verified on line 39
+  using the debug method.
+
+  <br><br>
+
+  The length of a vector can automatically be resized by simply
+  changing the length of the vector. This is demonstrated on line 41,
+  where the vector's dimension is increased to 10. This is verified
+  on line 56. Vectors have both a length (the current size of the
+  vector) and a capacity (the current maximum size of the vector). If
+  the length is set to a number greater than the capacity,
+  the vector's capacity is automatically increased. Hence, vectors
+  can grow as needed, and capacity is used to ensure this growth
+  is done in an efficient manner.
+
+  <br><br>
+  
+  The output for the above program is shown below:
+  
+  <br><br>
+  
+<pre>
+  &lt;VectorFloat:: The signal is&gt; length_d = 5
+  &lt;VectorFloat:: The signal is&gt; capacity_d = 5
+  &lt;VectorFloat:: The signal is&gt; v_d = 1, 3, 5, 7, 9
+  &lt;VectorFloat:: The time-reversed signal is&gt; length_d = 5
+  &lt;VectorFloat:: The time-reversed signal is&gt; capacity_d = 5
+  &lt;VectorFloat:: The time-reversed signal is&gt; v_d = 9, 7, 5, 3, 1
+  &lt;VectorFloat:: The zero-stuffed signal is&gt; length_d = 10
+  &lt;VectorFloat:: The zero-stuffed signal is&gt; capacity_d = 10
+  &lt;VectorFloat:: The zero-stuffed signal is&gt; v_d = 9, 7, 5, 3, 1, 0, 0, 0, 0, 0
+</pre>
+</ul>
+
+<b>Example:</b>
+
+<ul>
+  The following
+
+  <a href="../../../doc/examples/class/math/vector/math_vector_example_02/">
+  example</a>
+
+  illustrates how easy it is to do a conversion from a Real type to a
+  Complex type assuming zero imaginary parts, with the vector classes:
+  
+<pre>
+  01  // isip include files
+  02  //
+  03  #include &lt;VectorFloat.h&gt;
+  04  #include &lt;VectorComplexFloat.h&gt;
+  05
+  06  // main program starts here
+  07  //
+  08  int main() {
+  09    
+  10    // declare a real vector and a complex vector
+  11    //
+  12    VectorFloat real;
+  13    VectorComplexFloat complex;
+  14    
+  15    // define the elements of the real vector
+  16    //
+  17    real.assign(L"3.5, 6.4, 5.9, 0.11, 0.76");
+  18    
+  19    // convert the real to a complex type assuming zero imaginary parts
+  20    //
+  21    complex.assign(real);
+  22    
+  23    // writing the result
+  24    //
+  25    real.debug(L"the real vector is ");
+  26    complex.debug(L"the equivalent complex vector is ");
+  27
+  28    // exit gracefully
+  29    //
+  30    Integral::exit();
+  31  }
+</pre>
+</ul>
+
+<b>Explanation:</b>
+
+<ul>
+  The above program converts a real vector float type to a complex
+  vector float type assuming zero imaginary parts. This is done in just
+  one step on line 21 using the "assign" function. The assign function
+  does all of the following in one step. It loops through each scalar
+  in the vectors and assigns the real type to the real part of complex
+  type with imaginary part as zero.
+
+  <br>
+
+  The output generated from the above program is:  
+
+  <br><br>
+
+  <ul>
+    &lt;VectorFloat::the real vector is &gt; length_d = 5
+    <br>
+    &lt;VectorFloat::the real vector is &gt; capacity_d = 5
+    <br>
+    &lt;VectorFloat::the real vector is &gt; v_d = 3.5, 6.4, 5.9, 0.11, 0.76
+    <br>
+    &lt;VectorComplexFloat::the equivalent complex vector is &gt; length_d = 5
+    <br>
+    &lt;VectorComplexFloat::the equivalent complex vector is &gt;
+    capacity_d = 5
+    <br>
+    &lt;VectorComplexFloat::the equivalent complex vector is &gt; v_d = 3.5+0j,
+    6.4+0j, 5.9+0j, 0.11+0j, 0.76+0j
+    <br>
+  </ul>
+
+  <br>
+  
+  A detailed listing of all the relational, logical and mathematical
+  operations for the vectors can be found in the
+
+  <a href="./MVector/index.html">template header file</a>
+
+  documentation (for functions shared across all classes)
+  or the individual class documentation (for example, see the
+
+  <a href="./VectorFloat/index.html">VectorFloat</a>
+
+  class). The vector classes that are available include:
+
+  <br><br>
+
+  <center>
+  <table border=5>
+
+  <tr>
+  <td> <a href="./VectorByte/index.html">VectorByte</a> </td>
+  <td> <a href="./VectorComplexDouble/index.html">VectorComplexDouble</a> </td>
+  <td> <a href="./VectorComplexFloat/index.html">VectorComplexFloat</a> </td>
+  <td> <a href="./VectorComplexLong/index.html">VectorComplexLong</a> </td>
+
+  <tr>
+  <td> <a href="./VectorDouble/index.html">VectorDouble</a> </td>
+  <td> <a href="./VectorFloat/index.html">VectorFloat</a> </td>
+  <td> <a href="./VectorLlong/index.html">VectorLlong</a> </td>
+  <td> <a href="./VectorLong/index.html">VectorLong</a> </td>
+
+  <tr>
+  <td> <a href="./VectorShort/index.html">VectorShort</a> </td>
+  <td> <a href="./VectorUllong/index.html">VectorUllong</a> </td>
+  <td> <a href="./VectorUlong/index.html">VectorUlong</a> </td>
+  <td> <a href="./VectorUshort/index.html">VectorUshort</a> </td>
+  </tr>
+
+  </table>
+  </center>
+
+  <br>
+  
+  The next level in the ISIP class hierarchy is
+
+  <a href="../matrix/index.html">matrix</a>
+
+  which provides a means of creating a matrix of ISIP scalar objects.
+  The software corresponding to the examples
+  demonstrated in this document can be found in our
+
+  <a href="../../../doc/examples/">documentation directory</a>
+
+  under
+
+  <a href="../../../doc/examples/class/math/vector/">class/math/vector/</a>.
+
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

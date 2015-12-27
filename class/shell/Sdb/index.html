@@ -1,0 +1,370 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="Sdb" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="name">
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/Sdb.h"> Sdb </a></b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] sdb ... -l /isip/tools/lib/$ISIP_BINARY/lib_shell.a
+
+#include &lt;Sdb.h&gt;
+
+~Sdb();
+Sdb();
+boolean gotoNext();
+boolean gotoFirst;
+boolean getName(Filename& arg) const;
+boolean transformName(Filename& output_file, const Filename& input_file);
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+
+<blockquote>
+<pre>
+Sdb sdb;
+String line(L"run_me.exe file1.sof file2.sof file3.sof file4.sof file5.sof");
+CommandLine cmdl(sdb);
+cmdl.parse(line);
+
+Filename tmp_name1;
+Filename tmp_name2;
+
+sdb.gotoFirst();
+sdb.getName(tmp_name1);
+
+sdb.gotoNext();
+sdb.gotoNext();
+sdb.getName(tmp_name2);
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The Sdb (Signal data base) class provides a means of managing signal
+files and Sdb files.
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li> <a href="../Filename/index.html">Filename</a>
+
+  <li> <a href="../../math/scalar/Long/index.html">Long</a>
+       
+  <li> <a href="../../math/scalar/Boolean/index.html">Boolean</a>
+       
+  <li> <a href="../../dstr/Pair/index.html">Pair</a>
+
+  <li> <a href="../../dstr/Wrapper/index.html">Wrapper</a>
+
+  <li> <a href="../../dstr/Stack/index.html">Stack</a>
+
+  <li> <a href="../../dstr/Queue/index.html">Queue</a>
+
+  <li> <a href="../CommandLine/index.html">Commandline</a>
+       
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/sdb_00.cc&constant=CLASS_NAME">static const String CLASS_NAME = L"Sdb";</a></pre>
+
+  <li> define filename translation constants:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/sdb_00.cc&constant=DEF_OUT_DIR">static const String Sdb::DEF_OUT_DIR = L"";</a></pre>
+
+  <li> define i/o related constants:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/sdb_00.cc&constant=DEF_PARAM">static const String DEF_PARAM = L"files";</a></pre>
+
+  <li> define indicators for if an entry is a list or a plain file:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/sdb_00.cc&constant=LIST_FILE_MARKER">static const String LIST_FILE_MARKER = L"(list) ";</a></pre>
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/sdb_00.cc&constant=LIST_FILE_OPTION">static const String LIST_FILE_OPTION = L"list";</a></pre>
+       
+  <li> default values and arguments:
+       
+       <pre>static const long DEF_LOOKAHEAD = 10;</pre>
+       <pre>static const long DEF_DIR_PRES = Filename::DEF_DIR_PRES;</pre>
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> error code indicating general Sdb class error:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00045300">static const long ERR = 45300;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00045301">static const long ERR_NOTSDB = 45301;</a></pre>
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> define a list for user-specified files: the corresponding flag
+       specifies whether the file is a list
+       
+       <pre>DoubleLinkedList&lt; Pair&lt;Filename, Boolean&gt; &gt; files_d;</pre>
+  <li> define a queue for iterating through the files: this queues up
+       flat files
+       
+       <pre>Queue&lt;Filename&gt; queue_d;</pre>
+       
+  <li> define stacks for: (1) open Sof files, (2) Sdb objects within the
+       files, and (3) how manny elements are left in the current object
+       (only used in binary mode)
+
+       <pre>Stack&lt;WSof&gt; fps_d;</pre>
+       <pre>Stack&lt;Long&gt; tags_d;</pre>
+       <pre>Stack&lt;Long&gt; nums_d;</pre>
+	    
+  <li> define the lookahead parameter:
+       
+       <pre>long lookahead_d;</pre>
+
+  <li> define a startup flag: are we at the begining of processing?
+       
+       <pre>boolean at_first_d;</pre>
+
+  <li> define an output directory specification:
+       
+       <pre>String output_directory_d;</pre>
+
+  <li> define the number of directories to preserve:
+       
+       <pre>Long dir_pres_d;</pre>
+
+  <li> define a new filename extension to use:
+       
+       <pre>String output_extension_d;</pre>
+
+  <li> define a new filename base to use:
+       
+       <pre>String output_basename_d;</pre>       
+
+  <li> define a new filename suffix to use:
+       
+       <pre>String output_suffix_d;</pre>
+
+  <li> define a static debug level for all objects of this class:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/sdb_00.cc&static=debug_level_d">static Integral::DEBUG debug_level_d;</a></pre>
+
+   <li> define the Memory Manager:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/sdb_00.cc&static=mgr_d">static MemoryManager mgr_d;</a></pre>
+
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li> static methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/Sdb.h&method=name">static const String& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/sdb_02.cc&method=diagnose">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+
+  <li> debug methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/Sdb.h&method=setDebug">static setDebug(Integral::DEBUG level);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/sdb_01.cc&method=debug">boolean debug(const unichar* message) const;</a></pre>
+  
+  <li> destructor/ constructor(s):
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/Sdb.h&method=destructor">~Sdb();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/sdb_00.cc&method=default+constructor">Sdb();</a></pre>
+
+  <li> assign methods:
+       
+       <pre>the assign method is omitted since there is no need to copy the Sdb object</pre>
+
+  <li> operator= methods:
+       
+       <pre>these methods are private</pre>
+
+  <li> i/o methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/sdb_04.cc&method=sofSize">long sofSize() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/sdb_03.cc&method=read">boolean read(Sof& sof, long tag, const String& name = CLASS_NAME);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/sdb_04.cc&method=write">boolean write(Sof& sof, long tag, const String& name = CLASS_NAME) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/sdb_03.cc&method=readData">boolean readData(Sof& sof, const String& pname = DEF_PARAM, long size = SofParser::FULL_OBJECT, boolean param = true, boolean nested = false););</a></pre>      
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/sdb_04.cc&method=writeData">boolean writeData(Sof& sof, const String& pname = DEF_PARAM) const;</a></pre>
+       
+  <li> equality methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/sdb_05.cc&method=eq">boolean eq(const Sdb& arg) const;</a></pre>
+       
+  <li> memory management methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/Sdb.h&method=new">static void* operator new(size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/Sdb.h&method=new\[\]">static void* operator new[](size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/Sdb.h&method=delete">static void operator delete(void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/Sdb.h&method=delete\[\]">static void operator delete[](void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/Sdb.h&method=setGrowSize">static boolean setGrowSize(long grow_size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/sdb_05.cc&method=clear">boolean clear(Integral::CMODE cmode = Integral::DEF_CMODE);</a></pre>
+</ul>
+    
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>
+  <li> append methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/sdb_06.cc&method=append&instance=0">boolean append(const Filename& arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/sdb_06.cc&method=append&instance=1">boolean append(const String& arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/sdb_06.cc&method=append&instance=2">boolean append(const unichar* arg);</a></pre>
+       
+  <li> file access and transformation methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/sdb_06.cc&method=gotoFirst">boolean gotoFirst();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/sdb_06.cc&method=gotoNext">boolean gotoNext();</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/sdb_06.cc&method=transformName">boolean transformName(Filename& output_file, const Filename& input_file);</a></pre>
+
+   <li> get and set methods:
+	
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/sdb_06.cc&method=getName">boolean getName(Filename& arg);</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/Sdb.h&method=length">long length();</a></pre>	
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/Sdb.h&method=setOutputDirectory">boolean setOutputDirectory(const String& new_dir);</a></pre>
+        <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/Sdb.h&method=getOutputDirectory">const String& getOutputDirectory() const;</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/Sdb.h&method=setDirPresLevel">boolean setDirPresLevel(const String& new_pres_level);</a></pre>
+        <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/Sdb.h&method=getDirPresLevel">const String& getDirPresLevel() const;</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/Sdb.h&method=setOutputExtension">boolean setOutputExtension(const String& new_ext);</a></pre>
+        <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/Sdb.h&method=getOutputExtension">const String& getOutputExtension() const;</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/Sdb.h&method=setOutputBasename">boolean setOutputBasename(const String& new_basename);</a></pre>
+        <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/Sdb.h&method=getOutputBasename">const String& getOutputBasename() const;</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/Sdb.h&method=setOutputSuffix">boolean setOutputSuffix(const String& new_suffix);</a></pre>
+        <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/Sdb.h&method=getOutputSuffix">const String& getOutputSuffix() const;</a></pre>
+
+<li> query methods:
+     <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/sdb_05.cc&method=isSdb&instance=0">static boolean isSdb(const Filename& arg, const String& obj_name = CLASS_NAME);</a></pre>
+     <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/sdb_05.cc&method=isSdb&instance=1">static boolean isSdb(Sof& arg, const String& obj_name = CLASS_NAME);</a></pre>
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+  <li> constructors: the copy constructor is private since there is no need to copy the Sdb object
+       
+       <pre>Sdb(const Sdb& arg);</pre>
+
+  <li> operator= methods: this method is private since there is no need to copy the Sdb object
+       
+       <pre>Sdb& operator= (const Sdb& arg);</pre>
+
+  <li> iterate methods: for the given filename currently at the mark,
+       this function will test to see if the file is an Sof file
+       containing an Sdb object, if it is, then the data will be read
+       and each entry in this list will be inserted in place of the
+       given filename.  If the given filename is not such a file list,
+       the filename itself will be inserted into the Sdb list.  While
+       this may sound inefficient, this will actually pre-fetch all
+       data files to be processed
+ 
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/sdb_06.cc&method=iterate">long iterate();</a></pre>
+       
+  <li> parse methods: Sdb objects do not follow the name = value
+       language handled by SofParser, so a customized parser is
+       required. the input to this method is a single line of text
+       from a file, the output is a filename
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/sdb_03.cc&method=parse">boolean parse(Filename& output, boolean& is_list, String& input);</a></pre>
+
+  <li> method helpful for debugging: iterate through both objects and
+       see if they lead to the same files.
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Sdb/sdb_02.cc&method=sameFiles">boolean sameFiles(Sdb& arg);</a></pre>
+</ul>
+
+<a name="private">
+<b>friend classes:</b>
+<br><br>
+
+<ul>
+  <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h">friend class CommandLine;</a></pre>
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+  <li> This is a quick
+       <a href="../../../doc/examples/class/shell/Sdb_example/">example</a>           of Sdb's append method.  For a complete example of Sdb's primary               operation, see the second example in the                                       <a href="../index.html">shell class introduction</a>.
+<pre>
+// isip include files
+//
+#include &lt;CommandLine.h&gt;
+#include &lt;String.h&gt;
+#include &lt;Sdb.h&gt;
+
+// main program starts here
+//
+int main(int argc, const char **argv) {
+
+  // create an Sdb object and parse the commandline
+  // to add the files to the doubleLinkedList
+  //
+  Sdb sdb;
+  String line(L"run_me.exe file1.sof file2.sof");
+  CommandLine cmdl(sdb);
+  cmdl.parse(line);
+
+  // add another file to the doubleLinkedList
+  //
+  sdb.append(L"file3.sof");
+       
+  // output the sdb doubleLinkedList with
+  // the standard debug method
+  //
+  sdb.debug(L"sdb debug");
+  
+  // exit gracefully
+  //
+  return true;
+}
+</pre>
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> the WSof class is a specialization of the Wrapper<Sof> class
+       that defines the copy constructor and assign methods to
+       error. This is needed since Sof objects cannot be copied.
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

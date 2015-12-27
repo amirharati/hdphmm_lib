@@ -1,0 +1,261 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="LinearAlgebra" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="name">
+<b>
+name:
+<a href="/perl/ifc_document.pl?file=$isip/class/numeric/LinearAlgebra/LinearAlgebra.h">LinearAlgebra</a></b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ... -l /isip/tools/lib/$ISIP_BINARY/lib_algo.a
+
+#include &lt;LinearAlgebra.h&gt;
+
+LinearAlgebra();
+LinearAlgebra(const LinearAlgebra& arg);
+static boolean linearSolve(VectorFloat& x, const MatrixFloat& A,
+                           const VectorFloat& b);
+static boolean linearSolve(VectorDouble& x, const MatrixDouble& A,
+                           const VectorDouble& b);
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+MatrixFloat A_fl(3, 3, L"1, 2, 1, 2, 2, 3, 1, 1, 1");
+VectorFloat b_fl(L"2, 1, 3");
+VectorFloat x_fl;
+LinearAlgebra::linearSolve(x_fl, A_fl, b_fl);
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The LinearAlgebra class is used as a container for linear algebra
+operations that require a mixture of data types, such as vectors and
+matrices, and don't lend themselves to the templatized approach
+taken in the Math classes. The methods in this class often
+involve complex linear algebra algorithms that can use
+a mixture of vector and matrix functions, and multiple data types.
+
+<br><br>
+
+This class is currently designed such that the main computational
+methods are declared static and hence can be called without
+instantiating the class.
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li> <a href="../../math/vector/VectorDouble/index.html">VectorDouble</a>
+       
+  <li> <a href="../../math/vector/VectorFloat/index.html">VectorFloat</a>
+
+  <li> <a href="../../math/matrix/MatrixDouble/index.html">MatrixDouble</a>
+       
+  <li> <a href="../../math/matrix/MatrixFloat/index.html">MatrixFloat</a>
+       
+  <li> <a href="../../system/MemoryManager/index.html">MemoryManager</a>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/LinearAlgebra/linalg_00.cc&constant=CLASS_NAME">static const String CLASS_NAME = L"LinearAlgebra";</a></pre>
+
+  <li> i/o related constants:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/LinearAlgebra/linalg_00.cc&constant=DEF_PARAM">static const String DEF_PARAM = L"";</pre></a>
+
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> error code indicating LinearAlgebra class general error:
+
+       <pre><a href="/perl/ifc_document.pl?err=00035100">static const long ERR = (long)35100;</a></pre>
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> debug level:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/LinearAlgebra/linalg_00.cc&static=debug_level_d">static Integral::DEBUG debug_level_d;</a></pre>
+       
+  <li> static memory manager:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/LinearAlgebra/linalg_00.cc&static=mgr_d">static MemoryManager mgr_d;</pre></a>
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li>  static methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/LinearAlgebra/LinearAlgebra.h&method=name">static const String& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/LinearAlgebra/linalg_02.cc&method=diagnose">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+
+  <li> debug methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/LinearAlgebra/LinearAlgebra.h&method=setDebug">boolean setDebug(Integral::DEBUG debug_level);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/LinearAlgebra/LinearAlgebra.h&method=debug">boolean debug(const unichar* message) const;</a></pre>
+
+  <li> destructor/constructor(s):
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/LinearAlgebra/LinearAlgebra.h&method=destructor">~LinearAlgebra();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/LinearAlgebra/LinearAlgebra.h&method=default+constructor">LinearAlgebra();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/LinearAlgebra/LinearAlgebra.h&method=copy+constructor">LinearAlgebra(const LinearAlgebra& arg);</a></pre>     
+
+  <li> assign methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/LinearAlgebra/LinearAlgebra.h&method=assign">boolean assign(const LinearAlgebra& arg)</a></pre>
+
+  <li> operator= methods:
+       
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/LinearAlgebra/LinearAlgebra.h&method=operator%3D">LinearAlgebra& operator= (const LinearAlgebra& arg);</a></pre>
+                     
+  <li> i/o methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/LinearAlgebra/LinearAlgebra.h&method=sofSize">long sofSize() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/LinearAlgebra/LinearAlgebra.h&method=read">boolean read(Sof& sof, long tag, const String& name = CLASS_NAME);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/LinearAlgebra/LinearAlgebra.h&method=write">boolean write(Sof& sof, long tag, const String& name = CLASS_NAME) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/LinearAlgebra/LinearAlgebra.h&method=readData">boolean readData(Sof& sof, const String& pname = DEF_PARAM,long size = SofParser::FULL_OBJECT, boolean param = true, boolean nested = false);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/LinearAlgebra/LinearAlgebra.h&method=writeData">boolean writeData(Sof& sof, const String& pname = DEF_PARAM) const;</a></pre>
+       
+  <li> equality methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/LinearAlgebra/LinearAlgebra.h&method=eq">boolean eq(const LinearAlgebra& arg) const;</a></pre>
+
+  <li> memory management methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/LinearAlgebra/LinearAlgebra.h&method=new">static void* operator new(size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/LinearAlgebra/LinearAlgebra.h&method=new[]">static void* operator new[](size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/LinearAlgebra/LinearAlgebra.h&method=delete">static void operator delete(void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/LinearAlgebra/LinearAlgebra.h&method=delete[]">static void operator delete[](void* ptr);</a></pre>  
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/LinearAlgebra/LinearAlgebra.h&method=setGrowSize">static boolean setGrowSize(long grow_size);</a></pre>  
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/LinearAlgebra/LinearAlgebra.h&method=clear">boolean clear(Integral::CMODE ctype = Integral::DEF_CMODE);</a></pre>
+</ul>
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>
+  <li> equation solver methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/LinearAlgebra/LinearAlgebra.h&method=linearSolve&instance=0">static boolean linearSolve(VectorFloat& x, const MatrixFloat& A, const VectorFloat& b);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/LinearAlgebra/LinearAlgebra.h&method=linearSolve&instance=1">static boolean linearSolve(VectorDouble& x, const MatrixDouble& A, const VectorDouble& b);</a></pre>
+
+</ul>
+  
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+  <li> templatized linear solver methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/LinearAlgebra/linalg_05.cc&method=linearSolveTemplate">template &lt;class TMatrix, class TVector&ht; static boolean linearSolveTemplate(TVector& x, const TMatrix& A, const TVector& b);</a></pre>
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+
+  <li> This example shows how to compute the solution to
+       linear equations of the form "A * x = b":
+
+<pre>
+#include &lt;LinearAlgebra.h&gt;
+#include &lt;Console.h&gt;
+
+int main() {
+
+  // declare a matrix A of float values
+  //       
+  MatrixFloat A_fl(10, 10, L"0.58279168156123,0.20906940443842,0.41537486044322,0.21396333159617,0.68333232433848,0.45142482676248,0.60854036122399,0.08407906075044,0.12104711303641,0.23189431811233,0.42349625685105,0.37981837035079,0.30499867700349,0.64349228788535,0.21255986433874,0.04389532534714,0.01575981791975,0.45435514975555,0.45075394097939,0.2393125644689,0.51551175214076,0.78332864986771,0.87436717158763,0.32003557746650,0.83923824033620,0.02718512299667,0.01635493355000,0.44182829690634,0.71588294817297,0.04975448407125,0.33395147997176,0.68084575139723,0.01500949867662,0.96009860036901,0.62878460002407,0.31268504808015,0.19007458907973,0.35325045500069,0.89284160814575,0.07838407477005,0.43290659610673,0.46109512665670,0.76795039001114,0.72663176664190,0.13377274847343,0.01286257467300,0.58691847188467,0.15360636252349,0.27310247022514,0.64081540987002,0.22594986814445,0.56782871242883,0.97084493925562,0.41195320816864,0.20713272964136,0.38396728849430,0.05758108987829,0.67564464963341,0.25476929556228,0.19088657039756,0.57980687324960,0.79421065137261,0.99008259261306,0.74456578310616,0.60719894453953,0.68311596780460,0.36756803882634,0.69921332774126,0.86560347774475,0.84386949887436,0.76036500980434,0.05918259347107,0.78886169223375,0.26794725070937,0.62988784884231,0.09284246174092,0.63145116474444,0.72750912921793,0.23235037062753,0.17390024846178,0.52982311671607,0.60286908566699,0.43865853377091,0.43992430956534,0.37047682605190,0.03533832396916,0.71763442146570,0.47838438095666,0.80487174411571,0.17079281374168,0.64052649898984,0.05026880374687,0.49831130344848,0.93338010818959,0.57514777904747,0.61239548137302,0.69266939471779,0.55484198634168,0.90839754344852,0.99429549051392", Integral::FULL);
+
+  // declare the vector of knowns (10x1)
+  //
+  VectorFloat b_fl(L"0.93423651891762, 0.26444916614927, 0.16030033919718, 0.87285525701963,0.23788030773557, 0.64583124997499, 0.96688742090893, 0.66493121192534,0.87038102590598, 0.00992730476335 ");
+
+  // declare the expected output (10x1)
+  //
+  VectorFloat expected_x_fl(L"-0.50191278570136,2.46510443988885,-1.85833970101978,-0.47147969983892,0.91032488719446,0.27305443123786,1.20684838083948,2.02022380340132,-2.03776258794210,0.78151547389827 ");
+
+  // test vectors
+  //
+  VectorFloat x_fl;
+
+  // test linearSolve
+  //
+  LinearAlgebra::linearSolve(x_fl, A_fl, b_fl);
+
+  // verify that results match
+  //
+  if (!expected_x_fl.almostEqual(x_fl)) {
+    x_fl.debug(L"actual x");
+    expected_x_fl.debug(L"expected x");    
+    Console::put(L"Error in linearsolve");
+  }
+
+  // exit gracefully
+  //
+  Integral::exit();
+}</pre>       
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li>None.
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->
+
+
+
+
+
+
+
+
+
+

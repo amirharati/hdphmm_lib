@@ -1,0 +1,230 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="Double" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="name">
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Double/Double.h">Double</a>:  public  <a href="../MScalar/index.html">MScalar&lt;double, float64&gt;</a></b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br> <br>
+<blockquote>
+<pre>
+g++ [flags ...] file ... -l /isip/tools/lib/$ISIP_BINARY/lib_math_scalar.a
+
+#include &lt;Double.h&gt;
+
+Double(double arg = DEF_VALUE);
+Double(const Double& arg);
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+Double val0;
+val0 = 10.0;
+
+Double val1(5.0);
+Double val2;
+
+val2 = val0.exp10(2.0) + val1.pow(3.0);
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The Double class manages 64-bit float numbers
+<a href="../../../system/Integral/IntegralTypes.h">(float64)</a>.
+It is derived from the
+<a href="../MScalar/index.html">MScalar</a> class and inherits the commonly-used mathematical, logical, DSP and i/o methods from it. A Double object can read itself from (or write itself to) a Sof file. It includes the memory management methods which use the MemoryManager class to allocate or delete memory.
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li> <a href="../MScalar/index.html">MScalar</a>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Double/dbl_00.cc&constant=CLASS_NAME">static const String CLASS_NAME = L"Double";</a></pre>
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> error code indicating console class general error:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00021100">static const long ERR = 21100;</a></pre>	 
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> static memory manager:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Double/dbl_00.cc&static=mgr_d">static MemoryManager mgr_d;</a></pre>
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li> static methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Double/Double.h&method=name">static const String& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Double/dbl_02.cc&method=diagnose">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+
+  <li> debug methods:
+       
+       <pre>setDebug is inherited from the <a href="../MScalar/index.html#public:debug">MScalar</a> template class</pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Double/dbl_01.cc&method=debug">boolean debug(const unichar* message) const;</a></pre>
+  <li> destructor/constructor(s):
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Double/Double.h&method=destructor">~Double();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Double/Double.h&method=default constructor">Double(double arg = DEF_VALUE);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Double/Double.h&method=copy constructor">Double(const Double& arg);</a></pre>
+       
+  <li> assign methods:
+       
+       <pre>assign methods are inherited from the <a href="../MScalar/index.html#public:assign">MScalar</a> template class</pre>
+
+  <li> operator= methods:
+       
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Double/Double.h&method=operator%3D&instance=0">Double& operator= (const Double& arg);</a></pre>
+       
+  <li> i/o methods:
+    
+       <pre>the sofSize method is inherited from the <a href="../MScalar/index.html#public:io">MScalar</a> template class</pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Double/Double.h&method=read">boolean read(Sof& sof, long tag, const String& name = CLASS_NAME) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Double/Double.h&method=write">boolean write(Sof& sof, long tag, const String& name = CLASS_NAME) const;</a></pre>
+       <pre>readData and writeData methods are inherited from the <a href="../MScalar/index.html#public:io">MScalar</a> template class</pre>
+       
+  <li> equality methods:
+
+       <pre>equality methods are inherited from the <a href="../MScalar/index.html#public:equality">MScalar</a> template class</pre>
+       
+  <li> memory management methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Double/Double.h&method=new">static void* operator new(size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Double/Double.h&method=new[]">static void* operator new[](size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Double/Double.h&method=delete">static void operator delete(void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Double/Double.h&method=delete[]">static void operator delete[](void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Double/Double.h&method=setGrowSize">static boolean setGrowSize(long grow_size);</a></pre>
+       <pre>the clear is inherited from the <a href="../MScalar/index.html#public:memory">MScalar</a> template class</pre>
+</ul>
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>
+  <li> operator overload methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Double/Double.h&method=operator%3D&instance=1">Double& operator= (double arg);</a></pre>
+</ul>
+  
+<a name="private">
+<b>private methods:</b>
+
+<ul>
+  <li> bitwise methods: declare these as private member functions because they
+       are not defined for floating point operations
+
+       <pre>double bor(double, double);</pre>
+       <pre>double band(double, double);</pre>
+       <pre>double bxor(double, double);</pre>
+       <pre>double brs(double, double);</pre>
+       <pre>double bls(double, double);</pre>
+       <pre>double bcmpl(double);</pre>
+
+  <li> modulus methods: declare these as private member functions because they
+       are not defined for floating point operations
+
+       <pre>double mod(double, double);</pre>
+       <pre>double& operator%= (double);</pre>
+       <pre>double& operator% (double);</pre>
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+  <li> This example shows how to write a Double object into a Sof file
+       
+<pre>
+Double val0(5.0);
+String tmp_filename(L"foo");
+Sof tmp_file;
+tmp_file.open(tmp_filename, File::WRITE_ONLY, File::TEXT);
+       
+val0.write(tmp_file, (long)0);
+tmp_file.close();</pre>
+
+  <li> This example shows how to generate a random number:
+
+<pre>
+Double rand_num;
+double value;
+double value1;
+       
+// using default seed
+//
+value = rand_num.randSeed();
+
+// generate a random number between min and max
+//
+double min = 0;
+double max = 10.0;
+value1 = rand_num.rand(min, max);
+
+// Gaussian random number generation
+//
+double mean = 5.0;
+double std_dev = 3.0;
+value1 = rand_num.grand(mean, std_dev);</pre>
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> See the
+       <a href="../MScalar/index.html#notes">notes section of MScalar</a>.
+
+       <br><br>
+       
+  <li> The Double class defines the bor, band, bxor, brs, bls, bcmpl, mod,
+       and operator%= integer methods as private to block the templatized
+       functions in MScalar<double,float64>. So if a user attempts
+       to use Double::mod() they will get a compilation error rather
+       than a runtime error.
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

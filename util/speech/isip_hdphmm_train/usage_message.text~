@@ -1,0 +1,1 @@
+L"Usage: isip_svm_learn -params_file params.sof -pos_examples pos_examples.sof[list of in-class identifiers] -neg_examples neg_examples.sof[list of out-of-class identifiers] [-penalty float] [-epsilon float] [-tolerance float] [-gamma float] [-kappa float] [-delta float] [-degree float] [-verbose verbose_level] [-debug debug_level]"

@@ -1,0 +1,228 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="MatrixComplexLong" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="name">
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixComplexLong/MatrixComplexLong.h">MatrixComplexLong</a> : public  <a href="../MMatrix/index.html">MMatrix&lt;ComplexLong, complexlong&gt;</a></b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ... -l /isip/tools/lib/$ISIP_BINARY/lib_math_matrix.a
+
+#include &lt;MatrixComplexLong.h&gt;
+
+MatrixComplexLong(long nrows = DEF_SIZE, long ncols = DEF_SIZE,
+                  long type = DEF_TYPE);
+MatrixComplexLong(const MatrixComplexLong& matrix);
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+MatrixComplexLong val0(2, 3, L"1-6j, 2+5j, -3+4j,
+                               -4-4j, -5-8j, 6-4j");
+
+MatrixComplexLong val1(3, 3, L"1-6j, 2+5j, -3+4j,
+                               -4-4j, -5-8j, 6-4j", Integral::LOWER_TRIANGULAR);
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The MatrixComplexLong class manages a matrix of ComplexLong objects.
+It is derived from the MMatrix class and inherits the commonly used
+mathematical, logical, linear algebra and i/o methods from it. A
+MatrixComplexLong object can read itself from (or write itself to) a Sof
+file. It includes the memory management methods which use the
+MemoryManager class to allocate or delete memory from the heap.
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li> <a href="../MMatrix/index.html">MMatrix</a>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixComplexLong/mclng_00.cc&constant=CLASS_NAME">static const String CLASS_NAME = L"MatrixComplexLong";</a></pre>     
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> error code indicating MatrixComplexLong class general error:
+
+       <pre><a href="/perl/ifc_document.pl?err=00025200">static const long ERR = 25200;</a></pre>
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> define memory manager:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixComplexLong/mclng_00.cc&static=mgr_d">static MemoryManager mgr_d;</a></pre>       
+</ul>       
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li> static methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixComplexLong/MatrixComplexLong.h&method=name">static const String& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixComplexLong/mclng_02.cc">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+
+  <li> debug methods: the setDebug() method is inherited from the <a href=../MMatrix/index.html#public>MMatrix</a> template class
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixComplexLong/MatrixComplexLong.h&method=debug">boolean debug(const unichar* message) const;</a></pre>
+       
+  <li> destructor/constructors:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixComplexLong/MatrixComplexLong.h&method=destructor">~MatrixComplexLong();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixComplexLong/MatrixComplexLong.h&method=default+constructor">MatrixComplexLong(long nrows = DEF_SIZE, long ncols = DEF_SIZE, long type = DEF_TYPE);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixComplexLong/MatrixComplexLong.h&method=copy+constructor">MatrixComplexLong(const MatrixComplexLong& matrix);</a></pre>
+       
+  <li> assign methods:
+
+       <pre>these methods are inherited from the <a href="../MMatrix/index.html#public">MMatrix</a> template class</pre>
+
+  <li> operator= methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixComplexLong/MatrixComplexLong.h&method=operator%3D&instance=0">MatrixComplexLong& operator=(const MatrixComplexLong& matrix);</a></pre>
+       
+  <li> i/o methods: the sofSize, readData and writeData methods are inherited from the <a href="../MMatrix/index.html#public">MMatrix</a> template class
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixComplexLong/MatrixComplexLong.h&method=read">boolean read(Sof& sof, long tag, const String& name = CLASS_NAME);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixComplexLong/MatrixComplexLong.h&method=write">boolean write(Sof& sof, long tag, const String& name = CLASS_NAME) const;</a></pre>
+       
+  <li> equality methods:
+
+       <pre>these methods are inherited from the <a href=../MMatrix/index.html#public>MMatrix</a> template class</pre>
+       
+  <li> memory management methods: the clear method is inherited from the <a href="../MMatrix/index.html#public">MMatrix </a> template class
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixComplexLong/MatrixComplexLong.h&method=new">static void* operator new(size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixComplexLong/MatrixComplexLong.h&method=new\[\]">static void* operator new[](size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixComplexLong/MatrixComplexLong.h&method=delete">static void operator delete(void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixComplexLong/MatrixComplexLong.h&method=delete\[\]">static void operator delete[](void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixComplexLong/MatrixComplexLong.h&method=setGrowSize">static boolean setGrowSize(long grow_size);</a></pre>
+</ul>
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>
+  <li> constructor: this method constructs a matrix with a unichar* object
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixComplexLong/MatrixComplexLong.h&method=constructor">MatrixComplexLong(long nrows, long ncols, const unichar* arg, long type = DEF_TYPE, const Char delim = DEF_DELIM);</a></pre>
+</ul>
+
+<ul>
+  <li> operator= methods: this method assigns a complexlong value to the matrix
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixComplexLong/MatrixComplexLong.h&method=operator%3D&instance=1">MatrixComplexLong& operator=(complexlong value);</a></pre>
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+  <li> none
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+  <li> This example demonstrates basic linear algebra operations using
+       the matrix class:
+
+<pre>
+#include &lt;MatrixComplexLong.h&gt;
+#include &lt;VectorComplexLong.h&gt;
+
+// this example performs a basic operation with an integer complex matrix
+//
+int main() {
+
+  // define the complex matrix A, complex vector b
+  // and the resulting complex vector x
+  //
+  MatrixComplexLong A(3, 3, L"1, 2j, -9j,
+                              -7, 0, 6+8j,
+                               1, 1, 1+1j", Integral::FULL);
+  A.debug(L"matrix A");
+
+  // get the max element
+  //
+  ComplexLong max;
+  max = A.max();
+  max.debug(L"max(A)");
+
+  // compute the determinant
+  //
+  ComplexLong det;
+  det = A.determinant();
+  det.debug(L"det(A)");
+    
+  // multiply matrix by b, put the result into x
+  //
+  VectorComplexLong b(L"-3-3j, -5+1j, 1+3j");
+  b.debug(L"vector b");
+
+  VectorComplexLong x;
+  A.multv(x, b);
+  x.debug(L"Ab");
+  
+  // multiply matrix by diagonal matrix
+  //
+  MatrixComplexLong B(3, 3, L"1j, 1j, 1j", Integral::DIAGONAL);
+  B.debug(L"matrix B");
+  A.mult(B);
+  A.debug(L"AB");
+
+  return true;
+}</pre>
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> See the <a href="../MMatrix/index.html#notes">notes section of MMatrix</a>.
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

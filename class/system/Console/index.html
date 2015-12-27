@@ -1,0 +1,279 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="Console" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="name">
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/system/Console/Console.h">Console</a></b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ... -l /isip/tools/lib/$ISIP_BINARY/lib_system.a
+
+#include &lt;Console.h&gt;
+
+static boolean open(const SysString& filename, MODE mode = File::APPEND_ONLY);
+static boolean broadcast(const unichar* str);
+static boolean close();
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+Console::put(L"this is output to stdout");
+Console::open(L"out.txt");
+Console::put(L"this is appended to the file out.txt");
+Console::broadcast(L"this is output to both stdout and the out.txt");
+Console::close();
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+The Console class controls messages (errors and debugging information)
+which programmers might want to send to stdout. Everything in this class is
+static, so there is only one way to handle screen output per program.
+Modularity of this class allows the user to control debugging of higher and
+lower level class with separate consoles. The user can send the error and
+debugging messages of different program components to separate log files for
+extensive debugging.
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+<ul>
+  <li>
+       <a href="../File/index.html">File</a>       
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Console/cons_00.cc&constant=CLASS_NAME">static const SysString CLASS_NAME = L"Console";</a></pre>
+
+  <li> define an upper limit on the stack of console file pointers:
+
+       <pre>static const long MAX_STACK_SIZE = 32;</pre>
+
+  <li> define the number of characters used for automatic line wrapping:
+
+       <pre>static const long NO_WRAP = -1;</pre>
+       <pre>static const long DEF_LINE_WRAP = NO_WRAP;</pre>
+
+  <li> define a default stream:
+       
+       <pre>static const STREAM DEF_STREAM = File::OUT;</pre>
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> error code indicating console class general error:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00001400">static const long ERR = 1400;</a></pre>
+	 
+  <li> error code indicating too many open consoles:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00001401">static const long ERR_OPENMAX = 1401;</a></pre>
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> define the current console:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Console/cons_00.cc&static=cons_d">static File cons_d;</a></pre>
+       
+  <li> define a stack of other consoles
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Console/cons_00.cc&static=stack_d">static File stack_d[];</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Console/cons_00.cc&static=size_d">static long size_d;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Console/cons_00.cc&static=stack_size_d">static long stack_size_d;</a></pre>
+
+  <li> declare a variable for initialization of line-wrapping:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Console/cons_00.cc&static=initialized_wrap_d">static boolean initialized_wrap_d;</a></pre>
+
+  <li> declare a static debug level:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Console/cons_00.cc&static=debug_level_d">static Integral::DEBUG debug_level_d;</a></pre>
+
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+
+<br><br>
+<ul>
+  
+  <li> static methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Console/Console.h&method=name">static const SysString& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Console/cons_02.cc&method=diagnose">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+       
+  <li> debug methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Console/Console.h&method=setDebug">static boolean setDebug(Integral::DEBUG level); </a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Console/cons_01.cc&method=debug">static boolean debug(const unichar* message);</a></pre>
+             
+  <li> destructor/constructor(s):
+
+       <pre>the constructors and destructor are private so that Console objects cannot be instantiated</pre>
+
+  <li> assign methods:
+
+       <pre>these methods are omitted because Console objects can not be instantiated</pre>
+       
+  <li> operator= methods:
+
+       <pre>these methods are omitted because Console objects can not be instantiated</pre>
+       
+  <li> i/o methods:
+
+       <pre>these methods are omitted because Console objects can not be instantiated</pre>
+       
+  <li> equality methods:
+
+       <pre>these methods are omitted because Console objects can not be instantiated</pre>
+
+  <li> memory management methods:
+
+       <pre>these methods are omitted because Console objects can not be instantiated</pre>
+</ul>
+
+<a name="specific">
+<b>class-specific public methods</b>
+<br><br>
+
+<ul>       
+  <li> open methods: automatically push the old console down the stack
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Console/cons_03.cc&method=open&instance=0">static boolean open(const unichar* filename, MODE mode = File::APPEND_ONLY);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Console/cons_03.cc&method=open&instance=1">static boolean open(const SysString& filename, MODE mode = File::APPEND_ONLY);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Console/cons_03.cc&method=open&instance=2">static boolean open(STREAM stream = DEF_STREAM);</a></pre>
+
+  <li> close methods: close one or all consoles in the stack
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Console/cons_03.cc&method=close">static boolean close();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Console/cons_04.cc&method=closeStack">static boolean closeStack();</a></pre>
+
+  <li> put methods: display a message to the console
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Console/cons_04.cc&method=put&instance=0">static boolean put(const unichar* str);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Console/cons_04.cc&method=put&instance=1">static boolean put(const SysString& str);</a></pre>
+       
+  <li> put methods: display a message to the console without line wrapping
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Console/cons_04.cc&method=putNoWrap&instance=0">static boolean putNoWrap(const unichar* str);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Console/cons_04.cc&method=putNoWrap&instance=1">static boolean putNoWrap(const SysString& str);</a></pre>
+       
+  <li>broadcast methods: display a message to ALL open consoles
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Console/cons_04.cc&method=broadcast&instance=0">static boolean broadcast(const unichar* str);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Console/cons_04.cc&method=broadcast&instance=1">static boolean broadcast(const SysString& str);</a></pre>
+
+  <li> increase/decrease indention level
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Console/Console.h&method=increaseIndention">static boolean increaseIndention();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Console/Console.h&method=decreaseIndention">static boolean decreaseIndention();</a></pre>
+       
+  <li> line wrapping
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Console/Console.h&method=setLineWrap">static boolean setLineWrap(long num_cols);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Console/Console.h&method=getLineLength">static long getLineLength();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Console/Console.h&method=getLineWrap">static long getLineWrap();</a></pre>
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+  <li> declare the destructor/constructor(s):
+       these are private so the class cannot be instantiated
+
+       <pre>~Console();</pre>
+       <pre>Console();</pre>
+       <pre>Console(const Console& arg);</pre>
+
+  <li> stack operation methods: these methods manipulate the console stack
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Console/cons_04.cc&method=push">static boolean push(File& arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Console/cons_04.cc&method=pop">static boolean pop(File& arg);</a></pre>
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+  <li>
+       This example shows how to output messages to Console and change the indention:
+
+<pre>
+#include &lt;Console.h&gt;
+
+int main() {
+  
+  // set the line wrap and output a message
+  //
+  Console::setLineWrap(50);
+  Console::put(L"Start");
+  
+  // increase the indentation and output a message
+  //
+  Console::increaseIndention();       
+  Console::put(L"after indentation");
+ 
+  // set it back to no indention and output a message
+  //
+  Console::decreaseIndention();
+  Console::put(L"End");
+  
+  // exit gracefully
+  //
+  Integral::exit();
+}</pre>
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> Generally, the debug method is non-static, but here it *must* be
+       static so that the class can be called without being instantiated.
+       There are also no memory management or i/o methods for this class.
+
+       <br><br>
+
+  <li> When the open method is called, a new console is opened and this will
+       automatically push all old consoles down the stack. The put method is
+       commonly used for quick dispersal of information about the program
+       flow to the standard output device. 
+</li>
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

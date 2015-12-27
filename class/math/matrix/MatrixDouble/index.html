@@ -1,0 +1,228 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="MatrixDouble" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="name">
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixDouble/MatrixDouble.h">MatrixDouble</a> : public  <a href="../MMatrix/index.html">MMatrix&lt;Double, double&gt;</a></b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ... -l /isip/tools/lib/$ISIP_BINARY/lib_math_matrix.a
+
+#include &lt;MatrixDouble.h&gt;
+
+MatrixDouble(long nrows = DEF_SIZE, long ncols = DEF_SIZE,
+           long type = DEF_TYPE);
+MatrixDouble(const MatrixDouble& matrix);
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+double data0[6] = {1.2, 2.5, 3.6, 4.8, 5.1, 6.7};
+double data1[6] = {4.2, 6.1, 7.0, 2.5, 3.3, 9.5};
+
+MatrixDouble val0;
+MatrixDouble val1(3, 3, Integral::LOWER_TRIANGLE);
+
+val0.assign(2, 3, data0);
+val1.assign(3, 3, data1, Integral::LOWER_TRIANGLE);
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The MatrixDouble class manages a matrix of Double objects. It is
+derived from the MMatrix class and inherits the commonly-used
+mathematical, logical, linear algebra and i/o methods from it. A
+MatrixDouble object can read itself from (or write itself to) a Sof
+file. It includes the memory management methods which use the
+MemoryManager class to allocate or delete memory from the heap.
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li> <a href="../MMatrix/index.html">MMatrix</a>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixDouble/mdbl_00.cc&constant=CLASS_NAME">static const String CLASS_NAME = L"MatrixDouble";</a></pre>
+ </ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> error code indicating MatrixDouble class general error:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00024900">static const long ERR = 24900;</a></pre>
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> define memory manager:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixDouble/mdbl_00.cc&static=mgr_d">static MemoryManager mgr_d;</a></pre>       
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li> static methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixDouble/MatrixDouble.h&method=name">static const String& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixDouble/mdbl_02.cc">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+       
+  <li> debug methods: the setDebug() method is inherited from the <a href=../MMatrix/index.html#public>MMatrix</a> template class
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixDouble/MatrixDouble.h&method=debug">boolean debug(const unichar* message) const;</a></pre>
+
+  <li> destructor/constructors:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixDouble/MatrixDouble.h&method=destructor">~MatrixDouble();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixDouble/MatrixDouble.h&method=default+constructor">MatrixDouble(ong nrows = DEF_SIZE, long ncols = DEF_SIZE, long type = DEF_TYPE);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixDouble/MatrixDouble.h&method=copy+constructor">MatrixDouble(const MatrixDouble& matrix);</a></pre>
+
+  <li> assign methods:
+
+       <pre>these methods are inherited from the <a href="../MMatrix/index.html#public">MMatrix</a> template class</pre>
+
+  <li> operator= methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixDouble/MatrixDouble.h&method=operator%3D&instance=0">MatrixDouble& operator=(const MatrixDouble& matrix);</a></pre>
+       
+   <li> i/o methods: the sofSize, readData and writeData methods are inherited from the <a href="../MMatrix/index.html#public">MMatrix</a> template class
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixDouble/MatrixDouble.h&method=read">boolean read(Sof& sof, long tag, const String& name = CLASS_NAME);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixDouble/MatrixDouble.h&method=write">boolean write(Sof& sof, long tag, const String& name = CLASS_NAME) const;</a></pre>
+       
+  <li> equality methods:
+       
+       <pre>these methods are inherited from the <a href=../MMatrix/index.html#public>MMatrix</a> template class</pre>
+       
+  <li> memory management methods: the clear method is inherited from the <a href="../MMatrix/index.html#public">MMatrix </a> template class
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixDouble/MatrixDouble.h&method=new">static void* operator new(size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixDouble/MatrixDouble.h&method=new\[\]">static void* operator new[](size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixDouble/MatrixDouble.h&method=delete">static void operator delete(void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixDouble/MatrixDouble.h&method=delete\[\]">static void operator delete[](void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixDouble/MatrixDouble.h&method=setGrowSize">static boolean setGrowSize(long grow_size);</a></pre>
+</ul>
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>
+  <li> constructor: this method constructs a matrix with a unichar* object
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixDouble/MatrixDouble.h&method=constructor">MatrixDouble(long nrows, long ncols, const unichar* arg, long type = DEF_TYPE, const Char delim = DEF_DELIM);</a></pre>
+</ul>
+<ul>
+
+  <li> operator= methods: this method assigns a double value to the matrix
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixDouble/MatrixDouble.h&method=operator%3D&instance=1">MatrixDouble& operator=(double value);</a></pre>
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+  <li> none
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+  <li> This example demonstrates basic linear algebra operations using
+       the matrix class<br>
+       by solving the equation: w = x<sup>-1</sup>y + z.
+       
+<pre>
+// declare the operands: note that these matrices are of different types.
+// the class will handle type conversion automatically.
+//
+MatrixDouble x;
+x.assign(3, 3, L"1.0, 2.0, 3.0, 6.0, 5.0, 4.0, 7.0, 8.0, 9.0", Integral::FULL);
+ 
+MatrixDouble y;
+y.assign(3, 3, L"1.0, 1.0, 1.0", Integral::DIAGONAL);
+  
+MatrixDouble z;
+z.setDimensions(3, 3);
+z.setValue(1, 2, 27.0);
+       
+// declare an output matrix: not that we don't need to declare the size
+// of this matrix.
+//
+MatrixDouble w;
+  
+// compute a matrix inverse in place: this destroys the input.
+//
+x.inverse();
+  
+// compute the product of the inverse of x and y, and add z
+//
+x.mult(y);       
+w.add(x, z);
+
+// print the output
+//
+w.debug(L"the answer is");
+</pre>
+
+       The output that results from this example is:<br><br>
+       
+<pre>
+    [ 0.19047619047619024 0.52380952380952361 -0.33333333333333315 ]
+w = [ -0.95238095238095188 -0.61904761904761874 27.666666666666668 ]
+    [ 0.90476190476190455 0.23809523809523797 -0.33333333333333315 ]
+</pre>
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> See the <a href="../MMatrix/index.html#notes">notes section of MMatrix</a>.
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->
+
+

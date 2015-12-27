@@ -1,0 +1,366 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="Random" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="name">
+<b>
+name:
+<a href="/perl/ifc_document.pl?file=$isip/class/system/Random/Random.h">Random</a>
+</b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ... -l /isip/tools/lib/$ISIP_BINARY/lib_system.a
+
+#include &lt;Random.h&gt;
+
+Random();
+boolean seed(long seed);
+double get();
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+Random rand;
+rand.seed(27);
+double value = rand.get();
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The Random class implements a variety of random number
+generators, including a uniform random number generator
+based on a subtractive method, Gaussian random number
+generator that is based on a transformation of the uniform
+random number generator, and a Gamma random generator using
+ acceptance-rejection sampling. An interface to the standard system
+random number generator is supplied also. 
+
+<br><br>
+
+This class has been carefully designed to allow users
+to maintain independent random number generators by
+instantiating separate classes. However, a global default
+generator is used (by default) for applications in which
+all random numbers should be drawn from the same source.
+
+<br><br>
+
+The algorithms implemented here are based on original work
+by Knuth, <i>The Art of Computer Programming</i>, and parallel
+implementations described in:
+
+<ul>
+  W. Press, S. Teukolsky, W. Vetterling, B. Flannery,
+  <i>Numerical Recipes in C</i>, Second Edition, Cambridge University Press,
+  New York, New York, USA, p. 283-289.
+</ul>
+
+This resource was chosen because the uniform random number generator
+is portable, fast, and more accurate than the ANSI-standard generator
+supplied on most systems. The Gaussian generator is extremely fast
+as well.
+
+<br><br>
+
+The Gamma random generator is based on original work by Marsaglia and Tsang:
+<ul>
+      Marsaglia, G., & Tsang, W. W. (2000). A simple method for generating
+  gamma variables. ACM Transactions on Mathematical Software, 26(3), 363-372.
+</ul>
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li> <a href="../SysString/index.html">SysString</a>
+  <li> <a href="../MemoryManager/index.html">MemoryManager</a>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/rand_00.cc&constant=CLASS_NAME">static const String CLASS_NAME = L"Random";</a></pre>
+ 
+  <li> define algorithm choices:
+
+       <pre>enum ALGORITHM { UNIFORM = 0, GAUSSIAN, GAMMA, DEF_ALGORITHM = UNIFORM };</pre>
+
+  <li> define implementations:
+
+	<pre>enum IMPLEMENTATION { SUBTRACTIVE = 0, CONGRUENTIAL, TRANSFORMATION, ACCREJ, DEF_IMPLEMENTATION = SUBTRACTIVE };</pre>
+
+  <li> define global random number generators:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/rand_00.cc&constant=GLOBAL_UNIFORM">Random Random::GLOBAL_UNIFORM(UNIFORM, SUBTRACTIVE);</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/rand_00.cc&constant=GLOBAL_GAUSSIAN">Random Random::GLOBAL_GAUSSIAN(GAUSSIAN, TRANSFORMATION);</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/rand_00.cc&constant=GLOBAL_GAMMA">Random Random::GLOBAL_GAMMA(GAMMA, ACCREJ);</a></pre>
+ 
+  <li> define default values to seed the uniform subtractive method:
+
+       <pre>static const long US_MBIG = 1000000000;</pre>
+       <pre>static const long US_MSEED = 161803398;</pre>
+       <pre>static const long US_MZ = 0;</pre>
+       <pre>static const long US_MDIM = 56;</pre>
+       <pre>static const long US_CONST = 30;</pre>
+       <pre>static const double US_FAC = (1.0 / (double)US_MBIG);</pre>
+
+  <li> define default values used in the uniform congruential method:
+
+       <pre>static const long INV_RAND_MAX = 1.0 / RAND_MAX;</pre>
+
+  <li> define a default value for the random number seed:
+
+       <pre>static const long DEF_SEED = 27;</pre>
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> error codes indicating general errors:
+
+       <pre><a href="/perl/ifc_document.pl?err=00001900">static const long ERR = 1900;</a></pre>
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> data common to all algorithms and implementations:
+
+       <br><br>
+
+       <ul>
+         <li> algorithm name:
+
+              <pre>ALGORITHM algorithm_d;</pre>
+  
+	 <li> implementation name:
+	      
+	      <pre>IMPLEMENTATION implementation_d;</pre>
+	      
+	 <li> declare a register to hold the current seed:
+	      
+	      <pre>long seed_d;</pre>
+
+	 <li> declare a static debug level for all class instantiations:
+
+	      <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/rand_00.cc&static=debug_level_d">static Integral::DEBUG debug_level_d;</a></pre>
+	      
+	 <li> static memory manager:
+
+	      <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/rand_00.cc&static=mgr_d">static MemoryManager mgr_d;</a></pre>
+	      
+	 <li> initialization flag:
+	      
+	      <pre>boolean is_valid_d;</pre>
+       </ul>
+
+  <li> algorithm and implementation specific variables:
+
+       <br><br>
+
+       <ul>
+	 <li> algorithm: uniform</br>
+	      implementation: subtractive
+
+	      <br><br>
+
+	      <ul>
+		<li> define some registers to maintain history:
+
+		     <pre>long us_inext_d;</pre>
+		     <pre>long us_inextp_d;</pre>
+		     <pre>long us_ma_d[US_MDIM];</pre>
+	      </ul>
+
+	 <li> algorithm: Gaussian</br>
+	      implementation: transformation
+	      
+	      <br><br>
+
+	      <ul>
+		<li> define some registers to maintain history:
+
+		     <pre>boolean gt_iset_d;</pre>
+		     <pre>double gt_gset_d;</pre>
+	      </ul>
+       </ul>
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li> static methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/Random.h&method=name&instance=0">static const SysString& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/rand_02.cc&method=diagnose">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+
+  <li> debug methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/Random.h&method=setDebug&instance=0">static boolean setDebug(Integral::DEBUG level);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/rand_01.cc&method=debug">boolean debug(const unichar* message) const;</a></pre>
+
+  <li> destructor/constructor(s):
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/Random.h&method=destructor">~Random();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/rand_00.cc&method=default+constructor">Random(long seed = DEF_SEED);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/Random.h&method=copy+constructor">Random(const Random& arg);</a></pre>
+
+  <li> assign methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/rand_03.cc&method=assign">boolean assign(const Random& arg);</a></pre>     
+       
+  <li> operator= methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/Random.h&method=operator%3D&instance=0">Random& operator=(const Random& arg_a);</a></pre>
+
+  <li> i/o methods:
+
+       <pre>i/o methods are omitted because this class can't write itself to an Sof file</pre>
+
+  <li> equality methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/rand_03.cc&method=eq">boolean eq(const Random& arg);</a></pre>     
+
+  <li> memory management methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/Random.h&method=new">static void* operator new(size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/Random.h&method=new\[\]">static void* operator new[](size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/Random.h&method=delete">static void operator delete(void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/Random.h&method=delete\[\]">static void operator delete[](void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/Random.h&method=setGrowSize">static boolean setGrowSize(long grow_size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/rand_03.cc&method=clear">boolean clear(Integral::CMODE ctype_a = Integral::DEF_CMODE);</a></pre>     
+</ul>
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>
+  <li> constructor:
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/Random.h&method=constructor">Random(ALGORITHM alg, IMPLEMENTATION impl, long seed = DEF_SEED)</a></pre>
+
+  <li> set and get methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/Random.h&method=setAlgorithm">boolean setAlgorithm(ALGORITHM algorithm);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/Random.h&method=setImplementation">boolean setImplementation(IMPLEMENTATION implementation);</a></pre>
+        <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/rand_03.cc.h&method=setParameters">boolean setParameters(float64 value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/Random.h&method=getAlgorithm">ALGORITHM getAlgorithm() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/Random.h&method=getImplementation">IMPLEMENTATION getImplementation() const;</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/rand_03.cc&method=getParameters">float64 getParameters();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/Random.h&method=seed">boolean seed(long value = DEF_SEED);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/Random.h&method=get">double get();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/Random.h&method=cast">operator double();</a></pre>
+
+  <li> initialization and computation methods: these methods initialize class constants, reset internal registers and compute a new random number
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/rand_04.cc&method=init">boolean init();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/rand_04.cc&method=compute">boolean compute();</a></pre>
+
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+  <li> algorithm-specific computation methods: uniform/subtractive
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/rand_04.cc&method=initUniformSubtractive">boolean initUniformSubtractive();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/rand_04.cc&method=computeUniformSubtractive">boolean computeUniformSubtractive();</a></pre>
+
+  <li> algorithm-specific computation methods: uniform/congruential
+	      
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/rand_04.cc&method=initUniformCongruential">boolean initUniformCongruential();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/rand_04.cc&method=computeUniformCongruential">boolean computeUniformCongruential();</a></pre>
+
+  <li> algorithm-specific computation methods: Gaussian/transformation
+	      
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/rand_04.cc&method=initGaussianTransform">boolean initGaussianTransform();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/rand_04.cc&method=computeGaussianTransform">boolean computeGaussianTransform();</a></pre>
+
+      <li> algorithm-specific computation methods: Gamma/Acceptance-Rejection (ACCREJ)
+	
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/rand_04.cc&method=initGammaAccrej">boolean initGammaAccrej();</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Random/rand_04.cc&method=computeGammaAccrej">boolean computeGammaAccrej();</a></pre>
+
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+  <li> This example shows how to generate a random number using default values:
+              
+<pre>
+Random rand;
+double value = rand.get();</pre>
+
+  <li> This example demonstrates how to configure an object for a specific
+       algorithm and implementation:
+
+<pre>
+Random rand;
+rand.setAlgorithm(GAUSSIAN);
+rand.setImplementation(TRANSFORMATION);
+rand.seed((long)27);
+<br>
+for (long i = 0; i < 100; i++) {
+  double value = rand.get();
+}</pre>       
+
+ <li> This example demonstrates how to configure an object for a specific
+       algorithm and implementation:
+
+<pre>
+Random rand;
+rand.setAlgorithm(GAMMA);
+rand.setImplementation(ACCREJ);
+rand.setParameters(.5); // set shape paramter (alpha) equal to 0.5 (scale parameter is always 1)
+rand.seed((long)27);
+double value = rand.get(); // vlaue contains a Gamma variable with shape paramter = 0.5 and scale equal to 1
+                           // by multiplying with B we can obtain random numbers with scale equal to B.
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> The uniform congruential method calls the ANSI-standard rand function.
+       It is included here mainly for completeness. It does not allow
+       independent generators - all come from a common system source.
+</ul>       
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

@@ -1,0 +1,279 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="Pair" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<name="name">
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h">Pair&lt;class T1, class T2&gt</a></b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ...
+
+#include &lt;Pair.h&gt;
+
+Pair(const Pair<T1,T2>& arg);
+boolean assign(const Pair&lt;T1, T2&gt& arg);
+T1& first();
+T1& second();
+boolean clear(Integral::CMODE cmode);
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+// declare a pair and insert a character and string in it
+//
+Pair&lt;Char,String&gt pair0;
+Char char(L'a');
+String str(L"aye");
+pair0.assign(char,str);
+
+// use the copy constructor to create a second pair
+//
+Pair&lt;Char,String&gt pair1(pair0);
+
+// test the characters for equality
+//
+if (!pair1.first().eq(pair2.first())) {
+   Console::put(L"error");
+}</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The Pair class groups together two arbitrary objects and allows them
+to be operated on as a group. It is a container class that can be used
+to build complex objects alleviating the need to develop a new class.
+Classes such as Pair are extremely useful when rapid prototyping code.
+<br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+<ul>
+  <li> <a href="../../math/scalar/String/"> String </a> <br>
+  <li> <a href="../../system/Console/"> Console </a> <br>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h&constant=CLASS_NAME">static const SysString CLASS_NAME = L"Pair";</a></pre>
+       
+  <li> i/o related constants:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h&constant=DEF_PARAM">static const SysString DEF_PARAM = L"item";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h&constant=BLOCK_START_STR">static const SysString BLOCK_START_STR = L"{";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h&constant=BLOCK_DELIM_STR">static const SysString BLOCK_DELIM_STR = L"}, {";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h&constant=BLOCK_END_STR">static const SysString BLOCK_END_STR = L"}";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h&constant=BLOCK_TERM_STR">static const SysString BLOCK_TERM_STR = L";\n";</a></pre>       
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> general Pair class error:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00041800">static const long ERR = 41800;</a></pre>
+       
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> have an item of each type:
+       
+       <pre>T1 obj1_d;</pre>
+       <pre>T2 obj2_d;</pre>
+       
+  <li> static memory manager:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h&static=mgr_d">static MemoryManager mgr_d;</a></pre>
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+<ul>
+  <li> static methods: diagnose method is moved outside the class
+header file and defined in the PairDiagnose.h in order to avoid the
+issues related with the preprocessing of the diagnose code
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h&method=name">static const String& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/PairDiagnose.h&method=diagnose">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+       
+  <li> debug methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h&method=debug">boolean debug(const unichar* message) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h&method=setDebug">static boolean setDebug(Integral::DEBUG debug_level);</a></pre>
+       
+  <li> destructor/constructor(s):
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h&method=destructor">~Pair();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h&method=default+constructor">Pair();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h&method=copy+constructor">Pair(const Pair&lt;T1, T2&gt;& arg);</a></pre>
+       
+  <li> assign methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h&method=assign&instance=0">boolean assign(const Pair&lt;T1, T2&gt;& arg);</a></pre>
+
+  <li>operator= methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h&method=operator%3D">Pair&lt;T1, T2&gt;& operator=(const Pair&lt;T1, T2&gt;& arg);</a></pre>
+
+  <li> equality methods: 
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h&method=eq">boolean eq(const Pair&lt;T1, T2&gt;& arg) const;</a></pre>
+       
+  <li> i/o methods: refer to the <a href = "./index.html#notes">notes</a>
+section for an explanation of having two read and write methods in
+this class
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h&method=sofSize">long sofSize() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h&method=read&instance=0">boolean read(Sof& sof, long tag);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h&method=write&instance=0">boolean write(Sof& sof, long tag) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h&method=read&instance=1">boolean read(Sof& sof, long tag, const String& name);</a></pre>       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h&method=write&instance=1">boolean write(Sof& sof, long tag, const String& name) const;</a></pre>       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h&method=readData">boolean readData(Sof& sof, const String& pname = DEF_PARAM,long size = SofParser::FULL_OBJECT, boolean param_a = true, boolean nested_a = false);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h&method=writeData">boolean writeData(Sof& sof, const String& pname = DEF_PARAM) const;</a></pre>
+       
+  <li> memory management methods: the clear method clears the contents of the
+       Pair and sets the item to be NULL.
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h&method=new">static void* operator new(size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h&method=new\[\]">static void* operator new[](size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h&method=delete">static void operator delete(void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h&method=delete\[\]">static void operator delete[](void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h&method=setGrowSize">static boolean setGrowSize(long grow_size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h&method=clear">boolean clear(Integral::CMODE cmode = Integral::DEF_CMODE);</a></pre>
+
+</ul>
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+<ul>
+  <li> constructors:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h&method=constructor">Pair(const T1& obj1, const T2& obj2);</a></pre> 
+
+  <li> assign methods: assign a T1, T2 value to this Pair
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h&method=assign&instance=1">boolean assign(const T1& obj1, const T2& obj2);</a></pre> 
+       
+  <li> item access methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h&method=first&instance=0">T1& first();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h&method=first&instance=1">const T1& first() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h&method=second&instance=0">T2& second();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Pair/Pair.h&method=second&instance=1">const T2& second() const;</a></pre>
+
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+  <li> none
+</ul>
+
+<a name="friend">
+<b>friend classes:</b>
+<br><br>
+
+<ul>
+  <li> none
+</ul>
+  
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+
+  <li> This example shows how to check if two Pairs are equal:
+
+<pre>
+#include &lt;Char.h&gt;
+#include &lt;Vector.h&gt;
+#include &lt;Pair.h&gt;
+
+int main () {
+
+   // we want to keep up with characters and associated strings. we
+   // could do this with parallel vectors, but combining the inner
+   // data is more natural.
+   //
+   Vector&lt; Pair&lt;Char, String&gt; &gt; letters(5);
+      
+   letters(0).first().assign(L'a');
+   letters(1).first().assign(L'b');
+   letters(2).first().assign(L'c');
+   letters(3).first().assign(L'd');
+   letters(4).first().assign(L'e');
+
+   letters(0).second().assign(L"aye");
+   letters(1).second().assign(L"be");
+   letters(2).second().assign(L"see");
+   letters(3).second().assign(L"de");
+   letters(4).second().assign(L"e");
+      
+   // we might also want to weight these
+   //
+   Vector &lt;Pair &lt; Long, Pair &lt;Char, String&gt; &gt; &gt; wlet(5);
+      
+   for (long i = 0; i &lt; 5; i++) {
+     wlet(i).first().assign(i * 3);
+     wlet(i).second().assign(letters(i));
+   }
+      
+   wlet.debug(L"wlet");
+      
+   // so far all this can easily be done with parallel arrays, but
+   // if we so desired we could also make a graph out of these.
+
+   // exit gracefully
+   //
+   Integral::exit();
+}</pre>
+
+</ul>
+
+<a name="notes">
+
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> Unlike other classes, we have two read and write methods in dstr
+       classes. The interface is still the same as that in other
+       classes. The reason behind this is that we can not use
+       "CLASS_NAME" as default argument in the read and write methods
+       here because the data structures build the class name on the fly.
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

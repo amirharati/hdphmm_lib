@@ -1,0 +1,354 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="Error" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="Name"> 
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/system/Error/Error.h">Error</a></b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br> 
+
+<blockquote>
+<pre> 
+g++ [flags ...] file ... -l /isip/tools/lib/$ISIP_BINARY/lib_system.a
+
+#include &lt;Error.h&gt;
+
+static boolean handle(const SysString& cname, const SysString& mname, long ecode, char* file, long line, EXIT level = DEF_EXIT, SysString& extras = DEF_EXTRAS);
+static boolean set(EXIT exit_level);
+static boolean reset();
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+Error::debug(L"testing reset & warning");
+
+// release the setting
+//
+Error::reset();
+
+// set the mode to never exit, try a regular error
+//
+Error::set(Error::NONE);
+Error::handle(Error::name(), L"error, still no exit", Error::TEST, __FILE__, __LINE__);
+</pre>
+</blockquote>
+
+<a name="description">
+<b>description:</b>
+<br><br>
+
+The Error class is designed to provide a unified exception notification
+and exit point for all software. Everything in the class is static,
+so there is only one way to handle errors in a program. This class
+will never be instantiated, so the static member functions are
+the only available interface.
+
+<br><br>
+Error codes are unique across the
+entire ISIP environment and have been divided into two groups: (1)
+those which can easily be recovered from (known as
+warnings) and (2) unrecoverable errors.  This division allows the
+highest level programs (presumably, main programs) to fully
+dictate the error behavior so they can ignore warnings.
+
+<br><br>
+
+To keep error codes unique
+across the entire ISIP environment, each library is assigned a range
+of 10000 error codes and each class in a library is assigned one or more
+blocks of 100 error codes.  All of the
+
+<a href="/perl/ifc_document.pl?file=$isip/class/system/Error/Error.h">error codes</a>
+
+have corresponding
+
+<a href="/perl/ifc_document.pl?file=$isip/class/system/Error/ErrorMessages.h">detailed messages</a>
+
+in the same class.
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li> <a href="../Integral/index.html">Integral</a>
+  <li> <a href="../SysString/index.html">SysString</a>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Error/err_00.cc&constant=CLASS_NAME">static const SysString CLASS_NAME = L"Error"</a></pre>
+
+  <li> format and components of error messages:
+
+       <pre>static const long ERROR_MESSAGE_SIZE = 256</pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Error/err_00.cc&constant=CODE_FMT">static const SysString CODE_FMT = "%8.8ld"</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Error/err_00.cc&constant=DEF_EXTRAS">static const SysString DEF_EXTRAS = L""</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Error/err_00.cc&constant=ERROR_MESSAGE_00">static const SysString ERROR_MESSAGE_00 = L":"</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Error/err_00.cc&constant=ERROR_MESSAGE_01">static const SysString ERROR_MESSAGE_01 = L": Error in "</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Error/err_00.cc&constant=ERROR_MESSAGE_02">static const SysString ERROR_MESSAGE_02 = L"Error in "</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Error/err_00.cc&constant=ERROR_MESSAGE_03">static const SysString ERROR_MESSAGE_03 = L"::"</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Error/err_00.cc&constant=ERROR_MESSAGE_04">static const SysString ERROR_MESSAGE_04 = L" ["</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Error/err_00.cc&constant=ERROR_MESSAGE_05">static const SysString ERROR_MESSAGE_05 = L"] "</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Error/err_00.cc&constant=ERROR_MESSAGE_99">static const SysString ERROR_MESSAGE_99 = L"\n"</a></pre>  
+       
+  <li> error messages:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Error/err_00.cc&constant=UNDEFINED_MESSAGE">static const SysString UNDEFINED_MESSAGE = L"Undefined error code"</a></pre>
+       
+  <li> declare exit levels:
+
+<pre>
+enum EXIT { NONE = 0, ERROR, WARNING, DEF_EXIT = ERROR };
+
+These levels affect the behavior of error handling:
+
+  NONE - never exit;
+  ERROR - exit only on errors;
+  WARNING - always exit, even if it is only a warning.</pre>
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul> 
+  <li> file errors:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00000000">static const long FILE_NOTFND = 0</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00000001">static const long IO = 1</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00000002">static const long PERMISSION_DENIED = 2</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00000003">static const long SEEK = 3</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00000004">static const long WRITE_CLOSED = 4</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00000005">static const long READ_CLOSED = 5</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00000006">static const long WRITE = 6</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00000007">static const long READ = 7</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00000008">static const long MOD_READONLY = 8</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00000011">static const long FILE_LOCK_READONLY = 11</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00000012">static const long FILE_LOCK = 12</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00000013">static const long FILE_UNLOCK = 13</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00000014">static const long FILE_REOPEN = 14</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00000015">static const long FILENAME_EXPAND = 15</a></pre>
+             
+  <li> coding errors:
+
+       <pre><a href="/perl/ifc_document.pl?err=00000021">static const long ENV_VAR = 21</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00000024">static const long SYS_CALL = 24</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00000025">static const long TEST = 25</a></pre> 
+       <pre><a href="/perl/ifc_document.pl?err=00000041">static const long INTERNAL_DATA = 41</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00000045">static const long BAD_CSTR = 45</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00000050">static const long DESTRUCTOR = 50</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00000051">static const long UNK_CMODE = 51</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00000052">static const long ARG = 52</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00000053">static const long RELEASE = 53</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00000054">static const long MEM = 54</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00000055">static const long NOMEM = 55</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00000056">static const long MEM_OFLOW = 56</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00000057">static const long STATIC_CLASS = 57</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00000058">static const long TEMPLATE_TYPE = 58</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00000059">static const long ENUM = 59</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00000060">static const long NULL_ARG = 60</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00000061">static const long STACK_EXCEEDED = 61</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00000062">static const long DATATYPE_RANGE = 62</a></pre>      
+       <pre><a href="/perl/ifc_document.pl?err=00000065">static const long BOUNDS = 65</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00000066">static const long NOT_IMPLEM = 66</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00000075">static const long ALLOC_MODE = 75</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00000080">static const long VIRTUAL_PTR = 80</a></pre>
+       
+  <li> utility errors:
+
+       <pre><a href="/perl/ifc_document.pl?err=00000500">static const long NO_PARAM_FILE = 500</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00000501">static const long NO_INPUT_FILE = 501</a></pre>
+              
+  <li> class errors:
+
+       <pre><a href="/perl/ifc_document.pl?err=00001800">static const long ERR = 1800</a></pre>
+
+</ul>
+       
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> static flags to control behaviors upon exit:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Error/err_00.cc&static=initialized_d">static boolean initialized_d;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Error/err_00.cc&static=exit_level_d">static Error::EXIT exit_level_d;</a></pre>
+
+  <li> declare a static debug level:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Error/err_00.cc&static=debug_level_d">static Integral::DEBUG debug_level_d;</a></pre>
+       
+</ul>
+
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li> static methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Error/Error.h&method=name">static const SysString& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Error/err_02.cc&method=diagnose">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+       
+  <li> debug methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Error/Error.h&method=setDebug">static boolean setDebug(Integral::DEBUG level);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Error/err_01.cc&method=debug">static boolean debug(const unichar* message);</a></pre>
+       
+  <li> destructor/constructor(s):
+
+       <pre>the constructors and destructor are private so that Error objects cannot be instantiated</pre>
+
+  <li> assign methods:
+
+       <pre>these methods are omitted because Error objects can not be instantiated </pre>
+
+  <li> operator= methods:
+
+       <pre>these methods are omitted because Error objects can not be instantiated</pre>
+
+  <li> i/o methods:
+
+       <pre>these methods are omitted because Error can not be instantiated</pre>
+       
+  <li> equality methods:
+
+       <pre>these methods are omitted because Error objects can not be instantiated</pre>
+       
+  <li> memory management methods:
+
+       <pre>these methods are omitted because Error objects can not be instantiated</pre>
+</ul>    
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>  
+  <li> set/reset level methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Error/Error.h&method=set">static boolean set(EXIT exit_level);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Error/Error.h&method=reset">static boolean reset();</a></pre>
+
+  <li> error handler methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Error/err_03.cc&method=handle&instance=0">static boolean handle(const SysString& cname, const unichar* mname, long ecode, char* file, long line, EXIT level = DEF_EXIT, const SysString& extras = DEF_EXTRAS);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Error/err_03.cc&method=handle&instance=1">static boolean handle(const SysString& cname, const SysString& mname, long ecode, char* file, long line, EXIT level = DEF_EXIT, const SysString& extras = DEF_EXTRAS);</a></pre>
+       
+  <li> Sof closing methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Error/err_04.cc&method=setSofPointer">static boolean setSofPointer(boolean (*method)(void));</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Error/err_04.cc&method=closeSof">static boolean closeSof();</a></pre>
+
+  <li> exit methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Error/err_00.cc&method=exit">static volatile void exit();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Error/err_00.cc&method=isExiting">static boolean isExiting();</a></pre>
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+  <li> declare the destructor/constructor(s): these are private so the class
+       cannot be instantiated
+
+       <pre>~Error();</pre>
+       <pre>Error();</a></pre>
+       <pre>Error(const Error& arg);</pre>
+
+  <li> error message lookup methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Error/err_03.cc&method=getMessage">static boolean getMessage(SysString& msg, long code);</a></pre>
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+  
+  <li> This example shows how to do error handling:
+
+<pre>
+#include &lt;Error.h&gt;
+#include &lt;Console.h&gt;
+#include &lt;SysString.h&gt;
+
+int main(int argc, char** argv) {
+
+  SysString str1(L"test");
+  SysString str2(str1);
+  
+  if (!str1.eq(str2)) {
+    str2.debug(str2);
+    Error::handle(str1.name(), L"warning", Error::TEST,
+                  __FILE__, __LINE__, Error::WARNING);
+    }
+  else {
+    Console::put(L"str1 and str2 are equal");
+  }
+  
+  // exit gracefully
+  //
+  Integral::exit();
+}</pre>
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> The ISIP_FULL_CHECK macro now exists to allow for defensive
+       programming even in cases where such checks would become a
+       bottleneck. For example, the Vector class will have a test that
+the array index is within bounds inside of this construct. To use this, simply have the same error checking code that we have always used,
+
+<pre>
+if (arg < 0) {
+    return Error::handle(name(), L"method", Error::ARG,
+                         __FILE__, __LINE__);
+}
+</pre>
+
+       But place the entire check inside of a ISIP_FULL_CHECK macro call, ie:
+
+<pre>
+ISIP_FULL_CHECK(
+if (arg < 0) {
+    return Error::handle(name(), L"method", Error::ARG,
+                         __FILE__, __LINE__);
+})
+</pre>
+
+       During development, this code will be compiled in and hence the
+check will be made. However, when code is compiled with optimization
+(by specifying a -O flag), then this check will be removed.
+
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

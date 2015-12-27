@@ -1,0 +1,238 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="Ulong" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="name">
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Ulong/Ulong.h">Ulong</a>:  public  <a href="../MScalar/index.html">MScalar&lt;ulong, uint32&gt;</a></b>
+
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ... -l /isip/tools/lib/$ISIP_BINARY/lib_math_scalar.a
+
+#include &lt;Ulong.h&gt;
+
+Ulong(ulong arg = DEF_VALUE);
+Ulong(const Ulong& arg);
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+Ulong val0;
+val0 = 10;
+
+Ulong val1(5);
+Ulong val2;
+
+val2 = val0.exp10(2) + val1.factorial();
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The Ulong class manages 32-bit unsigned integers. It is derived from the
+<a href="../MScalar/index.html">MScalar</a> class and inherits the
+commonly-used mathematical, logical, DSP
+and i/o methods from it. A Ulong object can read itself from (or write
+itself to) a Sof file. It includes the memory management methods which
+use the MemoryManager class to allocate or delete memory from the heap.
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li> <a href="../MScalar/index.html">MScalar</a>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Ulong/ulng_00.cc&constant=CLASS_NAME">static const String CLASS_NAME = L"Ulong";</a></pre>
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> error code indicating console class general error:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00020500">static const long ERR = 20500;</a></pre>
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> static memory manager:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Ulong/ulng_00.cc&static=mgr_d">static MemoryManager mgr_d;</a></pre>
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li> static methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Ulong/Ulong.h&method=name">static const String& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Ulong/ulng_02.cc&method=diagnose">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+       
+  <li> debug methods:
+       
+       <pre>setDebug is inherited from the <a href="../MScalar/index.html#public:debug">MScalar</a> template class</pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Ulong/ulng_01.cc&method=debug">boolean debug(const unichar* message) const;</a></pre>
+  
+  <li> destructor/constructor(s):
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Ulong/Ulong.h&method=destructor">~Ulong();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Ulong/Ulong.h&method=default constructor&instance=0">Ulong(ulong arg = DEF_VALUE);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Ulong/Ulong.h&method=copy constructor">Ulong(const Ulong& arg);</a></pre>     
+
+  <li> assign methods:
+       
+       <pre>assign methods are inherited from the <a href="../MScalar/index.html#public:assign">MScalar</a> template class</pre>
+
+  <li> operator= methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Ulong/Ulong.h&method=operator%3D&instance=0">Ulong& operator= (const Ulong& arg);</a></pre>
+       
+  <li> i/o methods:
+              
+       <pre>sofSize is inherited from the <a href="../MScalar/index.html#public:io">MScalar</a> template class</pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Ulong//Ulong.h&method=read">boolean read(Sof& sof, long tag, const String& name = CLASS_NAME);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Ulong//Ulong.h&method=write">boolean write(Sof& sof, long tag, const String& name = CLASS_NAME) const;</a></pre>
+       <pre>readData and writeData are inherited from the <a href="../MScalar/index.html#public:io">MScalar</a> template class</pre>
+
+  <li> equality methods:
+
+       <pre>equality methods are inherited from the <a href="../MScalar/index.html#public:equality">MScalar</a> template class</pre>
+
+  <li> memory management methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Ulong/Ulong.h&method=new">static void* operator new(size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Ulong/Ulong.h&method=new[]">static void* operator new[](size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Ulong/Ulong.h&method=delete">static void operator delete(void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Ulong/Ulong.h&method=delete[]">static void operator delete[](void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Ulong/Ulong.h&method=setGrowSize">static boolean setGrowSize(long grow_size);</a></pre>
+       <pre>clear is inherited from the <a href="../MScalar/index.html#public:memory">MScalar</a> template class</pre>
+</ul>       
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>
+  <li> operator overload methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Ulong/Ulong.h&method=operator%3D&instance=1">Ulong& operator= (ulong arg);</a></pre>
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+      <li>declare trigonometric methods as private because they cannot be
+      defined for ulong operations.
+       <pre> ulong acos(ulong); </pre>
+       <pre> ulong acosh(ulong); </pre>
+       <pre> ulong asin(ulong);</pre>
+       <pre> ulong asinh(ulong); </pre>
+       <pre> ulong atan(ulong); </pre>
+       <pre> ulong atanh(ulong); </pre>
+       <pre> ulong cos(ulong); </pre>
+       <pre> ulong cosh(ulong); </pre>
+       <pre> ulong sin(ulong);</pre>
+       <pre> ulong sinh(ulong); </pre>
+       <pre> ulong tan(ulong); </pre>
+       <pre> ulong tanh(ulong); </pre>
+
+  <li>declare those methods as private which cannot be defined for unsigned
+      numbers
+       <pre> ulong abs(ulong);</pre>
+       <pre> ulong neg(ulong);</pre>
+       <pre> ulong sign(ulong);</pre>
+       
+  <li>declare those methods as private which cannot be defined for
+      integer numbers
+       <pre> ulong ceil(ulong);</pre>
+       <pre> ulong rceil(ulong);</pre>
+       <pre> ulong rfloor(ulong);</pre>
+       <pre> ulong round(ulong);</pre>
+       <pre> ulong floor(ulong);</pre>
+       <pre> ulong fraction(ulong);</pre> 
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+  <li> This example shows how to write a Ulong object into a Sof file:
+       
+       <pre>
+Ulong val0(5);
+String tmp_filename(L"foo");
+Sof tmp_file;
+tmp_file.open(tmp_filename, File::WRITE_ONLY, File::TEXT);
+       
+val0.write(tmp_file, (long)0);
+tmp_file.close();
+       </pre>
+
+  <li> This example shows how to do some mathematic calculations and limit the result to the given range:
+       
+<pre>
+Ulong value;
+Ulong value1;
+Ulong value2;
+
+ulong coef1 = 7;
+ulong coef2 = 3;
+       
+ulong min = 0;
+ulong max = 255;
+
+value1 = 4;
+value2 = 5;
+
+value = value1.exp(2)*coef1 + value2.exp(3)*coef2;
+value.limit(min, max);</pre>
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> See the
+       <a href="../MScalar/index.html#notes">notes section of MScalar</a>.
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

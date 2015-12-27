@@ -1,0 +1,633 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="File" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="Name">
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/system/File/File.h">File</a></b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br> 
+
+<blockquote>
+<pre>
+g++ [flags ...] file ... -l /isip/tools/lib/$ISIP_BINARY/lib_system.a
+
+#include &lt;File.h&gt;
+File(STREAM stream = DEF_STREAM);
+boolean open(const SysString& filename, MODE mode = READ_ONLY);
+boolean put(const SysString& str);
+boolean close();
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+File out(File::ERROR);
+File foo_wo;
+SysString temp_file;
+
+Integral::makeTemp(temp_file);
+
+if (!foo_wo.open(temp_file, File::WRITE_ONLY)) {
+  Console::put(L"Error in open");
+}
+
+SysString str1(L"testing output\n");
+out.put(str1);
+
+foo_wo.put(str1);
+
+foo_wo.close();
+
+File::remove(temp_file);
+</pre>
+</blockquote>
+
+<a name="description">
+<b>description:</b>
+<br><br>
+
+File: a general purpose file pointer. this class abstracts file
+manipulations, which are operating system specific, and provides a
+general interface that all classes should use to access files.
+
+<br><br>
+
+ An important feature of this class is that a polling strategy for
+ opening files is built into the class. When a file open fails, it is
+ possible that the file exists, but the network file system for the
+ computer is in error. This happens often in unix when dealing with
+ files using the network file system. An effective solution is simply
+ to wait a specified time, and try again. More often than not, the
+ next open will succeed. Since all file I/O is centralized through
+ this class, this feature is automatically available to all isip
+ classes.  <br><br>
+
+This class also has the ability to read from stdin (Standard Input) and 
+write to stdout (Standard Output). There are two ways this can be done.
+The first is to pass `IN' or `OUT' to the constructor in order to read
+from stdin or write to stdout, respectively
+( for example: File stdinFile(File::IN); ). The second is to use the `open' 
+method, and pass a SysString type "-" as the first argument instead of a
+file name. See below for an example. <br><br>
+
+When reading from stdin, the input is buffered into a temporary file which is removed when the file object is closed. <br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li> <a href="../Integral/index.html">Integral</a>
+  <li> <a href="../Error/index.html">Error</a>
+  <li> <a href="../MemoryManager/index.html">MemoryManager</a>
+  <li> <a href="../SysChar/index.html">SysChar</a>
+  <li> <a href="../SysString/index.html">SysString</a>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_00.cc&constant=CLASS_NAME">static const SysString CLASS_NAME = L"File";</a></pre>
+  
+  <li> define some maximum sizes:
+       
+       <pre>static const long MAX_FNAME_SIZE = PATH_MAX;</pre>
+       <pre>static const long BUF_SIZE = 8192;</pre>
+
+  <li> error count:
+       
+       <pre>static const long BAD_COUNT = -1;</pre>
+       
+  <li> standard file streams:
+       
+       <pre>enum STREAM { NO_STREAM = -1, OUT, IN, ERROR, DEF_STREAM = NO_STREAM };</pre>
+       
+  <li> seek positions:
+       
+       <pre>enum SEEK {POS = SEEK_SET, POS_PLUS_CUR = SEEK_CUR, POS_PLUS_END = SEEK_END } </pre>
+
+  <li> i/o modes:
+       
+       <pre>enum MODE { READ_ONLY = 0, READ_PLUS, WRITE_ONLY, WRITE_PLUS, APPEND_ONLY, APPEND_PLUS, DEF_MODE = READ_ONLY }; </pre>
+
+  <li> i/o types:
+       
+       <pre>enum TYPE { TEXT = 0, BINARY, DEF_TYPE = TEXT };</pre>
+       
+  <li> byte-order modes:
+       
+       <pre>enum BMODE {NATIVE = 0, SWAP, BIG_ENDIAN, LITTLE_ENDIAN, DEF_BMODE = NATIVE };</pre>
+	     
+  <li> names for each of the enumerated file modes and types:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_00.cc&constant=SYS_TEXT_READ_ONLY">static const char SYS_TEXT_READ_ONLY[] = "r";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_00.cc&constant=SYS_TEXT_READ_PLUS">static const char SYS_TEXT_READ_PLUS[] = "r+";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_00.cc&constant=SYS_TEXT_WRITE_ONLY">static const char SYS_TEXT_WRITE_ONLY[] = "w";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_00.cc&constant=SYS_TEXT_WRITE_PLUS">static const char SYS_TEXT_WRITE_PLUS[] = "w+";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_00.cc&constant=SYS_TEXT_APPEND_ONLY">static const char SYS_TEXT_APPEND_ONLY[] = "a";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_00.cc&constant=SYS_TEXT_APPEND_PLUS">static const char SYS_TEXT_APPEND_PLUS[] = "a+";</a></pre>
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_00.cc&constant=SYS_BINARY_READ_ONLY">static const char SYS_BINARY_READ_ONLY[] = "rb";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_00.cc&constant=SYS_BINARY_READ_PLUS">static const char SYS_BINARY_READ_PLUS[] = "rb+";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_00.cc&constant=SYS_BINARY_WRITE_ONLY">static const char SYS_BINARY_WRITE_ONLY[] = "wb";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_00.cc&constant=SYS_BINARY_WRITE_PLUS">static const char SYS_BINARY_WRITE_PLUS[] = "wb+";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_00.cc&constant=SYS_BINARY_APPEND_ONLY">static const char SYS_BINARY_APPEND_ONLY[] = "ab";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_00.cc&constant=SYS_BINARY_APPEND_PLUS">static const char SYS_BINARY_APPEND_PLUS[] = "ab+";</a></pre>
+
+  <li> names for each of the enumerated file type:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_00.cc&constant=TYPE_TEXT">static const SysString TYPE_TEXT = L"text";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_00.cc&constant=TYPE_BINARY">static const SysString TYPE_BINARY = L"binary";</a></pre>
+       
+  <li> indention and line wrapping:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_00.cc&constant=INDENT_STR">static const SysString INDENT_STR = L"  ";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_00.cc&constant=WRAP_TERM_STR">static const SysString WRAP_TERM_STR = L"\n";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_00.cc&constant=WRAP_PRE_INDENT_STR">static const SysString WRAP_PRE_INDENT_STR = L"";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_00.cc&constant=WRAP_POST_INDENT_STR">static const SysString WRAP_POST_INDENT_STR = L">";</a></pre>
+       <pre>static const long NO_WRAP = -1;</pre>
+       
+  <li> a string denoting a piped input/output:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_00.cc&constant=STREAM_FILE">static const SysString STREAM_FILE = L"-";</a></pre>
+              
+  <li> default values of the class data:
+       
+       <pre>static const long DEF_LOCK = false;</pre>
+       <pre>static const long DEF_INDENT = 0;</pre>
+       <pre>static const long DEF_LINE_WRAP = NO_WRAP;</pre>
+       <pre>static const long DEF_OPEN_RETRY = 5;</pre>
+       <pre>static const long DEF_OPEN_DELAY = 2;</pre>
+       
+  <li> default arguments to methods:
+       
+       <pre>static const long DEF_LOCK_RETRY = 5;</pre>
+       <pre>static const long DEF_LOCK_DELAY = 2;</pre>
+ 
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> error code indicating general File class error:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00001000">static const long ERR = 1000;</a></pre>
+       
+  <li> error code indicating deletion of file object without closing File:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00001001">static const long ERR_NOTCLS = 1001;</a></pre>
+       
+  <li> error code indicating that the file is not open:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00001002">static const long ERR_NOTOPN = 1002;</a></pre>
+       
+  <li> error code indicating attempt to reopen a file:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00001003">static const long ERR_REOPEN = 1003;</a></pre>
+       
+  <li> error code indicating that the file could not be closed:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00001004">static const long ERR_CLOSE = 1004;</a></pre>
+
+  <li> error code indicating that the file could not be flushed:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00001005">static const long ERR_FLUSH = 1005;</a></pre>
+
+  <li> error code indicating file truncation error:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00001006">static const long ERR_TRUNCT = 1006;</a></pre>
+
+  <li> error code indicating wrap setting error:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00001007">static const long ERR_WRAP = 1007;</a></pre>
+
+  <li> error code indicating failure to decode binary mode:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00001008">static const long ERR_DECODE = 1008;</a></pre>       
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+
+  <li> the stream type
+       <pre>STREAM stream_d;</pre>
+       
+  <li> the file pointer:
+       
+       <pre>FILE* fp_d;</pre>
+       
+  <li> open mode and type:
+       
+       <pre>MODE mode_d;</pre>
+       <pre>TYPE type_d;</pre>
+
+  <li> lock flag:
+       
+       <pre>boolean lock_d;</pre>
+
+  <li> byte-order modes: can be an absolute byte-order
+       (LITTLE_ENDIAN or BIG_ENDIAN) or a relative order
+       to the machine (NATIVE or SWAP)
+
+       <pre>BMODE byte_mode_d;</pre>
+
+  <li> byte-swap flag: this is relative to the machine's byte-order
+
+       <pre>boolean byte_swap_d;</pre>
+
+  <li> indention level:
+       
+       <pre>long indent_level_d;</pre>
+  
+  <li> line wrapping limit:
+       
+       <pre>long line_wrap_d;</pre>
+
+  <li> current column position:
+       
+       <pre>long column_position_d;</pre>
+       
+  <li> file polling: open_retry_d is the number of times that the file
+       will be polled for opening before an error is returned.
+       open_delay_d is the delay in seconds between attempts to open
+       the file.
+
+       <pre>long open_retry_d;</pre>
+       <pre>long open_delay_d;</pre>
+
+  <li> a static array of SysString objects to keep track of
+       temporary files:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_00.cc&static=temp_files_d">static SysString** temp_files_d;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_00.cc&static=temp_size_d">static long temp_size_d;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_00.cc&static=temp_num_d">static long temp_num_d;</a></pre>
+	    
+  <li> declare a static debug level for all class instantiations:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_00.cc&static=debug_level_d">static Integral::DEBUG debug_level_d;</a></pre>
+
+  <li> static memory manager:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_00.cc&static=mgr_d">static MemoryManager mgr_d;</a></pre>     
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li> static methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/File.h&method=name">static const SysString& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_02.cc&method=diagnose">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+       
+  <li> debug methods:
+       
+        <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/File.h&method=setDebug">static boolean setDebug(Integral::DEBUG level);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_01.cc&method=debug">boolean debug(const unichar* message) const;</a></pre>
+      
+  <li> destructor/constructor(s):
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_00.cc&method=destructor">~File();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_00.cc&method=default+constructor">File(STREAM stream = DEF_STREAM);</a></pre>
+       
+  <li> assign methods:
+
+       <pre>these methods are omitted because we do not ever want multiple
+file pointers on the same file</pre>
+        
+  <li> operator= methods:
+
+       <pre>these methods are omitted because we do not ever want multiple
+file pointers on the same file</pre>
+       
+  <li> i/o methods:
+
+       <pre>these methods are omitted because File can not write itself to an sof file</pre>
+       
+  <li> equality methods:
+
+       <pre>these methods are omitted because they are not useful for File objects</pre>
+       
+  <li> memory management methods: the clear is omitted
+       in order to force the user to open and close files in a
+       disciplined manner
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/File.h&method=new">static void* operator new(size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/File.h&method=new[]">static void* operator new[](size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/File.h&method=delete">static void operator delete(void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/File.h&method=delete[]">static void operator delete[](void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/File.h&method=setGrowSize">static boolean setGrowSize(long grow_size);</a></pre>
+</ul>    
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+<ul>
+
+  <li> memory size methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_03.cc&method=memSize">long memSize() const;</a></pre>
+
+  <li> swap methods: this method serves as File's assignment method
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_03.cc&method=swap">boolean swap(File& arg);</a></pre>
+
+  <li> get/set methods:
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/File.h&method=setStreamType">boolean setStreamType(STREAM arg);</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/File.h&method=setFileMode">boolean setFileMode(MODE arg);</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/File.h&method=getTempFilename">SysString** getTempFilename();</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/File.h&method=getNumTempFiles">long getNumTempFiles();</a></pre>
+
+  <li> standard file methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_07.cc&method=open&instance=0">boolean open(const unichar* filename, MODE mode = DEF_MODE, TYPE type = DEF_TYPE);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_07.cc&method=open&instance=1">boolean open(const SysString& filename, MODE mode = DEF_MODE, TYPE type = DEF_TYPE);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_07.cc&method=close">boolean close();</a></pre>      
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_07.cc&method=flush">boolean flush();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_07.cc&method=truncate">boolean truncate(long size);</a></pre>
+       
+  <li> file polling methods: this method sets the number of times
+       a file will be polled for opening before an error is returned
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_07.cc&method=setOpenRetry">boolean setOpenRetry(long retry, long delay);</a></pre>
+       
+  <li> file locking methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_07.cc&method=lock">boolean lock(long retry = DEF_LOCK_RETRY, long DELAY = DEF_LOCK_DELAY);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_07.cc&method=unlock">boolean unlock();</a></pre>
+
+  <li> positioning methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_07.cc&method=seek">boolean seek(long offset, SEEK mode);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_07.cc&method=tell">long tell() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/File.h&method=eof">boolean eof() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/File.h&method=rewind">boolean rewind();</a></pre>
+       
+ <li> file information methods:
+      
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/File.h&method=isOpen">boolean isOpen() const;</a></pre>
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/File.h&method=isReadable">boolean isReadable() const;</a></pre>
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/File.h&method=isWritable">boolean isWritable() const;</a></pre>
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/File.h&method=isText">boolean isText() const;</a></pre>
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/File.h&method=isBinary">boolean isBinary() const;</a></pre>
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/File.h&method=isLocked">boolean isLocked() const;</a></pre>
+
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_07.cc&method=size">long size(boolean keep_position = true) const;</a></pre>
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_06.cc&method=size&instance=0">static long size(const unichar* filename);</a></pre>
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_06.cc&method=size&instance=1">static long size(const SysString& filename);</a></pre>
+      
+ <li> single char i/o methods:
+      
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_03.cc&method=get&instance=0">boolean get(SysChar& chr);</a></pre>
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_07.cc&method=put&instance=0">boolean put(const SysChar chr);</a></pre>       
+
+ <li> string i/o methods:
+      
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_03.cc&method=get&instance=1">boolean get(SysString& str, long len = BUF_SIZE);</a></pre>
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_07.cc&method=put&instance=1">boolean put(const SysString& str);</a></pre>
+      
+  <li> buffer-based i/o methods: for binary files (with byte swapping)
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_04.cc&method=read">long read(void* ptr, long size, long num);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_04.cc&method=write">long write(const void* ptr, long size, long num);</a></pre>
+       
+  <li> formatting methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_05.cc&method=increaseIndention">boolean increaseIndention();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_05.cc&method=decreaseIndention">boolean decreaseIndention();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/File.h&method=setLineWrap">boolean setLineWrap(long ncols);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/File.h&method=getLineWrap">long getLineWrap() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_05.cc&method=getLineLength">long getLineLength() const;</a></pre>
+
+  <li> temporary file registration/cleanup methods:
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_05.cc&method=registerTemp">static boolean registerTemp(SysString& name);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_05.cc&method=cleanTemps">static boolean cleanTemps();</a></pre>
+
+  <li> disk-file operation methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_06.cc&method=remove&instance=0">static boolean remove(const unichar* filename);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_06.cc&method=remove&instance=1">static boolean remove(const SysString& filename);</a></pre>
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_06.cc&method=rename&instance=0">static boolean rename(const unichar* old_name, const unichar* new_name);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_06.cc&method=rename&instance=1">static boolean rename(const SysString& old_name, const SysString& new_name);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_06.cc&method=mkdir&instance=0">static boolean mkdir(const unichar* dir_name);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_06.cc&method=mkdir&instance=1">static boolean mkdir(const SysString& dir_name);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_06.cc&method=rmdir&instance=0">static boolean rmdir(const unichar* dir_name);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_06.cc&method=rmdir&instance=1">static boolean rmdir(const SysString& dir_name);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_06.cc&method=exists&instance=0">static boolean exists(const unichar* filename);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_06.cc&method=exists&instance=1">static boolean exists(const SysString& filename);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_06.cc&method=compare&instance=0">static boolean compare(const unichar* file1, const unichar* file2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_06.cc&method=compare&instance=1">static boolean compare(const SysString& file2, const SysString& file2);</a></pre>
+
+   <li> byte-order related methods:
+	
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_04.cc&method=setBMode">boolean setBMode(BMODE mode);</pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_04.cc&method=getBMode">BMODE getBMode() const;</a></pre>
+	
+   <li> get the machine's byte-order methods:
+	
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_04.cc&method=getMachineByteOrder">BMODE getMachineByteOrder() const;</a></pre>
+	
+   <li> single value encode/decode methods:
+	
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_04.cc&method=encode&instance=0">int16 encode(int16 value) const;</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_04.cc&method=encode&instance=1">int32 encode(int32 value) const;</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_04.cc&method=encode&instance=2">int64 encode(int64 value) const;</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_04.cc&method=decode&instance=0">int16 decode(int16 value) const;</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_04.cc&method=decode&instance=1">int32 decode(int32 value) const;</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_04.cc&method=decode&instance=2">int64 decode(int64 value) const;</a></pre>
+
+   <li> string manipulation methods:
+	
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_08.cc&method=substr&instance=0">boolean substr(SysString& str, long offset, long num_elements = Integral::NO_POS) const;</a></pre>
+     
+   <li> string search methods:
+	
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_08.cc&method=firstStr&instance=0">long firstStr(const unichar* str, long start = Integral::NO_POS) const;</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_08.cc&method=firstStr&instance=1">long firstStr(const SysString& str, long start = Integral::NO_POS) const;</a></pre>
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+  <li> copy constructor: this is declared private so it cannot be called for the File class
+
+       <pre>File(const File& arg);</pre>
+
+  <li> buffer encode/decode methods: they are used by read() and write()
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/File.h&method=encode">boolean encode(void* buf, long size, long nitems) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_04.cc&method=encode&instance=3">boolean encode(void* obuf, const void* ibuf, long size, long nitems) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/File.h&method=decode">boolean decode(void* buf, long size, long nitems) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/File/file_04.cc&method=decode&instance=3">boolean decode(void* obuf, const void* ibuf, long size, long nitems) const;</a></pre>
+</ul>
+
+<a name="example 1">
+<b>example 1:</b>
+<br><br>
+
+<ul>
+  <li> This example shows how to open the file (shown in <b>quick start</b>)
+       and read the string back in:
+
+<pre>
+// get a temporary file name
+//
+SysString temp_file;
+Integral::makeTemp(temp_file);
+       
+// declare a file for writing
+//
+File write_file;
+       
+// open the temporary file in write mode
+//
+if (!write_file.open(temp_file, File::WRITE_ONLY)) {
+  Console::put(L"Error in open");
+}
+
+// create a string to write and write it to the file
+//
+SysString str1(L"testing output\n");
+write_file.put(str1);
+       
+// close the file
+//
+write_file.close();
+       
+// create a file for reading
+//
+File read_file;
+       
+// open the temporary file for reading
+//
+if (read_file.open(temp_file, File::READ_PLUS)) {
+       
+  // lock the file so no one can edit it while we read
+  //
+  read_file.lock();
+       
+  // get the string out of the file
+  //
+  SysString str2;
+  read_file.get(str2);
+       
+  // we should have read in the same file that we wrote
+  //
+  if (str2.ne(L"testing output")) {
+    Console::put(L"Error in getString");
+  }
+       
+  // release the file lock and close the file
+  //
+  read_file.unlock();
+  read_file.close();
+}
+else {
+  Console::put(L"Error in open");
+}
+
+// delete the temporary file
+//
+File::remove(temp_file);</pre>
+</ul>
+
+<a name="example 2">
+<b>example 2:</b>
+<br><br>
+<ul> 
+
+  <li>The following example demonstrates one way to use the File class
+      to read from stdin and write to stdout.
+
+<pre>
+// Create file objects.
+//
+File read_stdin;
+File write_stdout;
+
+// Initialize one string to "-"
+// and create a second to store output.
+//
+SysString str1(L"-");
+SysString str2;
+
+// "-" is passed as the first argument to
+// the open method to set the object to access
+// stdin/stdout. The second argument determines
+// whether the File object will read from stdin,
+// or write to stdout.
+//
+// In this case the object will read from stdin.
+//
+if(read_stdin.open(str1, File::READ_ONLY)){ 
+  read_stdin.get(str2);
+}
+else { 
+  Console::put(L"Error Opening Stdin\n");
+}
+
+// Destroy the object.
+//
+read_stdin.close();  
+
+// Again "-" is passed. This time the object
+// will write to stdout.
+//
+if(write_stdout.open(str1, File::WRITE_ONLY)){
+  write_stdout.put(str2);  
+}
+else {
+  Console::put(L"Error Opening Stdout");
+}
+
+// Destroy the object.
+//
+write_stdout.close();</pre> 
+
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> The swap method helps to avoid possible memory problems when
+       multiple pointers point to the same file
+
+       <br><br>
+
+  <li> Temporary files registered through the File::registerTemp()
+       method will automatically be deleted upon exit (through either
+       the normal Integral::exit() or the exception handling
+       Error::exit()). If you generated the name for your temporary
+       files through Integral::makeTemp they will automatically be
+       registered through this system. You can still delete a
+       temporary file if you like with File::remove(), the automated
+       system will only delete those files that still exist.
+
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

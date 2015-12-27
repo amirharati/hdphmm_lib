@@ -1,0 +1,538 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="Mscalar" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="name">
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h">MScalar</a></b>
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ... -l /isip/tools/lib/$ISIP_BINARY/lib_math_scalar.a
+
+#include &lt;MScalar.h&gt;
+
+MScalar& operator+= (TIntegral arg);
+boolean assign(byte arg);
+TIntegral band(TIntegral arg);
+TIntegral exp();
+TIntegral asin();
+TIntegral limit(TIntegral min, TIntegral max);
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+MScalar&lt;double, float64&gt; val0;
+MScalar&lt;double, float64&gt; val1;
+MScalar&lt;double, float64&gt; min_val;
+
+val0.assign((double)10);
+(long)val0.exp2();
+val1.exp10(2);
+
+min_val.min(val0, val1);
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The MScalar class is the base class of all scalar classes. It includes 
+commonly-used mathematical, logical and DSP methods, and i/o and 
+operator overload methods. All other scalar classes are derived from it.
+The MScalar methods should not be used directly by users. They are
+designed for the other scalar classes and the MVector and MMatrix templates
+to use.
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li> <a href="../../../io/SofParser/index.html">SofParser</a>
+  <li> <a href="../String/index.html">String</a>
+  <li> <a href="../../../system/MemoryManager/index.html">MemoryManager</a>
+  <li> <a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalarMethods.h">MScalarMethods.h</a>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/mscl_00.cc&constant=CLASS_NAME">static const String CLASS_NAME = L"MScalar";</a></pre>
+
+  <li> random number related constants:
+
+       <pre>static const double RAND_BYTE_MAX = Integral::TWO_EXP8;</pre>
+       <pre>static const double RAND_USHORT_MAX = Integral::TWO_EXP16;</pre>
+       <pre>static const double RAND_ULONG_MAX = Integral::TWO_EXP32;</pre>
+       <pre>static const double RAND_ULLONG_MAX = Integral::TWO_EXP64;</pre>
+       <pre>static const double RAND_SHORT_MAX = Integral::TWO_EXP15;</pre>
+       <pre>static const double RAND_LONG_MAX = Integral::TWO_EXP31;</pre>
+       <pre>static const double RAND_LLONG_MAX = Integral::TWO_EXP63;</pre>
+
+  <li> i/o related constants:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/mscl_00.cc&constant=DEF_PARAM">static const String DEF_PARAM = L"value";</a></pre>
+
+  <li> the default value(s) of the class data:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/mscl_00.cc&constant=DEF_VALUE">static const TIntegral DEF_VALUE = (TIntegral)0.0;</a></pre>
+       
+  <li> default arguments to methods:
+       
+       <pre>none</pre>
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+<ul>
+  <li> error code indicating MScalar class general error:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00020000">static const long ERR = 20000;</a></pre>	
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> the container for the value of this item:
+       
+       <pre>TIntegral value_d;</pre>
+
+  <li> declare a static debug level for all class instantiations:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/mscl_00.cc&static=debug_level_d">static Integral::DEBUG debug_level_d;</a></pre>
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li> static methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=name">static const String& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/mscl_02.cc&method=diagnose">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+  <li> debug methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=setDebug">static boolean setDebug(Integral::DEBUG level);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/mscl_00.cc&method=debug">boolean debug(const unichar* msg) const;</a></pre>
+
+  <li> destructor/constructor(s):
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=destructor">~MScalar()</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=default constructor">MScalar()</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=copy constructor&instance=0">MScalar(const MScalar& arg);</a></pre>       
+
+  <li> assign methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=assign&instance=0">boolean assign(const MScalar& arg);</a></pre>
+
+  <li> operator= methods:
+       
+       <pre>
+we need to have the overloaded operator '=' defined in the derived classes instead of the base template class. this is required since c++ predefines the operator '=' for any class by default and this hides any other definition of this operator in the base class.
+       </pre>
+       
+  <li> i/o methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=sofSize">long sofSize() const;</a></pre>
+        <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/mscl_03.cc&method=read">boolean read(Sof& sof, long tag, const String& name = CLASS_NAME);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/mscl_04.cc&method=write">boolean write(Sof& sof, long tag, const String& name = CLASS_NAME) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/mscl_03.cc&method=readData">boolean readData(Sof& sof, const String& pname = DEF_PARAM,long size = SofParser::FULL_OBJECT, boolean param_a = true, boolean nested_a = false);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/mscl_04.cc&method=writeData">boolean writeData(Sof& sof, const String& pname = DEF_PARAM) const;</a></pre>
+
+  <li> equality methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=eq&instance=0">boolean eq(const MScalar& compare_scalar) const;</a></pre>
+
+  <li> memory management methods:
+       
+       <pre>the new and delete methods are omitted because they are defined in the classes that instantiate this template </pre>
+  <li> clear method:
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=clear">boolean clear(Integral::CMODE = Integral::DEF_CMODE);</a></pre>
+</ul>
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>
+
+  <li> constructor method:
+
+       <pre>
+this method is useful to have for the diagnose method.      
+       </pre>
+
+  <li> assign methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=assign&instance=0">MScalar(TIntegral arg));</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=assign&instance=1">template&lt;class TAIntegral&gt;<br>boolean assign(TAIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=assign&instance=2">boolean assign(const String& arg);</a></pre>
+
+   <li> get methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=get">boolean get(String& arg) const;</a></pre>
+       
+  <li> memory size methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=memSize">long memSize() const;</a></pre>
+       
+  <li> method present value:
+
+  <pre>
+define functions which are used to wrap member functions that have different
+implementations for different data types, and return the correct value by
+using template specialization.
+  </pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=presentValue&instance=0">TIntegral presentValue(double arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=presentValue&instance=1">TIntegral presentValue(complexdouble arg) const;</a></pre>
+
+  <li> method almostEqual
+       
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=almostEqual&instance=0">boolean almostEqual(TIntegral arg) const;</a></pre>
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=almostEqual&instance=1">boolean almostEqual(TIntegral arg, double percent, double bound = Integral::DEF_BOUND) const;</a></pre>
+
+  <li> operator methods:
+       
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=operator+TIntegral%28%29">operator TIntegral() const;</a></pre>
+       
+   <li> arithmetic operator overload methods:
+
+	 <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=operator+%2B">TIntegral operator+(TIntegral arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=operator+%2D">TIntegral operator-(TIntegral arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=operator+%2A&instance=3">TIntegral operator*(TIntegral arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=operator+%2F">TIntegral operator/(TIntegral arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=operator+%25">TIntegral operator%(TIntegral arg) const;</a></pre>
+       
+  <li> operator overload methods:
+
+        <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=operator+%2B%2B&instance=0">TIntegral operator++();</a>  </pre>
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=operator+%2D%2D&instance=0">TIntegral operator--();</a></pre>
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=operator+%2B%2B&instance=1">TIntegral operator++(int);</a></pre>
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=operator+%2D%2D&instance=1">TIntegral operator--(int);</a></pre>
+              
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=operator+%2B%3D">MScalar& operator+=(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=operator+%2D%3D">MScalar& operator-=(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=operator+%2A%3D">MScalar& operator*=(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=operator+%2F%3D">MScalar& operator/=(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=operator+%25%3D">MScalar& operator%=(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=operator+%3d%3d">boolean operator == (TIntegral arg) const;</a></pre>
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=operator+!%3d">boolean operator != (TIntegral arg) const;</a></pre>
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=operator+%3c">boolean operator &lt; (TIntegral arg) const;</a></pre>
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=operator+%3c%3d">boolean operator &lt;= (TIntegral arg) const;</a></pre>
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=operator+%3e">boolean operator &gt; (TIntegral arg) const;</a></pre>
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=operator+%3e%3d">boolean operator &gt;= (TIntegral arg) const;</a></pre>
+       
+ <li> equality and comparison methods:
+      
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=eq&instance=1">boolean eq(TIntegral arg) const;</a></pre>
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=eq&instance=2">boolean eq(TIntegral arg1, TIntegral arg2) const;</a></pre>
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=ne">boolean ne(TIntegral arg) const;</a></pre>
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=lt">boolean lt(TIntegral arg) const;</a></pre>
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=le">boolean le(TIntegral arg) const;</a></pre>
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=gt">boolean gt(TIntegral arg) const;</a></pre>
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=ge">boolean ge(TIntegral arg) const;</a></pre>
+
+    <li>  bitwise methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=band&instance=0">TIntegral band(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=band&instance=1">TIntegral band(TIntegral arg1, TIntegral arg2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=bor&instance=0">TIntegral bor(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=bor&instance=1">TIntegral bor(TIntegral arg1, TIntegral arg2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=bxor&instance=0">TIntegral bxor(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=bxor&instance=1">TIntegral bxor(TIntegral arg1, TIntegral arg2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=brs&instance=0">TIntegral brs(TIntegral incr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=brs&instance=1">TIntegral brs(TIntegral arg, TIntegral incr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=bls&instance=0">TIntegral bls(TIntegral incr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=bls&instance=1">TIntegral bls(TIntegral arg, TIntegral incr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=bcmpl&instance=0">TIntegral bcmpl();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=bcmpl&instance=1">TIntegral bcmpl(TIntegral arg);</a></pre>
+      
+  <li> arithmetic methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=add&instance=0">TIntegral add(TIntegral arg2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=add&instance=1">TIntegral add(TIntegral arg1, TIntegral arg2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=sub&instance=0">TIntegral sub(TIntegral arg2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=sub&instance=1">TIntegral sub(TIntegral arg1, TIntegral arg2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=mult&instance=0">TIntegral mult(TIntegral arg2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=mult&instance=1">TIntegral mult(TIntegral arg1, TIntegral arg2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=div&instance=0">TIntegral div(TIntegral arg2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=div&instance=1">TIntegral div(TIntegral arg1, TIntegral arg2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=mod&instance=0">TIntegral mod(TIntegral arg2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=mod&instance=1">TIntegral mod(TIntegral arg1, TIntegral arg2);</a></pre>
+       
+ 
+  <li> other mathematical methods (listed alphabetically):
+
+        <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=abs&instance=0">TIntegral abs();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=abs&instance=1">TIntegral abs(TIntegral arg);</a></pre>
+        <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=acos&instance=0">TIntegral acos();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=acos&instance=1">TIntegral acos(TIntegral arg);</a></pre>
+        <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=acosh&instance=0">TIntegral acosh();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=acosh&instance=1">TIntegral acosh(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=asin&instance=0">TIntegral asin();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=asin&instance=1">TIntegral asin(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=asinh&instance=0">TIntegral asinh();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=asinh&instance=1">TIntegral asinh(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=atan&instance=0">TIntegral atan();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=atan&instance=1">TIntegral atan(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=atanh&instance=0">TIntegral atanh();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=atanh&instance=1">TIntegral atanh(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=ceil&instance=0">TIntegral ceil();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=ceil&instance=1">TIntegral ceil(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/mscl_05.cc&method=centerClip&instance=0">TIntegral centerClip(TIntegral min, TIntegral max);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/mscl_05.cc&method=centerClip&instance=0">TIntegral centerClip(TIntegral min, TIntegral max, TIntegral val);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=cos&instance=0">TIntegral cos();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=cos&instance=1">TIntegral cos(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=cosh&instance=0">TIntegral cosh();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=cosh&instance=1">TIntegral cosh(TIntegral arg);</a></pre>
+        <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=exp&instance=0">TIntegral exp();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=exp&instance=1">TIntegral exp(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=exp2&instance=0">TIntegral exp2();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=exp2&instance=1">TIntegral exp2(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=exp10&instance=0">TIntegral exp10();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=exp10&instance=1">TIntegral exp10(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=factorial&instance=0">TIntegral factorial();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=factorial&instance=1">TIntegral factorial(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=floor&instance=0">TIntegral floor();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=floor&instance=1">TIntegral floor(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=fraction&instance=0">TIntegral fraction();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=fraction&instance=1">TIntegral fraction(TIntegral arg);</a></pre>   
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/mscl_00.cc&method=grand&instance=0">TIntegral grand(TIntegral mean, TIntegral stddev, Random& generator = Random::GLOBAL_GAUSSIAN);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=hash&instance=0">ulong hash(ulong hsize);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=inverse&instance=0">TIntegral inverse();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=inverse&instance=1">TIntegral inverse(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/mscl_05.cc&method=limit&instance=0">TIntegral limit(TIntegral min, TIntegral max);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/mscl_05.cc&method=limit&instance=0">TIntegral limit(TIntegral min, TIntegral max, TIntegral val);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/mscl_05.cc&method=limitMag&instance=0">TIntegral limitMag(TIntegral thresh, TIntegral output);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/mscl_05.cc&method=limitMag&instance=0">TIntegral limitMag(TIntegral thresh, TIntegral output, TIntegral val);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=log&instance=0">TIntegral log();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=log&instance=1">TIntegral log(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=log2&instance=0">TIntegral log2();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=log2&instance=1">TIntegral log2(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=log10&instance=0">TIntegral log10();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=log10&instance=1">TIntegral log10(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=log1p&instance=0">TIntegral log1p();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=log1p&instance=1">TIntegral log1p(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=max&instance=0">TIntegral max(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=max&instance=1">TIntegral max(TIntegral arg_1, TIntegral arg_2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=min&instance=0">TIntegral min(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=min&instance=1">TIntegral min(TIntegral arg_1, TIntegral arg_2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=neg&instance=0">TIntegral neg();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=neg&instance=1">TIntegral neg(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=pow&instance=0">TIntegral pow(TIntegral exponent);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=pow&instance=1">TIntegral pow(TIntegral arg, TIntegral exponent);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/mscl_00.cc&method=rand&instance=0">TIntegral rand(Random& generator = Random::GLOBAL_UNIFORM);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/mscl_00.cc&method=rand&instance=10">TIntegral rand(TIntegral min, TIntegral max, Random& generator = Random::GLOBAL_UNIFORM);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=rceil&instance=0">TIntegral rceil();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=rceil&instance=1">TIntegral rceil(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=rfloor&instance=0">TIntegral rfloor();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=rfloor&instance=1">TIntegral rfloor(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=round&instance=0">TIntegral round();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=round&instance=1">TIntegral round(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=sign&instance=0">TIntegral sign();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=sign&instance=1">TIntegral sign(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=sin&instance=0">TIntegral sin();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=sin&instance=1">TIntegral sin(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=sinh&instance=0">TIntegral sinh();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=sinh&instance=1">TIntegral sinh(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=sqrt&instance=0">TIntegral sqrt();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=sqrt&instance=1">TIntegral sqrt(TIntegral arg);</a></pre> 
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=square&instance=0">TIntegral square();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=square&instance=1">TIntegral square(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=tan&instance=0">TIntegral tan();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=tan&instance=1">TIntegral tan(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=tanh&instance=0">TIntegral tanh();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalar.h&method=tanh&instance=1">TIntegral tanh(TIntegral arg);</a></pre>
+</ul>
+
+<b> private methods:</b>
+<ul>  
+   <li>
+	friend functions:
+<pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalarMethods.h">friend class MScalarMethods;</a></pre>
+
+
+   <li>
+	diagnose methods:
+	
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/mscl_02.cc&method=diagnose0">static boolean diagnose0(Integral::DEBUG debug_level);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/mscl_02.cc&method=diagnose1">static boolean diagnose1(Integral::DEBUG debug_level);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/mscl_02.cc&method=diagnose2">static boolean diagnose2(Integral::DEBUG debug_level);</a></pre>
+
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+  <li> This example shows how to do some basic mathematical and logical operations:
+       
+       <pre>
+MScalar&lt;long, int32&gt; val0;
+MScalar&lt;long, int32&gt; val1;
+MScalar&lt;long, int32&gt; val2;
+MScalar&lt;double, float64&gt; val3;
+MScalar&lt;double, float64&gt; val4;
+
+long data = 16;
+     
+val0.assign((long)8);
+val0 += 2;
+if(!val0.eq(10)) {
+    Error::handle(val0.name(), L"operator+=", Error::TEST,
+                         __FILE__, __LINE__);
+}
+
+val4.assign((double)0.15);
+       
+val3.log2(val4);
+val3*= val4;
+
+val0.round(val3);
+
+val1.assign(val0);
+val1.bor(data);
+       </pre>
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> The various types with bit-length specifications, e.g., float64, are
+       defined in <a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/IntegralTypes.h"> IntegralTypes.h</a>. These are wrappers to encapsulate
+       system- or language-specific data types and provide a consistent
+       interface to data types throughout the IFCs.  They are not intended
+       to be used by system users.
+     
+       <br><br>
+
+  <li> Many template specialization methods are used, such as the neg() for
+       MScalar&lt;ushort&gt; and bitwise methods for MScalar&lt;float&gt;.
+     
+       <br><br>
+
+  <li> The use of templates requires special documentation techniques.  For
+       example, in the <b>required public methods</b> section, above,
+       if you click on the link to investigate the diagnose method,
+       
+       <ul>
+	 <pre>
+static boolean diagnose(Integral::DEBUG debug_level);
+	 </pre>
+       </ul>
+       
+       you will be taken to a section showing the actual implementation
+       of the diagnose method:
+
+       <ul>
+	 <pre>
+template&lt;class TIntegral, class TSize&gt;
+boolean MScalarMethods::diagnose(Integral::DEBUG level_a) {
+     // . . . code removed
+     //
+}
+	 </pre>
+       </ul>
+     
+       Notice that the header linked to does not match the header shown in
+       the link.  The match for the link actually is an statement
+       occurring in MScalar.h, which looks like this:
+     
+       <ul>
+	 <pre>
+static boolean diagnose(Integral::DEBUG debug_level) {
+     return MScalarMethods::diagnose&lt;TIntegral, TSize&gt;(debug_level);
+}
+	 </pre>
+       </ul>
+     
+     The code in the header file merely sets up the template specialization
+     and calls the template's diagnose class.  Rather than pointing to this
+     more or less meaningless code, we have chosen to link to the
+     code which actually implements the call to diagnose, so the user is
+     able to see the details of the implementation, rather than just
+     the intermediate, though matching, code.
+     
+     <br><br>
+
+<li> While friend functions are generally discouraged in the ISIP
+     environment, they are used in the MScalar class to circumvent the
+     template delayed compilation problem.
+     
+     <br><br>
+
+<li> The setDebug method for this class is static because the debug_level
+     is shared across all objects of this class type.
+
+     <br><br>
+
+<li> Explicit template instantiations were replaced by a facility
+     that generates the code for each data type, and compiles it.
+     This is done using the make facility and some preprocessor macros.
+     Code that previously looked like this:
+     
+     <ul>
+       <pre>
+// define all pre-provided template instances
+//
+template boolean
+MScalarMethods::diagnose<short, int16> 
+(Integral::DEBUG level);
+       
+template boolean
+MScalarMethods::diagnose<ullong, uint64> 
+(Integral::DEBUG level);
+       
+template boolean
+MScalarMethods::diagnose<ulong, uint32> 
+(Integral::DEBUG level);
+  
+...</pre>
+     </ul>
+
+     is replaced by this:
+
+     <ul>
+<pre>
+MScalarMethods::diagnose&lt;ISIP_TEMPLATE_TARGET&gt; 
+(Integral::DEBUG level);</pre>
+     </ul>
+
+     ISIP_TEMPLATE_TARGET is replaced by the preprocessor using a value
+     defined in the make file.
+     Generally speaking, the implementation is fairly straightforward
+     and clean. However, a little more work was necessary to handle
+     type-specific methods.
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

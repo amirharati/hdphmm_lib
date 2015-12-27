@@ -1,0 +1,616 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="CommandLine" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="Name">
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h">CommandLine</a></b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] commandline ... -l /isip/tools/lib/$ISIP_BINARY/lib_shell.a
+
+#include &lt;CommandLine.h&gt;
+
+~CommandLine();
+CommandLine();
+CommandLine(const CommandLine& arg);
+boolean setHelp(const unichar* help_message);
+String& addOptionParam(Long& var, const String& param, long def_value);
+boolean parse(int argc, const char** argv);
+long getOptionIndex(const String& param_name);
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+String com_str(L"foo.exe -swap -sf 7000.0 -help");
+
+CommandLine cmdl;
+
+// add an swap flag
+//
+String flag_param(L"swap");
+Boolean swap;
+cmdl.addFlagParam(swap, flag_param);
+
+// add a sample frequency
+//
+String sf_param(L"sf");
+Float sf;
+cmdl.addOptionParam(sf, sf_param, (float)8000.0);
+
+// parse the commandline
+//
+cmdl.parse(com_str);
+
+// test the swap flag
+//
+if (swap) {
+ Console::put(L"swap flag specified");
+}
+
+// print the sample frequency
+//
+sf.debug(L"sample frequency");
+</pre>
+</blockquote>
+
+<a name="description">
+<b>description:</b>
+<br><br>
+
+The CommandLine class is designed to parse a Unix command line using
+a standard interface. It is used by every ISIP utility. There are three
+types of entities found on a command line: arguments, options, and
+flags. Arguments are present in a pre-specified order and require no
+qualifiers. Options can appear anywhere on the command line, setting
+the specified data to the following token.
+
+<br><br>
+
+Flags, like options, can appear anywhere on the command line, yet they
+are used for boolean data. Any flag not present on the command line is
+assumed false.
+
+<br><br>
+
+The command line handles partial name completion. If any option is
+specified partially on command line and it is the single match then
+commandline accepts this option. If there is more than one match, it
+is specified as an error.
+
+<br><br>
+
+Certain option names are reserved for use across all ISIP utilities.
+These include:
+
+<br><br>
+
+<ul>
+  <li> <b>-debug_level:</b>  controls the amount of debugging information
+       displayed when a command is run; see
+
+       <a href="../DebugLevel/index.html">DebugLevel</a>
+
+       for more details.
+
+       <br><br>
+
+  <li> <b>-parameter_file:</b> specifies the parameter file to be used
+       to configure the tool.
+
+       <br><br>
+
+  <li> <b>-type:</b> used to control whether binary or text files
+       are created; see the
+
+       <a href="../../system/File/index.html">File</a>
+
+       class for more details.
+
+       <br><br>
+
+  <li> <b>-verbosity:</b> controls how much status information is
+       displayed during normal processing; uses the same values
+       and interface as 
+
+       <a href="../DebugLevel/index.html">DebugLevel</a>.
+
+       <br><br>
+
+  <li> <b>-echo_command_line:</b> echoes the command line to the console;
+       useful for programs that want to capture the command line to a
+       log file.
+
+       <br><br>
+
+  <li> <b>-help:</b> displays a help message.
+
+       <br><br>
+
+  <li> <b>-usage:</b> displays a short message describing the typical
+       use of the command.
+
+       <br><br>
+
+  <li> <b>-version:</b> displays version information about the compiled
+       program.
+</ul>
+
+There are also some parameters associated with file processing
+that used by the Sof database class
+
+<a href="../Sdb/index.html">Sdb</a>.
+
+These are:
+
+<br><br>
+
+<ul>
+  <li> <b>-directory:</b> determines what output directory will be used
+       for files created from list processing.
+
+       <br><br>
+
+  <li> <b>-extension:</b> the new file extension (e.g., "sof" in "foo.sof").
+
+       <br><br>
+
+  <li> <b>-preserve:</b> controls how much of the pathname is preserved
+       when a new filename is generated from an input filename.
+
+       <br><br>
+
+  <li> <b>-suffix:</b> a field that can be added to a new filename
+       (e.g. "_0" in "foo_0.sof").
+</ul>
+  
+Sdb also reserves one more option name <b>"-list"</b> to
+identify Sdb files from the command line. The "-list"
+option allows command line processing to avoid gross
+inefficiencies in processing lists of files.
+All these options are described in more detail in the
+
+<a href="../../system/File/index.html">File</a> class
+
+and
+
+<a href="../Sdb/index.html">Sdb.
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li> <a href="../../system/File/index.html">File</a>
+  <li> <a href="../../math/scalar/Boolean/index.html">Boolean</a>
+  <li> <a href="../../math/vector/index.html">Vector</a>              
+  <li> <a href="../DebugLevel/index.html">DebugLevel</a>
+  <li> <a href="../Filename/index.html">Filename</a>
+  <li> <a href="../Sdb/index.html">Sdb</a>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_00.cc&constant=CLASS_NAME">static const String CLASS_NAME = L"CommandLine";</a></pre>
+
+  <li> default values for parameters for command line parsing:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_00.cc&constant=DEF_PARAM_PREFIX">static const String DEF_PARAM_PREFIX = L"-";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_00.cc&constant=DEF_PARAM_SPACE">static const String DEF_PARAM_SPACE = L" ";</a></pre>
+
+  <li> default values for standard command line options: these
+       are constants for option names expected to be standardized
+       across all utilities. Programs should reference these
+       definitions rather than duplicate them.
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_00.cc&constant=DEF_PARAM_DEBUG">static const String DEF_PARAM_DEBUG = L"debug_level";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_00.cc&constant=DEF_PARAM_LFILE">static const String DEF_PARAM_LFILE = L"log_file";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_00.cc&constant=DEF_PARAM_PFILE">static const String DEF_PARAM_PFILE = L"parameter_file";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_00.cc&constant=DEF_PARAM_TYPE">static const String DEF_PARAM_TYPE = L"type";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_00.cc&constant=DEF_PARAM_VERBOSITY">static const String DEF_PARAM_VERBOSITY = L"verbosity";</a></pre>
+
+  <li> default values for parameters for Sdb filename parsing:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_00.cc&constant=DEF_PARAM_DIRECTORY">static const String DEF_PARAM_DIRECTORY = L"directory";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_00.cc&constant=DEF_PARAM_BASENAME">static const String DEF_PARAM_BASENAME = L"basename";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_00.cc&constant=DEF_PARAM_EXTENSION">static const String DEF_PARAM_EXTENSION = L"extension";</a></pre>       
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_00.cc&constant=DEF_PARAM_PRESERVE">static const String DEF_PARAM_PRESERVE = L"preserve";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_00.cc&constant=DEF_PARAM_SUFFIX">static const String DEF_PARAM_SUFFIX = L"suffix";</a></pre>
+
+  <li> default values for command line messaging:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_00.cc&constant=DEF_PARAM_ECHOC">static const String DEF_PARAM_ECHOC = L"echo_command_line";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_00.cc&constant=DEF_PARAM_HELP">static const String DEF_PARAM_HELP = L"help";</a></pre>
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_00.cc&constant=DEF_PARAM_USAGE">static const String DEF_PARAM_USAGE = L"usage";</a></pre>       
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_00.cc&constant=DEF_PARAM_VERSION">static const String DEF_PARAM_VERSION = L"version";</a></pre>
+
+  <li> default values for parameters for temporary space:
+
+       <pre>static const long DEF_OBJECTS_SIZE = 100;</pre>
+       
+  <li> default values for selected output strings:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_00.cc&constant=COMMAND_STR">static const String COMMAND_STR = L"Command:";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_00.cc&constant=NO_VERSION_NAME">static const String NO_VERSION_NAME = L"not released";</a></pre>
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_00.cc&constant=VERSION_STR">static const String VERSION_STR = L"Version: ";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_00.cc&constant=REPORT_STR_00">static const String REPORT_STR_00 = L": processed ";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_00.cc&constant=REPORT_STR_01">static const String REPORT_STR_01 = L" file(s), attempted ";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_00.cc&constant=REPORT_STR_02">static const String REPORT_STR_02 = L" file(s).\n";</a></pre>
+
+  <li> special code for an Sdb list option:
+
+       <pre>static const long OPT_INDEX_SDB = 99999;</pre>
+
+  <li> default values for selected command line options
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_00.cc&constant=DEF_EMPTY">static Filename DEF_EMPTY = L"";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_00.cc&constant=DEF_LFILE_NAME">static Filename DEF_LFILE_NAME = L"-";</a></pre>
+
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> error code indicating general CommandLine class error:
+
+       <pre><a href="/perl/ifc_document.pl?err=00045000">static const long ERR = 45000;</a></pre>
+       
+  <li> error code indicating option not found:
+
+       <pre><a href="/perl/ifc_document.pl?err=00045001">static const long ERR_OPT = 45001;</a></pre>
+
+  <li> error code indicating ambiguous partial completion for option:
+
+       <pre><a href="/perl/ifc_document.pl?err=00045002">static const long ERR_OPTAMB = 45002;</a></pre>
+       
+  <li> error code indicating user specified multiple times option:
+
+       <pre><a href="/perl/ifc_document.pl?err=00045003">static const long ERR_OPTDUPL = 45003;</a></pre>
+       
+  <li> error code indicating programmer specified multiple times option:
+
+       <pre><a href="/perl/ifc_document.pl?err=00045004">static const long ERR_OPTMULT = 45004;</a></pre>
+       
+  <li> error code indicating non-boolean option appears at end of list:
+
+       <pre><a href="/perl/ifc_document.pl?err=00045005">static const long ERR_OPTARG = 45005;</a></pre>
+
+  <li> error code indicating an option name did not exist on the command line:
+
+       <pre><a href="/perl/ifc_document.pl?err=00045006">static const long ERR_OPTPARS = 45006;</a></pre>
+</ul> 
+ 
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> define the program name (argv[0]):
+
+       <pre>String prog_name_d;</pre>
+
+  <li> define command line options:
+
+       <pre>Vector&lt;String&gt; options_d;</pre>
+
+  <li> define data types for each option:
+
+       <pre>Vector&lt;String&gt; types_d;</pre>
+
+  <li> define a vector to track whether an option has been used:
+
+       <pre>Vector&lt;Boolean&gt; used_d;</pre>
+
+  <li> define a vector to hold unused arguments:
+
+       <pre>Vector&lt;String&gt; args_d;</pre>
+
+  <li> define a vector to hold the values supplied for each
+       argument on the command line:
+
+       <pre>Vector&lt;String&gt; values_d;</pre>
+
+  <li> define a flag for echoing the command line:
+
+       <pre>Boolean echoc_flag_d;</pre>
+
+  <li> define a flag to indicate the help message needs to be displayed:
+
+       <pre>Boolean help_flag_d;</pre>
+
+  <li> define a flag for displaying the usage message:
+
+       <pre>Boolean usage_flag_d;</pre>
+
+  <li> define a variable used to display a version flag:
+
+       <pre>Boolean version_flag_d;</pre>
+
+  <li> define a string for the help flag:
+
+       <pre>String help_msg_d;</pre>
+       
+  <li> define a string to hold the usage message:
+
+       <pre>String usage_msg_d;</pre>
+       
+  <li> define a string to hold the version message:
+
+       <pre>String version_msg_d;</pre>
+       
+  <li> define a string to hold an expanded command line:
+
+       <pre>String expanded_d;</pre>
+
+  <li> define a pointer to an Sdb object:
+
+       <pre>Sdb* sdb_d;</pre>
+
+  <li> define the size of the list of options: 
+
+       <pre>long objects_size_d;</pre>
+
+  <li> define array of void pointers to hold the objects:
+
+       <pre>void** objects_d;</pre>
+
+  <li> define a flag for tracking usage message printing:
+
+       <pre>boolean usage_printed_d;</pre>
+
+  <li> define a diagnostic parameter:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_00.cc&static=test_mode_d">static boolean test_mode_d;</a></pre>
+       
+  <li> define a debug level:
+
+       <pre>Integral::DEBUG debug_level_d;</pre>
+
+  <li> define the static memory manager:
+
+        <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_00.cc&static=mgr_d">static MemoryManager mgr_d;</a></pre>
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li> static methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=name">static const String& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_02.cc">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+
+  <li> debug methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=setDebug">boolean setDebug(Integral::DEBUG level);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_01.cc&method=debug">boolean debug(const unichar* message) const;</a></pre>
+  
+  <li> destructor/ constructor(s):
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_00.cc&method=destructor">~CommandLine();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_00.cc&method=default+constructor">CommandLine();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_00.cc&method=copy+constructor">CommandLine(const CommandLine& arg);</a></pre>
+
+  <li> assign methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_03.cc&method=assign&instance=0">boolean assign(const CommandLine& arg);</a></pre>
+
+  <li> operator= methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=operator%3D">CommandLine& operator=(const CommandLine& arg);</a></pre>
+       
+  <li> i/o methods:
+       <pre>these methods are omitted because CommandLine object can not
+write itself to an Sof file</pre>
+                
+  <li> equality methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=eq">boolean eq(const CommandLine& arg) const;</a></pre>
+
+  <li> memory management methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=new">static void* operator new(size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=new[]">static void* operator new[](size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=delete">static void operator delete(void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=delete[]">static void operator delete[](void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=setGrowSize">static boolean setGrowSize(long grow_size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_03.cc&method=clear">boolean clear(Integral::CMODE cmode = Integral::DEF_CMODE);</a></pre>
+</ul>
+       
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>
+  <li> destructor/ constructor(s):
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_00.cc&method=constructor">CommandLine(Sdb& arg);</a></pre>
+
+  <li> assign methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_03.cc&method=assign&instance=1">boolean assign(const String& arg);</a></pre>       
+       
+  <li> set help and usage file methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=setHelp">boolean setHelp(const unichar* help_message);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=setUsage">boolean setUsage(const unichar* usage_message);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=setVersion">boolean setVersion(const unichar* version_message);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_04.cc&method=setIdent">boolean setIdent(const char* rev_str, const char* name_str, const char* date_str);</a></pre>
+       
+  <li> set Sdb object methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_04.cc&method=setSdb">boolean setSdb(Sdb& arg_a);</a></pre>
+       
+  <li> print methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_04.cc&method=printUsage">boolean printUsage();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_04.cc&method=printHelp">boolean printHelp() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_04.cc&method=printVersion">boolean printVersion() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_04.cc&method=printCommandLine">boolean printCommandLine() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_04.cc&method=printFinalReport">static boolean printFinalReport(const String& prog_name, long num_completed, long num_attempted);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=printFinalReport">boolean printFinalReport(long num_completed, long num_attempted) const;</a></pre>
+
+  <li> methods to add options that are logical flags:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=addFlagParam">boolean addFlagParam(Boolean& var, const String& param);</a></pre>
+       
+  <li> methods to add options for specific types of parameters:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=addOptionParam&instance=0">boolean addOptionParam(File::TYPE& var, const String& param, const File::TYPE& def_value = File::DEF_TYPE);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=addOptionParam&instance=1">boolean addOptionParam(String& var, const String& param, const String& def_value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=addOptionParam&instance=2">boolean addOptionParam(Filename& var, const String& param, const Filename& def_value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=addOptionParam&instance=3">boolean addOptionParam(DebugLevel& var, const String& param = DebugLevel::DEF_PARAM, Integral::DEBUG def_value = Integral::DEF_DEBUG);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=addOptionParam&instance=4">boolean addOptionParam(Byte& var, const String& param, byte def_value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=addOptionParam&instance=5">boolean addOptionParam(Short& var, const String& param, short def_value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=addOptionParam&instance=6">boolean addOptionParam(Long& var, const String& param, long def_value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=addOptionParam&instance=7">boolean addOptionParam(Llong& var, const String& param, llong def_value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=addOptionParam&instance=8">boolean addOptionParam(Ushort& var, const String& param, ushort def_value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=addOptionParam&instance=9">boolean addOptionParam(Ulong& var, const String& param, ulong def_value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=addOptionParam&instance=10">boolean addOptionParam(Ullong& var, const String& param, ullong def_value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=addOptionParam&instance=11">boolean addOptionParam(Float& var, const String& param, float def_value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=addOptionParam&instance=12">boolean addOptionParam(Double& var, const String& param, double def_value);</a></pre>
+
+  <li> methods to add multiple valued options:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=addOptionParam&instance=13">boolean addOptionParam(SingleLinkedList&lt;String&gt;& var, const String& param);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=addOptionParam&instance=14">boolean addOptionParam(SingleLinkedList&lt;Filename&gt;& var, const String& param);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=addOptionParam&instance=15">boolean addOptionParam(SingleLinkedList&lt;Byte&gt;& var, const String& param);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=addOptionParam&instance=16">boolean addOptionParam(SingleLinkedList&lt;Short&gt;& var, const String& param);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=addOptionParam&instance=17">boolean addOptionParam(SingleLinkedList&lt;Long&gt;& var, const String& param);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=addOptionParam&instance=18">boolean addOptionParam(SingleLinkedList&lt;Llong&gt;& var, const String& param);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=addOptionParam&instance=19">boolean addOptionParam(SingleLinkedList&lt;Ushort&gt;& var, const String& param);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=addOptionParam&instance=20">boolean addOptionParam(SingleLinkedList&lt;Ulong&gt;& var, const String& param);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=addOptionParam&instance=21">boolean addOptionParam(SingleLinkedList&lt;Ullong&gt;& var, const String& param);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=addOptionParam&instance=22">boolean addOptionParam(SingleLinkedList&lt;Float&gt;& var, const String& param);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=addOptionParam&instance=22">boolean addOptionParam(SingleLinkedList&lt;Double&gt;& var, const String& param);</a></pre>
+
+  <li> get methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=getProgName">const String& getProgName() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_05.cc&method=getArgument">boolean getArgument(String& arg_a, long ordinal_number) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=numArguments">long numArguments() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=getExpanded">boolean getExpanded(String& arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_05.cc&method=getOptionIndex">long getOptionIndex(const String& opt_name , boolean prefix = false);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_05.cc&method=getValue">boolean getValue(String& value, const String& opt_name, boolean prefix = false);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_05.cc&method=isPresent">boolean isPresent(const String& opt_name, boolean prefix = false) const;</a></pre>
+
+  <li> parse methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_06.cc&method=parse&instance=0">boolean parse(int argc, const char** argv);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_06.cc&method=parse&instance=1">boolean parse(const String& line);</a></pre>
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+  <li> a general add option method: 
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/cmdl_05.cc&method=addOptionParam">boolean addOptionParam(void* var, const String& name, const String& param);</a></pre>
+
+  <li> a multiple parameter type checking method: 
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/CommandLine/CommandLine.h&method=isMultipleParam">boolean isMultipleParam(long index);</a></pre>
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+  <li>This example shows how to retrieve the command line arguments and
+       values for the following program:
+
+       <pre>foo.exe -nbytes 4 -mode stereo file.raw</pre>
+
+       The code below demonstrates how to initialize a command line object
+       to process this command line:
+
+       <pre>
+// declare a command line, and a string containing an example command line
+//
+CommandLine cmdl;
+String str(L"foo.exe -nbytes 4 -mode stereo file.raw");
+
+// add the mode
+//
+String mode_param(L"mode");
+String mode_def(L"play");
+String mode;
+       
+cmdl.addOptionParam(mode, mode_param, mode_def);
+       
+// add the number of bytes
+//
+String nbytes_param(L"nbytes");
+Long nbytes;
+cmdl.addOptionParam(nbytes, nbytes_param, (long)2);
+       
+// set the help message
+//
+cmdl.setHelp(#include "dbg_help.help");
+       
+// parse the commandline
+//
+cmdl.parse(str);
+       
+// print the mode
+//
+mode.debug(L"mode");
+       
+// get number of unused arguments
+//
+Long num_arg = (long)cmdl.numArguments();
+       
+// get unused arguments
+//
+String arg;
+cmdl.getArgument(arg, 0);
+       
+// print the number of unused arguments
+//
+num_arg.debug(L"numArguments");
+       
+// print the unused argument
+//
+arg.debug(L"getArgument");</pre>
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> The main advantage of this class is that
+       it is used by every utility, and hence centralizes command line
+       argument processing. It is also a way of providing a uniform interface
+       across all utilities, since this class standardizes the syntax for
+       command line arguments.
+</ul>       
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

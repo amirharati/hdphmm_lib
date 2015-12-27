@@ -1,0 +1,398 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="Vector" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="name">
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h">Vector&lt;class TObject&gt</a>: public <a href = "../DstrBase/">DstrBase&lt;TObject&gt;</a></b>
+
+<br><br>
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ...
+
+#include &lt;Vector.h&gt;
+Vector(long length = DEF_LENGTH);
+boolean assign(const Vector&lt;TObject&gt& copy_vector);
+boolean shift(long delta);
+boolean apply(boolean (TObject::*method)());
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+// declare a character Vector of length 5
+//
+Vector&lt;Char&gt val0(5);
+
+// assign all the elements to be 'a'
+//
+Char item(L'a');
+val0.assign(item);
+
+// check that each element is 'a'
+//
+for (long i = 0; i &lt; 5; i++) {
+
+  if (val0(i).ne(item)) {
+     // error
+  }
+}</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+The Vector class is a container
+class that can hold an array of objects, such as Char, String, etc.
+Vector provides the functionality of a standard C++ vector, such as
+random indexing, supports dynamic resizing, and even allows you
+to read/write the data from an Sof file as a single Vector object.
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+<ul>
+  <li> <a href="../DstrBase/index.html"> DstrBase </a><br>
+  <li> <a href="../DoubleLinkedList/index.html"> DoubleLinkedList </a> <br>
+  <li> <a href="../../math/scalar/Long/index.html"> Long </a> <br>
+  <li> <a href="../../math/scalar/String/index.html"> String </a> <br>
+  <li> <a href="../../math/scalar/Char/index.html"> Char </a> <br>
+  <li> <a href="../../system/Console/index.html"> Console </a> <br>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&constant=CLASS_NAME">static const SysString CLASS_NAME = L"Vector";</a></pre>
+       
+  <li> i/o related constants:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&constant=DEF_PARAM">static const SysString DEF_PARAM = L"values";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&constant=BLOCK_START_STR">static const SysString BLOCK_START_STR = L"{";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&constant=BLOCK_DELIM_STR">static const SysString BLOCK_DELIM_STR = L"}, {";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&constant=BLOCK_END_STR">static const SysString BLOCK_END_STR = L"}";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&constant=BLOCK_TERM_STR">static const SysString BLOCK_TERM_STR = L";\n";</a></pre>              
+
+       <pre>static const long static const long SKIP_TABLE_FREQUENCY = 1000;</pre>
+       <pre>static const long static const long SKIP_TABLE_SKIP = 100;</pre>
+       <pre>static const long SKIP_TABLE_SIZE = sizeof(int32) * (SKIP_TABLE_FREQUENCY / SKIP_TABLE_SKIP);</pre>
+       
+  <li> i/o data buffering lengths:
+       
+       <pre>static const long TEXT_WRITE_SIZE = 512;</pre>
+       
+  <li> default values and arguments:
+       
+       <pre>static const long DEF_LENGTH = 0;
+static const long DEF_END_POS = -1; </pre>
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> general Vector class error:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00040900">static const long ERR = 40900;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00040901">static const long ERR_WMODE = 40901;</a></pre>
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> vector elements :
+       
+       <pre>TObject* v_d; </pre>
+       
+  <li> number of elements of this vector:
+       
+       <pre> Long length_d; </pre>
+       
+  <li> the maximum number of elements:
+       
+       <pre>Long capacity_d; </pre>
+       
+  <li> mode of write:
+       
+       <pre>boolean write_partial_d;</pre>
+       
+  <li> the end index of the sof being written:
+       
+       <pre>long end_pos_d;</pre>
+       
+  <li> the position in sof to write the length:
+       
+       <pre>long len_pos_d;</pre>
+       
+  <li> debugging parameters:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&static=debug_level_d">static Integral::DEBUG debug_level_d;</a></pre>
+
+  <li> static memory manager:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&static=mgr_d">static MemoryManager mgr_d;</a></pre>       
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>  
+  <li> static methods: diagnose method is moved outside the class
+header file and defined in the VectorDiagnose.h in order to avoid the
+issues related with the preprocessing of the diagnose code
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=name">static const String& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/VectorDiagnose.h&method=diagnose">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+       
+  <li> debug methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=setDebug">static boolean setDebug(Integral::DEBUG debug_level);</a></pre>       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=debug">boolean debug(const unichar* message) const;</a></pre>
+       
+  <li> destructor/constructor(s):
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=destructor">~Vector();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=default+constructor&instance=0">Vector(long length = DEF_LENGTH);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=copy+constructor&instance=0">Vector(const Vector&lt;TObject&gt;& copy_Vector);</a></pre>
+
+  <li> assign methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=assign&instance=0">boolean assign(const Vector&lt;TObject&gt;& copy_Vector);</a></pre>
+
+  <li> operator= methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=operator%3D">Vector&lt;TObject&gt;& operator=(const Vector<TObject>& arg);</a></pre>
+
+  <li> equality methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=eq">boolean eq(const Vector&lt;TObject&gt;& compare_Vector) const;</a></pre>
+              
+  <li> i/o methods: refer to the <a href = "./index.html#notes">notes</a>
+section for an explanation of having two read and write methods in
+this class
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=sofSize">long sofSize() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=read&instance=0">boolean read(Sof& sof_a, long tag_a);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=write&instance=0">boolean write(Sof& sof_a, long tag_a) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=read&instance=1">boolean read(Sof& sof_a, long tag_a, const String& name_a);</a></pre>              
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=write&instance=1">boolean write(Sof& sof_a, long tag_a, const String& name_a) const;</a></pre>       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=readData">boolean readData(Sof& sof, const String& pname,long size = SofParser::FULL_OBJECT, boolean param_a = true, boolean nested_a = false);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=writeData">boolean writeData(Sof& sof, const String& pname) const;</a></pre>
+
+  <li> memory management methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=new">static void* operator new(size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=new\[\]">static void* operator new[](size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=delete">static void operator delete(void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=delete\[\]">static void operator delete[](void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=setGrowSize">static boolean setGrowSize(long grow_size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=clear">boolean clear();</a></pre>
+</ul>    
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>
+  <li> assign methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=assign&instance=1">boolean assign(TObject& arg);</a></pre> 
+  
+  <li> equality methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=ne">boolean ne(const Vector&lt;TObject&gt;& compare_Vector) const;</a></pre>
+
+  <li> partial i/o methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=readStart">boolean readStart(Sof& sof, const String& pname = DEF_PARAM, long size = SofParser::FULL_OBJECT, boolean param = true, boolean nested = true);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=readPartialData">boolean readPartialData(Sof& sof, long start_pos, long num_elem, const String& pname = DEF_PARAM, long size = SofParser::FULL_OBJECT, boolean param = true, boolean nested = false);</a></pre>       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=readTerminate">boolean readTerminate(Sof& sof);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=writeStart">long writeStart(Sof& sof, const String& pname = DEF_PARAM);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=writePartialData">boolean writePartialData(Sof& sof, long start_pos, long num_elem);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=writeTerminate">boolean writeTerminate(Sof& sof, const String& pname = DEF_PARAM);</a></pre>
+
+  <li> item access methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=operator()&instance=0">TObject& operator()(long index_a);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=operator()&instance=1">const TObject& operator()(long index_a) const;</a></pre>
+
+  <li> size-related methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=length">long length() const;</a></pre>
+        <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=getCapacity">long getCapacity() const;</a></pre>
+        <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method="getVectorSize&instance=0>long getVectorSize(long offset_a, Sof& sof_a);</a></pre>
+
+        <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method="getVectorSize&instance=1>long getVectorSize(Sof& sof, long tag, const String& name = name(), const String& pname = DEF_PARAM, long size = SofParser::FULL_OBJECT, boolean param = true, boolean nested = true);</a></pre>
+       
+       
+       
+  <li> resize methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=setLength">boolean setLength(long length, boolean preserve_values = true);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=setCapacity">boolean setCapacity(long capacity, boolean preserve_values = true);</a></pre>
+       
+  <li> data manipulation methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=move">boolean move(const Vector&lt;TObject&gt;& source_vector, long num_elements, long source_offset, long dest_offset);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=shift&instance=0">boolean shift(const Vector&lt;TObject&gt;& source_vector, long delta);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=shift&instance=1">boolean shift(long delta);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=concat&instance=0">boolean concat(const Vector&lt;TObject&gt;& v2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=concat&instance=1">boolean concat(const Vector&lt;TObject&gt;& v1, Vector&lt;TObject&gt;& v2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=concat&instance=2">boolean concat(const TObject& obj);</a></pre>
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=deleteRange&instance=0">boolean deleteRange(const Vector&lt;TObject&gt; arg, long offset, long num_elements);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=deleteRange&instance=1">boolean deleteRange(long offset, long num_elements);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=setRange">boolean setRange(long offset, long num_elements, const TObject& value);</a></pre>
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=sort">boolean sort(Integral::ORDER sort_order = Integral::ASCENDING, SORT_ALGO = DEF_SORT_ALGO);</a></pre>
+       
+  <li> item location and containment methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=first">long first(const TObject& value, long start_pos = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=last">long last(const TObject& value, long end_pos = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=contains&instance=0">boolean contains(long& index, const TObject* value) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=contains&instance=1">boolean contains(const TObject* value) const;</a></pre>
+
+  <li> apply methods: methods to apply an external function to each element in the Vector
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=apply&instance=0">boolean apply(boolean (TObject::*method)(), Vector&lt;TObject&gt;& arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=apply&instance=1">boolean apply(boolean (TObject::*method)());</a></pre>
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<ul>
+       
+  <li> sort methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=randQuickSort">boolean randQuickSort(Integral::ORDER sort_order);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/Vector.h&method=insertionSort">boolean insertionSort(Integral::ORDER sort_order);</a></pre>
+</ul>
+
+<a name="friend">
+<b>friend classes:</b>
+<br><br>
+
+<ul>
+  <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Vector/VectorDiagnose.h">friend class VectorDiagnose;</a></pre>
+</ul>
+  
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+  <li> This example shows how to construct a vector and check if two
+       vectors are equal:
+<pre>
+#include &lt;Char.h&gt;
+#include &lt;Vector.h&gt;
+
+int main () {
+
+  // prepare items for the Vector
+  //
+  Char item(L'a');
+
+  // declare a Vector and assign all the items to be 'a'
+  //
+  Vector&lt;Char&gt; char_vector(5);
+  char_vector.assign(item);
+
+  if((!(char_vector.length() != (long)5)) || (char_vector(0).ne(item))) {
+
+    // exit
+    //
+    Integral::exit();
+    
+  }   
+
+  // copy the Vector
+  //
+  Vector&lt;Char&gt; copy_char_vector(char_vector);
+
+  // see if these Vectors are equivalent
+  //
+  if(!char_vector.eq(copy_char_vector)) {
+
+    // exit
+    //
+    Integral::exit();
+  }
+
+  // exit gracefully
+  //
+  Integral::exit();
+}</pre>
+</ul>
+
+<a name="notes">
+
+<b>notes:</b>
+<br><br>
+<ul>
+
+  <li> there is no memory allocation mode for the Vector class. Vector
+       is always in SYSTEM mode. 
+       <br><br>
+       
+  <li> A USER mode Vector can be created by using the
+       Vector&lt;Node&lt;TObject&gt;&gt; construct, but be
+       weary that the setLength method does not cause memory leaks.
+
+       <br><br>
+
+  <li> the partial read and write methods should be called together so as to complete the read/write. The readStart method allocates an sofParser object, which is used by the partial read method. 
+       <br><br>
+
+  <li> Unlike other classes, we have two read and write methods in dstr
+       classes. The interface is still the same as that in other
+       classes. The reason behind this is that we can not use
+       "CLASS_NAME" as default argument in the read and write methods
+       here because the data structures build the class name on the fly.
+       <br><br>
+
+  <li> To enable efficient random access to partial i/o in binary
+       mode, we must write marker blocks every so often so that we can
+       quickly skip through the file.<br><br>
+       <ul>
+       
+	 Before element 0, I will write 40 bytes. These 40 bytes are 10
+	 long integers, n0..n9.<br><br><ul>
+	   
+	   n0 is the location of element 100.<br><br>
+	   
+	   n1 is the location of element 200.<br><br>
+
+	   . . . <br><br>
+	   
+	   n9 is the location of the next skip table.<br><br>
+	 </ul>
+ 
+	 Before element 1000 I will write another 40 bytes, with skips to
+	 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, and the table
+	 before element 2000.
+  </ul>
+
+</ul>
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

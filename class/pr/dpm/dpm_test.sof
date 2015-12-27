@@ -1,0 +1,2403 @@
+@ Sof v1.0 @
+@ info 0 @
+database_type = DIRECT;
+@ record 0 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.734569,-9.420744;
+};
+labels = 4;
+@ record 1 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.362735,-29.617346;
+};
+labels = 3;
+@ record 2 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -1.309293,-9.428187;
+};
+labels = 4;
+@ record 3 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -1.320899,-10.566210;
+};
+labels = 4;
+@ record 4 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 1.814582,-31.105886;
+};
+labels = 3;
+@ record 5 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 1.971896,-29.539438;
+};
+labels = 3;
+@ record 6 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.445689,-0.645343;
+};
+labels = 1;
+@ record 7 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.408604,-30.092359;
+};
+labels = 3;
+@ record 8 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.741094,-30.168127;
+};
+labels = 3;
+@ record 9 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 10.129327,49.170135;
+};
+labels = 5;
+@ record 10 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 11.248156,48.021443;
+};
+labels = 5;
+@ record 11 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 14.698768,-0.640576;
+};
+labels = 2;
+@ record 12 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.156490,-2.903998;
+};
+labels = 1;
+@ record 13 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 16.325968,-0.503746;
+};
+labels = 2;
+@ record 14 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 1.279751,0.933035;
+};
+labels = 1;
+@ record 15 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.314357,0.159254;
+};
+labels = 1;
+@ record 16 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -1.392022,-10.889556;
+};
+labels = 4;
+@ record 17 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.431792,1.726020;
+};
+labels = 1;
+@ record 18 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 15.651013,0.468097;
+};
+labels = 2;
+@ record 19 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.723624,-10.923554;
+};
+labels = 4;
+@ record 20 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 15.208885,-1.833759;
+};
+labels = 2;
+@ record 21 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.923990,-31.815463;
+};
+labels = 3;
+@ record 22 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 1.388654,-29.073705;
+};
+labels = 3;
+@ record 23 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.748482,-10.958233;
+};
+labels = 4;
+@ record 24 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 14.052678,0.150303;
+};
+labels = 2;
+@ record 25 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 14.670985,-1.514191;
+};
+labels = 2;
+@ record 26 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -1.108144,-0.467544;
+};
+labels = 1;
+@ record 27 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 10.443212,51.472278;
+};
+labels = 5;
+@ record 28 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 14.389389,-1.007688;
+};
+labels = 2;
+@ record 29 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.186947,-0.539445;
+};
+labels = 1;
+@ record 30 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -1.053541,-10.722938;
+};
+labels = 4;
+@ record 31 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.517199,2.629230;
+};
+labels = 1;
+@ record 32 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 10.068314,50.687025;
+};
+labels = 5;
+@ record 33 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 9.949139,49.802175;
+};
+labels = 5;
+@ record 34 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 10.442789,48.276618;
+};
+labels = 5;
+@ record 35 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.059190,-31.220693;
+};
+labels = 3;
+@ record 36 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.178186,-0.329499;
+};
+labels = 1;
+@ record 37 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 13.585338,-0.407182;
+};
+labels = 2;
+@ record 38 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 14.656264,-1.692014;
+};
+labels = 2;
+@ record 39 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 9.751541,48.884100;
+};
+labels = 5;
+@ record 40 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 16.185124,-3.635486;
+};
+labels = 2;
+@ record 41 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.965987,0.138241;
+};
+labels = 1;
+@ record 42 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 13.586515,-0.229582;
+};
+labels = 2;
+@ record 43 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -1.882653,-10.198353;
+};
+labels = 4;
+@ record 44 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.405478,-29.721562;
+};
+labels = 3;
+@ record 45 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 16.248450,-0.410680;
+};
+labels = 2;
+@ record 46 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.280726,-29.355721;
+};
+labels = 3;
+@ record 47 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.019976,0.220549;
+};
+labels = 1;
+@ record 48 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 1.752867,-0.664780;
+};
+labels = 1;
+@ record 49 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 14.392072,-0.963613;
+};
+labels = 2;
+@ record 50 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 17.179642,-3.095882;
+};
+labels = 2;
+@ record 51 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 15.234313,0.245134;
+};
+labels = 2;
+@ record 52 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 14.577118,-1.547670;
+};
+labels = 2;
+@ record 53 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 13.533189,-0.732832;
+};
+labels = 2;
+@ record 54 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 14.530276,0.569232;
+};
+labels = 2;
+@ record 55 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 10.605213,49.982857;
+};
+labels = 5;
+@ record 56 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.740529,-9.470032;
+};
+labels = 4;
+@ record 57 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 13.044673,-0.637283;
+};
+labels = 2;
+@ record 58 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -1.313960,-8.583556;
+};
+labels = 4;
+@ record 59 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 13.484431,-0.929866;
+};
+labels = 2;
+@ record 60 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.569384,-29.295958;
+};
+labels = 3;
+@ record 61 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 1.138896,-30.251627;
+};
+labels = 3;
+@ record 62 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 1.972408,-30.332621;
+};
+labels = 3;
+@ record 63 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 10.392371,49.956885;
+};
+labels = 5;
+@ record 64 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.841900,-30.075461;
+};
+labels = 3;
+@ record 65 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.891142,-10.744294;
+};
+labels = 4;
+@ record 66 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.640611,-29.352742;
+};
+labels = 3;
+@ record 67 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 14.422626,-1.877387;
+};
+labels = 2;
+@ record 68 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 15.389338,-1.603260;
+};
+labels = 2;
+@ record 69 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 9.422135,50.132981;
+};
+labels = 5;
+@ record 70 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 14.429148,-0.960079;
+};
+labels = 2;
+@ record 71 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 14.686833,1.060011;
+};
+labels = 2;
+@ record 72 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -1.840371,-10.291649;
+};
+labels = 4;
+@ record 73 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 9.935373,50.377317;
+};
+labels = 5;
+@ record 74 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 1.150681,-29.727818;
+};
+labels = 3;
+@ record 75 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 14.997896,-0.152766;
+};
+labels = 2;
+@ record 76 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 14.299812,-0.352791;
+};
+labels = 2;
+@ record 77 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.726683,-10.356189;
+};
+labels = 4;
+@ record 78 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.552119,0.166545;
+};
+labels = 1;
+@ record 79 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 14.988382,-0.577447;
+};
+labels = 2;
+@ record 80 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 1.719698,-29.830226;
+};
+labels = 3;
+@ record 81 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 1.360036,-30.589371;
+};
+labels = 3;
+@ record 82 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 13.470098,-2.064291;
+};
+labels = 2;
+@ record 83 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 16.428371,0.281796;
+};
+labels = 2;
+@ record 84 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 1.357194,-30.833641;
+};
+labels = 3;
+@ record 85 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.169447,-0.073815;
+};
+labels = 1;
+@ record 86 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 15.553657,-1.993110;
+};
+labels = 2;
+@ record 87 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 9.727427,49.648149;
+};
+labels = 5;
+@ record 88 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.122264,-29.971239;
+};
+labels = 3;
+@ record 89 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 14.474201,-0.603984;
+};
+labels = 2;
+@ record 90 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 17.815592,-2.124198;
+};
+labels = 2;
+@ record 91 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.204979,-29.371187;
+};
+labels = 3;
+@ record 92 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 1.769661,0.528431;
+};
+labels = 1;
+@ record 93 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -1.139039,0.519817;
+};
+labels = 1;
+@ record 94 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 1.166734,-0.445416;
+};
+labels = 1;
+@ record 95 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 10.520412,49.671337;
+};
+labels = 5;
+@ record 96 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.552602,0.366543;
+};
+labels = 1;
+@ record 97 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.447991,-30.699409;
+};
+labels = 3;
+@ record 98 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 14.114525,-1.444726;
+};
+labels = 2;
+@ record 99 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 2.011297,-28.999287;
+};
+labels = 3;
+@ record 100 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.574502,-30.512419;
+};
+labels = 3;
+@ record 101 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.422586,1.768725;
+};
+labels = 1;
+@ record 102 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 11.238537,50.459576;
+};
+labels = 5;
+@ record 103 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 16.499388,-0.665312;
+};
+labels = 2;
+@ record 104 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 12.427258,-2.993141;
+};
+labels = 2;
+@ record 105 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 16.181320,-1.544760;
+};
+labels = 2;
+@ record 106 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 1.992130,-30.152843;
+};
+labels = 3;
+@ record 107 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 15.258762,-0.562107;
+};
+labels = 2;
+@ record 108 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 9.559089,50.897398;
+};
+labels = 5;
+@ record 109 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 15.378240,-1.826789;
+};
+labels = 2;
+@ record 110 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 10.109372,50.926271;
+};
+labels = 5;
+@ record 111 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 15.531838,-0.902693;
+};
+labels = 2;
+@ record 112 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.479407,-0.104720;
+};
+labels = 1;
+@ record 113 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 9.788255,49.506302;
+};
+labels = 5;
+@ record 114 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.222922,-1.472606;
+};
+labels = 1;
+@ record 115 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 13.948216,-1.008735;
+};
+labels = 2;
+@ record 116 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 15.294456,-3.792276;
+};
+labels = 2;
+@ record 117 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.874777,0.420417;
+};
+labels = 1;
+@ record 118 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.788408,1.414932;
+};
+labels = 1;
+@ record 119 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.185699,-0.791172;
+};
+labels = 1;
+@ record 120 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.650376,-29.632398;
+};
+labels = 3;
+@ record 121 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.114667,-0.135143;
+};
+labels = 1;
+@ record 122 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.816074,-8.953532;
+};
+labels = 4;
+@ record 123 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 15.748686,-0.752622;
+};
+labels = 2;
+@ record 124 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.263019,-1.045869;
+};
+labels = 1;
+@ record 125 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 13.659609,0.050628;
+};
+labels = 2;
+@ record 126 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.850510,0.071309;
+};
+labels = 1;
+@ record 127 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.703419,-1.701559;
+};
+labels = 1;
+@ record 128 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.973799,-0.872067;
+};
+labels = 1;
+@ record 129 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.255153,-1.642838;
+};
+labels = 1;
+@ record 130 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 15.062084,-2.454700;
+};
+labels = 2;
+@ record 131 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 10.468417,49.880034;
+};
+labels = 5;
+@ record 132 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -1.495594,-31.472907;
+};
+labels = 3;
+@ record 133 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 10.949910,49.570036;
+};
+labels = 5;
+@ record 134 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.532662,-10.238123;
+};
+labels = 4;
+@ record 135 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 13.549190,-1.662368;
+};
+labels = 2;
+@ record 136 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 1.546376,-31.077194;
+};
+labels = 3;
+@ record 137 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 15.614781,-0.627040;
+};
+labels = 2;
+@ record 138 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 10.607105,50.454785;
+};
+labels = 5;
+@ record 139 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 10.196845,49.897842;
+};
+labels = 5;
+@ record 140 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -1.476516,-11.037547;
+};
+labels = 4;
+@ record 141 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 15.954499,-1.761100;
+};
+labels = 2;
+@ record 142 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 14.979495,1.496890;
+};
+labels = 2;
+@ record 143 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 2.653601,-29.911914;
+};
+labels = 3;
+@ record 144 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 13.880554,0.296268;
+};
+labels = 2;
+@ record 145 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.692094,-10.509543;
+};
+labels = 4;
+@ record 146 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 14.448690,0.887902;
+};
+labels = 2;
+@ record 147 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.512840,-30.573334;
+};
+labels = 3;
+@ record 148 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 14.674858,-1.479699;
+};
+labels = 2;
+@ record 149 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.153729,-1.228482;
+};
+labels = 1;
+@ record 150 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 2.158842,-29.370432;
+};
+labels = 3;
+@ record 151 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 13.680703,-1.746061;
+};
+labels = 2;
+@ record 152 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -1.457234,-10.516194;
+};
+labels = 4;
+@ record 153 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.655769,-10.654345;
+};
+labels = 4;
+@ record 154 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 16.047495,0.602811;
+};
+labels = 2;
+@ record 155 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 9.717098,50.746371;
+};
+labels = 5;
+@ record 156 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 9.880950,49.964734;
+};
+labels = 5;
+@ record 157 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 1.066408,-0.586764;
+};
+labels = 1;
+@ record 158 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.268580,-9.067895;
+};
+labels = 4;
+@ record 159 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.526664,-0.102325;
+};
+labels = 1;
+@ record 160 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.799693,-30.223501;
+};
+labels = 3;
+@ record 161 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -1.025128,-1.590354;
+};
+labels = 1;
+@ record 162 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 9.493021,48.377884;
+};
+labels = 5;
+@ record 163 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -1.467617,-10.519983;
+};
+labels = 4;
+@ record 164 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 8.900776,49.151622;
+};
+labels = 5;
+@ record 165 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 13.072819,-0.426593;
+};
+labels = 2;
+@ record 166 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.995938,-29.589241;
+};
+labels = 3;
+@ record 167 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 8.978994,49.532902;
+};
+labels = 5;
+@ record 168 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 11.104731,50.506747;
+};
+labels = 5;
+@ record 169 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 13.178354,-0.430063;
+};
+labels = 2;
+@ record 170 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.494318,-28.982899;
+};
+labels = 3;
+@ record 171 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.797205,-30.671386;
+};
+labels = 3;
+@ record 172 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 2.056673,0.079087;
+};
+labels = 1;
+@ record 173 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.349773,-29.060987;
+};
+labels = 3;
+@ record 174 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 10.413555,49.009852;
+};
+labels = 5;
+@ record 175 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 1.380926,1.314740;
+};
+labels = 1;
+@ record 176 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 1.203957,-30.635860;
+};
+labels = 3;
+@ record 177 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.864463,-10.574591;
+};
+labels = 4;
+@ record 178 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 2.054688,-29.575237;
+};
+labels = 3;
+@ record 179 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.133961,0.550538;
+};
+labels = 1;
+@ record 180 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.208889,1.262057;
+};
+labels = 1;
+@ record 181 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.149472,-11.005675;
+};
+labels = 4;
+@ record 182 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -2.121408,-10.846568;
+};
+labels = 4;
+@ record 183 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -1.544797,-10.356874;
+};
+labels = 4;
+@ record 184 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 13.874712,-0.611269;
+};
+labels = 2;
+@ record 185 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 9.658572,49.747661;
+};
+labels = 5;
+@ record 186 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -1.777217,-10.300660;
+};
+labels = 4;
+@ record 187 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -1.016935,-9.169117;
+};
+labels = 4;
+@ record 188 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.669875,-30.004150;
+};
+labels = 3;
+@ record 189 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.572467,-0.065553;
+};
+labels = 1;
+@ record 190 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 13.573242,0.001043;
+};
+labels = 2;
+@ record 191 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 14.027804,-0.750635;
+};
+labels = 2;
+@ record 192 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 1.282354,-28.791964;
+};
+labels = 3;
+@ record 193 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 13.743494,-3.063750;
+};
+labels = 2;
+@ record 194 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 15.616834,0.839692;
+};
+labels = 2;
+@ record 195 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 15.867792,1.048555;
+};
+labels = 2;
+@ record 196 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.218681,0.727439;
+};
+labels = 1;
+@ record 197 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.599676,-0.636324;
+};
+labels = 1;
+@ record 198 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 15.945137,-0.534348;
+};
+labels = 2;
+@ record 199 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.818395,-10.074701;
+};
+labels = 4;
+@ record 200 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 2.053535,-30.083622;
+};
+labels = 3;
+@ record 201 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 15.083735,-0.472956;
+};
+labels = 2;
+@ record 202 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 14.011005,-0.895920;
+};
+labels = 2;
+@ record 203 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 1.604538,1.333370;
+};
+labels = 1;
+@ record 204 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -1.181138,-9.864959;
+};
+labels = 4;
+@ record 205 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.396419,-9.707116;
+};
+labels = 4;
+@ record 206 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.940074,-29.697891;
+};
+labels = 3;
+@ record 207 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 15.551905,-0.354500;
+};
+labels = 2;
+@ record 208 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 14.047233,-0.914613;
+};
+labels = 2;
+@ record 209 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.079636,-30.464021;
+};
+labels = 3;
+@ record 210 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.335624,-29.043508;
+};
+labels = 3;
+@ record 211 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.079229,-0.443528;
+};
+labels = 1;
+@ record 212 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 1.873220,-28.805769;
+};
+labels = 3;
+@ record 213 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.810439,0.423435;
+};
+labels = 1;
+@ record 214 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -1.779666,2.167573;
+};
+labels = 1;
+@ record 215 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 13.880551,-2.227896;
+};
+labels = 2;
+@ record 216 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 1.066951,-30.394665;
+};
+labels = 3;
+@ record 217 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 14.471612,-0.704393;
+};
+labels = 2;
+@ record 218 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 14.227251,-0.430386;
+};
+labels = 2;
+@ record 219 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -2.051462,0.016788;
+};
+labels = 1;
+@ record 220 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 9.117488,50.156563;
+};
+labels = 5;
+@ record 221 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.207474,-0.995540;
+};
+labels = 1;
+@ record 222 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 13.916519,1.693106;
+};
+labels = 2;
+@ record 223 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.688083,-0.160128;
+};
+labels = 1;
+@ record 224 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -1.110944,-10.098609;
+};
+labels = 4;
+@ record 225 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.524428,-1.620730;
+};
+labels = 1;
+@ record 226 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 15.284301,-1.222493;
+};
+labels = 2;
+@ record 227 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 13.835454,-0.184289;
+};
+labels = 2;
+@ record 228 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 9.997062,49.438434;
+};
+labels = 5;
+@ record 229 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 10.125968,50.820102;
+};
+labels = 5;
+@ record 230 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.265836,0.793555;
+};
+labels = 1;
+@ record 231 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 15.695752,-0.761923;
+};
+labels = 2;
+@ record 232 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 9.264743,51.933072;
+};
+labels = 5;
+@ record 233 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 14.057824,-1.778778;
+};
+labels = 2;
+@ record 234 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.779577,0.221713;
+};
+labels = 1;
+@ record 235 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.569765,-9.285526;
+};
+labels = 4;
+@ record 236 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 2.610681,-29.466898;
+};
+labels = 3;
+@ record 237 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -1.073375,1.051517;
+};
+labels = 1;
+@ record 238 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 15.853830,1.618084;
+};
+labels = 2;
+@ record 239 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.668263,-10.439524;
+};
+labels = 4;
+@ record 240 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 15.993882,0.714953;
+};
+labels = 2;
+@ record 241 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.964878,-9.657614;
+};
+labels = 4;
+@ record 242 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.510838,0.495393;
+};
+labels = 1;
+@ record 243 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -1.387906,-10.963834;
+};
+labels = 4;
+@ record 244 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.589341,-0.478229;
+};
+labels = 1;
+@ record 245 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 15.888562,1.335408;
+};
+labels = 2;
+@ record 246 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 1.794190,1.648925;
+};
+labels = 1;
+@ record 247 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 15.202383,-0.429437;
+};
+labels = 2;
+@ record 248 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.424257,-9.626350;
+};
+labels = 4;
+@ record 249 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.163189,-10.257192;
+};
+labels = 4;
+@ record 250 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -1.752407,-10.852983;
+};
+labels = 4;
+@ record 251 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.378270,-0.295994;
+};
+labels = 1;
+@ record 252 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -1.763812,-9.145012;
+};
+labels = 4;
+@ record 253 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -1.096755,-11.012135;
+};
+labels = 4;
+@ record 254 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 3.513160,-29.268790;
+};
+labels = 3;
+@ record 255 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.649863,-10.451545;
+};
+labels = 4;
+@ record 256 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 14.914955,0.289793;
+};
+labels = 2;
+@ record 257 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.135167,-9.282755;
+};
+labels = 4;
+@ record 258 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.860258,-30.000859;
+};
+labels = 3;
+@ record 259 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 14.913886,-0.877832;
+};
+labels = 2;
+@ record 260 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 13.768604,-0.467014;
+};
+labels = 2;
+@ record 261 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -2.178645,-9.604309;
+};
+labels = 4;
+@ record 262 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.181316,0.313290;
+};
+labels = 1;
+@ record 263 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.793431,-0.404208;
+};
+labels = 1;
+@ record 264 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -1.310367,-9.616069;
+};
+labels = 4;
+@ record 265 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -1.631453,-9.621093;
+};
+labels = 4;
+@ record 266 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.287114,-29.302124;
+};
+labels = 3;
+@ record 267 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 1.267867,-29.137509;
+};
+labels = 3;
+@ record 268 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.501025,-9.682055;
+};
+labels = 4;
+@ record 269 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.905148,-1.055768;
+};
+labels = 1;
+@ record 270 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 2.087320,-30.252338;
+};
+labels = 3;
+@ record 271 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 16.072683,-1.918997;
+};
+labels = 2;
+@ record 272 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 14.616592,-0.785566;
+};
+labels = 2;
+@ record 273 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 11.060823,50.617939;
+};
+labels = 5;
+@ record 274 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 9.988350,50.390444;
+};
+labels = 5;
+@ record 275 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 9.820560,48.496737;
+};
+labels = 5;
+@ record 276 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.060395,-1.658592;
+};
+labels = 1;
+@ record 277 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.805129,1.038330;
+};
+labels = 1;
+@ record 278 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.416310,0.748785;
+};
+labels = 1;
+@ record 279 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 13.591059,0.233740;
+};
+labels = 2;
+@ record 280 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 1.577922,-29.641827;
+};
+labels = 3;
+@ record 281 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.350435,-0.283831;
+};
+labels = 1;
+@ record 282 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 0.320969,-30.573611;
+};
+labels = 3;
+@ record 283 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 14.136303,-1.997909;
+};
+labels = 2;
+@ record 284 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 1.450913,-31.700122;
+};
+labels = 3;
+@ record 285 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 16.249253,1.117910;
+};
+labels = 2;
+@ record 286 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 14.309166,-0.919471;
+};
+labels = 2;
+@ record 287 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 11.090288,50.757399;
+};
+labels = 5;
+@ record 288 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 1.384435,-29.794989;
+};
+labels = 3;
+@ record 289 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 14.795189,0.280674;
+};
+labels = 2;
+@ record 290 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -1.190633,-9.169967;
+};
+labels = 4;
+@ record 291 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -1.283694,0.094404;
+};
+labels = 1;
+@ record 292 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 1.342026,-28.686450;
+};
+labels = 3;
+@ record 293 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 15.104695,-0.980649;
+};
+labels = 2;
+@ record 294 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.762573,-9.542687;
+};
+labels = 4;
+@ record 295 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = 1.475955,-31.052560;
+};
+labels = 3;
+@ record 296 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.901288,-29.288799;
+};
+labels = 3;
+@ record 297 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.302202,-0.004894;
+};
+labels = 1;
+@ record 298 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -0.133121,1.258318;
+};
+labels = 1;
+@ record 299 @
+data = {
+	type = "FULL";
+	num_rows = 2;
+	num_cols = 1;
+	values = -1.735374,-10.090444;
+};
+labels = 4;

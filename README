@@ -1,0 +1,112 @@
+######################################## HDPHMM LIB ###########################
+###############################################################################
+### Amir Harati 2015 
+### This code can be used as it is. No  support will be provided.
+###
+###
+
+### If using this code, please cite at least one of the followings:
+
+Harati Nejad Torbati, A. H., & Picone, J. (2016). A Doubly Hierarchical Dirichlet Process Hidden Markov Model with a Non-Ergodic Structure. Audio, Speech, and Language Processing, IEEE/ACM Transactions on, 24(1), 174-184.
+
+Harati Nejad Torbati, A. H., Picone, J., & Sobel, M. (2014). A Left-to-Right HDP-HMM with HDPM Emissions. 48th Annual Conference on  on Information Sciences and Systems (CISS).
+
+Harati Nejad Torbati, A. (2015). Nonparametric Bayesian Approaches for Acoustic Modeling. Temple University. Retrieved from http://www.isip.piconepress.com/publications/phd_dissertations/2015/nb_acoustic_modeling/thesis/
+
+###
+
+#####
+This code is a part of my PhD dissertation and implements HDPHMM(fox et al.,2011) and DHDPHMM (harati et al.,2014,2015). It also can be used to implement DPM and HDP.
+Note 1: DHDPHMM is also known as HDPHMM with HDPM emissions.
+Note 2: This code support ergodic/non-ergodic structures for both HDPHMM/DHDPHMM.
+Note 3: The inference algorithm is based on block-sampler proposed by Fox et al.(2011) with necessary extenstions to support DHDPHMM.
+  
+The code is written using ISIP Fundamental Class (IFC); However sice IFC is not currently supported I decided to make a small library (still using some of the IFC classes) that can easily compiled on most systems. The code is tested on Red Hat (64  bit) and Ununtu (32 bit). This code also supports openMP and therefore can use multiple cores if existed.
+Currently only one  tool  (isip_hdphmm_train) is provided that can:
+1- train  HDPHMM/DHDPHMM and DPM/HDP models.   
+2- Decode the models.
+3- Find optimum path in a model given the observation.
+
+Alternatively source code can be used for an application.
+##############################################################################
+Installation:
+1- go to hdphmm_lib  directory.
+2- source ISIP_BASE_ENV.sh
+3- make depend
+4- make install
+
+##############################################################################
+Example usages:
+
+#usage 1(train):
+
+isip_hdphmm_train -params_file params.sof -train_file train.db  -itr $itr -raw_model raw_model  -final_model final_model -burn_in $burnin
+
+ where train.db is a database file (look at class/mmedia/Database.h)
+ $burnin is the number of iterations to be discared
+ if  we want to to continue from a saved model (should be saved in raw format):
+isip_hdphmm_train -params_file params.sof -train_file train.db  -itr $itr -raw_model raw_model  -final_model final_model -load old_raw_model -burn_in $burnin
+
+#usage 2 (decode):
+
+  isip_hdphmm_train -final_model final_model -log_likelihood eval.db
+ this command  read a final model in final_model and compute likelihood of all data points in eval.db and print them in the screen
+
+#usage 3 (Viterbi Path/State)
+
+isip_hdphmm_train -final_model final_model -alignment train.db  -alignment_algorithm viterbi -alignment_dir out_dir -alignment_time frame -alignment_mode state
+
+where  we used viterbi algorith, and output in out_dir(one file per utterance in HTK format). We have also used state model
+
+usage 4 (forward algorithm path generate posteriorgram probablities over state)
+
+isip_hdphmm_train -final_model final_model -alignment train.db  -alignment_algorithm forward -alignment_dir out_dir -alignment_time frame -alignment_mode state 
+
+##################################################################
+Example  :
+go to util/speech/isip_hdphmm_train/
+type:
+isip_hdphmm_train.exe -params_file params.sof -train_file train_zh.db -itr 10 -burn_in 5 -final_model fin_model  -raw_model raw_model
+
+This will train a model phoneme zh with 10 iterations and discard the first 5 iterations. 
+
+###################################
+Param file:
+Kz = 10; <- maximum number of states 
+emission_type = DPM ; -> HDPHMM model
+emission_type = HDP; ->DHDPHMM model
+hmm_parameter = alpha_a,alpha_b,beta_a,beta_b,c,d; (refer to Fox  et al.2011 paper)
+emission_parameter (HDPHMM):Ks,prior_type,sigma_a,sigma_b,pseudo mean,degree_of_freedom
+Ks: maximum number of components per state.
+prior_type: 0 =NIW  1:IW-N 2:IW-N tied
+pseudo_mean: just used for NIW .
+(refer to Fox et al. 2011  for details).
+emission_parameter (DHDPHMM):Ks,[Ks2],prior_type,sigma_a,sigma_b,landa_a,landa_b,pseudo mean,degree_of_freedom
+Ks: maximum number of Gaussians in the whole model (which can also be for each state)
+Ks2: is optional and should be less or equal to Ks. it specifiy the maximum number of  Gaussian per state
+(For more details  refer to Harati 2015, Harati et al. 2014, Harati and Picone 201x).
+
+##############################################################################
+References:
+HDPHMM/HDP/DPM:
+Fox, E., Sudderth, E., Jordan, M., & Willsky, A. (2011). A Sticky HDP-HMM with Application to Speaker Diarization. The Annalas of Applied Statistics, 5(2A), 1020
+Teh, Y., Jordan, M., Beal, M., & Blei, D. (2006). Hierarchical Dirichlet Processes. Journal of the American Statistical Association, 101(47), 1566
+
+DHDPHMM:
+
+Harati Nejad Torbati, A. H., & Picone, J. (2016). A Doubly Hierarchical Dirichlet Process Hidden Markov Model with a Non-Ergodic Structure. Audio, Speech, and Language Processing, IEEE/ACM Transactions on, 24(1), 174-184.
+
+Harati Nejad Torbati, A. H., Picone, J., & Sobel, M. (2014). A Left-to-Right HDP-HMM with HDPM Emissions. 48th Annual Conference on  on Information Sciences and Systems (CISS).
+
+Harati Nejad Torbati, A. (2015). Nonparametric Bayesian Approaches for Acoustic Modeling. Temple University. Retrieved from http://www.isip.piconepress.com/publications/phd_dissertations/2015/nb_acoustic_modeling/thesis/
+
+
+
+
+
+ 
+
+ 
+
+
+

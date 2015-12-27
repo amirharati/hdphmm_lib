@@ -1,0 +1,311 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="SofSymbolTable" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="name">
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/io/SofSymbolTable/SofSymbolTable.h">SofSymbolTable</a></b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ... -l /isip/tools/lib/$ISIP_BINARY/lib_io.a
+
+#include &lt;SofSymbolTable.h&gt;
+
+SofSymbolTable();
+long add(const SysString& name);
+boolean remove(long number);
+long getIndex(const SysString& name) const;
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+SofSymbolTable table0;
+SysString n1(L"Long")
+table0.add(n1);
+table0.remove(n1);
+
+SysString bad_name(L"oscar had");
+if (table0.checkName(bad_name)) {
+  return Error::handle(name(), L"checkName", Error::TEST, __FILE__, __LINE__);
+}
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+SofSymbolTable is a  class used to keep track of a symbol table for Sof's
+use. the symbol table is an array of SysStrings which are the symbol names.
+Programmers should never use the SofSymbolTable class directly, the
+ <a href="../../dstr/HashTable/index.html">HashTable</a> class provided
+in the DSTR library is much safer and more user friendly.
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+<ul>
+  <li>
+       <a href="../../system/SysString/index.html">SysString</a>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofSymbolTable/sofs_00.cc&constant=CLASS_NAME">static const SysString CLASS_NAME = L"SofSymbolTable";</a></pre>
+       
+  <li> define the maximum length of a symbol:
+       <pre>static const long MAX_SYM_LENGTH = 64;</pre>
+       
+  <li> define the size to grow the symbol array by each time:
+       <pre>static const long GROW_SIZE = 256;</pre>
+
+  <li> define invalid characters within symbol names:
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofSymbolTable/sofs_00.cc&constant=INVALID_CHARS">static const SysString INVALID_CHARS = L" {}=\\;\"'/`:#";</a></pre>
+
+  <li> define constants for efficiency measure:
+       <pre>static const long MAX_WASTED_SPACE = 1024;</pre>
+
+  <li> define a dummy index for a non-exist symbol in the table:
+       <pre>static const long NO_SYMB = -1;</pre>       
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> error code indicating SofSymbolTable class general error:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00010200">static const long ERR = 10200;</a></pre>
+
+  <li> error code indicating failure to add a symbol into the symbol table:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00010201">static const long ERR_ADD = 10201;</a></pre>
+
+  <li> error code indicating failure to add a symbol into the symbol table:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00010202">static const long ERR_NOTFND = 10202;</a></pre>
+
+  <li> error code indicating no transform vector:
+
+       <pre><a href="/perl/ifc_document.pl?err=00010203">static const long ERR_NOVEC = 10203;</a></pre>
+
+  <li> error code indicating symbol index out of range:
+
+       <pre><a href="/perl/ifc_document.pl?err=00010204">static const long ERR_SYMB = 10204;</a></pre>
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> an array of string symbols:
+       
+       <pre>SysString* table_d;</pre>
+
+  <li> number of references to symbols:
+       
+       <pre>long* ref_count_d;</pre>       
+
+  <li> current length of the symbol table (some entries may be empty):
+       
+       <pre>long table_size_d;</pre>
+
+  <li> number of non-empty entries in the symbol table:
+       
+       <pre>long num_syms_d;</pre>
+
+  <li> capacity of the symbol table, it can be grown dynamically:
+       
+       <pre>long table_capacity_d;</pre>
+
+  <li> parameters used to transform between tables:
+       
+       <pre>long* transform_d;</pre>
+       <pre>long transform_size_d;</pre>              
+       
+  <li> debugging parameters:
+       
+       <pre>Integral::DEBUG debug_level_d;</pre>
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li> static methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofSymbolTable/SofSymbolTable.h&method=name">static const SysString& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofSymbolTable/sofs_02.cc&method=diagnose">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+
+  <li> debug methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofSymbolTable/SofSymbolTable.h&method=setDebug">boolean setDebug(Integral::DEBUG debug_level);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofSymbolTable/sofs_01.cc&method=debug">boolean debug(const unichar* msg) const;</a></pre>
+      
+  <li> destructor/constructor(s):
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofSymbolTable/sofs_00.cc&method=destructor">~SofSymbolTable();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofSymbolTable/sofs_00.cc&method=default+constructor">SofSymbolTable();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofSymbolTable/sofs_00.cc&method=copy+constructor"">SofSymbolTable(const SofSymbolTable& arg);</a></pre>
+       
+  <li> assign methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofSymbolTable/sofs_03.cc&method=assign">boolean assign(const SofSymbolTable& arg);</a></pre>
+
+  <li> operator= methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofSymbolTable/SofSymbolTable.h&method=operator%3D">SofSymbolTable& operator=(const SofSymbolTable& arg);</a></pre>
+       
+  <li> i/o methods:
+       
+       <pre>these methods are omitted because SofSymbolTable can not write itself to an sof file</pre>
+
+  <li> equality methods:
+       
+       <pre>these methods are omitted because they are not useful for SofSymbolTable objects</pre>
+
+  <li> memory management methods : new and delete are omitted because
+memory for SofSymbolTable objects, memory is not managed by the
+MemoryManager the clear method does not accept FREE mode, so the user
+is forced to use the destructor for handling the SofSymbolTable. Sof
+files could easily be corrupted if the memory of SofSymbolTable is
+improperly freed
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofSymbolTable/sofs_03.cc&method=clear">boolean clear(Integral::CMODE ctype_a = Integral::DEF_CMODE);</a></pre>       
+</ul>
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>
+  <li> assign methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofSymbolTable/sofs_03.cc&method=assignCompact">boolean assignCompact(const SofSymbolTable& arg);</a></pre>
+       
+  <li> memory size methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofSymbolTable/sofs_03.cc&method=memSize">long memSize() const;</a></pre>
+	       
+  <li> symbol retrieval methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofSymbolTable/sofs_06.cc&method=getIndex">long getIndex(const SysString& name) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofSymbolTable/sofs_06.cc&method=getSymbol">boolean getSymbol(SysString& name, long num) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofSymbolTable/sofs_06.cc&method=getRefCount&instance=0">long getRefCount(const SysString& name) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofSymbolTable/sofs_06.cc&method=getRefCount&instance=1">long getRefCount(long index) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofSymbolTable/SofSymbolTable.h&method=getCount">long getCount() const;</a></pre>     
+       
+  <li> symbol entry manipulation methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofSymbolTable/sofs_04.cc&method=add&instance=0">long add(const SysString& name);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofSymbolTable/sofs_04.cc&method=add&instance=1">long add(long index, long refs, const SysString& name);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofSymbolTable/sofs_04.cc&method=remove&instance=0">boolean remove(const SysString& name);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofSymbolTable/sofs_04.cc&method=remove&instance=1">boolean remove(long number);</a></pre>
+       
+  <li> logical testing methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofSymbolTable/sofs_04.cc&method=checkName">boolean checkName(const SysString& name) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofSymbolTable/SofSymbolTable.h&method=isEfficient">boolean isEfficient() const;</a></pre>
+       
+  <li> convert methods: these methods get the index of a symbol in this table given its index in the old table
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofSymbolTable/sofs_05.cc&method=convert&instance=0">long convert(const SofSymbolTable& old, long index) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofSymbolTable/sofs_05.cc&method=convert&instance=1">long convert(long index) const;</a></pre>
+
+  <li> transform methods: 
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofSymbolTable/sofs_05.cc&method=transformInit">boolean transformInit(const SofSymbolTable& old);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofSymbolTable/sofs_05.cc&method=transformDelete">boolean transformDelete();</a></pre>
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+  <li> add new symbol methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofSymbolTable/sofs_04.cc&method=addNew">long addNew(const SysString& name);</a></pre>
+
+  <li> grow table capacity methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofSymbolTable/sofs_04.cc&method=growCapacity">boolean growCapacity();</a></pre>
+       
+  <li> release memory methods
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofSymbolTable/sofs_00.cc&method=freeMem">boolean freeMem();</a></pre>
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+  <li> This is a simple example showing how the SofSymbolTable and entries to
+       the tables are declared. Methods like "add" and "remove" allow the
+       user to deal with the table for required entries.
+       
+       <pre>
+SofSymbolTable table0;
+SofSymbolTable table1(table0);
+
+SysString n1(L"Long");
+SysString n2(L"Short");       
+SysString n3(L"Float");
+SysString n4(L"Long");
+
+// add symbols into table
+//
+table0.add(n1);
+table0.add(n2);
+table0.add(n3);
+table0.add(n4);
+
+// check the entry
+//
+SysString symbol;
+if (!table0.getSymbol(symbol, 0) || symbol.ne(n1)) {
+  Console::put(L"Error in add/getSymbol");
+}
+       
+long i = table0.getIndex(n1);       
+if (i == SofSymbolTable::NO_SYMB) {
+  return Error::handle(name(), L"getEntry", Error::TEST, __FILE__, __LINE__);
+}
+
+// remove a symbol
+//      
+table0.remove(n1);</pre>
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> none
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

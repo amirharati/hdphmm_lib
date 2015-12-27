@@ -1,0 +1,210 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<!--#set var="isip_page_title" value="SYSTEM" -->
+<!--#include virtual="/hse/ies/templates/documentation/body/title.html" -->
+
+<b>Library Name:</b>
+lib_system.a
+
+<br><br>
+
+<b>Introduction:</b>
+
+<br><br>
+
+<ul>
+  The System library is the lowest level library in the ISIP
+  environment. Its primary function is to abstract the 
+  details of the operating system from the user. This is important because
+  it allows code to be easily ported to new domains (e.g. Unix to Windows)
+  with a few simple modifications to the System classes. This 
+  library contains definitions of the ISIP integral types,
+  software to process all character strings as Unicode characters,
+  centralized memory and error handlers, and a generic file interface.
+  A complex number class is also included to facilitate manipulating
+  complex numbers as an integral type.
+</ul>
+
+<b>Example:</b>
+
+<ul>
+  Consider a file named input.text that contains
+  the following text:
+
+  <ul>
+<pre>
+    isip_27[1]: cat input.text
+    Welcome to the world of 
+    Automatic Speech Recognition
+</pre>
+  </ul>
+  
+  The following
+
+  <a href="../../doc/examples/class/system/system_example_00/">example</a>
+
+  illustrates how users interact with this file
+  using the File class:
+
+<pre>
+  01  // file: $isip/doc/examples/class/system/system_example_00/example.cc
+  02  // version: $Id: index.html 10653 2007-02-24 20:33:16Z tm334 $
+  03  //
+  04  
+  05  // isip include files
+  06  //
+  07  #include &lt;File.h&gt;
+  08  #include &lt;Console.h&gt;
+  09  #include &lt;String.h&gt;
+  10  
+  11  // main program starts here:
+  12  //   this program emulates the tool 'cat -n' by printing a file line by
+  13  //   line and prepending the line number to the output.
+  14  //
+  15  int main() {
+  16    
+  17    // declare local variables for the File object and the filename
+  18    //
+  19    File input;
+  20    String temp_file(L"./input.text");
+  21  
+  22    // return an error if the file cannot be opened. note that if the file
+  23    // is not found, the File class will poll for the file. the number of
+  24    // times to poll and the time between attempts can be adjusted through
+  25    // the File::setOpenRetry method
+  26    //
+  27    if (!input.open(temp_file, File::READ_ONLY)) {
+  28      Error::handle(input.name(), L"open", Error::IO, __FILE__, __LINE__);
+  29    }
+  30    
+  31    // declare strings to be used for reading and writing
+  32    //
+  33    String line_num;
+  34    String buf;
+  35  
+  36    // initialize the line count
+  37    //
+  38    long line_count = 0;
+  39  
+  40    // read in a line of text with the File::get method and increment the
+  41    // line count
+  42    //
+  43    while (input.get(buf)) {
+  44      line_count = line_count + 1;
+  45      
+  46      // build the output string first assigning a string from an integral
+  47      // type and then inserting the line number information in front of
+  48      // the buffer read from the file.
+  49      //
+  50      line_num.assign((long)line_count);
+  51      line_num.concat(L"   ");
+  52      buf.insert(line_num, 0);
+  53      
+  54      // print the string to the console
+  55      //
+  56      Console::put(buf);
+  57    }
+  58    
+  59    // close the file
+  60    //
+  61    input.close();
+  62    
+  63    // exit gracefully
+  64    //
+  65    Integral::exit();
+  66  }
+
+</pre>
+</ul>
+
+<b>Explanation:</b>
+
+<ul>
+
+  This program reads lines from a file "input.text," appends a line
+  number to them, and outputs them to the terminal (similar to the Unix
+  nl command).  On line 19 we declare a file pointer "input". On the
+  following line, we create an object called "temp_file" of type
+  "String" which holds the name of the file which we are going to
+  read.  Note that "L" is used to declare that the string is a wide
+  character string. String stores this string as a sequence of
+  multibyte Unicode characters.  On line 27, we open the file and
+  display an error message if the file cannot be opened.
+
+  <br><br>
+
+  On line 43 we read the file, one line at a time, into the String
+  object buf. We prepend each line with line numbers on line 52 using
+  the insert method.  On line 56, the result is sent to the terminal
+  using a Console object.  We close the file on line 61.
+  The output generated for the above program is:
+
+  <br>
+
+<pre>
+               1       Welcome to the world of 
+               2       Automatic Speech Recognition
+</pre>
+  
+  The Console class, introduced on line 08, is an important class
+  that centralizes all output to the terminal. Note that standard C
+  constructs, such as stdin and stdout, do not appear in the code.
+  Similarly, the Error class, demonstrated on line 28, provides useful
+  information, including the nature of the error, and the line
+  number at which the errror occurred in the program.
+
+  <br><br>
+
+  The System library includes the following classes:
+
+  <br><br>
+  
+  <center>
+  <table border=5>
+  
+  <tr>
+  <td> <a href="./Checksum/index.html">Checksum</a> </td>
+  <td> <a href="./Console/index.html">Console</a> </td>
+  <td> <a href="./Error/index.html">Error</a> </td>
+  <td> <a href="./File/index.html">File</a> </td>
+  </tr>
+
+  <tr>
+  <td> <a href="./Integral/index.html">Integral</a> </td>
+  <td> <a href="./MemoryManager/index.html">MemoryManager</a> </td>
+  <td> <a href="./Random/index.html">Random</a> </td>
+  <td> <a href="./SysChar/index.html">SysChar</a> </td>
+  </tr>
+
+  <tr>
+  <td> <a href="./SysComplex/index.html">SysComplex</a> </td>
+  <td> <a href="./SysHeap/index.html">SysHeap</a> </td>
+  <td> <a href="./SysString/index.html">SysString</a> </td>
+  <td> &nbsp; </td>
+  </tr>
+  
+  </table>
+  </center>
+  
+  <br>
+  
+  The next level in the ISIP class hierarchy is 
+  
+  <a href="../io/index.html">Input/Output</a>,
+
+  which introduces a common file format used to store objects
+  known as the Signal Object File (Sof).
+  The software corresponding to the examples
+  demonstrated in this document can be found in our
+
+  <a href="../../doc/examples/">documentation directory</a>
+
+  under
+
+  <a href="../../doc/examples/class/system/">class/system/</a>.
+
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

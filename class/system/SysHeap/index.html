@@ -1,0 +1,343 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+
+<!--#set var="isip_page_title" value="SysHeap" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="Name">
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/system/SysHeap/SysHeap.h">SysHeap</a></b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ... -l /isip/tools/lib/$ISIP_BINARY/lib_system.a
+
+#include &lt;SysHeap.h&gt;
+
+boolean insert(void* ptr);
+boolean extractMax(void*& ptr);
+boolean extract(void* ptr);
+boolean build();
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+// declare a heap object
+//
+SysHeap heap;
+
+// set the length of heap
+//
+heap.setLength(10);
+
+// give values to heap
+//
+heap.data_d[0] = (void*)8;
+heap.data_d[1] = (void*)14;
+heap.data_d[2] = (void*)7;
+heap.data_d[3] = (void*)11;
+heap.data_d[4] = (void*)10;
+heap.data_d[5] = (void*)1;
+heap.data_d[6] = (void*)4;
+heap.data_d[7] = (void*)2;
+heap.data_d[8] = (void*)3;
+heap.data_d[9] = (void*)9;
+
+// declare a pointer
+//
+void* ptr_ins;
+
+// insert this pointer into heap
+//
+ptr_ins = (void*)12;
+heap.insert(ptr_ins);
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The SysHeap class implements a heap for pointers. The insert and extract
+methods are the most useful methods. The insert method adds a pointer to the
+heap and the extract method removes a pointer from the heap. The extractMax
+method, on the other hand, removes and returns the largest pointer from
+the heap.
+
+<br><br>
+
+The binary heap data structure is an array that can be viewed as a complete
+binary tree. Each node of the tree corresponds to an element of the array
+that stores the value in the node. The tree is completely filled on all
+levels except possibly the lowest, which is filled from the left up to a point.
+
+<br><br>
+
+If an array A is used to represents a heap, A[0] is the root of the tree.
+Also, given the index i of a node the following indices can be found:
+
+<ul>
+<pre>
+Parent (i)      = i / 2     <br>
+Left Child (i)  = 2 * i + 1 <br>
+Right Child (i) = 2 * i + 2
+</pre>
+</ul>
+
+A good tutorial on heaps can be found at :
+
+<ul>
+  T.H. Cormen, C.E. Leiserson and R.L. Rivest,
+  <i>Introduction to Algorithms</i>, McGraw-Hill,
+  New York, New York, USA, pp. 140-149, 1997.
+</ul>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li> <a href="../Integral/index.html">Integral</a>
+  <li> <a href="../Error/index.html">Error</a>
+  <li> <a href="../SysString/index.html">SysString</a>       
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysHeap/sh_00.cc&constant=CLASS_NAME">static const unichar CLASS_NAME[] = L"SysHeap";</a></pre>
+
+  <li> define the default value(s) of the class data:
+       
+       <pre>static const long DEF_NUM_ELEMENTS = 0;</pre>
+       <pre>static const long DEF_CAPACITY = 0;</pre>
+       <pre>static const long DEF_GROW_FACTOR = 2;</pre>  
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> error code indicating SysHeap class general error:
+
+       <pre><a href="/perl/ifc_document.pl?err=00001700">static const long ERR = 1700;</a></pre>
+
+  <li> error code indicating that heap is empty:
+
+       <pre><a href="/perl/ifc_document.pl?err=00001701">static const long ERR_HEMPTY = 1701;</a></pre>
+
+  <li> error code indicating attemp to extract pointer which is not on heap:
+
+       <pre><a href="/perl/ifc_document.pl?err=00001702">static const long ERR_INVPTR = 1702;</a></pre> 
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> array of void pointers:
+       
+       <pre>void** data_d;</pre>
+       
+  <li> capacity of heap:
+       
+       <pre>long capacity_d;</pre>
+       
+  <li> number of elements in heap:
+       
+       <pre>long num_elements_d;</pre>
+
+  <li> growth factor of heap:
+       
+       <pre>long grow_factor_d;</pre>
+
+  <li> declare a static debug level for all class instantiations:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysHeap/sh_00.cc&static=debug_level_d">Integral::DEBUG debug_level_d;</a></pre>
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li> static methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysHeap/SysHeap.h&method=name">static const SysString& name();</a></pre>
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysHeap/sh_02.cc&method=diagnose">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+
+  <li> debug methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysHeap/SysHeap.h&method=setDebug">static boolean setDebug(Integral::DEBUG debug_level);</a></pre>
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysHeap/sh_01.cc&method=debug">boolean debug(const unichar* message);</a></pre>
+
+ <li> destructor/constructor(s):
+      
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysHeap/sh_00.cc&method=destructor">~SysHeap();</a></pre>
+      
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysHeap/sh_00.cc&method=default+constructor">SysHeap();</a></pre>
+            
+ <li> assign methods:
+
+      <pre>these methods are omitted because SysHeap cannot be duplicated</pre>
+      
+ <li> operator= methods:
+
+      <pre>these methods are omitted because SysHeap cannot be duplicated</pre>
+       
+ <li> i/o methods:
+      
+      <pre>these methods are omitted because SysHeap can not write itself to an sof file</pre>
+      
+ <li> equality methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysHeap/sh_05.cc&method=eq">boolean eq(const SysHeap& arg);</a></pre>
+              
+ <li> memory management methods:
+       
+       <pre>new and delete are omitted because memory for SysHeap objects is not managed by the MemoryManager class</pre>
+      
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysHeap/sh_00.cc&method=clear">boolean clear(Integral::CMODE ctype_a = Integral::DEF_CMODE);</a></pre>
+</ul>
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>
+  <li> heap specific property methods: these methods are used to build heaps, get the length of the heap and test if the heap is empty
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysHeap/sh_03.cc&method=build">boolean build();</a></pre>
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysHeap/SysHeap.h&method=isEmpty">boolean isEmpty() const;</a></pre>
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysHeap/SysHeap.h&method=length">long length() const;</a></pre>
+
+  <li> data manipulation methods: these methods are used to add, find and remove pointers to/from the heap as well as set the heap properties
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysHeap/sh_03.cc&method=insert">boolean insert(void* ptr);</a></pre>
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysHeap/sh_03.cc&method=find">long find(void* ptr, long start_index = 0) const;</a></pre>
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysHeap/sh_04.cc&method=extractMax">boolean extractMax(void*& ptr);</a></pre>
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysHeap/sh_04.cc&method=extract&instance=0">boolean extract(void* ptr);</a></pre>
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysHeap/sh_04.cc&method=extract&instance=1">boolean extract(void* ptr, long pos);</a></pre>
+  
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysHeap/sh_05.cc&method=setLength">boolean setLength(long len);</a></pre>
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysHeap/sh_05.cc&method=setCapacity">boolean setCapacity(long cap);</a></pre>
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysHeap/SysHeap.h&method=setGrow">boolean setGrow(long grow_factor);</a></pre>
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+
+  <li> copy constructor: this is declared private so it cannot be called for
+       the SysHeap class
+       
+      <pre>SysHeap(const SysHeap& arg);</pre>
+  
+  <li> heapify methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysHeap/sh_03.cc&method=heapify">boolean heapify(long index);</a></pre>
+       
+  <li> bubble up methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysHeap/sh_04.cc&method=bubbleUp">boolean bubbleUp(long index);</a></pre>
+
+  <li> parent methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysHeap/SysHeap.h&method=parent">boolean parent(long index) const;</a></pre>
+
+  <li> left and right child methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysHeap/SysHeap.h&method=left">boolean left(long index) const;</a></pre>
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysHeap/SysHeap.h&method=right">boolean right(long index) const;</a></pre>
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+  <li> This example shows how to build the heap:
+       
+<pre>
+// declare heap object
+//
+SysHeap heap;
+
+// set the length of the heap
+//
+heap.setLength(5);
+
+// give values to heap
+//
+heap.data_d[0] = (void*)8;
+heap.data_d[1] = (void*)14;
+heap.data_d[2] = (void*)7;
+heap.data_d[3] = (void*)11;
+heap.data_d[4] = (void*)10;
+
+// build the heap
+//
+heap.build();</pre>
+       
+  <li> This example shows how to insert and delete a pointer from the
+       heap, and also, how to extract the maximum pointer from the heap:
+
+<pre>
+// insertion of a pointer in the heap
+//
+void* ptr0;
+ptr0 = (void*)15;
+heap.insert(ptr0);
+
+// extract the maximum pointer from the heap
+//
+void* ptr_ext_max;
+heap.extractMax(ptr_ext_max);
+
+// extract a pointer from the heap
+//
+void* ptr1;
+ptr1 = (void*)11;
+heap.extract(ptr1);</pre>
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> none.
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

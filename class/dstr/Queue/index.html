@@ -1,0 +1,398 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="Queue" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="name">
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h">Queue&lt;class TObject&gt</a>: public <a href = "../DstrBase/">DstrBase &lt;TObject&gt;</a></b>
+</b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ...
+
+#include &lt;Queue.h&gt;
+Queue();
+boolean assign(const Queue&lt;TObject&gt& copy_queue);
+boolean add(TObject* item);
+TObject* remove(TObject* item = (TObject*)NULL);
+const TObject* peek() const;
+boolean clear();
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+// declare a character queue and add two characters into it
+//
+Queue&lt;Char&gt queue;
+Char item0(L'a');
+Char item1(L'b');
+queue.add(&item0);
+queue.add(&item1);
+
+// remove the top item from the queue
+//
+Char* item2 = new Char();
+queue.remove(item2);
+
+if(!item2->eq(item0)) {
+  // error
+}
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The Queue class is a container class that implements a standard
+queue (first-in, first-out) using a double linked list.
+For a good reference on queues, see:
+
+<ul>
+  T. Cormen, C. Leiserson, R. Rivest,
+  <i>Introduction to Algorithms</i>,
+  MIT Press, Boston, Massachusetts, USA, pp. 200-203, 1998.
+</ul>
+
+This class uses the double linked list in USER mode, since this list
+is used to store either the actual data or a pointer to it.
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+<ul>
+  <li> <a href="../DstrBase/"> DstrBase </a><br>
+  <li> <a href="../DoubleLinkedList/"> DoubleLinkedList </a><br>
+  <li> <a href="../../math/scalar/String/"> String </a> <br>
+  <li> <a href="../../math/scalar/Char/"> Char </a> <br>
+  <li> <a href="../../system/Console/"> Console </a> <br>
+</ul>
+
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&constant=CLASS_NAME">static const String CLASS_NAME = L"Queue";</a></pre>
+       
+  <li> i/o related constants:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&constant=DEF_PARAM">static const String DEF_PARAM = L"values";</a></pre>
+
+  <li> default values and arguments:
+       
+       <pre>static const long REMOVE_ALL = -1;</pre>
+       <pre>static const long REMOVE_TO_MARK = -2;</pre>       
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> general Queue class error:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00040600">static const long ERR = 40600;</a></pre>
+       
+  <li> error code indicating the queue is empty:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00040601">static const long ERR_EMPTY = 40601;</a></pre>       
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> the internal structure of the queue is a DoubleLinkedList:
+       
+       <pre>DoubleLinkedList&lt;TObject&gt; queue_d;</pre>
+
+  <li> the allocation mode:
+
+       <pre>ALLOCATION alloc_d;</pre>
+       
+  <li> debugging parameters:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&static=debug_level_d">static Integral::DEBUG debug_level_d;</a></pre>
+
+  <li> static memory manager:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&static=mgr_d">static MemoryManager mgr_d;</a></pre>       
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+<ul>  
+  <li> static methods: the diagnose method is moved outside the class
+       header file and defined in the QueueDiagnose.h in order to avoid
+       issues with preprocessing of the diagnose code.
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=name">static const String& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/QueueDiagnose.h&method=diagnose">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+       
+  <li> debug methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=debug">boolean debug(const unichar* message) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=setDebug">static boolean setDebug(Integral::DEBUG debug_level);</a></pre>
+       
+  <li> destructor/constructor(s):
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=destructor">~Queue();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=default+constructor">Queue(ALLOCATION alloc = DEF_ALLOCATION);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=copy+constructor">Queue(const Queue&lt;TObject&gt;& copy_queue);</a></pre>
+
+  <li> assign methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=assign&instance=0">boolean assign(const Queue&lt;TObject&gt;& copy_queue);</a></pre>
+
+  <li> operator= methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=operator%3D">Queue&lt;TObject&gt;& operator=(const Queue&lt;TObject&gt;& arg);</a></pre>
+
+  <li> equality methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=eq">boolean eq(const Queue&lt;TObject&gt;& compare_queue) const;</a></pre>
+      
+  <li> i/o methods: refer to the <a href = "./index.html#notes">notes</a>
+       section for an explanation of why there are two read and write
+       methods in this class
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=sofSize">long sofSize() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=read&instance=0">boolean read(Sof& sof_a, long tag_a);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=write&instance=0">boolean write(Sof& sof_a, long tag_a) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=read&instance=1">boolean read(Sof& sof_a, long tag_a, const String& name_a);</a></pre>              
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=write&instance=1">boolean write(Sof& sof_a, long tag_a, const String& name_a) const;</a></pre>       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=readData">boolean readData(Sof& sof, const String& pname = DEF_PARAM, long size = SofParser::FULL_OBJECT, boolean param_a = true, boolean nested_a = false);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=writeData">boolean writeData(Sof& sof, const String& pname = DEF_PARAM) const;</a></pre>
+
+  <li> memory management methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=new">static void* operator new(size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=new\[\]">static void* operator new[](size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=delete">static void operator delete(void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=delete\[\]">static void operator delete[](void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=setGrowSize">static boolean setGrowSize(long grow_size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=clear">boolean clear(Integral::CMODE cmode = Integral::DEF_CMODE);</a></pre>
+</ul>
+
+<a name="specific">
+<b> class-specific public methods:</b>
+<br><br>
+
+<ul>
+  <li> extensions to required methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=ne">boolean ne(const Queue&lt;TObject&gt;& compare_queue) const;</a></pre>
+       
+  <li> queue add methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=add&instance=0">boolean add(TObject* item);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=add&instance=1">boolean add(Queue&lt;TObject&gt;& item_queue);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=add&instance=2">boolean add(TObject** item_list, long num_items);</a></pre>
+
+  <li> other queue manipulation methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=peek&instance=0">const TObject* peek() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=peek&instance=1">TObject* peek();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=remove&instance=0">TObject* remove(TObject* item = (TObject*)NULL);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=remove&instance=1">long remove(Queue<TObject>& items, long num_items);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=removeAll">boolean removeAll(Queue&lt;TObject&gt;& item_queue);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=removeToMark">boolean removeToMark(Queue&lt;TObject&gt;& item_queue);</a></pre>
+       
+  <li> queue marker positioning methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=setMark">boolean setMark();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=clearMark">boolean clearMark();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=markIsSet">boolean markIsSet() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=getMark&instance=0">const TObject* getMark() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=getMark&instance=1">TObject* getMark();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=isMarkedElement">boolean isMarkedElement() const;</a></pre>
+       
+  <li> queue property methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=isEmpty">boolean isEmpty() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=length">long length() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=find">boolean find(TObject* value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=contains">boolean contains(TObject* value) const;</a></pre>
+
+  <li> queue computation methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=apply&instance=0">boolean apply(boolean (TObject::*method)());</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=apply&instance=1">boolean apply(boolean (TObject::*method)(), Queue&lt;TObject&gt;& arg);</a></pre>
+       
+  <li> queue element ordering methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=sort">boolean sort(Integral::ORDER sort_order = Integral::ASCENDING, SORT_ALGO sort_algo = DEF_SORT_ALGO);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=reverse">boolean reverse();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=getAllocationMode">ALLOCATION getAllocationMode() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Queue/Queue.h&method=setAllocationMode">boolean setAllocationMode(ALLOCATION alloc);</a></pre>       
+</ul>
+       
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+  <li> none.
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+  <li> This example demonstrates the basic operation of a queue:
+       
+       <pre>
+#include &lt;Char.h&gt;
+#include &lt;Queue.h&gt;
+
+int main () {
+
+  // local variables
+  //
+  Queue&lt;Long&gt q;
+  Long j;
+
+  // add 10 items to the queue
+  //       
+  for (long i = 0; i < 10; i++) {
+    j = i * 3;
+    q.add(&j);
+  }
+
+  // see what is on the queue
+  //       
+  q.debug(L"after add");
+
+  // pull things off the queue and print them in order
+  //       
+  while (q.remove(&j) != (Long*)NULL) {
+    j.debug(L"pulled off queue");
+  }
+       
+  // exit gracefully
+  //
+  Integral::exit();
+}</pre>
+
+  <li> This example demonstrates the basic operation of a queue in USER mode.
+       Note that memory is manually allocated before adding it to the queue
+       and deleted upon removal.
+       
+       <pre>
+#include &lt;Char.h&gt;
+#include &lt;Queue.h&gt;
+
+int main () {
+
+  // local variables (note that the queue is set to reference mode)
+  //
+  Queue&lt;Long&gt q(USER);
+  Long* j;
+
+  // add 10 items to the queue
+  //       
+  for (long i = 0; i < 10; i++) {
+    j = new Long(i * 3);
+    q.add(j);
+  }
+
+  // see what is on the queue
+  //       
+  q.debug(L"after add");
+
+  // pull things off the queue and print them in order
+  //       
+  while ((j = q.remove()) != (Long*)NULL) {
+    j->debug(L"pulled off queue");
+    delete j;
+  }
+       
+  // exit gracefully
+  //
+  Integral::exit();
+}</pre>
+
+  <li> This example demonstrates how to check if two Queues are equal:
+       
+       <pre>
+#include &lt;Char.h&gt;
+#include &lt;Queue.h&gt;
+
+int main () {
+
+  // prepare items for the queue
+  //
+  Char** items = new Char*[5];
+  for (long i = 0; i < 5; i++) {
+     items[i] = new Char((unichar)((long)(L'a') + i));
+  }
+
+  // declare a queue and add items into it
+  //
+  Queue&lt;Char&gt; char_queue;
+  char_queue.add(items, 5);
+
+  // copy the queue
+  //
+  Queue&lt;Char&gt; copy_char_queue(char_queue);
+
+  // see if these Queues are equivalent
+  //
+  if(!char_queue.eq(copy_char_queue)) {
+    // exit with error
+    //
+    Integral::exit();
+    
+  }
+
+  // clean up the memory used
+  //
+  for (long i = 0; i < 5; i++) {
+    delete items[i]; 
+  }
+  delete [] items; 
+  
+  // exit gracefully
+  //
+  Integral::exit();
+}</pre>
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> Unlike other classes, we have two read and write methods in dstr
+       classes. The interface is still the same as that in other
+       classes. The reason behind this is that we can not use
+       "CLASS_NAME" as default argument in the read and write methods
+       here because the data structures build the class name on the fly.       
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->
+
+

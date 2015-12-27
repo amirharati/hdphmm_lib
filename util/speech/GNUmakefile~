@@ -1,0 +1,14 @@
+# file: $isip/util/speech/GNUmakefile
+# version: $Id: GNUmakefile 9102 2003-04-20 22:34:05Z parihar $
+#
+# this make file builds the speech hierarchy recursively
+# 
+
+ISIP_EXCLUDE= proto/ isip_model_converter/
+
+# include the isip standard make template
+#
+include $(ISIP_DEVEL)/lib/scripts/make/traverse.make
+
+#
+# end of file

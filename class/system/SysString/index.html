@@ -1,0 +1,713 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="SysString" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="Name">
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h">SysString</a></b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br> 
+
+<blockquote>
+<pre>
+g++ [flags ...] file ... -l /isip/tools/lib/$ISIP_BINARY/lib_system.a
+
+#include &lt;SysString.h&gt;
+
+SysString(long capacity = DEF_CAPACITY);
+SysString(const SysString& arg);
+SysString(const unichar* data);
+SysString(byte* data, SysChar::ENCODE encoding = SysChar::DEF_ENCODE);
+boolean assign(const SysString& arg);
+boolean insert(const SysString& str, long index);
+boolean replace(const SysString& str, long index);
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+SysString str1((byte*)"This is ISIP");
+SysString str2(L"software");
+SysString str3(100);
+SysString str4(str2);
+
+str2.assign(L" software");
+if (str2.length() != 9) {
+  Console::put(L"Error in re-assign unichar");
+}
+
+str2.assign(str1);
+str3.assign(L" public-domain ");
+str4.assign(L" Foundation classes");
+
+str2.insert(str3, 99);
+str2.debug(L"str2");
+
+if (str2.ne(L"This is ISIP public-domain ")) {
+  Console::put(L"Error in insert");
+}
+
+str2.insert(str4, 9999);
+str2.debug(L"str2");
+
+if (str2.ne(L"This is ISIP public-domain  Foundation classes")) {
+  Console::put(L"Error in insert");
+}
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The SysString class fills the void found in ANSI C for a very common data
+type: a string of characters. Our SysString class is inherently
+multi-lingual. It is a set of <a href="../SysChar/index.html">SysChar
+</a>objects. The SysString class abstracts the operating-system-specific
+wide character functions.  It also prevents the programmer from having
+to manipulate buffers of memory;  this is all handled
+automatically. The user needs only to reference a single SysString object,
+and passing a SysString object to a method is as simple as passing an Integer.
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>  
+  <li> <a href="../SysChar/index.html">SysChar</a>
+  <li> <a href="../File/index.html">File</a>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=CLASS_NAME">static const SysString CLASS_NAME = L"SysString";</a></pre>
+       
+  <li> define miscellaneous constants:
+
+       <pre>static const long MAX_LENGTH = (long)1024;</pre>
+       <pre>static const long BIG_BUFFER_LENGTH = (long)8192;</pre>
+       <pre>static const long STATIC_BUFFER_SIZE = (long)16;</pre>
+       
+  <li> define special strings:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=NULL_STRING">static const unichar NULL_STRING[] = L"";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=NULL_PTR">static const SysString NULL_PTR = L"NULL";</a></pre>
+       
+  <li> define text corresponding to boolean values:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=BOOL_TRUE">static const SysString BOOL_TRUE = L"true";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=BOOL_FALSE">static const SysString BOOL_FALSE = L"false";</a></pre>
+
+  <li> text corresponding to debug values:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=DBG_NONE">static const SysString DBG_NONE = L"none";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=DBG_BRIEF">static const SysString DBG_BRIEF = L"brief";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=DBG_DETAILED">static const SysString DBG_DETAILED = L"detailed";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=DBG_ALL">static const SysString DBG_ALL = L"all";</a></pre>
+
+  <li> text corresponding to compare values:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=CMP_EQUAL">static const SysString CMP_EQUAL = L"equal";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=CMP_LESSER">static const SysString CMP_LESSER = L"lesser";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=CMP_GREATER">static const SysString CMP_GREATER = L"greater";</a></pre>
+
+  <li> text corresponding to file mode values:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=MODE_READ_ONLY">static const SysString MODE_READ_ONLY = L"read only";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=MODE_READ_PLUS">static const SysString MODE_READ_PLUS = L"read plus";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=MODE_WRITE_ONLY">static const SysString MODE_WRITE_ONLY = L"write only";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=MODE_WRITE_PLUS">static const SysString MODE_WRITE_PLUS = L"write plus";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=MODE_APPEND_ONLY">static const SysString MODE_APPEND_ONLY = L"append only";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=MODE_APPEND_PLUS">static const SysString MODE_APPEND_PLUS = L"append plus";</a></pre>
+
+  <li> text corresponding to file type values:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=TYPE_TEXT">static const SysString TYPE_TEXT = L"text";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=TYPE_BINARY">static const SysString TYPE_BINARY = L"binary";</a></pre>
+
+  <li> text corresponding to file binary mode values:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=BMODE_NATIVE">static const SysString BMODE_NATIVE = L"native";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=BMODE_SWAP">static const SysString BMODE_SWAP = L"swap";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=BMODE_BIG_ENDIAN">static const SysString BMODE_BIG_ENDIAN(L"big_endian");</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=BMODE_LITTLE_ENDIAN">static const SysString BMODE_LITTLE_ENDIAN(L"little_endian");</a></pre>
+       
+  <li> text corresponding to SysChar encode values:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=ENCODE_ASCII">static const SysString ENCODE_ASCII = L"ascii";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=ENCODE_UTF8">static const SysString ENCODE_UTF8 = L"utf8";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=ENCODE_UTF16">static const SysString ENCODE_UTF16 = L"utf16";</a></pre>
+       
+  <li> text corresponding to MemoryManager modes:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=MMGR_MODE_OPTIMIZE">static const SysString MMGR_MODE_OPTIMIZE = L"optimize";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=MMGR_MODE_TRACK">static const SysString MMGR_MODE_TRACK = L"track";</a></pre>
+
+  <li> define small state machine for symbolPad:
+       
+       <pre>static const long STATE_PAD_NOSPACE = (long)0;</pre>
+       <pre>static const long STATE_PAD_SPACE = (long)1;</pre>
+
+  <li> define format for debug method output:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=DBG_FORMAT_0">static const SysString DBG_FORMAT_0 = L"(";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=DBG_FORMAT_1">static const SysString DBG_FORMAT_1 = L">= ";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=DBG_FORMAT_2">static const SysString DBG_FORMAT_2 = L") \"";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=DBG_FORMAT_3">static const SysString DBG_FORMAT_3 = L"\"";</a></pre>
+
+  <li> define format for debugStr output:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=DBGS_FORMAT_0">static const SysString DBGS_FORMAT_0 = L"<";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=DBGS_FORMAT_1">static const SysString DBGS_FORMAT_1 = L"::";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=DBGS_FORMAT_2">static const SysString DBGS_FORMAT_2 = L"> ";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=DBGS_FORMAT_3">static const SysString DBGS_FORMAT_3 = L"= ";</a></pre>
+
+  <li> define 8-bit version of the default format strings (for efficiency):
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=DEF_FMT_VOIDP_8BIT">static const char DEF_FMT_VOIDP_8BIT[] = "%p";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=DEF_FMT_ULONG_8BIT">static const char DEF_FMT_ULONG_8BIT[] = "%lu";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=DEF_FMT_ULLONG_8BIT">static const char DEF_FMT_ULLONG_8BIT[] = "%llu";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=DEF_FMT_LONG_8BIT">static const char DEF_FMT_LONG_8BIT[] = "%ld";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=DEF_FMT_LLONG_8BIT">static const char DEF_FMT_LLONG_8BIT[] = "%lld";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=DEF_WFMT_FLOAT_8BIT">static const char DEF_WFMT_FLOAT_8BIT[] = "%.6g";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=DEF_RFMT_FLOAT_8BIT">static const char DEF_RFMT_FLOAT_8BIT[] = "%g";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=DEF_RFMT_DOUBLE_8BIT">static const char DEF_RFMT_DOUBLE_8BIT[] = "%lg";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=DEF_WFMT_DOUBLE_8BIT">static const char DEF_WFMT_DOUBLE_8BIT[] = "%.17le";</a></pre>
+
+  <li> define the default value(s) of the class data:
+
+       <pre>static const long DEF_CAPACITY = 0;</pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=DEF_VALUE">static const SysString DEF_VALUE = L"";</a></pre>
+
+  <li> define default arguments to methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&constant=DEF_FMT_VOIDP">static const SysString DEF_FMT_VOIDP = L"%p";</a></pre>
+       <pre>static const byte DEF_TERM_BYTE = (byte)NULL;</pre>
+       <pre>static const unichar DEF_TERM = (unichar)NULL;</pre>
+       <pre>static const long DEF_POS = Integral::NO_POS;</pre>
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> error code indicating SysString class general error:
+
+       <pre><a href="/perl/ifc_document.pl?err=00001300">static const long ERR = 1300;</a></pre>
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> array of SysString characters:
+
+       <pre>unichar* value_d;</pre>
+
+  <li> capacity of ths SysString:
+
+       <pre>long capacity_d;</pre>
+
+  <li> debug level:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&static=debug_level_d">static Integral::DEBUG debug_level_d;</a></pre>
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  
+  <li> static methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=name">static const SysString& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_02.cc&method=diagnose">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>       
+
+  <li> debug methods:
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=setDebug">static boolean setDebug(Integral::DEBUG level);</a></pre>
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_01.cc&method=debug">boolean debug(const unichar* msg) const;</a></pre>
+
+  <li> destructor/constructor(s):
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=destructor">~SysString();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&method=default+constructor">SysString(long capacity = DEF_CAPACITY);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&method=copy+constructor">SysString(const SysString& arg);</a></pre>
+
+  <li> assign methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=0">boolean assign(const SysString& arg);</a></pre>
+
+  <li> operator= methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=operator%3D">SysString& operator=(const SysString& arg);</a></pre>              
+
+  <li> i/o methods:
+
+       <pre>i/o methods are omitted because SysString can not write itself to
+an sof file</pre>
+
+  <li> equality methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_04.cc&method=eq&instance=1">boolean eq(const SysString& value, boolean case_sensitive = true) const;</a></pre>
+
+  <li> memory management methods: the new and delete methods are omitted
+       here since only classes at the math library level and above are
+       required to overide new and delete
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=clear">boolean clear(Integral::CMODE ctype = Integral::DEF_CMODE);</a></pre>
+</ul>    
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>       
+  <li> constructors:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&method=constructor&instance=0">SysString(const unichar* data);</a></pre>
+     <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_00.cc&method=constructor&instance=1">SysString(const byte* data, SysChar::ENCODE encoding = SysChar::DEF_ENCODE);</a></pre>
+     
+  <li> assign methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=1">boolean assign(const unichar* data);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=2">boolean assign(const byte* data, long max_size = BIG_BUFFER_LENGTH, SysChar::ENCODE encoding = SysChar::DEF_ENCODE);</a></pre>
+
+  <li> numeric conversion assignment methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=6">boolean assign(const void* arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=7">boolean assign(boolean arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=8">boolean assign(const byte arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=9">boolean assign(unichar arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=10">boolean assign(const ushort arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=11">boolean assign(const ulong arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=12">boolean assign(const ullong arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=13">boolean assign(const short arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=14">boolean assign(const long arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=15">boolean assign(const llong arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=16">boolean assign(const float arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=17">boolean assign(const double arg);</a></pre>
+<pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=18">template &lt;class TIntegral&gt; boolean assign(const SysComplex&lt;TIntegral&gt;& arg);</a></pre>
+
+  <li> define versions of the assign methods that take format strings:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=3">boolean assign(const SysString& data, const unichar* fmt);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=4">boolean assign(const unichar* data, const unichar* fmt);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=5">boolean assign(const byte* data, const unichar* fmt, long max_size = BIG_BUFFER_LENGTH, SysChar::ENCODE encoding = SysChar::DEF_ENCODE);</a></pre>
+
+  <li> numeric conversion assignment methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=19">boolean assign(const void* arg, unichar* fmt);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=20">boolean assign(boolean arg, const unichar* fmt);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=21">boolean assign(const byte arg, unichar* fmt);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=22">boolean assign(unichar arg, const unichar* fmt);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=23">boolean assign(const ushort arg, unichar* fmt);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=24">boolean assign(const ulong arg, unichar* fmt);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=25">boolean assign(const ullong arg, unichar* fmt);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=26">boolean assign(const short arg, unichar* fmt);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=27">boolean assign(const long arg, unichar* fmt);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=28">boolean assign(const llong arg, unichar* fmt);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=29">boolean assign(const float arg, unichar* fmt);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=30">boolean assign(const double arg, unichar* fmt);</a></pre>
+<pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=31">template &lt;class TIntegral&gt; boolean assign(const SysComplex&lt;TIntegral&gt;& arg, const unichar* fmt);</a></pre>
+
+
+  <li> enum assignment methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=32">boolean assign(Integral::DEBUG arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=33">boolean assign(Integral::COMPARE arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=34">boolean assign(File::MODE arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=35">boolean assign(File::BMODE arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=36">boolean assign(File::TYPE arg);</a></pre>       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=37">boolean assign(SysChar::ENCODE arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=assign&instance=38">boolean assign(MemoryManager::MODE arg);</a></pre>
+       
+  <li> special assignment methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=swap">boolean swap(SysString& arg);</a></pre>
+
+  <li> relational and logical methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=compare">Integral::COMPARE compare(const SysString& str) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_04.cc&method=compare&instance=1">Integral::COMPARE compare(const SysString& str1, const SysString str2) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_04.cc&method=compare&instance=0">Integral::COMPARE compare(const unichar* str) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_04.cc&method=comparePartial&instance=1">Integral::COMPARE comparePartial(const SysString& arg, long arg_offset, long num_elements, long offset) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_04.cc&method=comparePartial&instance=0">Integral::COMPARE comparePartial(const unichar* arg, long arg_offset, long num_elements, long offset) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_04.cc&method=eq&instance=0">boolean eq(const unichar* value, boolean case_sensitive = true) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=ne&instance=0">boolean ne(const SysString& vector, boolean case_sensitive = true) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_04.cc&method=ne">boolean ne(const unichar* value, boolean case_sensitive = true) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=gt&instance=0">boolean gt(const SysString& vector) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_04.cc&method=gt">boolean gt(const unichar* value) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=lt&instance=0">boolean lt(const SysString& vector) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_04.cc&method=lt">boolean lt(const unichar* value) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=ge&instance=0">boolean ge(const SysString& vector) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_04.cc&method=ge">boolean ge(const unichar* value) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=le&instance=0">boolean le(const SysString& vector) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_04.cc&method=le">boolean le(const unichar* value) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_04.cc&method=numEqual">long numEqual(unichar test_value) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=numNotEqual">long numNotEqual(unichar test_value) const;</a></pre>
+       
+  <li> indexing methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=operator()&instance=0">unichar& operator()(long index);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=operator()&instance=1">const unichar& operator()(long index) const;</a></pre>
+
+  <li> automatic type conversion methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=operator+byte*">operator byte*() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=operator+unichar*">operator unichar*() const;</a></pre>
+       
+  <li> numeric conversion methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=get&instance=0">boolean get(void*& arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=get&instance=1">boolean get(boolean& arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=get&instance=2">boolean get(byte& arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=get&instance=3">boolean get(unichar& arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=get&instance=4">boolean get(ushort& arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=get&instance=5">boolean get(ulong& arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=get&instance=6">boolean get(ullong& arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=get&instance=7">boolean get(short& arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=get&instance=8">boolean get(long& arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=get&instance=9">boolean get(llong& arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=get&instance=10">boolean get(float& arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=get&instance=11">boolean get(double& arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=get&instance=12">template &lt;class TIntegral&gt; boolean get(SysComplex&lt;TIntegral&gt;& arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=get&instance=13">boolean get(SysChar& arg) const;</a></pre>
+
+   <li> size-related methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=length">long length() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=memSize">long memSize() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=setCapacity">boolean setCapacity(long cap);</a></pre>
+       
+  <li> array-oriented methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=getBuffer&instance=0">long getBuffer(unichar* buffer, long max) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=getBuffer&instance=1">long getBuffer(byte* buffer, long max, SysChar::ENCODE encoding = SysChar::DEF_ENCODE) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=substr">boolean substr(SysString& str, long offset, long num_elements = Integral::NO_POS) const;</a></pre>
+
+  <li> insert/replace a substring into the string methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=insert&instance=1">boolean insert(const SysString& str, long index);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=insert&instance=0">boolean insert(const unichar* str, long index);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=replace&instance=1">boolean replace(const SysString& str, long index);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=replace&instance=0">boolean replace(const unichar* str, long index);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=replace&instance=2">boolean replace(const SysString& pattern, const SysString& new_stuff);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=replaceAll&instance=0">boolean replaceAll(const SysString& pattern, const SysString& new_stuff);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=deleteRange">boolean deleteRange(long offset, long num_elements);</a></pre>
+
+  <li> append to the end of the string methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=concat&instance=0">boolean concat(const SysString& str);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=concat&instance=1">boolean concat(const SysString& str1, const SysString& str2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=concat&instance=0">boolean concat(const unichar* buf);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=concat&instance=1">boolean concat(unichar character);</a></pre>
+
+  <li> numeric concatenation methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=concat&instance=2">boolean concat(const void* arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=concat&instance=3">boolean concat(boolean arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=concat&instance=4">boolean concat(const byte arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=concat&instance=5">boolean concat(const ushort arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=concat&instance=6">boolean concat(const ulong arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=concat&instance=7">boolean concat(const ullong arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=concat&instance=8">boolean concat(const short arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=concat&instance=9">boolean concat(const long arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=concat&instance=10">boolean concat(const llong arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=concat&instance=11">boolean concat(const float arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=concat&instance=12">boolean concat(const double arg);</a></pre>
+<pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=concat&instance=13">template &lt;class TIntegral&gt; boolean concat(const SysComplex&lt;TIntegral&gt;& arg);</a></pre>
+
+  <li> append to the end of the string methods with print format:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=concat&instance=14">boolean concat(const SysString& str, const unichar* fmt);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=concat&instance=15">boolean concat(const unichar* buf, const unichar* fmt);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=concat&instance=16">boolean concat(unichar character, const unichar* fmt);</a></pre>
+
+  <li> numeric concatenation methods with print format:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=concat&instance=17">boolean concat(const void* arg, const unichar* fmt);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=concat&instance=18">boolean concat(boolean arg, const unichar* fmt);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=concat&instance=19">boolean concat(const byte arg, const unichar* fmt);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=concat&instance=20">boolean concat(const ushort arg, const unichar* fmt);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=concat&instance=21">boolean concat(const ulong arg, const unichar* fmt);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=concat&instance=22">boolean concat(const ullong arg, const unichar* fmt);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=concat&instance=23">boolean concat(const short arg, const unichar* fmt);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=concat&instance=24">boolean concat(const long arg, const unichar* fmt);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=concat&instance=25">boolean concat(const llong arg, const unichar* fmt);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=concat&instance=26">boolean concat(const float arg, const unichar* fmt);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=concat&instance=27">boolean concat(const double arg, const unichar* fmt);</a></pre>
+<pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=concat&instance=28">template &lt;class TIntegral&gt; boolean concat(const SysComplex&lt;TIntegral&gt;& arg, const unichar* fmt = DEF_FMT_DOUBLE);</a></pre>
+
+   <li> trim away characters from string methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_06.cc&method=trim&instance=0">boolean trim();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_06.cc&method=trim&instance=1">boolean trim(const SysString& chars);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_06.cc&method=trim&instance=2">boolean trim(const unichar* chars);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_06.cc&method=trim&instance=0">boolean trimLeft();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_06.cc&method=trimLeft&instance=1">boolean trimLeft(const SysString& chars);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_06.cc&method=trimLeft&instance=2">boolean trimLeft(const unichar* chars);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_06.cc&method=trimRight&instance=0">boolean trimRight();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_06.cc&method=trimRight&instance=1">boolean trimRight(const SysString& chars);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_06.cc&method=trimRight&instance=2">boolean trimRight(const unichar* chars);</a></pre>
+
+  <li> string case conversion methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_04.cc&method=toUpper">boolean toUpper();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_04.cc&method=toLower">boolean toLower();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_04.cc&method=toMixed&instance=0">boolean toMixed();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_04.cc&method=toMixed&instance=1">boolean toMixed(const SysString& sep_chrs);</a></pre>
+              
+  <li> string search methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=firstStr">long firstStr(const unichar* str, long start = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_04.cc&method=firstStr">long firstStr(const SysString& str, long start = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=lastStr">long lastStr(const unichar* str, long end = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_04.cc&method=lastStr">long lastStr(const SysString& str, long end = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=firstChr">long firstChr(const unichar* chrs, long start = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_04.cc&method=firstChr">long firstChr(const SysString& chrs, long start = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_04.cc&method=firstChr">long firstChr(unichar chr, long start = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=lastChr">long lastChr(const unichar* chrs, long end = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_04.cc&method=lastChr">long lastChr(const SysString& chrs, long end = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_04.cc&method=lastChr">long lastChr(unichar chr, long end = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_04.cc&method=firstNotChr&instance=0">long firstNotChr(const SysString& chrs, long start = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_04.cc&method=firstNotChr&instance=1">long firstNotChr(unichar chr, long start = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_04.cc&method=lastNotChr&instance=0">long lastNotChr(const SysString& chrs, long end = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_04.cc&method=lastNotChr&instance=1">long lastNotChr(unichar chr, long end = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=firstAlnum">long firstAlnum(long start = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=firstAlpha">long firstAlpha(long start = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=firstDigit">long firstDigit(long start = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=firstLower">long firstLower(long start = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=firstPrint">long firstPrint(long start = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=firstPunct">long firstPunct(long start = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=firstSpace">long firstSpace(long start = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=firstUpper">long firstUpper(long start = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=lastAlnum">long lastAlnum(long end = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=lastAlpha">long lastAlpha(long end = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=lastDigit">long lastDigit(long end = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=lastLower">long lastLower(long end = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=lastPrint">long lastPrint(long end = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=lastPunct">long lastPunct(long end = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=lastSpace">long lastSpace(long end = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=lastUpper">long lastUpper(long end = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=firstNotAlnum">long firstNotAlnum(long start = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=firstNotAlpha">long firstNotAlpha(long start = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=firstNotDigit">long firstNotDigit(long start = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=firstNotLower">long firstNotLower(long start = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=firstNotPrint">long firstNotPrint(long start = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=firstNotPunct">long firstNotPunct(long start = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=firstNotSpace">long firstNotSpace(long start = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=firstNotUpper">long firstNotUpper(long start = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=lastNotAlnum">long lastNotAlnum(long end = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=lastNotAlpha">long lastNotAlpha(long end = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=lastNotDigit">long lastNotDigit(long end = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=lastNotLower">long lastNotLower(long end = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=lastNotPrint">long lastNotPrint(long end = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=lastNotPunct">long lastNotPunct(long end = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=lastNotSpace">long lastNotSpace(long end = Integral::NO_POS) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=lastNotUpper">long lastNotUpper(long end = Integral::NO_POS) const;</a></pre>
+
+  <li> count tokens methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=countTokens">long countTokens() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_06.cc&method=countTokens&instance=0">long countTokens(unichar delimiter = SysChar::SPACEC) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_06.cc&method=countTokens&instance=1">long countTokens(const SysString& delimiters) const;</a></pre>
+
+  <li> count delimiters methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=countDelimiters">long countDelimiters() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_06.cc&method=countDelimiters&instance=0">long countDelimiters(unichar delimiter = SysChar::SPACEC) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_06.cc&method=countDelimiters&instance=1">long countDelimiters(const SysString& delimiters) const;</a></pre>
+
+  <li> string tokenize methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=tokenize">boolean tokenize(SysString& sub, long& pos) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_06.cc&method=tokenize&instance=0">boolean tokenize(SysString& sub, long& pos, unichar delim) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_06.cc&method=tokenize&instance=1">boolean tokenize(SysString& sub_a, long& pos, const SysString& delim) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_06.cc&method=symbolPad">boolean symbolPad(const SysString& symbols);</a></pre>
+
+  <li> debug string creation methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_01.cc&method=debugStr&instance=0">boolean debugStr(const SysString& class_name, const unichar* message_a, const unichar* variable_name, const SysString& variable_value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_01.cc&method=debugStr&instance=1">boolean debugStr(const SysString& class_name, const unichar* message_a, const unichar* variable_name);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_01.cc&method=debugStrPrefix">boolean debugStrPrefix(const SysString& class_name, const unichar* message_a);</a></pre>
+
+  <li> empty string creation methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=getEmptyString">static const SysString& getEmptyString();</a></pre>
+</ul>
+       
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+  <li> general string search methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_04.cc&method=firstChar">long firstChar(long start, boolean (SysChar::*method) (void) const) const();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_04.cc&method=lastChar">long lastChar(long end, boolean (SysChar::*method) (void) const) const();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_04.cc&method=firstNotChar">long firstNotChar(long start, boolean (SysChar::*method) (void) const) const();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_04.cc&method=lastNotChar">long lastNotChar(long end, boolean (SysChar::*method) (void) const) const();</a></pre>       
+       
+  <li> memory allocation methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_05.cc&method=allocateMem">boolean allocateMem();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_05.cc&method=freeMem">boolean freeMem();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_05.cc&method=growMem">boolean growMem(long new_size);</a></pre>
+
+  <li> wrap the system wchar methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=isip_wcslen">static ulong isip_wcslen(const unichar* ws);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=isip_wcscmp">static long isip_wcscmp(const unichar* ws1, const unichar* ws2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=isip_wcsncmp">static long isip_wcsncmp(const unichar* ws1, const unichar* ws2, ulong n);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=isip_wcschr">static unichar* isip_wcschr(const unichar* haystack, const unichar needle);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=isip_wcscat">static unichar* isip_wcscat(unichar* ws1, const unichar* ws2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=isip_wcscpy">static unichar* isip_wcscpy(unichar* ws1, const unichar* ws2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=isip_wcsncpy">static unichar* isip_wcsncpy(unichar* ws1, const unichar* ws2, ulong n);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/SysString.h&method=isip_wctomb">static int isip_wctomb(char* s, const unichar wchar);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=isip_wcsstr">static unichar* isip_wcsstr(const unichar* haystack, const unichar* needle);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=isip_wcstok">static unichar* isip_wcstok(unichar* ws, const unichar* delim,unichar** ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=isip_fgetws">static unichar* isip_fgetws(unichar* s, int n, FILE* stream);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=isip_fputws">static long isip_fputws(const unichar* s, FILE* stream);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=isip_fgetwc">static wint_t isip_fgetwc(FILE* stream);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysString/sstr_03.cc&method=isip_fputwc">static wint_t isip_fputwc(wint_t wc, FILE* stream);</a></pre>
+
+  <li> friend functions:
+       
+       <pre>friend boolean File::put(const SysString& str);</pre>
+       <pre>friend boolean File::put(const SysChar chr);</pre>
+       <pre>friend boolean File::get(SysString& str, long len);</pre>
+       <pre>friend boolean File::get(SysChar& chr);</pre>
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+  <li> This example shows how to do numeric conversion assignments:
+
+<pre>
+SysString num;
+       
+// setup temporary variables
+//
+byte dbyte = (long)27;
+byte dbyte_v;
+       
+short dshort = (long)27;
+short dshort_v;
+       
+void* dvoidp = (void*)27;
+void* dvoidp_v;
+       
+// test the byte conversions
+//
+num.assign(dbyte);
+num.get(dbyte_v);
+       
+if (dbyte != dbyte_v) {
+  Console::put(L"Error in assign(byte)");
+}
+       
+// test the short conversions
+//
+num.assign(dshort);
+num.get(dshort_v);
+       
+if (dshort != dshort_v) {
+  Console::put(L"Error in assign(short)");
+}
+       
+// test the pointer conversions
+//
+num.assign(dvoidp);
+num.get(dvoidp_v);
+       
+if (dvoidp != dvoidp_v) {
+  Console::put(L"Error in assign(void*)");
+}</pre>
+       
+  <li> This example shows how to tokenize a string and count the number
+       of tokens:
+
+<pre>
+// declare a string
+//
+SysString str;
+
+// assign value
+//
+str.assign(L"   oscar had a heap of apples ");
+
+// declare local variable
+//
+long pos = 0;
+
+// declare a delimiter string
+//
+SysString delim(L" ");
+
+// tokenize the string into sub strings
+//
+SysString sub_str;
+while (str.tokenize(sub_str, pos, delim)) {
+  sub_str.debug(L"token");
+}
+
+// count the number of tokens
+//
+long tok = str.countTokens(L" ");
+
+if (tok != 6) {
+  Console::put(L"Error in countTokens");
+}</pre>
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li>
+       The SysString class is modeled after Java's StringBuffer class. The
+       capacity parameter is stored within the SysString object. It is
+       automatically managed by all these methods, but the programmer can
+       exert direct control if desired. The getChars methods are provided as
+       a crutch, they should not be used in most circumstances. All methods
+       in this class operate on the string itself - input SysString objects
+       are left unchanged.
+
+       <br><br>
+
+  <li>
+       While friend functions are generally discouraged in the ISIP
+       environment, they are used in the SysString class to isolate
+       implementation details. Currently, wide character support varies
+       greatly between different operating systems, so we abstract a core
+       group of wide character functions in this class as private
+       methods. The file class also needs to access these wrappers directly
+       for I/O purposes, though, so the friend directive is used.      
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

@@ -1,0 +1,25 @@
+----------------------------------------
+Begin Batch Job Prologue Wed Mar 12 22:56:05 EST 2014
+Job ID:           246215.owlsnest1.nfs
+Username:         tuc56736
+Group:            stdeceng
+Job Name:         exp027_run1
+Resources List:   neednodes=1:ppn=8,nodes=1:ppn=8,walltime=04:00:00
+Queue:            highmem
+Account:          tuc56736
+Nodes:            m002 
+End Batch Job Prologue Wed Mar 12 22:56:05 EST 2014
+----------------------------------------
+----------------------------------------
+Begin Batch Job Epilogue Wed Mar 12 23:16:59 EST 2014
+Job ID:           246215.owlsnest1.nfs
+Username:         tuc56736
+Group:            stdeceng
+Job Name:         exp027_run1
+Session:          13347
+Limits:           neednodes=1:ppn=8,nodes=1:ppn=8,walltime=04:00:00
+Resources:        cput=01:11:54,mem=19836kb,vmem=7783952kb,walltime=00:20:54
+Queue:            highmem
+Account:          tuc56736
+End Batch Job Epilogue Wed Mar 12 23:17:19 EST 2014
+----------------------------------------

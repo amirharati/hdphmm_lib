@@ -1,0 +1,263 @@
+// file: $isip/class/math/matrix/MMatrix/MMatrixDiagnose.h
+// version: $Id: MMatrixDiagnose.h 10675 2009-07-21 01:13:30Z tm334 $
+//
+
+// make sure definitions are only made once
+//
+#ifndef ISIP_MMATRIX_DIAGNOSE
+#define ISIP_MMATRIX_DIAGNOSE
+
+// test matrices parameters. this gets really messy if we try to
+// include it in the template class, so we use the #define's instead.
+//
+#define MMAT_NUM_MATS_REAL 8 
+#define MMAT_NUM_MATS_COMPLEX 8
+#define MMAT_NUM_MATS_TOTAL (MMAT_NUM_MATS_REAL + MMAT_NUM_MATS_COMPLEX)
+
+#ifndef ISIP_TEMPLATE_complex
+#define MMAT_NUM_MATS_TEST (MMAT_NUM_MATS_REAL)
+
+#else
+#define MMAT_NUM_MATS_TEST (MMAT_NUM_MATS_TOTAL)
+#endif
+
+// define this constant to double the size of the data arrays. data
+// array size is increased because of appending imaginary components
+// at the end of data matrixces
+#define MMAT_TWO 2
+
+#define MMAT_NUM_ROWS 4
+#define MMAT_NUM_COLS 4
+#define MMAT_MAT_SIZE (MMAT_NUM_ROWS * MMAT_NUM_COLS * MMAT_TWO + 2)
+#define MMAT_DATA_LOC 2
+#define MMAT_NROW_LOC 0
+#define MMAT_NCOL_LOC 1
+#define MMAT_NUM_TYPES 6
+
+// parameter for method to assign a TIntegral value
+//
+#define MMAT_ASSIGN_TINT_VALUE 5
+
+// parameter for method to assign a string
+//
+#define MAX_STRING_LENGTH 1024
+
+// parameters for concatByRow, concatByColumn methods
+//
+#define MMAT_CON_NUM_MATS (MMAT_NUM_MATS_TOTAL)
+#define MMAT_CON_ROW_MAT_SIZE (MMAT_NUM_ROWS * MMAT_NUM_COLS * 2 * MMAT_TWO + 2)
+#define MMAT_CON_COL_MAT_SIZE (MMAT_NUM_COLS * MMAT_NUM_ROWS * 2 * MMAT_TWO + 2)
+
+// parameter for getMinor method
+//
+#define MMAT_GTMR_ARG_SIZE 6
+#define MMAT_GTMR_NUM_MATS ((MMAT_GTMR_ARG_SIZE / 2) * MMAT_NUM_MATS_TOTAL)
+
+// parameter for swapRows and swapColumns
+//
+#define MMAT_SWRW_ARG_SIZE 4
+#define MMAT_SWRW_NUM_MATS (MMAT_NUM_MATS_TOTAL)
+
+// parameter for swapRows and swapColumns
+//
+#define MMAT_SWCL_ARG_SIZE 4
+#define MMAT_SWCL_NUM_MATS (MMAT_NUM_MATS_TOTAL)
+
+// parameters for nextZero and nextNonZero methods
+//
+#define MMAT_NEXT_ZERO_SIZE 2
+#define MMAT_NEXT_NONZERO_SIZE 2
+
+// the argument matrices
+//
+extern float64 MMAT_ARG_MATRICES [MMAT_NUM_MATS_TOTAL] [MMAT_MAT_SIZE];
+
+// types of the argument matrices
+//
+extern Integral::MTYPE MMAT_ARG_MAT_TYPES [MMAT_NUM_MATS_TOTAL];
+
+// parameter for string assign method
+//
+extern unichar MMAT_ASSIGN_STRING_INPUT [MMAT_NUM_TYPES][MAX_STRING_LENGTH];
+
+// define the results of the single matrix -> scalar operations
+//
+extern bool8 MMAT_IS_TYPE_POSSIBLE_RES [MMAT_NUM_MATS_TOTAL] [MMAT_NUM_TYPES];
+extern bool8 MMAT_IS_DIAGONAL_RES [MMAT_NUM_MATS_TOTAL];
+extern bool8 MMAT_IS_SYMMETRIC_RES [MMAT_NUM_MATS_TOTAL];
+extern bool8 MMAT_IS_LOWERTRIANGULAR_RES [MMAT_NUM_MATS_TOTAL];
+extern bool8 MMAT_IS_UPPERTRIANGULAR_RES [MMAT_NUM_MATS_TOTAL];
+extern float64 MMAT_IDENTITY_MATRICES [MMAT_MAT_SIZE];
+extern float64 MMAT_ORTHOGONAL_MATRICES [MMAT_MAT_SIZE];
+extern bool8 MMAT_CHANGE_TYPE_RES [MMAT_NUM_MATS_TOTAL] [MMAT_NUM_TYPES];
+extern float64 MMAT_NEXT_ZERO_ARG[MMAT_NEXT_ZERO_SIZE];
+extern float64 MMAT_NEXT_ZERO_RES[MMAT_NUM_MATS_TOTAL * 2];
+extern float64 MMAT_NEXT_NONZERO_ARG[MMAT_NEXT_NONZERO_SIZE];
+extern float64 MMAT_NEXT_NONZERO_RES[MMAT_NUM_MATS_TOTAL * 4];
+extern bool8 MMAT_IS_SQUARE_RES [MMAT_NUM_MATS_TOTAL];
+extern bool8 MMAT_IS_SINGULAR_RES [MMAT_NUM_MATS_TOTAL];
+extern float64 MMAT_CLEAR_RES[MMAT_MAT_SIZE];
+
+extern float64 MMAT_SET_DIM_RES [MMAT_NUM_MATS_TOTAL] [MMAT_MAT_SIZE];
+extern float64 MMAT_SET_CAP_RES [MMAT_NUM_MATS_TOTAL] [MMAT_MAT_SIZE];
+extern float64 MMAT_NUM_EQUAL_VAL0;
+extern int32 MMAT_NUM_EQUAL_RES0 [MMAT_NUM_MATS_TOTAL];
+extern float64 MMAT_NUM_EQUAL_VAL1;
+extern int32 MMAT_NUM_EQUAL_RES1 [MMAT_NUM_MATS_TOTAL];
+extern complexdouble MMAT_NUM_EQUAL_VAL2;
+extern int32 MMAT_NUM_EQUAL_RES2 [MMAT_NUM_MATS_TOTAL];
+extern complexdouble MMAT_NUM_EQUAL_VAL3;
+extern int32 MMAT_NUM_EQUAL_RES3 [MMAT_NUM_MATS_TOTAL];
+
+extern float64 MMAT_NUM_NOT_EQUAL_VAL0;
+extern int32 MMAT_NUM_NOT_EQUAL_RES0 [MMAT_NUM_MATS_TOTAL];
+extern float64 MMAT_NUM_NOT_EQUAL_VAL1;
+extern int32 MMAT_NUM_NOT_EQUAL_RES1 [MMAT_NUM_MATS_TOTAL];
+extern complexdouble MMAT_NUM_NOT_EQUAL_VAL2;
+extern int32 MMAT_NUM_NOT_EQUAL_RES2 [MMAT_NUM_MATS_TOTAL];
+extern complexdouble MMAT_NUM_NOT_EQUAL_VAL3;
+extern int32 MMAT_NUM_NOT_EQUAL_RES3 [MMAT_NUM_MATS_TOTAL];
+
+extern float64 MMAT_GT_VAL0;
+extern bool8 MMAT_GT_RES0 [MMAT_NUM_MATS_TOTAL];
+extern float64 MMAT_GT_VAL1;
+extern bool8 MMAT_GT_RES1 [MMAT_NUM_MATS_TOTAL];
+extern complexdouble MMAT_GT_VAL2;
+extern bool8 MMAT_GT_RES2 [MMAT_NUM_MATS_TOTAL];
+extern complexdouble MMAT_GT_VAL3;
+extern bool8 MMAT_GT_RES3 [MMAT_NUM_MATS_TOTAL];
+
+extern float64 MMAT_GE_VAL0;
+extern bool8 MMAT_GE_RES0 [MMAT_NUM_MATS_TOTAL];
+extern float64 MMAT_GE_VAL1;
+extern bool8 MMAT_GE_RES1 [MMAT_NUM_MATS_TOTAL];
+extern complexdouble MMAT_GE_VAL2;
+extern bool8 MMAT_GE_RES2 [MMAT_NUM_MATS_TOTAL];
+extern complexdouble MMAT_GE_VAL3;
+extern bool8 MMAT_GE_RES3 [MMAT_NUM_MATS_TOTAL];
+
+extern float64 MMAT_LT_VAL0;
+extern bool8 MMAT_LT_RES0 [MMAT_NUM_MATS_TOTAL];
+extern float64 MMAT_LT_VAL1;
+extern bool8 MMAT_LT_RES1 [MMAT_NUM_MATS_TOTAL];
+extern complexdouble MMAT_LT_VAL2;
+extern bool8 MMAT_LT_RES2 [MMAT_NUM_MATS_TOTAL];
+extern complexdouble MMAT_LT_VAL3;
+extern bool8 MMAT_LT_RES3 [MMAT_NUM_MATS_TOTAL];
+
+extern float64 MMAT_LE_VAL0;
+extern bool8 MMAT_LE_RES0 [MMAT_NUM_MATS_TOTAL];
+extern float64 MMAT_LE_VAL1;
+extern bool8 MMAT_LE_RES1 [MMAT_NUM_MATS_TOTAL];
+extern complexdouble MMAT_LE_VAL2;
+extern bool8 MMAT_LE_RES2 [MMAT_NUM_MATS_TOTAL];
+extern complexdouble MMAT_LE_VAL3;
+extern bool8 MMAT_LE_RES3 [MMAT_NUM_MATS_TOTAL];
+
+extern float64 MMAT_EQ_VAL0;
+extern bool8 MMAT_EQ_RES0 [MMAT_NUM_MATS_TOTAL];
+extern float64 MMAT_EQ_VAL1;
+extern bool8 MMAT_EQ_RES1 [MMAT_NUM_MATS_TOTAL];
+extern complexdouble MMAT_EQ_VAL2;
+extern bool8 MMAT_EQ_RES2 [MMAT_NUM_MATS_TOTAL];
+extern complexdouble MMAT_EQ_VAL3;
+extern bool8 MMAT_EQ_RES3 [MMAT_NUM_MATS_TOTAL];
+
+extern float64 MMAT_NE_VAL0;
+extern bool8 MMAT_NE_RES0 [MMAT_NUM_MATS_TOTAL];
+extern float64 MMAT_NE_VAL1;
+extern bool8 MMAT_NE_RES1 [MMAT_NUM_MATS_TOTAL];
+extern complexdouble MMAT_NE_VAL2;
+extern bool8 MMAT_NE_RES2 [MMAT_NUM_MATS_TOTAL];
+extern complexdouble MMAT_NE_VAL3;
+extern bool8  MMAT_NE_RES3 [MMAT_NUM_MATS_TOTAL];
+
+extern float64 MMAT_MIN_RES [MMAT_NUM_MATS_TOTAL] [4];
+extern float64 MMAT_MAX_RES [MMAT_NUM_MATS_TOTAL] [4];
+extern float64 MMAT_MINMAG_RES [MMAT_NUM_MATS_TOTAL] [4];
+extern float64 MMAT_MAXMAG_RES [MMAT_NUM_MATS_TOTAL] [4];
+
+extern float64 MMAT_DET_RES [MMAT_NUM_MATS_TOTAL * MMAT_TWO];
+extern float64 MMAT_SUM_RES [MMAT_NUM_MATS_TOTAL * MMAT_TWO];
+extern float64 MMAT_SUM_SQUARE_RES [MMAT_NUM_MATS_TOTAL * MMAT_TWO];
+extern float64 MMAT_MEAN_RES [MMAT_NUM_MATS_TOTAL * MMAT_TWO];
+extern float64 MMAT_RMS_RES [MMAT_NUM_MATS_TOTAL * MMAT_TWO];
+extern float64 MMAT_VAR_RES [MMAT_NUM_MATS_TOTAL * MMAT_TWO];
+extern float64 MMAT_TRACE_RES [MMAT_NUM_MATS_TOTAL * MMAT_TWO];
+
+extern float64 MMAT_SUM_COLUMN_RES [MMAT_NUM_MATS_TOTAL] [MMAT_NUM_COLS * MMAT_TWO];
+extern float64 MMAT_SUM_ROW_RES [MMAT_NUM_MATS_TOTAL] [MMAT_NUM_ROWS * MMAT_TWO];
+
+// define the results of the vector multiplication
+//
+extern float64 MMAT_VMULT_ARG_REAL [MMAT_NUM_ROWS * MMAT_TWO];
+extern float64 MMAT_VMULT_RES_REAL [MMAT_NUM_MATS_TOTAL] [MMAT_NUM_ROWS * MMAT_TWO + 1];
+
+extern float64 MMAT_VMULT_ARG_COMPLEX [MMAT_NUM_ROWS * MMAT_TWO];
+extern float64 MMAT_VMULT_RES_COMPLEX [MMAT_NUM_MATS_TOTAL] [MMAT_NUM_ROWS * MMAT_TWO + 1];
+
+extern float64 MMAT_MULTV_ARG_REAL [MMAT_NUM_COLS * MMAT_TWO];
+extern float64 MMAT_MULTV_RES_REAL [MMAT_NUM_MATS_TOTAL] [MMAT_NUM_COLS * MMAT_TWO + 1];
+
+extern float64 MMAT_MULTV_ARG_COMPLEX [MMAT_NUM_COLS * MMAT_TWO];
+extern float64 MMAT_MULTV_RES_COMPLEX [MMAT_NUM_MATS_TOTAL] [MMAT_NUM_COLS * MMAT_TWO + 1];
+
+extern float64 MMAT_QUADRATIC_VEC_REAL [MMAT_NUM_ROWS];
+extern float64 MMAT_QUADRATIC_RES_REAL [MMAT_NUM_MATS_TOTAL * MMAT_TWO];
+
+extern float64 MMAT_QUADRATIC_VEC_COMPLEX [MMAT_NUM_ROWS * MMAT_TWO];
+extern float64 MMAT_QUADRATIC_RES_COMPLEX [MMAT_NUM_MATS_TOTAL * MMAT_TWO];
+
+// define the results of the single matrix -> matrix operations
+//
+extern float64 MMAT_NEG_RES [MMAT_NUM_MATS_TOTAL] [MMAT_MAT_SIZE];
+extern float64 MMAT_ADD_SCAL_RES [MMAT_NUM_MATS_TOTAL] [MMAT_MAT_SIZE];
+extern float64 MMAT_MULT_SCAL_RES [MMAT_NUM_MATS_TOTAL] [MMAT_MAT_SIZE];
+extern float64 MMAT_INV_RES [MMAT_NUM_MATS_TOTAL] [MMAT_MAT_SIZE];
+extern float64 MMAT_TRANS_RES [MMAT_NUM_MATS_TOTAL] [MMAT_MAT_SIZE];
+extern float64 MMAT_ASSIGN_TINT_RES [MMAT_NUM_MATS_TOTAL] [MMAT_MAT_SIZE];
+extern float64 MMAT_DECOMPLU1_RES [MMAT_NUM_MATS_TOTAL] [MMAT_MAT_SIZE];
+extern float64 MMAT_DECOMPLU2_RES [MMAT_NUM_MATS_TOTAL] [MMAT_MAT_SIZE];
+extern float64 MMAT_DECOMPCL1_RES [MMAT_NUM_MATS_TOTAL] [MMAT_MAT_SIZE];
+extern float64 MMAT_DECOMPCL2_RES [MMAT_NUM_MATS_TOTAL] [MMAT_MAT_SIZE];
+extern float64 MMAT_EIGENVEC_RES [MMAT_NUM_MATS_TOTAL] [MMAT_MAT_SIZE];
+extern float64 MMAT_EIGENVAL_RES [MMAT_NUM_MATS_TOTAL] [MMAT_NUM_ROWS  * MMAT_TWO+ 1];
+
+extern float64 MMAT_MAKEDIAG_VEC [MMAT_NUM_ROWS * MMAT_TWO];
+extern float64 MMAT_MAKEDIAG_RES0 [MMAT_MAT_SIZE];
+
+extern float64 MMAT_MAKEDIAG_SCAL;
+extern float64 MMAT_MAKEDIAG_RES1 [MMAT_MAT_SIZE];
+
+extern float64 MMAT_BLOCKASSIGN_RES [MMAT_NUM_MATS_TOTAL] [MMAT_MAT_SIZE];
+extern float64 MMAT_ASSIGN_ARG [MMAT_NUM_MATS_TOTAL] [MMAT_MAT_SIZE];
+extern const unichar* MMAT_ASSIGN1_ARG [MMAT_NUM_MATS_TOTAL];
+
+// define the results of the 2 matrices -> matrix operations
+//
+extern float64 MMAT_ADD_MAT_RES_REAL [MMAT_NUM_MATS_REAL] [MMAT_NUM_MATS_REAL] [MMAT_MAT_SIZE];
+extern float64 MMAT_SUB_MAT_RES_REAL [MMAT_NUM_MATS_REAL] [MMAT_NUM_MATS_REAL] [MMAT_MAT_SIZE];
+extern float64 MMAT_MULT_MAT_RES_REAL [MMAT_NUM_MATS_REAL] [MMAT_NUM_MATS_REAL] [MMAT_MAT_SIZE];
+extern float64 MMAT_ADD_MAT_RES_COMPLEX [MMAT_NUM_MATS_COMPLEX] [MMAT_NUM_MATS_COMPLEX] [MMAT_MAT_SIZE];
+extern float64 MMAT_SUB_MAT_RES_COMPLEX [MMAT_NUM_MATS_COMPLEX] [MMAT_NUM_MATS_COMPLEX] [MMAT_MAT_SIZE];
+extern float64 MMAT_MULT_MAT_RES_COMPLEX [MMAT_NUM_MATS_COMPLEX] [MMAT_NUM_MATS_COMPLEX] [MMAT_MAT_SIZE];
+
+extern float64 MMAT_CON_ROW_MAT_RES [MMAT_CON_NUM_MATS][MMAT_CON_ROW_MAT_SIZE * MMAT_TWO];
+extern float64 MMAT_CON_COL_MAT_RES [MMAT_CON_NUM_MATS][MMAT_CON_COL_MAT_SIZE * MMAT_TWO];
+
+extern float64 MMAT_REORDER_ROWS_RES [MMAT_NUM_MATS_TOTAL][MMAT_MAT_SIZE];
+extern int32 MMAT_GETMINOR_ARG [MMAT_GTMR_ARG_SIZE];
+extern float64 MMAT_GETMINOR_RES [MMAT_GTMR_NUM_MATS][MMAT_MAT_SIZE];
+extern int32 MMAT_SWAPROWS_ARG [MMAT_SWRW_ARG_SIZE];
+extern float64 MMAT_SWAPROWS_RES [MMAT_SWRW_NUM_MATS][MMAT_MAT_SIZE];
+extern int32 MMAT_SWAPCOLUMNS_ARG [MMAT_SWCL_ARG_SIZE];
+extern float64 MMAT_SWAPCOLUMNS_RES [MMAT_SWCL_NUM_MATS][MMAT_MAT_SIZE];
+extern int32 MMAT_INDEX_VECTOR [MMAT_NUM_ROWS];
+
+// define the rank test data
+//
+extern int32 MMAT_RANK_TEST[MMAT_NUM_MATS_TOTAL];
+
+// end of include file
+//
+#endif

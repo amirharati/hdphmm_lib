@@ -1,0 +1,291 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="Checksum" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="name">
+<b>
+name:
+<a href="/perl/ifc_document.pl?file=$isip/class/system/Checksum/Checksum.h">Checksum</a>
+</b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br> <br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ... -l /isip/tools/lib/$ISIP_BINARY/lib_system.a
+
+#include &lt;Checksum.h&gt;
+
+Checksum();
+boolean compute();
+boolean get();
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+Checksum cksum;
+SysString str(L"Joe");
+cksum.compute(str);
+ulong result = cksum.get();
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The Checksum class implements a variety of common checksum
+algorithms, including cyclic redundancy codes (CRC).
+The interface is designed to facilitate processing
+streams of data. After initialization, users pass strings
+to the class using the compute method. The current checksum
+value is retrieved using a get method, and can be reset at
+any time using the clear(Integral::RETAIN) method.
+This class is positioned in the System library because
+it is used by Sof, NameMap, and other low-level classes.
+
+<br><br>
+
+Note that only three CRC algorithms are currently
+supported: a 16-bit CCITT CRC (CRC_16_CCITT), another
+popular 16-bit CRC (CRC_16), and a 12-bit CRC (CRC_12).
+Further, only the fast implementation, which uses
+a table lookup, is currently supported.
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li> <a href="../SysString/index.html">SysString</a>
+  <li> <a href="../MemoryManager/index.html">MemoryManager</a>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Checksum/cksm_00.cc&constant=CLASS_NAME">static const String CLASS_NAME = L"Checksum";</a></pre>
+ 
+  <li> define algorithm choices:
+
+       <pre>enum ALGORITHM { CRC_16_CCITT = 0, CRC_16, CRC_12, MD5, DEF_ALGORITHM = CRC_16_CCITT };</pre>
+
+  <li> define implementations:
+
+       <pre>enum IMPLEMENTATION { FAST = 0, SLOW, DEF_IMPLEMENTATION = FAST };</pre>
+
+  <li> define an initial value for CRC:
+
+       <pre>static const ulong CRC_INITIAL_VALUE = 0;</pre>
+ 
+  <li> define CRC polynomials:
+
+       <pre>static const ulong CRC_12_POLYNOMIAL = 05401;</pre>
+       
+       <pre>static const ulong CRC_16_POLYNOMIAL = 0120001;</pre>
+       
+       <pre>static const ulong CRC_16_CCITT_POLYNOMIAL = 0102010;</pre>
+
+  <li> CRC checksums use a 256 length table:
+
+       <pre>static const long CRC_TABLE_LENGTH = 256;</pre>
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> error codes indicating general errors:
+
+       <pre><a href="/perl/ifc_document.pl?err=00001600">static const long ERR = 1600;</a></pre>
+
+  <li> error codes for invalid polynomials:
+
+       <pre><a href="/perl/ifc_document.pl?err=00001601">static const long ERR_POLY = 1601;</a></pre>
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> algorithm name:
+
+       <pre>ALGORITHM algorithm_d;</pre>
+  
+  <li> implementation name:
+
+       <pre>IMPLEMENTATION implementation_d;</pre>
+       
+  <li> declare a register to hold the current checksum:
+
+       <pre>ulong cksum_d;</pre>
+
+  <li> declare a static debug level for all class instantiations:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Checksum/cksm_00.cc&static=debug_level_d">static Integral::DEBUG debug_level_d;</a></pre>
+	      
+  <li> static memory manager:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Checksum/cksm_00.cc&static=mgr_d">static MemoryManager mgr_d;</a></pre>
+	      
+  <li> initialization flag:
+
+       <pre>boolean is_valid_d;</pre>
+       
+  <li> these implementations use a table lookup:
+
+       <pre>ulong crc_table_d[CRC_TABLE_LENGTH];</pre>       
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li> static methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Checksum/Checksum.h&method=name&instance=0">static const SysString& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Checksum/cksm_02.cc&method=diagnose">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+
+  <li> debug methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Checksum/Checksum.h&method=setDebug&instance=0">static boolean setDebug(Integral::DEBUG level);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Checksum/cksm_01.cc&method=debug">boolean debug(const unichar* message) const;</a></pre>
+
+  <li> destructor/constructor(s):
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Checksum/Checksum.h&method=destructor">~Checksum();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Checksum/cksm_00.cc&method=default+constructor">Checksum();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Checksum/Checksum.h&method=copy+constructor">Checksum(const Checksum& arg);</a></pre>
+
+  <li> assign methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Checksum/cksm_03.cc&method=assign">boolean assign(const Checksum& arg);</a></pre>     
+       
+  <li> operator= methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Checksum/Checksum.h&method=operator%3D&instance=0">Checksum& operator=(const Checksum& arg_a);</a></pre>
+
+  <li> i/o methods:
+
+       <pre>i/o methods are omitted because this class can't write itself to an Sof file</pre>
+
+  <li> equality methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Checksum/cksm_03.cc&method=eq">boolean eq(const Checksum& arg);</a></pre>     
+
+  <li> memory management methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Checksum/Checksum.h&method=new">static void* operator new(size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Checksum/Checksum.h&method=new\[\]">static void* operator new[](size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Checksum/Checksum.h&method=delete">static void operator delete(void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Checksum/Checksum.h&method=delete\[\]">static void operator delete[](void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Checksum/Checksum.h&method=setGrowSize">static boolean setGrowSize(long grow_size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Checksum/cksm_03.cc&method=clear">boolean clear(Integral::CMODE ctype_a = Integral::DEF_CMODE);</a></pre>     
+</ul>
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>
+  <li> set and get methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Checksum/Checksum.h&method=setAlgorithm">boolean setAlgorithm(ALGORITHM algorithm);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Checksum/Checksum.h&method=setImplementation">boolean setImplementation(IMPLEMENTATION implementation);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Checksum/Checksum.h&method=getAlgorithm">ALGORITHM getAlgorithm() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Checksum/Checksum.h&method=getImplementation">IMPLEMENTATION getImplementation() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Checksum/Checksum.h&method=get">ulong get() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Checksum/Checksum.h&method=cast">operator ulong() const;</a></pre>
+
+  <li> initialization and computation methods: these methods initialize class constants and compute a new checksum
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Checksum/cksm_04.cc&method=init">boolean init();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Checksum/cksm_04.cc&method=compute&instance=0">boolean compute(const SysString& input);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Checksum/cksm_04.cc&method=compute&instance=1">boolean compute(const byte* input, long nbytes);</a></pre>
+
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+  <li> algorithm-specific computation methods: these methods are shared by all CRC methods
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Checksum/cksm_04.cc&method=initCrc">boolean initCrc(ulong poly);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Checksum/cksm_04.cc&method=computeCrcFast&instance=0">boolean computeCrcFast(const SysString& arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Checksum/cksm_04.cc&method=computeCrcFast&instance=1">boolean computeCrcFast(const byte* input, long nbytes);</a></pre>
+  <li> method to reset the buffers in an algorithmic dependent manner
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Checksum/cksm_04.cc&method=reset">boolean reset();</a></pre>
+
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+  <li> This example shows how to compute a Checksum using default values:
+              
+<pre>
+Checksum cksum;
+String str(L"Joe");
+cksum.compute(str);
+ulong result = cksum.get();</pre>
+
+  <li> This example demonstrates how to configure an object for a specific
+       algorithm and implementation:
+
+<pre>
+Checksum cksum;
+cksum.setAlgorithm(CRC_16);
+cksum.setImplementation(FAST);
+String str1(L"Joe");
+String str2(L"xxyyzz");
+cksum.compute(str1);
+cksum.compute(str2);
+ulong result = cksum.get();</pre>
+
+       Note that the resulting checksum value is computing over the
+       concatenation of both strings, making it easy for this class
+       to be used to compute checksums across large chunks of data,
+       including files.
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> Only CRC_16_CCITT, CRC_16, and CRC_12 are currently implemented
+       in the FAST mode, since these are the most useful.
+
+       <br><br>
+       
+  <li> The SLOW mode, which calculates the checksums directly using
+       polynomial division, are provided mainly for instructional purposes.
+       They are significantly less efficient than the FAST versions, and
+       are provided mainly for academic purposes.
+</ul>       
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

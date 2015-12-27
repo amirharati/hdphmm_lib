@@ -1,0 +1,320 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="MAKE" -->
+<!--#include virtual="/templates/general/body/title.html" -->
+
+<b>Name:</b>
+make
+
+<br><br>
+
+<b>utility makefile:</b>
+
+<br><br>
+
+<ul>
+
+  The utility makefile is used to build utility programs.
+
+</ul>
+
+<b>example:</b>
+
+<ul>
+  Let's begin with a simple
+
+  <a href="../../util/speech/isip_transform/GNUmakefile">example</a>:
+
+  <pre>
+01  # file: $isip/util/asr/isip_transform/GNUmakefile
+02  # version: $Id: index.html 10653 2007-02-24 20:33:16Z tm334 $
+03  #
+04  # this make file builds an utility example program
+05  #
+06
+07  # define the source files
+08  #
+09  ISIP_FILES = *.cc
+10
+11  # define the files these source files depend on (usually include files)
+12  #
+13  ISIP_DEPS = isip_transform.h Features.h AudioFrontEnd.h help_message.text
+14
+15  # define the compilation flags
+16  # 
+17  ISIP_CFLAGS =
+18
+19  # define the name of the executable file (*.exe)
+20  #
+21  ISIP_EXE = isip_transform.exe
+22
+23  # define the installation directory (override the watch on local installs)
+24  #
+25  ISIP_BIN = $(ISIP_DEVEL)/bin/$(ISIP_BINARY)
+26
+27  # include the isip standard make template
+28  #
+29  include $(ISIP_DEVEL)/lib/scripts/make/compile_and_link.make
+30
+31  #
+32  # end of file
+</pre>
+</ul>
+
+<b>explanation:</b>
+
+<ul>
+
+On line 9 the source files are defined to be those files which have
+.cc suffix. Then on line 13 the dependencies are set -- if any of
+these files change then the utility will be rebuilt. On line 21 the
+executable file is defined to be isip_transform.exe. We also define
+the installation directory on line 25 -- make install will cause the
+program to be installed into this directory. Finally, the make
+template compile_and_link.make is included on line 29.
+
+</ul>
+
+<b>script makefile:</b>
+
+<br><br>
+
+<ul>
+
+  The script makefile is used to build script program
+
+</ul>
+
+<b>example:</b>
+
+<ul>
+  Let's begin with a simple
+
+  <a href="../../util/misc/isip_e/GNUmakefile">example</a>:
+
+<pre>
+01  # file: GNUmakefile
+02  #
+03
+04  # define the source files
+05  #
+06  ISIP_LIB_FILES = 
+07  ISIP_BIN_FILES = *.sh
+08
+09  # define the files these source files depend on (usually include files)
+10  #
+11  ISIP_DEPS = 
+12
+13  # define the compilation flags: optimize and debug
+14  # 
+15  ISIP_CFLAGS = -g
+16
+17  # define the extension which will be striped from executables
+18  #
+19  BIN_EXT = .sh
+20
+21  # define the installation directories (appended to $ISIP/bin/scripts
+22  # and $ISIP/lib/scripts)
+23  #
+24  ISIP_BIN = 
+25  ISIP_LIB = 
+26
+27  # include the isip standard make template
+28  #
+29  include $(ISIP_DEVEL)/lib/scripts/make/scripts.make
+30
+31  #
+32  # end of file
+</pre>
+</ul>
+
+<b>explanation:</b>
+
+<ul>
+
+On line 07 the source files are defined to be those files which have
+.sh suffix. Then on line 15 the compilation flag is defined to be "-g"
+which is debugging flag.  The extension which will be striped from
+executables is defined to be .sh on line 19. Finally, the make
+template scripts.make is included on line 29.
+
+</ul>
+
+<b>class makefile:</b>
+
+<br><br>
+
+<ul>
+
+  The class makefile is used to build class program
+
+</ul>
+
+<b>example:</b>
+
+<ul>
+  Let's begin with a simple
+
+  <a href="../../class/system/Integral/GNUmakefile">example</a>:
+
+<pre>
+01  # file: $isip/class/system/Integral/GNUmakefile
+02  # version: $Id: index.html 10653 2007-02-24 20:33:16Z tm334 $
+03  #
+04  # this make file builds the Integral class
+05  # 
+06
+07  # define the source files
+08  #
+09  ISIP_FILES = *.cc
+10
+11  # define the header files that need to be installed
+12  #
+13  ISIP_HEADER_FILES = Integral.h IntegralTypes.h IntegralConfigure.h \
+14          IntegralNameSpace.h
+15
+16  # define other dependencies (headers are included automatically)
+17  #
+18  ISIP_DEPS = SysString.h
+19
+20  # define the output library
+21  #
+22  ISIP_OLIB = lib_system.a
+23
+24  # define the compilation flags
+25  # 
+26  ISIP_CFLAGS =
+27
+28  # include the isip standard make template
+29  #
+30  include $(ISIP_DEVEL)/lib/scripts/make/compile.make
+31
+32  #
+33  # end of file
+</pre>
+</ul>
+
+<b>explanation:</b>
+
+<ul>
+
+On line 9 the source files are defined to be those files which have
+.cc suffix.  On line 13 and line 14 those header files which need to
+be installed are set. Then on line 18 the dependencies are set -- if
+any of these files change then the utility will be rebuilt. Those
+header files on line 13 and line 14 will be included into dependencies
+automatically. On line 22 the output library is defined to be
+lib_system.a. Finally, the make template compile.make is included on
+line 30.
+
+</ul>
+
+  <br><br>
+
+<ul>
+
+  <center>  
+
+
+  <table border=5 width=500>
+
+  <tr><td width=150>ISIP_INCLUDE</td><td>This is the standard set of -I flags.
+  By default it is set to -I$(ISIP_DEVEL)/include.</td></tr>
+  <tr><td>ISIP_DEVEL</td><td>The base directory of the distribution. Often this is the same as the $ISIP variable, but you can disconnect a production from development environment by setting ISIP_DEVEL to something different.</td></tr>
+  <tr><td>ISIP_CPLUS_COMPILER</td><td>Utility which is the isip C++ compiler. By default it is set to g++.</td></tr>
+  <tr><td>ISIP_CPLUS_OPTIMIZE</td><td>Options for compilation. Often the debug and optimize options are set here.</td></tr>
+  <tr><td>ISIP_BINARY</td><td>Define the architecture target.</td></tr>
+  <tr><td>ISIP_LIBS</td><td>This is the standard set of libraries (-L
+and -l flags) used in building utilities.</td></tr>
+  <caption align=bottom>Table 1. Environmental variables used by makefiles  </a>
+  </table>
+
+  <br><br>
+
+  <table border=5 width=500>
+
+  <tr><td width=150>ISIP_FILES</td><td>Glob-style pattern for all source files,
+often this is *.cc.</td></tr>
+  <tr><td>ISIP_IFLAGS</td><td>IFLAGS in addition to $ISIP_INCLUDE.</td></tr>
+  <tr><td>ISIP_HEADER_FILES</td><td>Header files which need to be
+installed into $ISIP_DEVEL/include. Note that compilation will depend
+on these header files.</td></tr>
+  <tr><td>ISIP_DEPS</td><td>Additional dependencies for this
+build. This will often be set to header files outside of this module,
+or to local header files that will not be installed into the
+$ISIP_DEVEL/include directory.</td></tr>
+  <tr><td>DEBUG</td><td>Options for debugging. This can be set on the
+command line, i.e., make DEBUG=-g install.</td></tr>
+  <tr><td>OPTIMIZE</td><td>Options for optimization. This can be set on the
+command line, i.e., make OPTIMIZE= install.</td></tr>
+  <tr><td>ISIP_CFLAGS</td><td>An alternate way to set compilation options.</td></tr>
+
+  <caption align=bottom>Table 2. Variables used by both compile.make and compile_and_link.make</caption>
+  </table>
+  
+  <br><br>
+
+<table border=5 width=500>
+  <tr><td width=150>ISIP_OLIB </td><td>This is the library to which this class's object code is installed.</td></tr>
+  <tr><td>DIAG_CLASS </td><td>Name of the class to diagnose. For most classes this is set automatically to the directory name, but sometimes (such as dstr classes) it is set to something different.</td></tr>
+  <tr><td>DIAG_HEADER </td><td>This is the header file for the class to be diagnosed. For most classes this need not be set, but for dstr the header file is not installed so it needs to be set to the full path of the diagnose header file.</td></tr>
+  <tr><td>ISIP_DIAGNOSE_MODE </td><td>The ISIP_DIAGNOSE_MODE exists to
+allow special behaviour in testing special classes. For some classes
+there are no diagonstics that can be run directly, for example the
+MMatrix class is tested in the 8 matrix classes (MatrixFloat,
+MatrixLong, etc). For such classes ISIP_DIAGNOSE_MODE should be set to
+"none." The data structures also need to the diagnose mode to be set
+so that their diagnostic programs can be compiled. Most data
+structures take one template argument, such as
+DoubleLinkedList&lt;Float&gt;. In this case set the mode to
+"template-diagnose." Some classes have 2 template arguments, like
+Pair&lt;Float,Long&gt;, so it should be "template-diagnose-2." The Triple
+class requires three arguments, so "template-diagnose-3" is
+appropriate.</td></tr>
+
+<caption align=bottom>Table 3. Variables specific to compile.make</caption>
+</table>
+
+<br><br>
+<table border=5 width=500>
+  <tr><td width=150>ISIP_LFLAGS_BEFORE </td><td>Additional -L and -l flags to put before ISIP_LIBS on the linker line.</td></tr>
+  <tr><td>ISIP_LFLAGS_AFTER </td><td>Additional -L and -l flags to put after ISIP_LIBS on the linker line.</td></tr>
+  <tr><td>ISIP_EXE </td><td> The name of the executable program to compile.</td></tr>
+  <tr><td>ISIP_BIN </td><td> The directory to which the executable program will be installed via `make install.`</td></tr>
+  <tr><td>ISIP_RESOURCE_INSTALL </td><td> A directive that the user can specify for installing other resources for `make install.` One example use of this is <a href="/perl/ifc_document.pl?file=$isip/util/speech/isip_make_sof/GNUmakefile">isip_make_sof</a>'s parameter file is installed into lib/text/isip_make_sof.</td></tr>
+  <tr><td>ISIP_RESOURCE_CLEAN </td><td> A directive that the user can specify for cleaning up other resources for `make distclean.` One example use of this is <a href="/perl/ifc_document.pl?file=$isip/util/speech/isip_make_sof/GNUmakefile">isip_make_sof</a>'s parameter file is removed from lib/text/isip_make_sof</td></tr>
+
+<caption align=bottom>Table 4. Variables specific to compile_and_link.make</caption>
+</table>
+
+  <br><br>
+
+  <table border=5 width=500>
+
+  <tr><td width=150>MAKING_MAKE</td><td>This is a special case for the makefile directory's makefiles. It should only be set in that one place.</td></tr>
+  <tr><td>BIN_EXT</td><td>file extension to be stripped from installed executable </td></tr>
+  <tr><td>ISIP_BIN_FILES</td><td>Glob-style list of executable files to be installed -- often this is *.pl, *.tcl, or *.sh.</td></tr>
+  <tr><td>ISIP_LIB_FILES</td><td>Glob-style list of library files to be installed -- often this is *.pm.</td></tr>
+
+<caption align=bottom> Table 5. Variables specific to scripts.make </caption>
+</table>
+
+  <br><br>
+
+  <table border=5 width=500>
+
+  <tr><td width=150>ISIP_EXCLUDE</td><td>If specified, these
+subdirectories will be skipped. Each must have a "/" after it so it
+looks exactly as it does in the directory listing. </td></tr>
+
+  <tr><td>ISIP_ORDER</td><td>If specified, build these directories, in
+order, first. Each must have a "/" after it so it looks exactly as it
+does in the directory listing. </td></tr>
+
+<caption align=bottom> Table 6. Variables specific to traverse.make </caption>
+  </table>
+
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

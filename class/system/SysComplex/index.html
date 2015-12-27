@@ -1,0 +1,376 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="SysComplex" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="Name">
+<b>name:
+<a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h">SysComplex</a></b>
+
+<br><br> 
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ... -l /isip/tools/lib/$ISIP_BINARY/lib_system.a
+
+#include &lt;SysComplex.h&gt;
+
+SysComplex();
+SysComplex(const SysComplex& arg);
+SysComplex(const SysComplex& arg);
+TIntegral real() const;
+TIntegral imag() const;
+TIntegral mag() const;
+TIntegral angle() const;
+const SysComplex& operator += (const SysComplex& arg);
+const SysComplex& operator -= (const SysComplex& arg);
+const SysComplex& operator *= (const SysComplex& arg);
+const SysComplex& operator /= (const SysComplex& arg);
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+const SysComplex<float> c0(4.0, 2.0);
+const SysComplex<float> c1(5);
+float r1 = 5;
+
+// complex addition
+//
+if ((c0 + c1) != SysComplex<float>(9, 2)) {
+  Console::put(L"Error in complex addition");
+}
+
+// scalar addition
+//
+if ((c0 + r1) != SysComplex<float>(9, 2)) {
+  Console::put(L"Error in scalar addition");
+}
+</pre>
+</blockquote>
+       
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The SysComplex class implements a complex numeric type. This class is
+introduced at this level so the mathematical functions defined in
+Integral can also be defined for complex numbers. A SysComplex number
+can be treated in code exactly as any other integral type due to the
+amount of functionality and number of operators defined in this class.
+This allows math templates to be built on top of this class with
+minimal modification.
+
+<br><br>
+
+The complex number functions defined below follow implementations
+given in:
+
+<ul>
+  R.V. Churchill, J.W. Brown, and R.F. Verhey,
+  <i>Complex Variables and Applications</i>, Mc-Graw Hill,
+  New York, New York, USA, 1976, pp. 52-71.
+</ul>
+
+See Integral.h for implementations of mathematical functions.
+Several important standard complex data types, such as complexdouble,
+are defined in IntegralTypes.h using typdef's based on this class.
+These predefined types are an important part of our approach
+to provided easy to use complex number classes implemented in a
+way that is consistent with the real-valued scalar classes.
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li> none.
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> none.
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> none.
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> real component
+
+       <pre>TIntegral real_d;</pre>
+
+  <li> imaginary component
+       
+       <pre>TIntegral imag_d;</pre>
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li> static methods: name method is omitted since this class acts
+       like an Integral type. Diagnose method is in the
+       <a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplexDiagnose.h&method=diagnose">SysComplexDiagnose</a> class.<br><br>
+       
+  <li> debug methods: these methods are omitted since this class acts
+       like an Integral type.<br><br>
+
+  <li> destructor/constructor(s):
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=destructor">~SysComplex();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=default+constructor">SysComplex();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=copy+constructor">SysComplex(const SysComplex& arg);</a></pre>
+
+  <li> assign methods: these methods are omitted since this class acts
+       like an Integral type. Use the assignment operator overloads
+       ("=") for this class.<br><br>
+
+  <li> operator = (assignment) methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator+%3D&instance=0">SysComplex& operator = (const SysComplex& arg);</a></pre>       
+
+  <li> i/o methods: these methods are omitted since this class acts
+       like an Integral type. Use the complex scalar types in the
+       math/scalar library for this functionality.<br><br>
+         
+  <li> equality methods: these methods are omitted since this class acts
+       like an Integral type. Use the equality operator overloads ("==")
+       for this class.<br><br>
+
+  <li> memory management methods: these methods are omitted since this
+       class acts like an Integral type. Use the complex scalar
+       types in the math/scalar library for this functionality.<br><br>
+</ul>
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>
+  <li> constructors:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=constructor">SysComplex(TIntegral real, TIntegral complex);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=constructor&instance=1">SysComplex(double real);</a></pre>
+       
+  <li> assign methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=assign">bool assign(TIntegral real, TIntegral imag = 0);</a></pre>
+       
+  <li> operator = (assignment) methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator+%3D&instance=1">SysComplex& operator = (TIntegral arg);</a></pre>
+
+  <li> cast operator () methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=cast+operator">operator SysComplex<TAIntegral>() const;</a></pre>
+
+  <li> methods to manipulate the representation of a complex number:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=real">TIntegral real() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=imag">TIntegral imag() const;</a></pre> 
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=mag">double mag() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=angle">double angle() const;</a></pre>
+
+  <li> mathematical methods (with complex arguments):
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=2">const SysComplex& operator += (const SysComplex& arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=3">const SysComplex& operator -= (const SysComplex& arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=4">const SysComplex& operator *= (const SysComplex& arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=5">const SysComplex& operator /=(const SysComplex& arg);</a></pre>
+
+  <li> mathematical methods (with real arguments):
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=6">SysComplex& operator += (TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=7">SysComplex& operator -= (TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=8">SysComplex& operator *= (TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=9">SysComplex& operator /= (TIntegral arg);</a></pre>
+
+   <li> mathematical methods (increment/decrement):
+	
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=10">SysComplex<TIntegral>& operator ++ ();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=11">SysComplex<TIntegral>& operator -- ();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=12">SysComplex<TIntegral> operator ++ (int);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=13">SysComplex<TIntegral> operator -- (int);</a></pre>
+       
+   <li> relational methods (with complex arguments):
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=14">bool operator == (const SysComplex& arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=15">bool operator != (const SysComplex& arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=16">bool operator < (const SysComplex<TIntegral>& arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=17">bool operator > (const SysComplex<TIntegral>& arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=18">bool operator <= (const SysComplex<TIntegral>& arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=19">bool operator >= (const SysComplex<TIntegral>& arg) const;</a></pre>
+
+   <li> relational methods (with real arguments):
+	
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=20">bool operator == (TIntegral arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=21">bool operator !=(TIntegral arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=22">bool operator < (TIntegral arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=23">bool operator > (TIntegral arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=24">bool operator <= (TIntegral arg) cons;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=25">bool operator >= (TIntegral arg) const;</a></pre>
+
+  <li> arithmetic methods (with two complex arguments):
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=26">SysComplex<TIntegral> operator + (const SysComplex<TIntegral>& arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=27">SysComplex<TIntegral> operator - (const SysComplex<TIntegral>& arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=28">SysComplex<TIntegral> operator * (const SysComplex<TIntegral>& arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=29">SysComplex<TIntegral> operator / (const SysComplex<TIntegral>& arg) const;</a></pre>
+
+  <li> arithmetic methods (with one complex, one real arg):
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=30">SysComplex<TIntegral> operator + (const TIntegral arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=31">SysComplex<TIntegral> operator - (const TIntegral arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=32">SysComplex<TIntegral> operator * (const TIntegral arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=33">SysComplex<TIntegral> operator / (const TIntegral arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=inverse">SysComplex<TIntegral> inverse() const;</a></pre>
+
+  <li> miscellaneous complex methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=conjugate">SysComplex<TIntegral> conjugate() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=polar">SysComplex<TIntegral> polar(double mag, double angle);</a></pre>
+       
+  <li> arithmetic methods (with one complex, one real arg): since the
+       complex arg is to the right these cannot be member functions. For
+       further explanations, see the <b>notes</b> section.
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=34">SysComplex<TIntegral> operator + (TIntegral x, const SysComplex<TIntegral>& y);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=35">SysComplex<TIntegral> operator - (TIntegral x, const SysComplex<TIntegral>& y);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=36">SysComplex<TIntegral> operator * (TIntegral x, const SysComplex<TIntegral>& y);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=37">SysComplex<TIntegral> operator / (TIntegral x, const SysComplex<TIntegral>& y);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=38">SysComplex<TIntegral> operator - (const SysComplex<TIntegral>& x);</a></pre>
+
+  <li> relational methods (with TIntegral and complex types): since
+       the complex arg is to the right these cannot be member functions.
+       For further explanations, see the <b>notes</b> section.
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=39">bool operator > (TIntegral x, const SysComplex<TIntegral>& y);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=40">bool operator < (TIntegral x, const SysComplex<TIntegral>& y);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=41">bool operator >= (TIntegral x, const SysComplex<TIntegral>& y);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=operator&instance=42">bool operator <= (TIntegral x, const SysComplex<TIntegral>& y);</a></pre>
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<ul>
+    <li> method for faster comparisons than calling mag:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysComplex/SysComplex.h&method=sumSquare">TIntegral sumSquare() const;</a></pre>
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+  <li> This is a simple example that demonstrates
+       the complex addition and subtraction methods:
+       
+<pre>
+# include &lt;SysComplex.h&gt;
+# include &lt;Console.h&gt;       
+       
+int main() {
+
+  // declare SysComplex objects
+  //       
+  const SysComplex<float> c0(4.0, 2.0);
+  const SysComplex<float> c1(5);
+  const SysComplex<float> c2(0, 3.3);
+  SysComplex<float> t;
+  float r1 = 5;
+
+  // test complex addition
+  //
+  if ((c0 + c1) != SysComplex<float>(9, 2)) {
+   Console::put(L"Error in complex addition"); 
+  }
+  if ((c0 + c2) != SysComplex<float>(4, 5.3)) {
+   Console::put(L"Error in complex addition");   
+  }
+  if ((c1 + c2) != SysComplex<float>(5, 3.3)) {
+   Console::put(L"Error in complex addition");   
+  }
+
+  // test scalar addition
+  //
+  if ((c0 + r1) != SysComplex<float>(9, 2)) {
+   Console::put(L"Error in scalar addition");   
+  }
+  if ((r1 + c2) != SysComplex<float>(5, 3.3)) {
+   Console::put(L"Error in scalar addition");   
+  }
+
+  // test complex subtraction
+  //
+  if ((c0 - c1) != SysComplex<float>(-1, 2)) {
+   Console::put(L"Error in complex subtraction");   
+  }
+  if ((c0 - c2) != SysComplex<float>(4, -1.3)) {
+   Console::put(L"Error in complex subtraction");   
+  }
+  if ((c1 - c2) != SysComplex<float>(5, -3.3)) {
+   Console::put(L"Error in complex subtraction");   
+  }
+
+  // test scalar subtraction
+  //
+  if ((c0 - r1) != SysComplex<float>(-1, 2)) {
+   Console::put(L"Error in scalar subtraction");   
+  }
+  if ((r1 - c2) != SysComplex<float>(5, -3.3)) {
+   Console::put(L"Error in scalar subtraction"); 
+  }       
+}</pre>
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> This class, as with most System classes, is not intended to be used
+       directly by programmers. The Math scalar class
+
+       <a href="../../math/scalar/ComplexFloat/index.html">ComplexFloat</a>
+
+       is an example of a higher-level class intended for users.
+
+       <br><br>
+
+  <li> The arithmetic operator overloads that appear at the end of this
+       header file are provided so that mixed type operations can be
+       performed (for example, "x * y" where x is float and y is complex).
+       Since the complex argument is on the right, to implement these,
+       we needed to define global functions (in this case, templatized
+       operator overloads). Hence, these appear outside the class definition,
+       but are included in this header file for obvious reasons.
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

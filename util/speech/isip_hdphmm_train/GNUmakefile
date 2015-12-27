@@ -1,0 +1,32 @@
+# file: $isip/util/asr/isip_svm_learn/GNUmakefile
+# version: $Id: GNUmakefile 9365 2003-12-21 22:57:13Z alphonso $
+#
+# this make file builds an example program
+#
+
+# define the source files
+#
+ISIP_FILES = *.cc
+
+# define the files these source files depend on (usually include files)
+#
+ISIP_DEPS = isip_hdphmm_train.h DPM.h HDP.h  Database.h Error.h Sdb.h CommandLine.h help_message.text usage_message.text
+
+# define the compilation flags
+# 
+ISIP_CFLAGS = -fopenmp
+
+# define the name of the executable file (*.exe)
+#
+ISIP_EXE = isip_hdphmm_train.exe
+
+# define the installation directory (override the watch on local installs)
+#       
+ISIP_BIN = $(ISIP_DEVEL)/bin/$(ISIP_BINARY)
+
+# include the isip standard make template
+#
+include $(ISIP_DEVEL)/lib/scripts/make/compile_and_link.make
+
+#
+# end of file

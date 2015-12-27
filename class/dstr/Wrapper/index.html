@@ -1,0 +1,234 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="Wrapper" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="name">
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/dstr/Wrapper/Wrapper.h">Wrapper&lt;class TObject&gt;</a></b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ...
+
+#include &lt;Wrapper.h&gt;
+
+Wrapper();
+boolean assign(const Wrapper&lt;TObject&gt& arg);
+boolean assign(const TObject& arg);
+
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+// declare a character wrapper and insert a character in it
+//
+Wrapper&lt;Char&gt wrapper0;
+Char item(L'a');
+wrapper0.assign(&item);
+
+// use the copy constructor to create a second wrapper
+//
+Wrapper&lt;Char&gt wrapper1(wrapper0);
+
+// get the items out of each of the wrappers
+//
+Char* char1 = wrapper0.getItem();
+Char* char2 = wrapper1.getItem();
+
+// test the characters for equality
+//
+if (!char1->eq(*char2)) {
+   // error
+}
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The Wrapper class can be used to provide a minimal implementation of the
+IFC required public methods for some existing class that does
+not conform to the IFC standards. Through this class, any object can be
+placed in an IFC data structure. Its main use is to allow
+technology to be imported into the IFC environment, such as
+classes from the Standard Template Library (STL), and augmented
+with the IFC required methods. The benefit of this is that useful
+IFC mechanisms, such as I/O, are now available to users. Similarly,
+other template classes can be used on this augmented class.
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+<ul>
+  <li> <a href="../../math/scalar/String/"> String </a> <br>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Wrapper/Wrapper.h&constant=CLASS_NAME">static const SysString CLASS_NAME = L"Wrapper";</a></pre>
+              
+  <li> i/o related constants:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Wrapper/Wrapper.h&constant=DEF_PARAM">static const SysString DEF_PARAM = L"item";</a></pre>
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> general Wrapper class error:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00042100">static const long ERR = 42100;</a></pre>
+
+  <li> error code indicating the method is not defined in the wrapper:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00042101">static const long ERR_NOTDEF = 42101;</a></pre>
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> debugging parameter:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Wrapper/Wrapper.h&static=debug_level_d">static Integral::DEBUG debug_level_d;</a></pre>
+
+  <li> static memory manager:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Wrapper/Wrapper.h&static=mgr_d">static MemoryManager mgr_d;</a></pre>
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+<ul>
+  
+  <li> static methods: diagnose method is moved outside the class
+       header file and defined in the WrapperDiagnose.h in order to avoid
+       issues with preprocessing of the diagnose code
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Wrapper/Wrapper.h&method=name">static const String& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Wrapper/WrapperDiagnose.h&method=diagnose">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+       
+  <li> debug methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Wrapper/Wrapper.h&method=debug">boolean debug(const unichar* message) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Wrapper/Wrapper.h&method=setDebug">static boolean setDebug(Integral::DEBUG debug_level);</a></pre>
+       
+  <li> destructor/constructor(s):
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Wrapper/Wrapper.h&method=destructor">~Wrapper();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Wrapper/Wrapper.h&method=default+constructor">Wrapper();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Wrapper/Wrapper.h&method=copy+constructor">Wrapper(const Wrapper&lt;TObject&gt;& copy_wrapper);</a></pre>
+       
+  <li> assign methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Wrapper/Wrapper.h&method=assign&instance=0">boolean assign(const Wrapper&lt;TObject&gt;& copy_wrapper);</a></pre>
+
+  <li> operator= methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Wrapper/Wrapper.h&method=operator%3D">Wrapper&lt;TObject&gt;& operator=(const Wrapper&lt;TObject&gt;& arg);</a></pre>
+       
+  <li> i/o methods: refer to the <a href = "./index.html#notes">notes</a>
+section for an explanation of why there are two read and write methods in
+this class
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Wrapper/Wrapper.h&method=sofSize">long sofSize() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Wrapper/Wrapper.h&method=read&instance=0">boolean read(Sof& sof, long tag);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Wrapper/Wrapper.h&method=read&instance=1">boolean read(Sof& sof, long tag, const String& name);</a></pre>       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Wrapper/Wrapper.h&method=write&instance=0">boolean write(Sof& sof, long tag) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Wrapper/Wrapper.h&method=write&instance=1">boolean write(Sof& sof, long tag, const String& name) const;</a></pre>       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Wrapper/Wrapper.h&method=readData">boolean readData(Sof& sof, const String& pname = DEF_PARAM,long size = SofParser::FULL_OBJECT, boolean param = true, boolean nested = false);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Wrapper/Wrapper.h&method=writeData">boolean writeData(Sof& sof, const String& pname = DEF_PARAM) const;</a></pre>
+       
+  <li> equality methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Wrapper/Wrapper.h&method=eq">boolean eq(const Wrapper&lt;TObject&gt;& compare_wrapper) const;</a></pre>
+
+  <li> memory management methods
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Wrapper/Wrapper.h&method=new">static void* operator new(size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Wrapper/Wrapper.h&method=new\[\]">static void* operator new[](size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Wrapper/Wrapper.h&method=delete">static void operator delete(void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Wrapper/Wrapper.h&method=delete\[\]">static void operator delete[](void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Wrapper/Wrapper.h&method=setGrowSize">static boolean setGrowSize(long grow_size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Wrapper/Wrapper.h&method=clear">boolean clear(Integral::CMODE cmode_a = Integral::DEF_CMODE);</a></pre>
+</ul>
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>
+  <li> constructors:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Wrapper/Wrapper.h&method=constructor">Wrapper(const TObject& arg);</a></pre> 
+
+  <li> assign methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Wrapper/Wrapper.h&method=assign&instance=1">boolean assign(const TObject& arg);</a></pre> 
+       
+  <li> operator= methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Wrapper/Wrapper.h&method=operator%3D&instance=1">Wrapper&lt;TObject&gt;& operator=(const TObject& arg);</a></pre>
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<br><br>
+<ul>
+  <li> none
+</ul>
+
+<a name="friend">
+<b>friend classes:</b>
+<br><br>
+
+<ul>
+  <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Wrapper/WrapperDiagnose.h">friend class WrapperDiagnose;</a></pre>
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> Unlike other classes, we have two read and write methods in dstr
+       classes. The interface is still the same as that in other
+       classes. The reason behind this is that we can not use
+       "CLASS_NAME" as default argument in the read and write methods
+       here because the data structures build the class name on the fly.       
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

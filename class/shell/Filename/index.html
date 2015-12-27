@@ -1,0 +1,333 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="Filename" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+
+<a name="name">
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/Filename.h">Filename</a> : public <a href="../../math/scalar/String/index.html">String</a></b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ...
+
+#include &lt;Filename.h&gt;
+
+Filename(const Filename& arg);
+boolean transformUniquely();
+boolean getBase(String& base) const;
+boolean getExt(String& ext) const;
+boolean makeTemp();
+boolean makeTemp(const String& basename);
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+
+<blockquote>
+<pre>
+String extension;
+
+// declare the filename
+//
+Filename filename;
+filename.assign(L"image.jpg");
+
+// get the extension of the filename
+//
+filename.getExt(extension);
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The Filename class provides the facility to transform files and rename files.
+This class also helps in creating temporary file names and to find the required
+information about the file. This class decomposes a filename into
+{dirname}{basename}.{extension}. It can transform this name into
+a number of new forms.
+
+<br><br>
+
+For example, the filename "/home/joe.sof" has a dirname of "/home",
+a basename of "joe" and an extension of "sof". The transform
+method is capable of transforming this name into:
+{new_dirname}{basename}{new_suffix}.{new_extension}.
+Hence, "/home/joe.sof" can be transformed to "/user/files/joe_0.dat"
+(new_dirname="/user/files", basename="joe", new_suffix="_0", and
+new_extension="dat").
+A variety of methods are provided to facilitate such transformations.
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+<ul>
+  <li> <a href="../../math/scalar/String/index.html">String</a>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+
+<ul>
+  <li> define the class name:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_00.cc&constant=CLASS_NAME">static const String CLASS_NAME = L"Filename";</a></pre>
+
+  <li> define operating system choices:
+       
+       <pre>enum OS { UNIX = 0, WINDOWS, MACINTOSH, DEF_OS = UNIX };</pre>
+
+  <li> define delimiters for a Unix filename:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_00.cc&constant=SLASH">const String Filename::SLASH(L"/");</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_00.cc&constant=DOT">const String Filename::DOT(L".");</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_00.cc&constant=UNDERSCORE">const String Filename::UNDERSCORE(L"_");</a></pre>       
+ 
+  <li> define the default value(s) of the class data:
+       
+       <pre>the DEF_CAPACITY and DEF_VALUE are inherited from the <a href="../../system/SysString/index.html#constants">SysString</a> class</pre>
+
+  <li> define the default arguments to methods:
+
+       <pre>DEF_PARAM is inherited from the <a href="../../math/scalar/String/index.html#constants">String</a> class</pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_00.cc&constant=DEF_EXTENSION">const String Filename::DEF_EXTENSION(L"sof");</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_00.cc&constant=DEF_EXTENSION">const String Filename::DEF_EXTENSION(L"sof");</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_00.cc&constant=DEF_SUFFIX">const String Filename::DEF_SUFFIX(L"");</a></pre>
+       <pre>static const long DEF_DIR_PRES = 0;</pre>
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> error code indicating Filename class general error:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00045200">static const long ERR = 45200;</a></pre>
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> operating system name:
+       
+     <pre>OS os_d;</pre>
+
+  <li> a static memory manager:
+       
+     <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/
+fn_00.cc&static=mgr_d">static MemoryManager mgr_d;</a></pre>
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li>  static methods: 
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/Filename.h&method=name">static const String& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_02.cc">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+
+  <li>  debug methods: the setDebug method is inherited from the <a href="../../math/scalar/String/index.html#public">String</a> class.       
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_01.cc">boolean debug(const unichar* message) const;</a></pre>
+
+  <li> destructor/constructor(s):
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/Filename.h&method=destructor">~Filename();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/Filename.h&method=default+constructor">Filename(long arg = DEF_CAPACITY);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/Filename.h&method=copy+constructor">Filename(const Filename& arg);</a></pre>     
+  <li> assign methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/Filename.h&method=assign">boolean assign(const Filename& arg);</a></pre>     
+
+  <li> operator= methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/Filename.h&method=operator%3D">Filename& operator=(const Filename& arg);</a></pre>
+       
+  <li> i/o methods: the sofSize, readData, and writeData methods are inherited from the <a href="../../math/scalar/String/index.html#public">String</a> class</pre>
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_03.cc&method=read">boolean read(Sof& sof, long tag, const String& name);</a></pre>       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_03.cc&method=write">boolean write(Sof& sof, long tag, const String& name) const;</a></pre>       
+    
+  <li> equality methods:
+       
+       <pre>this method is inherited from the <a href="../../system/SysString/index.html#public">SysString</a> class</pre>
+    
+  <li> memory management methods: the clear method is inherited from the
+       <a href="../../system/SysString/index.html#public">SysString</a> class.
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/Filename.h&method=new">static void* operator new(size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/Filename.h&method=new[]">static void* operator new[](size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/Filename.h&method=delete">static void operator delete(void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/Filename.h&method=delete[]">static void operator delete[](void* ptr);</a></pre>          <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/Filename.h&method=setGrowSize">static boolean setGrowSize(long grow_size);</a></pre>
+</ul>
+    
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+<ul>
+  <li> constructors:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/Filename.h&method=constructor&instance=0">Filename(const unichar* arg, OS os = DEF_OS);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/Filename.h&method=constructor&instance=1">Filename(const String& arg, OS os = DEF_OS);</a></pre>
+
+  <li> assign methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/Filename.h&method=assign&instance=1">boolean assign(const String& arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/Filename.h&method=assign&instance=2">boolean assign(const unichar* arg);</a></pre>
+
+  <li> set/get methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/Filename.h&method=setOS">boolean setOS(OS os);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/Filename.h&method=getOS">OS getOS() const;</a></pre>
+
+  <li> methods to transform filenames:
+       
+        <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_05.cc&method=transform&instance=0">boolean transform(const String& new_dir, const String& new_ext, const String& new_suffix, long dir_preserve = DEF_DIR_PRES)</a></pre>
+        <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/Filename.h&method=transform&instance=0">boolean transform(const String& new_ext, const String& new_suffix)</a></pre>
+        <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/Filename.h&method=transform&instance=1">boolean transform(const String& old_name, const String& new_dir, const String& new_ext, const String& new_suffix, long dir_preserve = DEF_DIR_PRES)</a></pre>
+
+  <li> methods to uniquely transform filenames:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_05.cc&method=transformUniquely">boolean transformUniquely();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/Filename.h&method=transformUniquely&instance=0">boolean transformUniquely(const String& old_name);</a></pre>
+
+  <li> get methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_04.cc&method=getDir">boolean getDir(String& dir) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_04.cc&method=getBase">boolean getBase(String& base) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_04.cc&method=getExt">boolean getExt(String& ext) const;</a></pre>
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_04.cc&method=getSuffix">boolean getSuffix(String& suffix) const;</a></pre>
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_04.cc&method=getName">boolean getName(String& filename) const;</a></pre>
+
+  <li> temporary filenames:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/Filename.h&method=makeTemp&instance=0">boolean makeTemp();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/Filename.h&method=makeTemp&instance=1">boolean makeTemp(const String& basename);</a></pre>
+
+  <li> build necessary subdirectories for output file:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_05.cc&method=buildPath">static boolean buildPath(const String& pathname);</a></pre>
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<ul>
+  <li> directory name merging methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_05.cc&method=preserveDirName">static boolean preserveDirName(String& mod_dir, const String& new_dir, const String& old_dir, long dir_preserve);</a></pre>
+
+  <li> delimiter methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_04.cc&method=getDirDelim">boolean getDirDelim(String& arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_04.cc&method=getFileDelim">boolean getFileDelim(String& arg) const;</a></pre>
+
+  <li> UNIX filename parsing methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_04.cc&method=getDirUnix">boolean getDirUnix(String& dir) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_04.cc&method=getBaseUnix">boolean getBaseUnix(String& base) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_04.cc&method=getExtUnix">boolean getExtUnix(String& ext) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_04.cc&method=getNameUnix">boolean getNameUnix(String& name) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_04.cc&method=getDirDelimUnix">boolean getDirDelimUnix(String& arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_04.cc&method=getFileDelimUnix">boolean getFileDelimUnix(String& arg) const;</a></pre>
+
+  <li> Windows filename parsing methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_04.cc&method=getDirWin">boolean getDirWin(String& dir) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_04.cc&method=getBaseWin">boolean getBaseWin(String& base) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_04.cc&method=getExtWin">boolean getExtWin(String& ext) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_04.cc&method=getNameWin">boolean getNameWin(String& name) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_04.cc&method=getDirDelimWin">boolean getDirDelimWin(String& arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_04.cc&method=getFileDelimWin">boolean getFileDelimWin(String& arg) const;</a></pre>
+
+  <li> Macintosh filename parsing methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_04.cc&method=getDirMac">boolean getDirMac(String& dir) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_04.cc&method=getBaseMac">boolean getBaseMac(String& base) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_04.cc&method=getExtMac">boolean getExtMac(String& ext) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_04.cc&method=getNameMac">boolean getNameMac(String& name) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_04.cc&method=getDirDelimMac">boolean getDirDelimMac(String& arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/shell/Filename/fn_04.cc&method=getFileDelimMac">boolean getFileDelimMac(String& arg) const;</a></pre>
+
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+
+  <li> This exaple shows how we can change the name of a file
+<pre>
+// declare the filename
+//
+Filename filename;
+
+// we use strings to replace the name of the file
+//
+String old_name;
+String new_name;
+
+filename.assign(L"/examples/example.cc");
+old_name.assign(L"example");
+new_name.assign(L"example_02");
+
+// replace the old_name with the new_name
+//
+filename.replace(old_name, new_name);</pre>
+       
+The result in this case is "/examples/example_02.cc".
+
+<br><br>
+
+  <li> This example shows how a file is transformed uniquely
+       
+<pre>
+// declare the filename
+//
+Filename tran_filename;
+
+// declare the required string(s)
+//
+String filename;
+
+filename.assign(L"example.cc");
+
+// transform the filename uniquely
+//
+tran_filename.transformUniquely(filename);</pre>
+
+If the file "example.cc" exists in the current directory,
+the result in this case is "example_0.cc".
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> The Windows and Macintosh operating systems are not yet supported.
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->
+
+       

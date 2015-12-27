@@ -1,0 +1,61 @@
+@ Sof v1.0 @
+' TransformBuilder GUI v2.0
+
+@ FrontEnd @
+ name = AudioFrontEnd;
+ input_data_type = SAMPLED_DATA;
+ audio_input = {
+   sample_frequency = 8000.0;
+   file_type = BINARY;
+   file_format = RAW;
+   byte_order = NATIVE;
+   compression_type = LINEAR;
+   sample_precision = NONE;
+   sample_num_bytes = 2;
+   num_channels = 1;
+   amplitude_range = 1.0;
+};
+ data_mode = SAMPLE_BASED;
+ frame_duration = 0.01;
+ signal_duration = 0.1;
+ start_time = 0.0;
+ end_time = -1;
+ channel_index = -2;
+ input_flag = true;
+
+@ Algorithm 0 @
+#% 89 19
+ name = CoefficientLabel;
+ variable = SAMPLED_DATA;
+ type = INPUT;
+
+@ Algorithm 1 @
+#% 89 89
+ name = "Output";
+ algorithm = DATA;
+ implementation = SAMPLED_DATA;
+ audio_output = {
+   file_type = BINARY;
+   file_format = SOF;
+   byte_order = NATIVE;
+   compression_type = LINEAR;
+   sample_precision = NONE;
+   sample_num_bytes = 2;
+   num_channels = 1;
+   amplitude_range = 1.0;
+};
+ directory = "";
+ basename = "";
+ extension = "sof";
+ preserve = 0;
+ suffix = "";
+ data_mode = SAMPLE_BASED;
+ debug_level = NONE;
+
+@ DiGraph<Long> 0 @
+weighted = true;
+vertices =
+        {0, {0}},
+        {1, {1}};
+arcs =
+        {0, 1, 0};

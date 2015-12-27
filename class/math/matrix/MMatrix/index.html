@@ -1,0 +1,612 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="MMatrix" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="name">
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h">MMatrix</a></b>
+
+<br><br> 
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ... -l /isip/tools/lib/$ISIP_BINARY/lib_math_matrix.a
+
+#include &lt;MMatrix.h&gt;
+
+MMatrix();
+MMatrix(const MMatrix& arg);
+MMatrix(long nrows, long ncols = DEF_SIZE,
+        Integral::MTYPE type = Integral::DEF_MTYPE);
+boolean assign(TIntegral value);
+boolean assign(long num_rows, long num_cols, long* arg, 
+               Integral::MTYPE type = Integral::DEF_MTYPE);
+boolean setCapacity(const MMatrix& prototype_matrix,
+                    boolean preserve_values = true,
+                    Integral::MTYPE type = Integral::UNCHANGED);
+boolean setDimensions(const MMatrix& prototype_matrix,
+                      boolean preserve_values = true,
+                      Integral::MTYPE type = Integral::UNCHANGED);
+boolean mult(MMatrix& m1, MMatrix& m2);
+boolean multv(TVector& output_vector, const TVector& input_vector);
+boolean vmult(TVector& output_vector, const TVector& input_vector);
+double determinant() const;
+boolean inverse();
+boolean transpose();
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+MMatrix&lt;Double, double&gt; mat0(3, 3, Integral::FULL);
+MMatrix&lt;Double, double&gt; mat2;
+
+double det;
+
+mat0.assign(3, 3, L"2.1, 8.3, 4.5, 4.6, 0, 8.1, 5.5, 3.2, 1.7");
+MMatrix&lt;Double, double&gt mat1(4, 4, Integral::SYMMETRIC);
+
+MVector&lt;Double, double&gt vec_in;
+MVector&lt;Double, double&gt vec_out1;
+MVector&lt;Double, double&gt vec_out2;
+
+mat1.assign(4, 4, L"1.1, 4.5, 6.5, 3.6, 0.3, 6.7, 8.1, 2.3, 5.5, 9.2",
+            Integral::SYMMETRIC);
+
+vec_in.assign(L"2.2, 4.3, 6.5");
+mat1.setDimensions(3, 3); 
+
+mat0.multv(vec_out1, vec_in);
+mat1.vmult(vec_out2, vec_in);
+
+mat0.transpose();
+mat2.mult(mat0, mat1);
+
+det = mat2.determinant();
+mat2.inverse();
+mat0.setCapacity(0);
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The MMatrix class is a matrix template class which abstracts
+the storage format of the matrix from the user. This allows
+memory space for special types of matrices such as a diagonal matrix
+to be minimized. Details of the storage format are hidden
+from the user. Most operations can be performed on the
+any type of matrix transparently to the user.
+The storage formats, which are defined in
+
+<a href="../../../system/Integral/index.html">Integral.h</a>
+
+through the enumeration Integral::MTYPE, include
+FULL, DIAGONAL, SYMMETRIC, LOWER_TRIANGULAR, UPPER_TRIANGULAR,
+and SPARSE.
+
+<br><br>
+
+The commonly used mathematical, logical and linear algebra methods for
+matrices are available for all these types, and implemented in this class
+as part of the template.
+All the other matrix classes are derived from this template.
+A matrix object can read itself from (or write itself to) an Sof
+file. The MMatrix methods are not supposed to be used by the user
+directly.
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li> <a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrixMethods.h">MMatrixMethods</a><br>
+  <li> <a href="../../../io/NameMap/index.html">NameMap</a><br>
+  <li> <a href="../../vector/VectorLong/index.html">VectorLong</a><br>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&constant=CLASS_NAME">static const String CLASS_NAME = L"MMatrix";</a></pre>
+
+  <li> i/o related constants:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&constant=DEF_PARAM">static const String DEF_PARAM = L"";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&constant=PARAM_DATA">static const String PARAM_DATA = L"values";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&constant=PARAM_TYPE">static const String PARAM_TYPE = L"type";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&constant=PARAM_NROWS">static const String PARAM_NROWS = L"num_rows";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&constant=PARAM_NCOLS">static const String PARAM_NCOLS = L"num_cols";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&constant=PARAM_ROW_IND">static const String PARAM_ROW_IND = L"row_indices";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&constant=PARAM_COL_IND">static const String PARAM_COL_IND = L"col_indices";</a></pre>
+
+  <li> matrix type-related constants: note that unchanged and unknown
+       are not included, since they are not valid matrix types (and only
+       useful as arguments).
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&constant=TYPE_MAP">static const NameMap TYPE_MAP = L"FULL, DIAGONAL, SYMMETRIC, LOWER_TRIANGULAR, UPPER_TRIANGULAR, SPARSE";</a></pre>
+       
+  <li> define a conditioning factor to be used to determine singularity:
+
+       <pre> static const double THRESH_SINGULAR = 1e-10;</pre>
+
+  <li> define a threshold used to determine sparseness:
+
+       <pre> static const double THRESH_SPARSE = 0.9;</pre>
+
+  <li> define a threshold used to determine balance:
+
+       <pre> static const double THRESH_BALANCE = 0.95;</pre>
+
+  <li> define a threshold used to stabilize matrices:
+
+       <pre> static const double THRESH_STABLE = 1e-20;</pre>
+
+  <li> default values and arguments:
+       
+       <pre>static const unichar DEF_ROW_DELIM = L',';</pre>
+       <pre>static const unichar DEF_DELIM = DEF_ROW_DELIM;</pre>
+       <pre>static const TIntegral DEF_VALUE = 0;</pre>
+       <pre>static const long DEF_SIZE = 0;</pre>
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> error code indicating MMatrix class general error:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00024000">static const long ERR = 24000;</a></pre>
+
+  <li> error code indicating an invalid operation for this type of matrix:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00024001">static const long ERR_OPTYPE = 24001;</a></pre>
+
+  <li> error code indicating an invalid matrix dimension:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00024002">static const long ERR_DIM = 24002;</a></pre>
+
+       
+  <li> error code indicating an unknown matrix type:
+
+       <pre><a href="/perl/ifc_document.pl?err=00024003">static const long ERR_UNKTYP = 24003;</a></pre>
+
+  <li> error code indicating a singlular matrix:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00024004">static const long ERR_SINGLR = 24004;</a></pre>
+
+  <li> error code indicating a matrix is not positive definite:
+
+       <pre><a href="/perl/ifc_document.pl?err=00024005">static const long ERR_POSDEF = 24005;</a></pre>
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> the matrix type (see
+       <a href="../../../system/Integral/index.html">Integral.h</a>):
+       
+       <pre>Integral::MTYPE type_d;</pre>
+       
+  <li> number of rows and columns in the matrix:
+       
+       <pre>Long nrows_d;</pre>
+       <pre>Long ncols_d;</pre>
+       
+  <li> a storage vector containing the actual elements of the matrix:
+
+       <pre>TVector m_d;</pre>
+              
+  <li> parameters for sparse matrix: for sparse matrices, we store
+       the row and column indices in separate arrays.
+       
+       <pre>MVector&lt;Long, long&gt; row_index_d;</pre>
+       <pre>MVector&lt;Long, long&gt; col_index_d;</pre>
+            
+  <li> debug level:
+       
+       <pre>static Integral::DEBUG debug_level_d;</pre>
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li> static methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=name">static const String& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_02.cc&method=diagnose">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+       
+  <li> debug methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=setDebug">boolean setDebug(Integral::DEBUG level);</a></pre>       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&method=debug">boolean debug(const unichar* message) const;</a></pre>
+       
+  <li> destructor/constructor(s) methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=destructor">~MMatrix();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&method=default+constructor">MMatrix();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&method=copy+constructor">MMatrix(const MMatrix& m);</a></pre>
+
+  <li> assign methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_05.cc&method=assign&instance=0">boolean assign(const MMatrix&lt;TAScalar, TAIntegral&gt;& arg);</a></pre>
+
+  <li> operator= methods:
+       
+       <pre>the operator= methods are omitted because they are defined in 
+the classes that instantiate this template</pre>      
+       
+  <li> i/o methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_04.cc&method=sofSize">long sofSize() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_03.cc&method=read">boolean read(Sof& sof, long tag, cons String& name);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_04.cc&method=write">boolean write(Sof& sof, long tag, const String& name) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_03.cc&method=readData">boolean readData(Sof& sof, const String& pname, long size, boolean param, boolean nested);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_04.cc&method=writeData">boolean writeData(Sof& sof, const String& name) const;</a></pre>
+
+  <li> equality methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&method=eq">boolean eq(const MMatrix& arg) const;</a></pre>
+       
+  <li> memory management methods: the new and delete methods are omitted because they are defined in the classes that instantiate this template
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&method=clear">boolean clear(Integral::CMODE cmode = Integral::DEF_CMODE);</a></pre>
+</ul>
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>
+  <li> debug methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&method=debug">boolean debug(const String& name, const unichar* message) const;</a></pre>
+
+  <li> constructors:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&method=constructor">MMatrix(long nrows, long ncols = DEF_SIZE, Integral::MTYPE type = Integral::DEF_MTYPE);</a></pre>
+       
+  <li> equality methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_06.cc&method=eq">boolean eq(TIntegral value) const;</a></pre>
+
+  <li> assign methods: this method is an overload of the required
+       assign method that allows the user to set the type
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=assign&instance=1">boolean assign(const MMatrix&lt;TAScalar, TAIntegral&gt;& arg, Integral::MTYPE type);</a></pre>
+
+  <li> other scalar assign methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&method=assign&instance=0">boolean assign(TIntegral value);</a></pre>
+       
+  <li> array conversion methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_05.cc&method=assign&instance=1">boolean assign(long num_rows, long num_cols, const TAIntegral* arg, Integral::MTYPE type = Integral::DEF_MTYPE);</a></pre>
+       
+  <li> string assign methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_05.cc&method=assign&instance=2">boolean assign(long num_rows, long num_cols, const String* arg, Integral::MTYPE type = Integral::DEF_MTYPE);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_05.cc&method=assign&instance=3">boolean assign(long nrows, long ncols, const String& arg, Integral::MTYPE type = Integral::DEF_MTYPE, const Char delim = DEF_DELIM);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_05.cc&method=assign&instance=3">boolean assign(long nrows, long ncols, const unichar* arg, Integral::MTYPE type = Integral::DEF_MTYPE, const Char delim = DEF_DELIM);</a></pre>
+     
+  <li> copy methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_05.cc&method=copy">boolean copy(const MMatrix&lt;TAScalar, TAIntegral&gt;& arg);</a></pre>
+
+  <li> swap methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_05.cc&method=swap">boolean swap(MMatrix& arg);</a></pre>
+
+  <li> operator overloads, get, set, find, and resize methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=operator()">TIntegral operator()(long i, long j) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=getType">Integral::MTYPE getType() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_10.cc&method=getValue&instance=1">TIntegral getValue(long row_index, long col_index) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_10.cc&method=getValue&instance=0">boolean getValue(TScalar& value, long row_index, long col_index) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=getNumRows">long getNumRows() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=getNumColumns">long getNumColumns() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_10.cc&method=getRow">boolean getRow(TVector& vector, long row_index) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_10.cc&method=getColumn">boolean getColumn(TVector& vector, long col_index) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_17.cc&method=getDiagonal">boolean getDiagonal(TVector& vector) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_17.cc&method=getLower">boolean getLower(MMatrix& arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_17.cc&method=getUpper">boolean getUpper(MMatrix& arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_17.cc&method=getMinor">boolean getMinor(const MMatrix& arg, long row_index, long col_index) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_10.cc&method=setValue">boolean setValue(long row_index, long col_index, TIntegral value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_10.cc&method=setValue">boolean setValue(long row_index, long col_index, const TScalar& value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_10.cc&method=setRow">boolean setRow(long row_index, const TVector& vector);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_10.cc&method=setColumn">boolean setColumn(long col_index, const TVector& vector);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_17.cc&method=setDiagonal">boolean setDiagonal(const TVector& values);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=setDiagonal&instance=1">boolean setDiagonal(const MMatrix& source);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=setDiagonal&instance=2">boolean setDiagonal(TIntegral value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_17.cc&method=setLower">boolean setLower(const MMatrix& source);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_17.cc&method=setUpper">boolean setUpper(const MMatrix& source);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_17.cc&method=setBlock">boolean setBlock(long start_row, long start_col, long num_rows, long num_cols, TIntegral value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_17.cc&method=makeDiagonal">boolean makeDiagonal(const TVector& values, Integral::MTYPE type = Integral::DIAGONAL);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=makeDiagonal&instance=1">boolean makeDiagonal(TIntegral value, long dim, Integral::MTYPE type = Integral::DIAGONAL);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=makeIdentity">boolean makeIdentity(long dim, Integral::MTYPE type = Integral::DIAGONAL);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_17.cc&method=makeLower">boolean makeLower(const MMatrix& source, Integral::MTYPE type = Integral::LOWER_TRIANGULAR);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_17.cc&method=makeUpper">boolean makeUpper(const MMatrix& source, Integral::MTYPE type = Integral::UPPER_TRIANGULAR);</a></pre>
+              <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_10.cc&method=nextZero">boolean nextZero(long& row_index, long& col_index, long row_start, long col_start) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_10.cc&method=nextNonZero">boolean nextNonZero(TIntegral& value, long& row_index, long& col_index, long row_start, long col_start) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_10.cc&method=findRow">long findRow(const TVector& vector) const;</a></pre>
+
+ <li> resize methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&method=setCapacity&instance=1">boolean setCapacity(long nrows, long ncols = DEF_SIZE, boolean preserve_values = true, Integral::MTYPE type = Integral::UNCHANGED);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&method=setCapacity&instance=0">boolean setCapacity(const MMatrix& prototype_matrix, boolean preserve_values = true, Integral::MTYPE type = Integral::UNCHANGED);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&method=setDimensions&instance=1">boolean setDimensions(long nrows, long ncols = DEF_SIZE, boolean preserve_values = true, Integral::MTYPE type = Integral::UNCHANGED);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&method=MMatrix_00.cc&method=setDimensions&instance=0">boolean setDimensions(const MMatrix& prototype_matrix, boolean preserve_values = true, Integral::MTYPE type = Integral::UNCHANGED);</a></pre>
+     
+  <li> property checking methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=checkDimensions">boolean checkDimensions(const MMatrix&lt;TAScalar, TAIntegral&gt;& matrix) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&method=changeType">boolean changeType(Integral::MTYPE type);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_09.cc&method=isTypePossible">boolean isTypePossible(Integral::MTYPE type) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=isFull">boolean isFull() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=isDiagonal">boolean isDiagonal() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=isSymmetric">boolean isSymmetric() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=isLowerTriangular">boolean isLowerTriangular() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=isUpperTriangular">boolean isUpperTriangular() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=isSparse">boolean isSparse() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=isSquare&instance=0">boolean isSquare() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=isSquare&instance=1">boolean isSquare(const MMatrix& matrix) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=isSingular&instance=0">boolean isSingular(double thresh = 0) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=isSingular&instance=1">boolean isSingular(const MMatrix& matrix, double thresh = 0) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_09.cc&method=isOrthogonal">boolean isOrthogonal() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_09.cc&method=isIdentity">boolean isIdentity() const;</a></pre>
+
+  <li> relational and logical methods:
+
+        <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=ne&instance=0">boolean ne(TIntegral value) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=ne&instance=1">boolean ne(const MMatrix& matrix) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_06.cc&method=lt">boolean lt(TIntegral value) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_06.cc&method=le">boolean le(TIntegral value) const;</a></pre>      
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_06.cc&method=gt">boolean gt(TIntegral value) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_06.cc&method=ge">boolean ge(TIntegral value) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=operator+%3d%3d">boolean operator == (TIntegral arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=operator+!%3d">boolean operator != (TIntegral arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=operator+%3c">boolean operator &lt; (TIntegral arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=operator+%3c%3d">boolean operator &lt;= (TIntegral arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=operator+%3e">boolean operator &gt; (TIntegral arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=operator+%3e%3d">boolean operator &gt;= (TIntegral arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_06.cc&method=numEqual">long numEqual(TIntegral value) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=numNotEqual">long numNotEqual(TIntegral value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&method=almostEqual&instance=0">boolean almostEqual(TIntegral value, double percent = Integral::DEF_PERCENTAGE, double bound = Integral::DEF_BOUND) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&method=almostEqual&instance=1">boolean almostEqual(const MMatrix& matrix, percent = Integral::DEF_PERCENTAGE, double bound = Integral::DEF_BOUND) const;</a></pre>
+       
+  <li> concatenation methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_06.cc&method=concatByRow">boolean concatByRow(const MMatrix& additional_rows);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=concatByRow&instance=1">boolean concatByRow(const MMatrix& matrix1, const MMatrix& matrix2);</a></pre>       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_06.cc&method=concatByColumn">boolean concatByColumn(const MMatrix& additional_cols);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=concatByColumn&instance=1">boolean concatByColumn(const MMatrix& matrix1, const MMatrix& matrix2);</a></pre>       
+
+  <li> ordering methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=reorderRows&instance=0">boolean reorderRows(const MVector&lt;Long,long&gt;& indexes);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_12.cc&method=reorderRows">boolean reorderRows(const MMatrix& matrix, const MVector&lt;Long,long&gt;& indexes);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=reorderColumns&instance=0">boolean reorderColumns(const MVector&lt;Long,long&gt;& indexes);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_12.cc&method=reorderColumns">boolean reorderColumns(const MMatrix& matrix, const MVector&lt;Long,long&gt;& indexes);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_07.cc&method=swapRows">boolean swapRows(const MMatrix& arg, long row1, long row2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=swapRows&instance=1">boolean swapRows(long row1, long row2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_07.cc&method=swapColumns">boolean swapColumns(const MMatrix& arg, long col1, long col2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=swapColumns&instance=1">boolean swapColumns(long col1, long col2);</a></pre>
+       
+  <li> basic mathematical methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_09.cc&method=add&instance=1">boolean add(const MMatrix&lt;TAScalar, TAIntegral&gt;& m1);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_09.cc&method=add&instance=2">boolean add(const MMatrix& m1, const MMatrix&lt;TAScalar, TAIntegral&gt;& m2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_09.cc&method=add&instance=0">boolean add(TIntegral value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=add&instance=3">boolean add(TIntegral value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_09.cc&method=sub&instance=1">boolean sub(const MMatrix&lt;TAScalar, TAIntegral&gt;& m1);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_09.cc&method=sub&instance=2">boolean sub(const MMatrix& m1, const MMatrix&lt;TAScalar, TAIntegral&gt;& m2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_09.cc&method=sub&instance=0">boolean sub(TIntegral value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=sub&instance=3">boolean sub(TIntegral value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=mult&instance=0">boolean mult(const MMatrix&lt;TAScalar, TAIntegral&gt;& m1);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_09.cc&method=mult&instance=0">boolean mult(const MMatrix& m1, const MMatrix&lt;TAScalar, TAIntegral&gt;& m2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=mult&instance=2">boolean mult(TIntegral value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=div">boolean div(TIntegral value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=neg&instance=0">boolean neg();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=neg&instance=1">boolean neg(const MMatrix& m1);</a></pre>
+
+   <li> other mathematical methods:
+	
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=min&instance=0">TIntegral min() const;</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_06.cc&method=min">TIntegral min(long& row_index, long& col_index) const;</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=max&instance=0">TIntegral max() const;</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_06.cc&method=max">TIntegral max(long& row_index, long& col_index) const;</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=minMag&instance=0">double minMag() const;</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_06.cc&method=minMag">double minMag(long& row_index, long& col_index) const;</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=maxMag&instance=0">double maxMag() const;</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_06.cc&method=maxMag">double maxMag(long& row_index, long& col_index) const;</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_06.cc&method=rand&instance=0">boolean rand(Random& generator = Random::GLOBAL_UNIFORM);</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_06.cc&method=rand&instance=1">boolean rand(TIntegral min_val, TIntegral max_val, Random& generator = Random::GLOBAL_UNIFORM);</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_06.cc&method=grand">boolean grand(TIntegral mean, TIntegral stdev, Random& generator = Random::GLOBAL_GAUSSIAN);</a></pre>
+
+  <li> linear algebra related methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_07.cc&method=determinant">double determinant() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_07.cc&method=inverse">boolean inverse();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_07.cc&method=inverse">boolean inverse(const MMatrix& matrix);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_07.cc&method=transpose">boolean transpose();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_07.cc&method=transpose">boolean transpose(const MMatrix& matrix);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_07.cc&method=rank">long rank() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_07.cc&method=trace">TIntegral trace() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=decompositionLU&instance=0">boolean decompositionLU(MMatrix& lower_trig, MMatrix& upper_trig) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_15.cc&method=decompositionLU">boolean decompositionLU(MMatrix& lower_trig, MMatrix& upper_trig, MVector&lt;Long, long&gt;& index, long& sign, double stabilize = THRESH_STABLE) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_15.cc&method=decompositionCholesky">boolean decompositionCholesky(MMatrix& lower_trig) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_15.cc&method=decompositionSVD">boolean decompositionSVD(MMatrix& u, MMatrix& w, MMatrix& v, boolean economy_mode = true) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_15.cc&method=decompositionQR">boolean decompositionQR(MMatrix& q, MMatrix& r);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_16.cc&method=eigen">boolean eigen(TVector& eigvals, MMatrix& eigvects) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=luSolve&instance=0">boolean luSolve(MVector&lt;TScalar, TIntegral&gt;& out_vec, const MMatrix& l, const MMatrix& u, const MVector&lt;TScalar, TIntegral&gt;& in_vec);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_16.cc&method=luSolve">boolean luSolve(MVector&lt;TScalar, TIntegral&gt;& out_vec, const MMatrix& l, const MMatrix& u, const VectorLong& index, const MVector&lt;TScalar, TIntegral&gt;& in_vec);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_16.cc&method=choleskySolve">boolean choleskySolve(MVector&lt;TScalar, TIntegral&gt;& out_vec, const MMatrix& l, const MVector&lt;TScalar, TIntegral&gt;& in_vec);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_16.cc&method=svdSolve">boolean svdSolve(MVector&lt;TScalar, TIntegral&gt;& out_vec, const MMatrix& u, const MMatrix& w, const MMatrix& v, const MVector&lt;TScalar, TIntegral&gt;& in_vec, boolean zero_singulars = false);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_08.cc&method=multv">boolean multv(TVector& output_vector, const TVector& input_vector) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_08.cc&method=vmult">boolean vmult(TVector& output_vector, const TVector& input_vector) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_08.cc&method=quadratic&instance=0">boolean quadratic(TIntegral& output, const TVector& in_vec) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_08.cc&method=quadratic&instance=1">boolean quadratic(MMatrix& output, const MMatrix& input) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=outerProduct&instance=0">boolean outerProduct();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=outerProduct&instance=1">boolean outerProduct(const MMatrix<TAScalar, TAIntegral>& m1);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_08.cc&method=outerProduct&instance=0">boolean outerProduct(const MMatrix& m1, const MMatrix<TAScalar, TAIntegral>& m2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=outerProduct&instance=3">boolean outerProduct(const TVector& v1);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_08.cc&method=outerProduct&instance=1">boolean outerProduct(const TVector& v1, MVector<TAScalar, TAIntegral>& v2);</a></pre>
+       
+  <li> other matrix to scalar mathematical methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_14.cc&method=sum">TIntegral sum() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_14.cc&method=sumSquare">TIntegral sumSquare() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_14.cc&method=sumColumn">TIntegral sumColumn(long col_index) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_14.cc&method=sumRow">TIntegral sumRow(long row_index) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=mean">TIntegral mean() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=rms">TIntegral rms() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_14.cc&method=var">double var() const;</a></pre>
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+  <li> index methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=index&instance=0">long index(long row_index, long col_index) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&method=index">long index(long row_index, long col_index, long num_rows, long num_cols, Integral::MTYPE type = Integral::UNCHANGED) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_06.cc&method=reverseIndex">boolean reverseIndex(long& row_index, long& col_index, long vec_index) const;</a></pre>
+       
+  <li> start and stop row/column methods: these methods return the column indices of the first and last available elements of a particular row of the matrix
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&method=startRow">long startRow(long row_index, Integral::MTYPE type_1, Integral::MTYPE type_2 = Integral::UNCHANGED) const;</a></pre>
+        <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&method=stopRow">long stopRow(long row_index, Integral::MTYPE type_1, Integral::MTYPE type_2 = Integral::UNCHANGED) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&method=startColumn">long startColumn(long row_index, Integral::MTYPE type_1, Integral::MTYPE type_2 = Integral::UNCHANGED) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&method=stopColumn">long stopColumn(long row_index, Integral::MTYPE type_1, Integral::MTYPE type_2 = Integral::UNCHANGED) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=vecLength&instance=0">long vecLength() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&method=vecLength">long vecLength(long nrows, long ncols, Integral::MTYPE type) const;</a></pre>
+	 <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&method=vecResetCapacity">boolean vecResetCapacity(long nrows, long ncols, Integral::MTYPE type) const;</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&method=vecResizeCapacity">boolean vecResizeCapacity(long nrows, long ncols);</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&method=vecCreateLength">boolean vecCreateLength(long nrows, long ncols, Integral::MTYPE type);</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&method=vecDimensionLength">boolean vecDimensionLength(long nrows, long ncols, boolean preserve_values);</a></pre>
+	
+   <li> sparse-specific methods:
+
+	 <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_06.cc&method=randIndicesSparse">boolean randIndicesSparse(Random& generator = Random::GLOBAL_UNIFORM);</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&method=sortSparse">boolean sortSparse();</a></pre>
+
+   <li> linear algebra-related methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_09.cc&method=multiplyRowByColumn">TIntegral multiplyRowByColumn(const MMatrix& matrix_for_row, const MMatrix&lt;TAScalar, TAIntegral&gt;& matrix_for_col, long row_index, long col_index) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_08.cc&method=multiplyRowByRow">TIntegral multiplyRowByRow(const MMatrix& matrix_for_row1, const MMatrix&lt;TAScalar, TAIntegral&gt;& matrix_for_row2, long row1_index, row2_index) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=determinantLU&instance=0">double determinantLU() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_07.cc&method=determinantLU">double determinantLU(const MMatrix& matrix) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/MMatrix.h&method=determinantMinor&instance=0">double determinantMinor() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_07.cc&method=determinantMinor">double determinantMinor(const MMatrix& matrix) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_16.cc&method=eigenComputeVector">boolean eigenComputeVector(MVector&lt;TScalar,TIntegral&gt;& eigvect, TIntegral eigval);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_16.cc&method=eigenBalance">boolean eigenBalance();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_16.cc&method=eigenEliminateHessenberg">boolean eigenEliminateHessenberg();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_16.cc&method=eigenHessenbergQR">boolean eigenHessenbergQR(MVector&lt;Double, double&gt;& eigval_real, MVector&lt;Double, double&gt;& eigval_imag) const;</a></pre>
+              
+  <li> type conversion and streaming methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&method=checkSquare">boolean checkSquare(long nrows, long ncols, Integral::MTYPE type) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_00.cc&method=checkType">Integral::MTYPE checkType(Integral::MTYPE type) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MMatrix/mmat_05.cc&method=assignStream">boolean assignStream(long nrows, long ncols, const TVector& vec, Integral::MTYPE type);</a></pre>
+</ul>
+
+<br>
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+  <li> MMatrix is never used directly. See the other matrix types for
+       examples of computational methods. Here, we present
+       an example that demonstrations the basic I/O capabilities:
+       
+<pre>
+long data[9] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+       
+MMatrix&lt;Long, long&gt; mat1;
+mat1.assign(3, 3, data);
+MMatrix&lt;Long, long&gt; mat2;
+
+String file_name(L"foo");
+Sof tmp_file;
+tmp_file.open(file_name, File::WRITE_ONLY, File::TEXT);
+       
+// write the values
+//
+mat1.write(tmp_file, (long)0);
+
+// close the files
+//
+tmp_file.close();
+       
+// open the files in read mode
+//
+tmp_file.open(file_name);
+       
+// read the values back in
+//
+if (!mat2.read(tmp_file, (long)0) || (!mat2.almostEqual(mat1))) {
+       mat1.debug(L"mat g1");
+       mat2.debug(L"mat2");
+       return Error::handle(mat2.name(), L"read-text", Error::TEST,
+                            __FILE__,__LINE__);
+}
+tmp_file.close();
+</pre>
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> We use two storage formats for the six types of matrices. All
+       types except SPARSE are stored in a single vector. Sparse matrices
+       are represented by a vector containing row indices, a vector
+       containing the column indices and a vector containing the values
+       for the non-zero elements.
+
+       <br><br>
+
+  <li> We use setCapacity and setDimension to expand the matrix. The
+       setCapacity method sets the capacity of the matrix to the specified
+       number of rows and columns or to be the same as the capacity of the
+       input matrix. It preserves the values in the matrix only when the
+       boolean flag is set to true. The setDimension method sets the dimension
+       of the matrix and capacity of the matrix is adjusted accordingly.
+
+       <br><br>
+
+  <li> We implemented quadratic form for complex matrices using
+       generalized dot product to produce a magnitude from it.
+       
+       <br><br>
+        
+  <li> Refer to the <a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/IntegralTypes.h">definitions</a> of ISIP typedefs specifying hardware independent type sizes.
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

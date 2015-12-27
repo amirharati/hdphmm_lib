@@ -1,0 +1,504 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="DoubleLinkedList" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="name">
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h">DoubleLinkedList&lt;class TObject&gt </a>: public <a href = "../DstrBase/">DstrBase;</a></b>
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ...
+
+#include &lt;DoubleLinkedList.h&gt;
+
+DoubleLinkedList(ALLOCATION alloc_d = DEF_ALLOCATION);
+boolean insert(TObject* item);
+boolean insertFirst(TObject* item);
+boolean removeLast(TObject*& item);
+const TObject* getPrev() const;
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+// declare a character list and add two characters into it
+//
+DoubleLinkedList&lt;Char&gt; list;
+Char item0(L'a');
+Char item1(L'b');
+list.insertFirst(&item0);
+list.insert(&item1);
+
+// get the last character
+//
+list.gotoLast();
+Char* item2 = list.getCurr();
+if (item2->ne(item1)) {
+   // error
+}
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The DoubleLinkedList class, as its name suggests is a list template
+class that supports list processing using a data structure that
+contains a pointer to the next and previous elements in the list.
+(A single linked list, by constrast, contains a pointer only to
+the next node). For a good reference on lists, see:
+
+<ul>
+  T. Budd,
+  <i>Data Structures in C++ using the Standard Template Library</i>,
+  Addison Wesley, Reading, Massachusetts, USA, pp. 185-216, 1998.
+</ul>
+
+The user may select the memory management mode in which this class
+operates: USER or SYSTEM.  In SYSTEM mode, the class is responsible
+for managing the memory for the objects it contains. This implies that
+a copy is made each time an object is inserted to the list. In USER
+mode the user is responsible for allocation and deletion of the
+objects that are stored in the list. In this mode, pointers to the
+external objects are stored - a copy is not made. The best mode for
+your application depends on your need to trade-off speed versus the
+complexity of object management.
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+<ul>
+  <li> <a href="../DstrBase/DstrBase.h"> DstrBase </a>
+  <li> <a href="../DoubleLinkedList/DoubleLinkedNode.h"> DoubleLinkedNode </a>
+  <li> <a href="../../math/vector/VectorLong"> VectorLong </a>
+  <li> <a href="../../math/scalar/String/"> String </a>
+  <li> <a href="../../math/scalar/Char/"> Char </a>
+  <li> <a href="../../math/scalar/Long/"> Long </a>
+  <li> <a href="../../system/Console/"> Console </a>
+  <li> <a href="../Stack/"> Stack </a>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&constant=CLASS_NAME">static const String CLASS_NAME = L"DoubleLinkedList";</a></pre>
+       
+  <li> i/o related constants:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&constant=DEF_PARAM">static const String DEF_PARAM = L"values";</a></pre>       
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> general DoubleLinkedList class error:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00040400">static const long ERR = 40400;</a></pre>
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+
+  <li> define the NODE object
+
+       <pre>typedef DoubleLinkedNode&lt;TObject&gt NODE;</pre>
+       
+  <li> pointers to the first node, last node and current node:
+       
+       <pre>NODE* first_d;</pre>
+       <pre>NODE* last_d;</pre>		
+       <pre>NODE* curr_d;</pre>
+       
+  <li> a pointer to a node the user marks:
+       
+       <pre>NODE* mark_d;</pre>
+
+  <li> the number of nodes in the list:
+       
+       <pre>Long length_d;</pre>
+       
+  <li> the allocation mode:
+       
+       <pre>ALLOCATION alloc_d;</pre>
+       
+  <li> declare the debugging parameters:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&static=debug_level_d">static Integral::DEBUG debug_level_d;</a></pre>
+
+  <li> static memory manager:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&static=mgr_d">static MemoryManager mgr_d;</a></pre>       
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>  
+  <li> static methods: diagnose method is moved outside the class
+header file and defined in the DoubleLinkedListDiagnose.h in order to
+avoid issues with the preprocessing of the diagnose code
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=name">static const String& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedListDiagnose.h&method=diagnose">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+       
+  <li> debug methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=setDebug">static boolean setDebug(Integral::DEBUG debug_level);</a></pre>       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=debug">boolean debug(const unichar* message) const;</a></pre>
+       
+  <li> destructor/constructor(s):
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=destructor">~DoubleLinkedList();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=default+constructor">DoubleLinkedList(ALLOCATION alloc = DEF_ALLOCATION);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=copy+constructor">DoubleLinkedList(const DoubleLinkedList&lt;TObject&gt;& copy_list);</a></pre>
+
+  <li> assign methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=assign&instance=0">boolean assign(const DoubleLinkedList&lt;TObject&gt;& copy_list);</a></pre>
+
+  <li> operator= methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=operator%3D">DoubleLinkedList&lt;TObject&gt;& operator=(const DoubleLinkedList&lt;TObject&gt;& arg);</a></pre>
+
+  <li> equality methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=eq">boolean eq(const DoubleLinkedList&lt;TObject&gt;& compare_list) const;</a></pre>
+       
+  <li> i/o methods: refer to the <a href = "./index.html#notes">notes</a>
+section for an explanation of why there are two read and write methods in
+this class
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=sofSize">long sofSize() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=read&instance=0">boolean read(Sof& sof, long tag);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=write&instance=0">boolean write(Sof& sof, long tag) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=read&instance=1">boolean read(Sof& sof, long tag, const String& name);</a></pre>              
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=write&instance=1">boolean write(Sof& sof, long tag, const String& name) const;</a></pre>       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=readData">boolean readData(Sof& sof, const String& pname = DEF_PARAM, long size = SofParser::FULL_OBJECT, boolean param_a = true, boolean nested_a = false);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=writeData">boolean writeData(Sof& sof, const String& pname = DEF_PARAM) const;</a></pre>
+
+  <li> memory management methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=new">static void* operator new(size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=new\[\]">static void* operator new[](size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=delete">static void operator delete(void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=delete\[\]">static void operator delete[](void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=setGrowSize">static boolean setGrowSize(long grow_size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=clear">boolean clear(Integral::CMODE cmode = Integral::DEF_CMODE);</a></pre>
+</ul>
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>
+  <li> overloaded operators and extensions to required methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=operator+()&instance=0">TObject& operator() (long index);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=operator+()&instance=1">const TObject& operator() (long index) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=ne">boolean ne(const DoubleLinkedList&lt;TObject&gt;& compare_list) const;</a></pre>
+       
+  <li> class positioning methods: 
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=gotoFirst">boolean gotoFirst();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=gotoLast">boolean gotoLast();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=gotoNext">boolean gotoNext();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=gotoPrev">boolean gotoPrev();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=gotoMark">boolean gotoMark();</a></pre>
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=gotoPosition">boolean gotoPosition(long number);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=getPosition">long getPosition() const;</a></pre>
+       
+  <li> class marking methods: 
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=markIsSet">boolean markIsSet() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=isMarkedElement">boolean isMarkedElement() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=clearMark">boolean clearMark() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=setMark">boolean setMark() const;</a></pre>
+       
+  <li> class access methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=getFirst&instance=0">TObject* getFirst();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=getFirst&instance=1">const TObject* getFirst() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=getLast&instance=0">TObject* getLast();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=getLast&instance=1">const TObject* getLast() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=getNext&instance=0">TObject* getNext();</a></pre>
+        <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=getNext&instance=1">const TObject* getNext() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=getPrev&instance=0">TObject* getPrev();</a></pre>
+        <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=getPrev&instance=1">const TObject* getPrev() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=getMark&instance=0">TObject* getMark();</a></pre>
+        <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=getMark&instance=1">const TObject* getMark() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=getCurr&instance=0">TObject* getCurr();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=getCurr&instance=1">const TObject* getCurr() const;</a></pre>
+
+  <li> class insert and remove methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=insert&instance=0">boolean insert(TObject* item);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=insert&instance=1">boolean insert(DoubleLinkedList&lt;TObject&gt;& ilist);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=remove&instance=0">boolean remove(TObject*& item);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=remove&instance=1">boolean remove();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=insertFirst&instance=0">boolean insertFirst(TObject* item);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=insertFirst&instance=1">boolean insertFirst(DoubleLinkedList&lt;TObject&gt;& ilist);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=removeFirst&instance=0">boolean removeFirst(TObject*& item);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=removeFirst&instance=1">boolean removeFirst();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=insertLast&instance=0>boolean insertLast(TObject* item);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=insertLast&instance=1">boolean insertLast(DoubleLinkedList&lt;TObject&gt;& ilist);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=removeLast&instance=0">boolean removeLast(TObject*& item);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=removeLast&instance=1">boolean removeLast();</a></pre>
+
+  <li> class property methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=isEmpty">boolean isEmpty() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=isFirst">boolean isFirst() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=isLast">boolean isLast() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=length">long length() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=find">boolean find(const TObject* item);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=contains">boolean contains(const TObject* item) const;</a></pre>
+       
+  <li> class ordering methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=sort">boolean sort(Integral::ORDER sort_order = Integral::ASCENDING, SORT_ALGO = DEF_SORT_ALGO);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=reverse">boolean reverse();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=swap&instance=0">boolean swap(long i, long j);</a></pre>
+       
+  <li> class apply methods: 
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=apply&instance=0">boolean apply(boolean (TObject::*method)());</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=apply&instance=1">boolean apply(boolean (TObject::*method)(), DoubleLinkedList&lt;TObject&gt;& arg);</a></pre>
+       
+  <li> class allocation mode methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=getAllocationMode">ALLOCATION getAllocationMode() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=setAllocationMode">boolean setAllocationMode(ALLOCATION alloc);</a></pre>       
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+  <li> sort methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=randQuickSort">boolean randQuickSort(Integral::ORDER sort_order);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=insertionSort">boolean insertionSort(Integral::ORDER sort_order);</a></pre>
+       
+  <li> swap methods: 
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=swap&instance=1">boolean swap(NODE*& i_node, NODE*& j_node);</a></pre>
+
+  <li> node addressing methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedList.h&method=getNode">NODE* getNode(long index) const;</a></pre>       
+</ul>
+
+<a name="friend">
+<b>friend classes:</b>
+<br><br>
+
+<ul>
+  <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/DoubleLinkedList/DoubleLinkedListDiagnose.h">friend class DoubleLinkedListDiagnose;</a></pre>
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+
+
+  <li> This example shows the basic operation of a DoubleLinkedList
+
+       <pre>
+#include &lt;DoubleLinkedList.h&gt;
+#include &lt;Char.h&gt;
+
+int main() {
+
+  // local variables
+  //
+  DoubleLinkedList&lt;Long&gt; d;
+  Long j;
+
+  // add 10 items to the DoubleLinkedList    
+  //
+  for (long i = 0; i&lt; 10; i++) {
+    j = i * 3;
+    d.insert(&j);
+  }
+
+  // see what is on the DoubleLinkedList
+  //
+  d.debug(L"after insertion");
+       
+  // get the elements and print them
+  //
+  d.gotoFirst();     
+  Long* l = d.getFirst();
+  l-&gt;debug(L"item from the List");
+  
+  while((l=d.getNext())!=NULL) {
+    d.gotoNext();
+    l-&gt;debug(L"item from the List");      
+  }
+
+  // exit gracefully
+  //     
+  Integral::exit();
+}</pre>
+
+  <li> This example shows the basic operation of a DoubleLinkedList in USER  mode. Note that memory is manually allocated before inserting it to the List and deleted later.
+
+       <pre>
+#include &lt;DoubleLinkedList.h&gt;
+#include &lt;Char.h&gt;
+
+int main() {
+
+  // local variables
+  //
+  DoubleLinkedList&lt;long&gt; d(USER);
+  Long* j;
+
+  // add 10 items to the DoubleLinkedList    
+  //
+  for (long i = 0; i&lt 10; i++) {
+    j = new Long(i * 3);
+    d.insert(j);
+  }
+
+  // see what is on the DoubleLinkedList
+  //
+  d.debug(L"after insertion");
+
+  // get the elements and print them
+  //
+  d.gotoFirst();     
+  Long* l = d.getFirst();
+  l-&gt;debug(L"item from the List");
+  delete l;
+  
+  while((l=d.getNext())!=NULL) {
+    d.gotoNext();
+    l-&gt;debug(L"item from the List");      
+    delete l;
+  }
+
+  // exit gracefully
+  //     
+  Integral::exit();
+}</pre>
+       
+  <li> This example shows how to check if DoubleLinkedLists are equal.
+       
+       <pre>
+#include &lt;DoubleLinkedList.h&gt;
+#include &lt;Char.h&gt;
+       
+int main() {
+
+  // prepare items for the list
+  //
+  Char** items = new Char*[10];
+  
+  // declare a SYSTEM-allocating DoubleLinkedList and insert items into it
+  //
+  DoubleLinkedList&lt;Char&gt; char_list;
+  
+  for (long i = 0; i &lt; 10; i++) {
+    items[i] = new Char((unichar)((long)'a' + i));
+    
+    // insert the items to the list
+    //
+    char_list.insert(items[i]);
+    
+  }
+    
+  // copy the DoubleLinkedList
+  //
+  DoubleLinkedList&lt;Char&gt; char_copy_list(char_list);
+  
+  // declare a third list that is SYSTEM-allocating, and has the same items
+  //
+  DoubleLinkedList&lt;Char&gt;* system_char_list = new DoubleLinkedList&lt;Char&gt;();
+  system_char_list-&gt;assign(char_list);
+  
+  // see if these DoubleLinkedLists are equivalent
+  //
+  if(!char_list.eq(char_copy_list) || !system_char_list-&gt;eq(char_list)) {
+
+    // exit with error
+    //
+    Integral::exit();
+  }
+
+  // clean up the memory used
+  //
+  delete system_char_list;
+  delete [] items; 
+  
+  // exit gracefully
+  //
+  Integral::exit();
+}</pre>
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> There are two memory allocation modes for DoubleLinkedList as indicated
+       by the protected member data, alloc_d. The default allocation mode
+       is SYSTEM. If alloc_d is set to SYSTEM, the list handles allocation and
+       deletion of the objects. When the user puts an object into the list, a
+       copy of the object is made and inserted into the list via local memory
+       allocation. Note that this requires a call to the copy constructor so
+       the user will experience an efficiency decrease. When the object is
+       removed from the list, it is automatically  deleted.
+       <br><br>
+       
+  <li> If alloc_d is set to USER, the user is required to handle
+       all memory allocation and deletion. When the user adds an
+       object to the list, the object passed in is stored in the list
+       by pointer reference. When an object is removed, the user is required
+       to accept a pointer to the object.
+       <br><br>
+
+  <li> Unlike other classes, we have two read and write methods in dstr
+       classes. The interface is still the same as that in other
+       classes. The reason behind this is that we can not use
+       "CLASS_NAME" as default argument in the read and write methods
+       here because the data structures build the class name on the fly.
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->
+
+
+
+
+
+

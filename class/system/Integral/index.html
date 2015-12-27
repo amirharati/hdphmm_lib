@@ -1,0 +1,548 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="Integral" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="Name">
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h">Integral</a></b>
+
+<br><br> 
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ... -l /isip/tools/lib/$ISIP_BINARY/lib_system.a
+    
+#include &lt;Integral.h&gt;
+
+static boolean getLoginDir(SysString& directory, const SysString& login_name);
+static boolean expandName(SysString& exp_file, const SysString& in_file);
+static boolean exit();
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+SysString var(L"HOME");
+SysString val;
+boolean ret;
+var.assign(L"root");
+ret = Integral::getLoginDir(val, var);
+
+if ((!ret) || (val.length() == 0)) {
+  Console::put(L"Error in getLoginDir");
+}
+
+var.assign(L"$isip/include/Integral.h");
+ret = Integral::expandName(val, var);
+
+if ((!ret) || (val.length() == 0)) {
+  Console::put(L"Error in expandName");
+}
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The Integral class serves two purposes. First, it defines standard
+integral data types. The C data types which gcc uses are machine
+dependent rather than data dependent. While the ISIP environment uses
+C data types wherever possible for the sake of familiarity, in some
+cases we must diverge for compatibility with new languages
+(such as Java). Second, the Integral class wraps miscellaneous
+operating system and math functions at a unified point in the environment.
+All methods in the Integral class are static so that the programmer need
+not instantiate the class to access the common functions.
+In this class, we include the generic double precision functions
+that parallel the ANSI C library functions.
+
+<br><br>
+
+The complex number functions defined below follow implementations
+given in:
+
+<ul>
+  R.V. Churchill, J.W. Brown, and R.F. Verhey,
+  <i>Complex Variables and Applications</i>, Mc-Graw Hill,
+  New York, New York, USA, 1976, pp. 52-71.
+</ul>
+
+Note that complex data types are defined in IntegralTypes using
+the system class SysComplex. This somewhat circular dependency allows
+complex numbers to be available to users as integral types much like
+floats and integers. A low-level complex number type is also
+required to allow scalar complex numbers to be implemented
+fairly cleanly. See the math classes for more information on this.
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li> stdio.h
+  <li> stdlib.h
+  <li> limits.h
+  <li> math.h
+  <li> unistd.h       
+  <li> dmalloc.h
+  <li> <a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/IntegralConfigure.h">IntegralConfigure</a>
+  <li> <a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/IntegralTypes.h">IntegralTypes</a>
+  <li> <a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/IntegralNameSpace.h">IntegralNameSpace</a>
+  <li> <a href="../SysString/index.html">SysString</a>
+  <li> <a href="../SysChar/index.html">SysChar</a>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_00.cc&constant=CLASS_NAME">static const SysString CLASS_NAME = L"Integral";</a></pre>
+       
+  <li> define environmental variables:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_00.cc&constant=ENV_ISIP">static const SysString ENV_ISIP = L"isip";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_00.cc&constant=ENV_HOME">static const SysString ENV_HOME = L"HOME";</a></pre>
+
+  <li> define constants for parsing environment variables and file pathnames
+       under UNIX:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_00.cc&constant=ENV_MARKER">static const SysChar ENV_MARKER = L'$';</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_00.cc&constant=DIR_DELIM">static const SysChar DIR_DELIM = L'/';</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_00.cc&constant=DIR_HOME">static const SysChar DIR_HOME = L'~';</a></pre>
+
+  <li> define some UNIX commands:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_00.cc&constant=UNIX_CMD_COPY">static const SysString UNIX_CMD_COPY = L"cp";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_00.cc&constant=UNIX_CMD_MOVE">static const SysString UNIX_CMD_MOVE = L"mv";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_00.cc&constant=UNIX_CMD_REDIR">static const SysString UNIX_CMD_REDIR = L"2>&1";</a></pre>
+       
+  <li> define some constants for temporary filename creation:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_00.cc&constant=TMPDIR">static const SysString TMPDIR = L"/tmp";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_00.cc&constant=TMP_FMT_0">static const SysString TMP_FMT_0 = L"/tmp_";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_00.cc&constant=TMP_FMT_1">static const SysString TMP_FMT_1 = L"_";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_00.cc&constant=TMP_TEMPLATE">static const SysString TMP_TEMPLATE = L"XXXXXX";</a></pre>
+
+  <li> define some constants related to help message generation:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_00.cc&constant=HELP_FORMAT">static const SysString HELP_FORMAT = L"more %s";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_00.cc&constant=HELP_OPTION">static const SysString HELP_OPTION = L"-help";</a></pre>
+       
+  <li> define negative and positive sign:
+
+       <pre>static const long NEGATIVE = -1;</pre>
+       <pre>static const long POSITIVE = 1;</pre>
+
+  <li> define sorting and comparison constants:
+
+       <pre>enum ORDER { ASCENDING = 0, DESCENDING, COLLATING, DEF_ORDER = ASCENDING };</pre>
+       <pre>enum COMPARE { LESSER = 0, EQUAL, GREATER, DEF_COMPARE = EQUAL };</pre>
+
+  <li> define constants that control the behavior of the clear method:
+
+       <pre>enum CMODE { RETAIN = 0, RESET, RELEASE, FREE, DEF_CMODE = RESET };</pre>
+
+  <li> define constants that control the behavior of the graph class:
+
+       <pre>enum COLOR { WHITE = 0, GREY, BLACK, BLUE, GREEN, DEF_COLOR = WHITE };</pre>
+
+  <li> define constants for representing the storage mode of a matrix:
+       it is useful to have a global notion of the storage type of
+       a matrix (Integral::SYMMETRIC) vs. MatrixFloat::SYMMETRIC)
+
+       <pre>enum MTYPE { FULL = 0, DIAGONAL, SYMMETRIC, LOWER_TRIANGULAR, UPPER_TRIANGULAR, SPARSE, TYPE_UNCHANGED, TYPE_UNKNOWN, DEF_TYPE = FULL };</pre>
+
+  <li> define a return value for exiting:
+
+       <pre>static const long SYS_RETURN_ERROR = 1;</pre>
+       <pre>static const long SYS_RETURN_NOERROR = 0;</pre>
+
+  <li> define some debugging constants:
+
+       <pre>enum DEBUG { NONE = 0, BRIEF, DETAILED, ALL, DEF_DEBUG = NONE };</pre>
+       
+  <li> define some maximum sizes for i/o related functions:
+
+       <pre>static const long MAX_FNAME_SIZE = PATH_MAX;</pre>
+
+  <li>  define some constants related to geometry and pi:
+
+       <pre>static const double PI = M_PI;</pre>
+       <pre>static const double TWO_PI = (2.0*PI);</pre>
+       <pre>static const double HALF_PI = (M_PI_2);</pre>
+       <pre>static const double QUARTER_PI = (M_PI_4);</pre>
+       <pre>static const double SQRT_TWO_PI = 2.506628274631;</pre>
+       <pre>static const double INV_PI = M_1_PI;</pre>
+       <pre>static const double TWO_INV_PI = M_2_PI;</pre>
+       <pre>static const double SQRT_TWO = M_SQRT2;</pre>
+       <pre>static const double INV_SQRT_TWO_PI = (1.0 / SQRT_TWO_PI);</pre>
+       <pre>static const double DEGREES_IN_CIRCLE = 360.0;</pre>
+
+  <li> define an iteration count for testing random functions in diagnose
+       method:
+
+       <pre>static const long DIAG_ITER_COUNT = 100;</pre>
+
+  <li> default arguments to find methods:
+
+       <pre>static const long NO_POS = -1;</pre>
+  
+  <li> define important powers of two:
+
+       <pre>static const double TWO_EXP7  = ((ulong)1 << 7);</pre>
+       <pre>static const double TWO_EXP8  = ((ulong)1 << 8);</pre>
+       <pre>static const double TWO_EXP15 = ((ulong)1 << 15);</pre>
+       <pre>static const double TWO_EXP16 = ((ulong)1 << 16);</pre>
+       <pre>static const double TWO_EXP23 = ((ulong)1 << 23);</pre>
+       <pre>static const double TWO_EXP24 = ((ulong)1 << 24);</pre>
+       <pre>static const double TWO_EXP31 = ((ulong)1 << 31);</pre>
+       <pre>static const double TWO_EXP32 = (TWO_EXP16 * TWO_EXP16);</pre>
+       <pre>static const double TWO_EXP63 = (TWO_EXP32 * TWO_EXP31);</pre>
+       <pre>static const double TWO_EXP64 = (TWO_EXP32 * TWO_EXP32);</pre>
+       
+  <li> define constants related to natural logarithms:
+
+       <pre>static const double E = M_E;</pre>
+       <pre>static const double LOG2E = M_LOG2E;</pre>
+       <pre>static const double LOG10E = M_LOG10E;</pre>
+       <pre>static const double LN2 = M_LN2;</pre>
+       <pre>static const double LN10 = M_LN10;</pre>
+       
+  <li> define constants related to the inverse of natural logarithms:
+       currently, we only need to provide a scale factor for base 2 logarithms
+
+       <pre>static const double INV_LN2 = 1.0 / M_LN2;</pre>
+       <pre>static const double INV_LN10 = 1.0 / M_LN10;</pre>
+
+  <li> define the square root and inverse of square root of 2:
+
+       <pre>static const double SQRT2 = M_SQRT2; </pre>
+       <pre>static const double INV_SQRT2 = M_SQRT_1_2;</pre>
+       
+  <li> define dB constants:
+
+       <pre>static const double DB_POW_MIN_VALUE = 1.0e-10;</pre>
+       <pre>static const double DB_POW_SCALE_FACTOR = 10.0;</pre>
+       <pre>static const double DB_MAG_MIN_VALUE = 1.0e-10;</pre>
+       <pre>static const double DB_MAG_SCALE_FACTOR = 20.0;</pre>
+       <pre>static const double DB_MIN_VALUE = -100.0;</pre>
+
+  <li> define default arguments to methods:
+
+       <pre>static const long DEF_GROW_SIZE = 1024;</pre>
+
+  <li> define precision-related constants:
+
+       <pre>static const double DEF_PERCENTAGE = 0.1;</pre>
+       <pre>static const double DEF_BOUND = 0.01;</pre>
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> error code indicating Integral class error:
+
+       <pre><a href="/perl/ifc_document.pl?err=00001500">static const long ERR = 1500;</a></pre>   
+</ul>  
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> define the debug level:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_00.cc&static=debug_level_d">static Integral::DEBUG debug_level_d;</a></pre>
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li> static methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=name">static const SysString& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_02.cc&method=diagnose">static boolean diagnose(DEBUG debug_level);</a></pre>
+     
+  <li> debug methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=setDebug">static boolean setDebug(Integral::DEBUG level);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_01.cc&method=debug">static boolean debug(const unichar* message);</a></pre>
+
+  <li> destructor/constructor(s):
+
+       <pre>the constructors and destructor are private so that Integral objects cannot be instantiated</pre>
+
+  <li> assign methods:
+
+       <pre>these methods are omitted because Integral objects can not be instantiated</pre>
+       
+  <li> operator= methods:
+
+       <pre>these methods are omitted because Integral objects can not be instantiated</pre>
+       
+  <li> i/o methods:
+
+       <pre>these methods are omitted because Integral objects can not be instantiated</pre>
+       
+  <li> equality methods:
+
+       <pre>these methods are omitted because Integral objects can not be instantiated</pre>
+
+  <li> memory management methods:
+
+       <pre>these methods are omitted because Integral objects can not be instantiated</pre>
+</ul>    
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>
+  <li> wrappers for operating system functions: environmental variables
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_04.cc&method=getEnv">static boolean getEnv(SysString& val, const SysString& var);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_04.cc&method=getLoginDir">static boolean getLoginDir(SysString& directory, const SysString& login_name);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_04.cc&method=expandName">static boolean expandName(SysString& exp_file, const SysString& in_file);</a></pre>
+       
+  <li> wrappers for operating system functions: process id numbers
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=getPid">static long getPid();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=getParentPid">static long getParentPid();</a></pre>
+
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=getHostid">static long getHostid();</a></pre>
+
+  <li> wrappers for operating system functions:
+       clean exit and static memory registration
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_00.cc&method=exit">static long exit();</a></pre>
+
+  <li> wrappers for operating system functions:
+       temporary files
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_05.cc&method=makeTemp&instance=0">static boolean makeTemp(SysString& tmp_file);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_05.cc&method=makeTemp&instance=1">static boolean makeTemp(SysString& tmp_file, const SysString& name);</a></pre>
+  <li> bit-level methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=almostEqual&instance=0">template &lt;class TIntegral&gt; static boolean almostEqual(TIntegral arg1, TIntegral arg2, double percent = DEF_PERCENTAGE, double bound = DEF_BOUND);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=almostEqual&instance=1">static boolean almostEqual(float arg1, float arg2, double percent = DEF_PERCENTAGE, double bound = DEF_BOUND);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_03.cc&method=almostEqual&instance=0">static boolean almostEqual(double arg1, double arg2, double percent = DEF_PERCENTAGE, double bound = DEF_BOUND);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=almostEqual&instance=3">static boolean almostEqual(const complexfloat& arg1, const complexfloat& arg2, double percent = DEF_PERCENTAGE, double bound = DEF_BOUND);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=almostEqual&instance=4">static boolean almostEqual(const complexdouble& arg1, const complexdouble& arg2, double percent = DEF_PERCENTAGE, double bound = DEF_BOUND);</a></pre>
+
+  <li> inlined wrappers for math and C functions: these are listed
+       alphabetically
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=abs&instance=0">static double abs(double arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=acos&instance=0">static double acos(double arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=acosh&instance=0">static double acosh(double arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=asin&instance=0">static double asin(double arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=asinh&instance=0">static double asinh(double arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=atan&instance=0">static double atan(double arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=atanh&instance=0">static double atanh(double arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=ceil">static double ceil(double arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=cos&instance=0">static double cos(double arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=cosh&instance=0">static double cosh(double arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=exp&instance=0">static double exp(double arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=exp2&instance=0">static double exp2(double arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=exp10&instance=0">static double exp10(double arg);</a></pre>
+#if ISIP_WCHAR_MODE == ISIP_WCHAR_NONE
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=fgetc">static long fgetc(FILE* stream);</a></pre>
+#endif<br><br>
+#if ISIP_WCHAR_MODE == ISIP_WCHAR_NONE
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=fgets">static char* fgets(char* s, int n, FILE* stream);</a></pre>
+#endif<br><br>
+#if ISIP_WCHAR_MODE != ISIP_WCHAR_NONE
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=fgetwc">static wint_t fgetwc(FILE* stream);</a></pre>
+#endif<br><br>
+#if ISIP_WCHAR_MODE != ISIP_WCHAR_NONE
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=fgetws">static unichar* fgetws(unichar* s, int n, FILE* stream);</a></pre>
+#endif<br><br>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=floor">static double floor(double arg);</a></pre>
+#if ISIP_WCHAR_MODE == ISIP_WCHAR_NONE
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=fputc">static long fputc(int c, FILE* stream);</a></pre>
+#endif<br><br>
+#if ISIP_WCHAR_MODE == ISIP_WCHAR_NONE
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=fputs">static long fputs(char* s, FILE* stream);</a></pre>
+#endif<br><br>
+#if ISIP_WCHAR_MODE != ISIP_WCHAR_NONE
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=fputwc">static wint_t fputwc(wint_t c, FILE* stream);</a></pre>
+#endif<br><br>
+#if ISIP_WCHAR_MODE != ISIP_WCHAR_NONE
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=fputws">static long fputws(const unichar* s, FILE* stream);</a></pre>
+#endif<br><br>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=fraction">static double fraction(double arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=fseek">static long fseek(FILE* fptr, long offset, int whence);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_06.cc&method=hash">static ulong hash(byte val, ulong capacity);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_06.cc&method=hash">static ulong hash(ushort val, ulong capacity);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_06.cc&method=hash">static ulong hash(short val, ulong capacity);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_06.cc&method=hash">static ulong hash(ulong val, ulong capacity);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_06.cc&method=hash">static ulong hash(llong val, ulong capacity);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_06.cc&method=hash">static ulong hash(ullong val, ulong capacity);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_06.cc&method=hash">static ulong hash(float val, ulong capacity);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_06.cc&method=hash">static ulong hash(double val, ulong capacity);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_06.cc&method=hash">static ulong hash(long val, ulong capacity);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_06.cc&method=hash">static ulong hash_32(ulong val, ulong capacity);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_06.cc&method=hash">static ulong hash_64(ullong val, ulong capacity);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=hash">static long hash(ulong* vector, long num_elements, long capacity);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=integer">static double integer(double arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=log&instance=0">static double log(double arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=log1p&instance=0">static double log1p(double arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=log2&instance=0">static double log2(double arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=log10&instance=0">static double log10(double arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=max&instance=0">static double max(double arg1, double arg2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=min&instance=0">static double min(double arg1, double arg2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=pow&instance=0">static double pow(double arg, double exponent);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=round">static double round(double arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=sin&instance=0">static double sin(double arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=sinh&instance=0">static double sinh(double arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=sleep">static double sleep(long sleep_seconds);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=sqrt&instance=0">static double sqrt(double arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=tan&instance=0">static double tan(double arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=tanh&instance=0">static double tanh(double arg);</a></pre>
+#if ISIP_WCHAR_MODE == ISIP_WCHAR_SOLARIS
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=wcswcs">static unichar* wcswcs(const unichar* ws1, const unichar* ws2);</a></pre>
+#endif<br><br>
+#if ISIP_WCHAR_MODE != ISIP_WCHAR_SOLARIS
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=wcsstr">static unichar* wcsstr(const unichar* ws1, const unichar* ws2);</a></pre>
+#endif<br><br>
+#if ISIP_WCHAR_MODE == ISIP_WCHAR_SOLARIS
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=wcstok&instance=0">static unichar* wcstok(unichar* ws, const unichar* delim, unichar** ptr);</a></pre>
+#endif<br><br>
+#if ISIP_WCHAR_MODE != ISIP_WCHAR_SOLARIS
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=wcstok&instance=1">static unichar* wcstok(unichar* ws, const unichar* delim, unichar** ptr);</a></pre>
+#endif<br><br>
+  <li> complex versions of math and C functions: these are listed
+       alphabetically
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=abs&instance=1">static double abs(const complexdouble& arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=acos&instance=1">static complexdouble acos(const complexdouble& arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=acosh&instance=1">static complexdouble acosh(const complexdouble& arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=asin&instance=1">static complexdouble asin(const complexdouble& arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=asinh&instance=1">static complexdouble asinh(const complexdouble& arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=atan&instance=1">static complexdouble atan(const complexdouble& arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=atanh&instance=1">static complexdouble atanh(const complexdouble& arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=ceil&instance=1">static complexdouble ceil(const complexdouble& arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=cos&instance=1">static complexdouble cos(const complexdouble& arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=cosh&instance=1">static complexdouble cosh(const complexdouble& arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=exp&instance=1">static complexdouble exp(const complexdouble& arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=exp2&instance=1">static complexdouble exp2(const complexdouble& arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=exp10&instance=1">static complexdouble exp10(const complexdouble& arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=floor&instance=1">static complexdouble floor(const complexdouble& arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=log&instance=1">static complexdouble log(const complexdouble& arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=log2&instance=1">static complexdouble log2(const complexdouble& arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=log10&instance=1">static complexdouble log10(const complexdouble& arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=log1p&instance=1">static complexdouble log1p(const complexdouble& arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=max&instance=1">static complexdouble max(const complexdouble& arg1, const complexdouble& arg2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=min&instance=1">static complexdouble min(const complexdouble& arg1, const complexdouble& arg2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=pow&instance=1">static complexdouble pow(const complexdouble& arg, const complexdouble& exponent);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=round&instance=1">static complexdouble round(const complexdouble& arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=sin&instance=1">static complexdouble sin(const complexdouble& arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=sinh&instance=1">static complexdouble sinh(const complexdouble& arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=sqrt&instance=1">static complexdouble sqrt(const complexdouble& arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=tan&instance=1">static complexdouble tan(const complexdouble& arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=tanh&instance=1">static complexdouble tanh(const complexdouble& arg);</a></pre>
+
+  <li> other math functions that are useful for speech research:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_06.cc&method=logAddLog">static double logAddLog(const double x, const double y);</a></pre>
+
+  <li> functions that are useful for time measurements:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/Integral.h&method=time&instance=0">static long time();</a></pre>
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_06.cc&method=cTime&instance=0">static boolean cTime(SysString& time);</a></pre>
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/itgl_06.cc&method=utcTime&instance=0">static boolean utcTime(SysString& time);</a></pre>
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+  <li> declare the destructor/constructor(s): these are private so the class
+       cannot be instantiated
+
+       <pre>~Integral();</pre>
+       <pre>Integral();</pre>
+       <pre>Integral(const Integral& arg);</pre>
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+  <li> This example shows how to perform basic math operations:
+
+<pre>
+double x = 27;
+double y = Integral::cos(27);
+complexdouble z(27, 27);
+double zz = Integral::cos(z);</pre>
+
+  <li> This example shows how to get environmental variables and process id
+       numbers:
+
+<pre>
+SysString var(L"HOME");
+SysString val;
+boolean ret;
+       
+ret = Integral::getEnv(val, var);
+       
+long pid = getPid();
+long ppid = getParentPid();</pre>
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> In this release of Integral, we have made extensive use of
+       inlined functions for wrappers for operating system functions.
+
+       <br><br>
+
+  <li> Note however that we don't use the keyword "inline" in the function
+       declaration. Rather than force the compiler to inline, which might
+       lead to gross inefficiencies, we let the compiler decide whether
+       to inline functions.
+
+       <br><br>
+
+  <li> The implementation of almostEqual has also been significantly
+       overhauled to make it more user-friendly and predictable.
+       The previous version examined bits directly; the current
+       version just looks at the magnitude of the difference compared
+       to the size of the numbers producing the difference.
+
+       <br><br>
+       
+ <li> Definition for int16,int32, int64, uint16,uint32 and uint64 has been updsated using "inttypes.h" to make the code  portable.
+
+       <br><br>
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

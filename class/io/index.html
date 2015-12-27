@@ -1,0 +1,587 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<!--#set var="isip_page_title" value="I/O" -->
+<!--#include virtual="/hse/ies/templates/documentation/body/title.html" -->
+
+<b>Library Name:</b>
+lib_io.a
+
+<br><br>
+
+<b>Introduction:</b>
+
+<br><br>
+
+<ul>
+
+  The I/O library contains one very important class: Signal Object
+  File (Sof). Sophisticated file formats are an essential part of
+  speech research since we often augment the raw speech data with
+  auxiliary information such as the recording conditions, annotations,
+  etc.  An Sof file is nothing more than an index, which provides
+  information about the location of each object stored in the file,
+  and the corresponding object data.  Sof transparently supports two
+  basic storage formats: text (useful for building human readable
+  files such as parameter files) and binary (useful for sampled data).
+  Sof also transparently converts binary data between different
+  architectures by performing the appropriate byte transformations as
+  needed.
+
+</ul>
+  
+<b>Example 1:</b>
+
+<ul>
+  <table align=right border=2>
+  <tr><td>
+<pre>
+  @ Sof v1.0 @
+  
+  @ Long 0 @
+  value = 13;
+  
+  @ Long 1 @
+  value = 27;
+
+  @ Long 32 @
+  value = -2812;
+</pre>
+  </td></tr>
+  </table>
+
+  An example of a very simple Sof file is shown to the right.
+  The first line is the Sof file header. For a text file, it consists
+  solely of the keyword Sof and a version number wrapped in the
+  user-specified delimiter character. Whatever delimiter character is
+  specified in the header will be used throughout the file.
+
+  <br><br>
+
+  The third line of the file is an example of an object header.
+  An object header has two components: a class name and an integral
+  tag. The class name must be a single word - no spaces are allowed. The
+  tag following the class name
+  provides an ability to have multiple instances of the same object
+  in a file.
+  Every object written to an Sof file can be uniquely addressed by
+  a <i>(name, tag)</i> pair.
+
+  <br><br>
+
+  The first data in the file is an instance of the
+
+  <a href="../math/scalar/Long/index.html">Long</a>
+  <a href="../math/scalar/index.html">scalar</a>
+
+  class. The data space for <i>(Long,0)</i> begins immediately on the
+  line following the object header and ends at the second newline
+  character. This extra line of space is not necessary, but helps to
+  make the file more readable. Sof itself does not deal at all with this
+  data space, it simply maintains the index of pointers and positions
+  the file pointer to assist the higher level classes to read and write
+  themselves from disk.
+
+</ul>
+
+<b>Example 2:</b>
+
+<ul>
+  Holding to the signal processing model of programming, one can easily
+  imagine a case where every instance of some object (say speech
+  signals) is operated on in turn. This can be simplified for example to
+  a program that reads in and prints to the screen all long integers
+  found in that file. The core parts of such a routine are as follows:
+
+<pre>
+  01  // file: $isip/doc/examples/class/io/io_example_00/example.cc
+  02  // version: $Id: index.html 10653 2007-02-24 20:33:16Z tm334 $
+  03  //
+  04  
+  05  // isip include files
+  06  //
+  07  #include &lt;File.h&gt;
+  08  #include &lt;Sof.h&gt;
+  09  #include &lt;Long.h&gt;
+  10  #include &lt;Console.h&gt;
+  11  
+  12  // main program starts here:
+  13  //  this program reads long integer entries from a text Sof file and prints
+  14  //  each one found
+  15  //
+  16  int main(int argc, const char **argv) {
+  17  
+  18    // declare an Sof file object
+  19    //
+  20    Sof sof1;
+  21    
+  22    // open a file in read only mode:
+  23    //  note that the Sof object determines whether the input file is text or
+  24    //  binary automatically. in this example, it happens to be text.
+  25    //
+  26    String filename(L"./file.sof");
+  27    sof1.open(filename, File::READ_ONLY);
+  28  
+  29    // declare a Long object used to read from the Sof file
+  30    //
+  31    Long j;
+  32    
+  33    // loop through all Long objects in the file, starting with the first
+  34    // and ending when we have visited all objects with the given name
+  35    //  note that the sof1 object is looking up the object based on its name
+  36    //  which, in this case, is "Long". one could uniquely determine each Long
+  37    //  object in the file by assigning each a different name and using that
+  38    //  name to read in the object rather than the default name.
+  39    //
+  40    long tag = sof1.first(j.name());
+  41    while (tag != Sof::NO_TAG) {
+  42      
+  43      // have the object read itself:
+  44      //  this calls the Long::read method. each object in the math library
+  45      //  and above knows how to read itself from an Sof file
+  46      //
+  47      j.read(sof1, tag, j.name());
+  48      
+  49      // output the object to the console
+  50      //
+  51      String output;
+  52      output.assign(j);
+  53      output.insert(L"I found the value " , 0);
+  54      Console::put(output);
+  55      
+  56      // go to the next object
+  57      //
+  58      tag = sof1.next(j.name(), tag);
+  59    }
+  60  
+  61    // close the input file
+  62    //
+  63    sof1.close();
+  64  
+  65    // exit gracefully
+  66    //
+  67    Integral::exit();
+  68  }
+</pre>
+
+  One subtlety of this code example is that it also works on binary
+  files with absolutely no changes! This demonstrates the degree
+  to which the details of file I/O are abstracted from the user.
+  The <b>Long::read()</b>
+  method branches on the mode of the file, switching between formatted
+  text and direct binary input.
+
+  <br><br>
+
+  <table align=right border=2>
+  <tr><td>
+  <pre>
+  @ Sof v1.0 @
+  
+  @ Long @
+  value = 13;
+  
+  @ Long @
+  value = 27;
+
+  @ Long 32 @
+  value = -2812;
+  </pre>
+  </td></tr>
+  </table>
+
+  In the previous example, the tag numbers were not at all useful to the
+  program. While tags can be very useful for grouping together and
+  ordering data (say parallel arrays of floating point numbers and
+  integers), often they are not needed. To this end, text Sof files can
+  be simplified even further by omitting the tag numbers. For the
+  purpose of an iterative program such as the print routine above, the
+  Sof file shown at right will behave exactly the same as the first
+  example. Upon reading an object header with no tag, Sof will
+  implicitly assign this object a unique tag. These tags are from a
+  special range that will not be written back out to the file. The price
+  of this feature is that tags less than - 2^30 (&lt; - 1.07 billion) cannot
+  be specified by the user.
+
+  <br><br>
+
+  From a high-level programmer's perspective, we have now covered the
+  meat of Sof. The file is opened by passing a filename to an
+  <b>Sof::open()</b> method. The optional arguments for the overloaded
+  open methods specify the file access mode and a file type. The
+  file access mode should be File::READ_ONLY, File::WRITE_ONLY,
+  File::READ_PLUS, or File::WRITE_PLUS. The first two are self
+  explanatory, File::READ_PLUS allows for reading and writing to an
+  existing file, and File::WRITE_PLUS creates a new file with the option
+  of reading data back out. The file type is either File::TEXT or
+  File::BINARY, useful only for newly created files (File::WRITE_ONLY or
+  File::WRITE_PLUS), as existing files already have a specified
+  type. When a file is opened in a write mode a lock will 
+  automatically be obtained.
+
+  Once a Sof file is open, the program needs only navigate the
+  (name, tag) pairs before
+  informing an object to read itself and calculate such tags to ask an
+  object to write itself. The functions <b>first()</b> and
+  <b>last()</b> return the first and last tags of a specified class
+  name in the file. Additionally, <b>next()</b> and <b>prev()</b>
+  allow for iteration through items of the same name, and the number of
+  instances can be found with <b>number()</b>. Objects can be deleted
+  from a file either one at a time, a named class at a time, or all at
+  once with the three <b>delete()</b> methods. The entire file can be
+  deleted from disk with <b>delete_file().</b> Hooks are also available
+  to copy data from one Sof file to another, changing the byte mode for
+  binary files. Every other aspect of I/O is left to the objects. 
+
+</ul>
+
+<b>Example 3:</b>
+
+<ul>
+
+  Each class has four i/o methods, two for input and two for output.
+  This is very similar in every class. Because Long class involves
+  using template <a href="../math/scalar/MScalar/">MScalar</a>,
+  which makes things complicated, below we use 
+  <a href="../math/scalar/Boolean/">Boolean</a> scalar class
+  as the example to show how the sof I/O works.  The code example shown
+  below shows the Boolean read method, in which the calling program specifies
+  the class name and tag to the read method. 
+
+<pre>
+  09  // method: read
+  10  //
+  11  // arguments:
+  12  //  Sof& sof: (input) sof file object
+  13  //  long tag: (input) sof object instance tag
+  14  //  const String& name: (input) sof object instance name
+  15  //
+  16  // return: a boolean value indicating status
+  17  //
+  18  // this method has the object read itself from an Sof file
+  19  //
+  20  boolean Boolean::read(Sof& sof_a, long tag_a, const String& name_a) {
+  21  
+  22    // get the instance of the object from the Sof file
+  23    //
+  24    if (!sof_a.find(name_a, tag_a)) {
+  25      return false;
+  26    }
+  27  
+  28    // read the actual data from the sof file
+  29    //
+  30    if (!readData(sof_a)) {
+  31      return false;
+  32    }
+  33  
+  34    // exit gracefully
+  35    //
+  36    return true;
+  37  }
+
+  39  // method: readData
+  40  //
+  41  // arguments:
+  42  //  Sof& sof: (input) sof file object
+  43  //  const String& pname: (input) parameter name
+  44  //  long size: (input) size in bytes of object (or FULL_SIZE)
+  45  //  boolean param: (input) is the parameter specified?
+  46  //  boolean nested: (input) is this nested?
+  47  //
+  48  // return: a boolean value indicating status
+  49  //
+  50  // this method has the object read itself from an Sof file. it assumes
+  51  // that the Sof file is already positioned correctly.
+  52  //
+  53  boolean Boolean::readData(Sof& sof_a, const String& pname_a, long size_a,
+  54                            boolean param_a, boolean nested_a) {
+  55  
+  56    // if ascii, read in a line, else binary read
+  57    //
+  58    if (sof_a.isText()) {
+  59     
+  60      SofParser parser;
+  61      String buffer;
+  62      String pname;
+  63    
+  64      // set the parser debug level
+  65      //
+  66      parser.setDebug(debug_level_d);
+  67       
+  68      // if param is false, this means implicit parameter
+  69      //
+  70      if (!param_a) {
+  71        parser.setImplicitParam();
+  72        pname.assign(parser.implicitPname());
+  73      }
+  74      else {
+  75        pname.assign(pname_a);
+  76      }
+  77     
+  78      // are we nested?
+  79      //
+  80      if (nested_a) {
+  81        parser.setNest();
+  82      }
+  83  
+  84      // size = -1 means this is the root object, load the parse
+  85      //
+  86      if (size_a < 0) {
+  87        parser.load(sof_a, size_a);
+  88   
+  89        // if param is false, this means implicit parameter
+  90        //
+  91        if (!param_a) {
+  92          parser.setImplicitParam();
+  93        }
+  94   
+  95        // read the data from the default parameter
+  96        //
+  97        if (!parser.read(buffer, sof_a, parser.getEntry(sof_a, pname))) {
+  98           return false;
+  99        }
+ 100      }
+ 101      else {
+ 102  
+ 103        // we are already positioned correctly, just read
+ 104        //
+ 105        if (!parser.read(buffer, sof_a, size_a)) {
+ 106  	      return false;
+ 107        }
+ 108      }
+ 109  
+ 110      // assign the value
+ 111      //
+ 112      buffer.trim();
+ 113      assign(buffer);
+ 114    }
+ 115  
+ 116    // binary read, very simple
+ 117    //
+ 118    else {
+ 119  
+ 120      // make sure we read data properly
+ 121      //
+ 122      byte8 val;
+ 123      if (sof_a.read(&val, sizeof(val), 1) != 1) {
+ 124        return false;
+ 125      }
+ 126      value_d = (boolean)val;
+ 127    }
+ 128    
+ 129    // exit gracefully
+ 130    //
+ 131    return true;
+ 132  }
+</pre>
+
+  The higher level read method uses the name and tag arguments to get
+  the object from the Sof file's index, and positions the file pointer
+  before reading the data. The lower level function(s) simply reads (or
+  writes) to the current location, assuming that all Sof index and file
+  position bookkeeping has already been done. This split exists to
+  facilitate more complicated classes;  multiple objects can be written
+  in a specified order under the same Sof object index. Notice that only
+  the lower level write program needs to branch on file type, the Sof
+  object index shows a uniform interface to the programmer, regardless of file
+  type.
+
+  <br><br>
+
+  The readData method uses the SofParser class while in text mode. This
+  parser class is used by every class in the environment, so all classes
+  are parsed the same way. The parser requires that the object be set up
+  in a <b>name=value;</b> language. It then offers the class
+  programmer access to every named parameter in any order.
+
+</ul>
+
+<b>Example 4:</b>
+
+<ul>
+  
+  Every object has write methods as well. The writeData() methods write
+  out class data (either in text or binary) in a format that can be read
+  in by the object's read methods. The write() methods add an object to
+  the Sof file's primary index before writing the data, itself.
+
+  <br><br>
+
+<pre>
+  09  // method: write
+  10  //
+  11  // arguments:
+  12  //  Sof& sof: (input) sof file object
+  13  //  long tag: (input) sof object instance tag
+  14  //  const String& name: (input) sof object instance name
+  15  //
+  16  // return: a boolean value indicating status
+  17  //
+  18  // this method has the object write itself from an Sof file
+  19  //
+  20  boolean Boolean::write(Sof& sof_a, long tag_a, const String& name_a) const {
+  21  
+  22    long obj_size;
+  23  
+  24    if (sof_a.isText()) {
+  25      obj_size = Sof::ANY_SIZE;
+  26    }
+  27    else {
+  28      obj_size = sofSize();
+  29    }
+  30    
+  31    // put the object into the sof file's index
+  32    //
+  33    if (!sof_a.put(name_a, tag_a, obj_size)) {
+  34      return false;
+  35    }
+  36  
+  37    // exit gracefully
+  38    //
+  39    return writeData(sof_a);
+  40  }
+
+
+  42  // method: writeData
+  43  //
+  44  // arguments:
+  45  //  Sof& sof: (input) sof file object
+  46  //  const String& pname: (input) parameter name
+  47  //
+  48  // return: a boolean value indicating status
+  49  //
+  50  // this method writes the object to the Sof file. it assumes that the
+  51  // Sof file is already positioned correctly.
+  52  //
+  53  boolean Boolean::writeData(Sof& sof_a, const String& pname_a) const {
+  54  
+  55    // test whether the sof file is ascii
+  56    //
+  57    if (sof_a.isText()) {
+  58      
+  59      String output;
+  60      
+  61      // start with the assignment String
+  62      //
+  63      if (pname_a.length() > 0) {
+  64        output.assign(pname_a);
+  65        output.concat(L" = ");
+  66      }
+  67  
+  68      // concatenate the value
+  69      //
+  70      String numeric;
+  71      numeric.assign(value_d);
+  72      output.concat(numeric);
+  73      
+  74      // if a parameter name was set, add a terminator and a newline
+  75      //
+  76      if (pname_a.length() > 0) {
+  77        output.concat(L";\n");
+  78      }
+  79  
+  80      // write the text String
+  81      //
+  82      if (!sof_a.puts(output)) {
+  83        return false;
+  84      }
+  85    }
+  86  
+  87    // binary write, very simple
+  88    //
+  89    else {
+  90  
+  91      // make sure we write exactly 1 byte
+  92      //
+  93      byte8 val = (byte8)value_d;
+  94  
+  95      // range check the datatype
+  96      //
+  97      if (value_d != (boolean)val) {
+  98        return Error::handle(name(), L"writeData", Error::DATATYPE_RANGE,
+  99                             __FILE__, __LINE__, Error::WARNING);
+ 100      }
+ 101      
+ 102      if (sof_a.write(&val, sizeof(val), 1) != 1) {
+ 103        return false;
+ 104      }
+ 105    }
+ 106    
+ 107    // exit gracefully
+ 108    //
+ 109    return true;
+ 110  }
+</pre>
+
+  Sizes must always be specified for binary files, but are optional for
+  text. Passing a negative size tells Sof to completely disregard size
+  and allow any amount of data to be written, in which case the item
+  will be placed at the very end of the file (so a seemingly infinite
+  amount of data may be appended to the file without overwriting other
+  data). However, it is more efficient if a size can be determined. If
+  Sof knows the size of an object it can re-use wasted space within the
+  file.
+
+  <br><br>
+  
+  Since Sof is used by all ISIP data objects, it has to be very
+  efficient. To this end, the list is stored as a binary tree and a
+  symbol table is used to hold the object class names. There is some
+  room left for improvement in the Sof implementation, but the design
+  and file formats will not be affected. Specifically, the preliminary
+  implementation of Sof does not balance trees or compact the indices to
+  the symbol table, but these changes could be added to the
+  code. Additionally, the tree iteration routines could be
+  algorithmically optimized. Even with these planned enhancements, a
+  designer need not worry about lost effort.  All updated Sof file formats
+  will be backwards compatible.
+
+  <br><br>
+
+  Finally, though there are several other classes in this library,
+  users should only use Sof and NameMap. The other classes are used internally
+  by Sof: <b>SofParser</b> performs all text Sof file parsing;
+  <b>SofList</b> manages the object index;
+  <b>SofSymbolTable</b> keeps track of the names of objects and
+  other such symbols.
+
+  <br><br>
+
+  The Input/Output library includes the following classes:
+
+  <br><br>
+  
+  <center>
+  <table border=5>
+  
+  <tr>
+  <td> <a href="./NameMap/index.html">NameMap</a> </td>
+  <td> <a href="./Sof/index.html">Sof</a> </td>
+  <td> <a href="./SofList/index.html">SofList</a> </td>
+  <td> <a href="./SofParser/index.html">SofParser</a> </td>
+  <td> <a href="./SofSymbolTable/index.html">SofSymbolTable</a></td>
+  </tr>
+  
+  </table>
+  </center>
+  
+  <br>
+  
+  The next level in the ISIP class hierarchy is
+
+  <a href="../math/index.html">math</a>
+
+  which provides classes that support basic scalar, vector, and matrix
+  operations. The software corresponding to the examples
+  demonstrated in this document can be found in our
+
+  <a href="../../doc/examples/">documentation directory</a>
+
+  under
+
+  <a href="../../doc/examples/class/io/">class/io/</a>.
+
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

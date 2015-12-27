@@ -1,0 +1,218 @@
+// file: $isip/class/math/matrix/MMatrix/mmat_03.cc
+// version: $Id: mmat_03.cc 7816 2002-02-27 20:54:30Z alphonso $
+//
+
+// isip include files
+//
+#include "MMatrixMethods.h"
+#include "MMatrix.h"
+#include <Console.h>
+
+// method: read
+//
+// arguments:
+//  MMatrix<TScalar, TIntegral>& this: (output) class operand
+//  Sof& sof: (input) sof file object
+//  int32 tag: (input) sof object instance tag
+//  const String& name: (input) sof object instance name
+//
+// return: a boolean value indicating status
+//
+// this method reads the matrix object having specified name and tag
+// from an Sof file
+//
+template<class TScalar, class TIntegral>
+boolean MMatrixMethods::read(MMatrix<TScalar, TIntegral>& this_a, 
+			     Sof& sof_a, int32 tag_a, const String& name_a) {
+
+  // read the instance of the object from the Sof file - use specified
+  // name and tag of the object to get the instance
+  //
+  if (!sof_a.find(name_a, tag_a)) {
+    return false;
+  }
+  
+  // read the actual data from the sof file
+  //
+  if (!this_a.readData(sof_a, MMatrix<ISIP_TEMPLATE_TARGET>::DEF_PARAM,
+		       SofParser::FULL_OBJECT,
+		       true, false)) {
+    return false;
+  }
+  
+  // exit gracefully
+  //
+  return true;
+}
+
+// explicit instantiations
+//
+template bool8
+MMatrixMethods::read<ISIP_TEMPLATE_TARGET>
+(MMatrix<ISIP_TEMPLATE_TARGET>&, Sof&, int32, const String&);
+
+// method: readData
+//
+// arguments:
+//  MMatrix<TScalar, TIntegral>& this: (output) class operand
+//  Sof& sof: (input) sof file object
+//  const String& pname: (input) parameter name
+//  int32 size: (input) size in bytes of object (or full_size)
+//  bool8 param: (input) is the parameter name in the file?
+//  bool8 nested: (input) are we nested?
+//
+// return: a bool8 value indicating status
+//
+// this method has the object read itself from an Sof file. it assumes
+// that the Sof file is already positioned correctly.
+//
+template<class TScalar, class TIntegral>
+bool8 MMatrixMethods::readData(MMatrix<TScalar, TIntegral>& this_a, 
+				 Sof& sof_a, const String& pname_a, 
+				 int32 size_a, bool8 param_a, 
+				 bool8 nested_a) {
+
+  // declare a parser object
+  //
+  SofParser parser;
+
+  // set the debug level
+  //
+  Integral::DEBUG debug_level = Integral::NONE;
+  parser.setDebug(debug_level);
+
+  // release all memory currently held
+  //
+  if (!this_a.clear(Integral::RESET)) {
+    this_a.debug(L"this_a");    
+    return Error::handle(name(), L"readData", Error::READ, 
+			 __FILE__, __LINE__, Error::WARNING);
+  }
+  
+  // ignore implicit parameter setting
+  //
+  
+  // configure the parser to read a nested object
+  //
+  if (nested_a) {
+    parser.setNest();
+  }
+  
+  // load the parse
+  //
+  if (!parser.load(sof_a, size_a)) {
+    this_a.debug(L"this_a");    
+    return Error::handle(name(), L"readData", Error::READ, 
+			 __FILE__, __LINE__, Error::WARNING);
+  }
+  
+  // get the type of the matrix - for text file read the string type
+  //
+  int32 type_int;
+  if (!this_a.TYPE_MAP.readElementData(type_int, sof_a,
+				       MMatrix<TScalar, TIntegral>::PARAM_TYPE,
+       parser.getEntry(sof_a, MMatrix<TScalar, TIntegral>::PARAM_TYPE))) {
+    this_a.debug(L"this_a");    
+    return Error::handle(name(), L"readData", Error::READ, __FILE__, __LINE__,
+			 Error::WARNING);
+    return false;
+  }
+  Integral::MTYPE new_type = (Integral::MTYPE)type_int;
+
+  // output some debugging information - this will be helpful for
+  // debugging purposes
+  //
+  if (debug_level > Integral::NONE) {
+    String output(L"setting MMatrix type to ");
+    output.concat(this_a.TYPE_MAP((int32)new_type));
+    Console::put(output);
+  }
+
+  // change the type of the current matrix (matrix in which Sof file
+  // is being read)
+  //
+  if (!this_a.changeType(new_type)) {
+    this_a.debug(L"this_a");    
+    return Error::handle(name(), L"readData", Error::READ, 
+			 __FILE__, __LINE__, Error::WARNING);
+  }
+    
+  // read the number of rows
+  //
+  if (!this_a.nrows_d.readData(sof_a, MMatrix<TScalar, TIntegral>::
+			       PARAM_NROWS, 
+			       parser.getEntry(sof_a, 
+					       MMatrix<TScalar, TIntegral>::
+					       PARAM_NROWS), false, false)) {
+    this_a.debug(L"this_a");    
+    Error::handle(name(), L"readData", Error::READ, __FILE__, __LINE__,
+		  Error::WARNING);
+    return false;
+  }    
+  
+  // read the number of columns
+  //    
+  if (!this_a.ncols_d.readData(sof_a, MMatrix<TScalar, TIntegral>::
+			       PARAM_NCOLS, 
+			       parser.getEntry(sof_a, 
+					       MMatrix<TScalar, TIntegral>::
+					       PARAM_NCOLS), false, false)) {
+    this_a.debug(L"this_a");    
+    Error::handle(name(), L"readData", Error::READ, 
+		  __FILE__, __LINE__, Error::WARNING);
+    return false;
+  }        
+  
+  // read in the vector (implicit parameter, not nested)
+  //
+  if (!this_a.m_d.readData(sof_a, MMatrix<TScalar, TIntegral>::
+			       PARAM_DATA, 
+			       parser.getEntry(sof_a, 
+					       MMatrix<TScalar, TIntegral>::
+					       PARAM_DATA), false, false)) {
+    this_a.debug(L"this_a");    
+    return Error::handle(name(), L"readData", Error::READ, __FILE__,
+			 __LINE__, Error::WARNING);
+  }        
+  
+  // in case of sparse matrix, read the the row and column indices of
+  // the non-zero elements also
+  //
+  if (this_a.type_d == Integral::SPARSE) {
+    
+    // read the row indices of the non-zero values of the matrix
+    //
+    if (!this_a.row_index_d.readData(sof_a, 
+				     MMatrix<TScalar, TIntegral>::
+				     PARAM_ROW_IND, 
+				     parser.getEntry(sof_a, 
+						     MMatrix<TScalar, TIntegral>::PARAM_ROW_IND), 
+				     false, false)) {
+      this_a.debug(L"this_a");      
+      return Error::handle(name(), L"readData", Error::READ, __FILE__,
+			   __LINE__, Error::WARNING);
+    }
+
+    // read the row indices of the non-zero values of the matrix
+    //
+    if (!this_a.col_index_d.readData(sof_a, MMatrix<TScalar, TIntegral>::
+				     PARAM_COL_IND, 
+				     parser.getEntry(sof_a, 
+						     MMatrix<TScalar, TIntegral>::PARAM_COL_IND), 
+				     false, false)) {
+      this_a.debug(L"this_a");      
+      return Error::handle(name(), L"readData", Error::READ, __FILE__,
+			   __LINE__, Error::WARNING);
+    }
+  }
+  
+  // exit gracefully
+  //
+  return true;
+}
+
+// explicit instantiations
+//
+template bool8
+MMatrixMethods::readData<ISIP_TEMPLATE_TARGET>
+(MMatrix<ISIP_TEMPLATE_TARGET>&, Sof&, const String&, int32, bool8, bool8);

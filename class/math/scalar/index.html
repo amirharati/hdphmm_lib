@@ -1,0 +1,400 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+<!--#set var="isip_page_title" value="MATH SCALAR" -->
+<!--#include virtual="/hse/ies/templates/documentation/body/title.html" -->
+
+<b>Library Name:</b>
+lib_math_scalar.a
+
+<br><br>
+
+<b>Introduction:</b>
+
+<br><br>
+
+<ul>
+  The ISIP Foundation Classes (IFCs) are based upon an extensive math
+  library that contains the common data types used in C programming, and
+  many useful mathematical operations for these data types.  The Math
+  classes are subdivided into three groups of classes: Scalar, Vector,
+  and Matrix.  These are called foundation classes because all other
+  ISIP classes are built on top of these classes.  The IFCs abstract the
+  user from many programming details, including things specific to the
+  operating system.
+</ul>
+
+<b>Example:</b>
+
+<ul>
+  Let's begin with a simple
+
+  <a href="../../../doc/examples/class/math/scalar/math_scalar_example_00/">
+  example</a>:
+  
+<pre>
+  01  // isip include files
+  02  //
+  03  #include &lt;Long.h&gt;
+  04  #include &lt;Float.h&gt;
+  05  #include &lt;Console.h&gt;
+  06  
+  07  // main program starts here
+  08  //  this example shows how classes and operators can be used in place of
+  09  //  integral types
+  10  //
+  11  int main() {
+  12    
+  13    // declare some objects
+  14    //
+  15    Long a(2);
+  16    Float b(2.0), c(3.5), d(3.0);
+  17    Float e;
+  18    
+  19    // perform a simple math operation:
+  20    //  note that, due to precedence, the addition will take place
+  21    //  last. Since the variable 'a' is a Long object, the result of
+  22    //  (b * c) / d will be truncated before addition. 
+  23    //
+  24    e = a + (b * c) / d;
+  25    
+  26    // output the value
+  27    //
+  28    e.debug(L"a + (b * c) / d");
+  29  
+  30    // perform the same operation with all floating point numbers:
+  31    //  this time, since 'f' is a Float object, the result will not
+  32    //  be truncated before addition
+  33    //
+  34    Float f(2);
+  35    Float g;
+  36  
+  37    g = f + (b * c) / d;
+  38  
+  39    // output the value
+  40    //
+  41    g.debug(L"f + (b * c) / d");
+  42  
+  43    // exit gracefully
+  44    //
+  45    Integral::exit();
+  46  }
+</pre>
+</ul>
+
+<b>Explanation:</b>
+
+<ul>
+  In the above example, the declaration on line 15 creates
+  a scalar object of type
+  
+  <a href="../../math/scalar/Long/index.html"> Long</a>
+  
+  which is initialized to a value of 2. On line 15, we create three
+  similar floating point objects, initialized to values of 2.0, 3.5, and 3.0
+  respectively. Scalar objects can be used in mathematical expressions
+  almost the same way you would use in C or C++. For example, on line 28 and
+  41, we perform a sequence of mathematical operations the same way they would
+  be written in C. Note that similar type-casting rules apply. It
+  should be pointed out that due to C++ casting operators the Long
+  object a will not be promoted to a float, so for floating point
+  operations Floats should be used throughout.
+  
+  <br><br>
+  
+  Lines 28 and 41, demonstrate how to send output to the terminal using debug
+  method. The output for this code is the following:
+  
+  <br><br>
+  
+<pre>
+  &lt;Float::a + (b * c) / d&gt; value_d = 4
+  &lt;Float::f + (b * c) / d&gt; value_d = 4.33333</pre>
+  
+  What is the advantage of doing mathematical programming in this way?
+  Though the scalar class is somewhat of an overkill for simple
+  programming tasks, it will become more apparent why all ISIP objects
+  need to be defined in a hierarchical way when we examine more
+  powerful data structures such as
+  
+  <a href="../vector/index.html">vectors</a> and
+  <a href="../matrix/index.html">matrices</a>.
+  
+  One important benefit of using the ISIP scalar classes is that the size
+  of the datatype is independent of the operating system, and hence users
+  can write portable code more easily.
+</ul>
+
+<b>Example:</b>
+
+<ul>
+  Here is another
+
+  <a href="../../../doc/examples/class/math/scalar/math_scalar_example_01/">
+  example</a>
+  
+  demonstrating the wide variety
+  of methods available in the scalar classes:
+  
+<pre>
+  01  // isip include files
+  02  //
+  03  #include &lt;Float.h&gt;
+  04  #include &lt;Console.h&gt;
+  05  
+  06  // main program starts here:
+  07  //  this program demonstrates a few simple functions of the scalar
+  08  //  objects and how the resultant objects change depending on the
+  09  //  prototype of the function called.
+  10  //
+  11  int main () {
+  12    
+  13    // declare the objects we will work with
+  14    //
+  15    Float x(3.0);
+  16    Float y;
+  17    Float z;
+  18    
+  19    // compute the factorial of x and assign it to y:
+  20    //  note that both y and x are now equal to 3!
+  21    //
+  22    y.assign(x.factorial());
+  23    
+  24    // compute y cubed and assign it to z:
+  25    //  note that this time, we do not explicitly call the assign method.
+  26    //  the assignment is implicit in the method call. y is unchanged.
+  27    //
+  28    z.pow(y, 3.0);
+  29    
+  30    // output the values to the screen
+  31    //
+  32    x.debug(L"x=3!");
+  33    y.debug(L"y = x! = 3!");
+  34    z.debug(L"z = y**3 = (x!)**3 = (3!)**3");
+  35    
+  36    // exit gracefully
+  37    //
+  38    Integral::exit();
+  39  }
+</pre>
+</ul>
+
+<b>Explanation:</b>
+
+<ul>
+  In the above program, we compute the factorial of x and assign the
+  result to y on line 22. We then raise y to the third power,
+  and return the value to the object z on line 28. The following
+  information is output to the screen using the debug method starting
+  from line 32 and ending with line 34:
+  
+  <br><br>
+  
+<pre>
+  &lt;Float::x=3!&gt; value_d = 6
+  &lt;Float::y = x! = 3!&gt; value_d = 6
+  &lt;Float::z = y**3 = (x!)**3 = (3!)**3&gt; value_d = 216</pre>
+  
+  Our implementation of scalar objects includes most common mathematical
+  and relational operations available in a standard programming
+  language such as C. A list of the functions available can
+  be found by viewing the
+
+  <a href="./MScalar/index.html">template header file</a>
+  
+  documentation (for functions shared across all classes)
+  or the individual class documentation (for example, see the
+  
+  <a href="./Float/index.html">Float</a>
+  
+  class).
+</ul>
+
+<b>Additional Information:</b>
+
+<ul>
+  The scalar classes, like most of our math classes, are implemented
+  using a template class approach. Real numbers, such as floats,
+  doubles, and integers, are implemented using the template MScalar.
+  If a user wanted to add a new class, such as "DoubleDouble", one
+  could model the implementation after a comparable real number class,
+  such as Double.
+</ul>
+
+<ul>
+  Complex numbers, however, are a bit more, pardon the pun, complex.
+  Complex scalars are implemented using the template MComplexScalar.
+  MComplexScalar in turn inherits MScalar, and makes use of extensions
+  to integral types defined in SysComplex (e.g. complexdouble).
+  This rather complicated nesting of classes is required to
+  allow complex numbers to function almost as transparently as real numbers
+  in user programs. For example, the following operations are supported:
+
+  <br><br>
+
+<pre>
+  ComplexDouble x(1, 1), y(2, 2), z;
+  z = x * y + y / x;</pre>
+
+  On the other hand, mixed-type operations will require casts:
+
+  <br><br>
+
+<pre>
+  ComplexDouble x(1, 1), z;
+  Float y(2);
+  double w = 3;
+  float v = 2;
+  z = x / (complexdouble)v * (complexdouble)y + (complexdouble)w;</pre>
+
+  The <i>complexdouble</i> cast is based on a typedef defined in
+  IntegralTypes.h, which in turn uses SysComplex. Though requiring
+  such a cast might seem a bit unnatural, such casts allow us
+  to avoid a combinatorial explosion of methods in the complex math
+  interfaces, and yet maintain a reasonable amount of flexibility
+  for the programmer.
+
+  <br><br>
+
+  This nesting of classes was also required to allow
+  vectors and matrices to work for complex numbers in the same way
+  they work for real numbers. You will observe that though we have
+  an MComplexScalar class, we do not have MComplexVector or MComplexMatrix.
+  Complex vectors and matrices use the same templates as their real-valued
+  counterparts. Hence, we have introduced some complexity
+  at a lower level such that the higher level code maintains is
+  simplicity and uniformity for both types of numbers.
+</ul>  
+
+<ul>
+  If one wanted to implement a totally new type of mathematical data
+  type, following the model of ComplexDouble would be appropriate
+  since this class demonstrates almost all of the essential issues
+  with introducing new scalar classes. The scalar class
+  implementations are a compromise between diverse constraints such as
+  ease of use, minimization of code duplication, efficiency,
+  extensibility, and maintainability.  The scalar classes implemented
+  here are the result of several years worth of attempts to find the
+  right compromise between the needs of researchers and software
+  engineers.
+</ul>
+
+<ul>
+  However, the scalar classes <b>don't support mixed-type operators</b>
+  due to limitations with typical C++ compilers (e.g., gcc 2.95.X) and
+  limitations of the language definition. We have made several attempts
+  over the past couple of years to implement these, and failed
+  for the following reasons:
+
+  <br><br>
+
+  <ul>
+    <li> <b>Casting</b>: One approach to implementing mixed-type operations
+	 involved the development of generic cast operators (as we do for
+	 vectors and matrices). However, in such an implementation, we cannot
+	 guarantee the order of promotion of types. In other
+	 words, though promotion is strictly defined in C (long * float gives a
+	 float), it is compiler-dependent in C++ (ComplexFloat * ComplexLong
+	 does not give the same result as ComplexLong * ComplexFloat).
+
+	 <br><br>
+
+    <li> <b>Functions</b>: A second approach involved implementing specific
+	 functions for each combination of types. We are concerned about the
+	 combinatorial explosion of mixed-type operator definitions (30
+	 functions per operator). This would be a very large code base
+	 to manage.
+
+	 <br><br>
+
+    <li> <b>Compiler</b>: Some older versions of GNU's gcc compiler
+	 (gcc 2.95.X or earlier)
+	 cannot handle the complexity introduced by these mixed-types.
+	 Further, Since Rational's memory-checking tool, Purify, only supports
+	 gcc 2.95.X, we did not want to lose use of this tool if at all
+	 possible. Making our code dependent on a newer version of gcc (3.X)
+	 did not seem to be worth the small gains such a feature would
+	 give.
+  </ul>
+
+  <br>
+
+  The user can work around this problem with automatic casting by
+  using manual casts. For example, in order to compute:
+
+  <br><br>
+  
+  <ul>
+    ComplexFloat * ComplexLong
+  </ul>
+
+  <br>
+  
+  we can write:
+
+  <br><br>
+  
+  <ul>
+    ComplexFloat * (complexfloat)ComplexLong.
+  </ul>
+  
+  <br>
+  
+  This will guarantee that the resulting multiplication will performed
+  using floating point complex numbers.
+</ul>
+
+<ul>
+  The scalar classes that are available include:
+
+  <br><br>
+
+  <center>
+  <table border=5>
+  
+  <tr>
+  <td> <a href="./Boolean/index.html">Boolean</a> </td>
+  <td> <a href="./Byte/index.html">Byte</a> </td>
+  <td> <a href="./Char/index.html">Char</a> </td>
+  <td> <a href="./ComplexDouble/index.html">ComplexDouble</a> </td>
+  <td> <a href="./ComplexFloat/index.html">ComplexFloat</a> </td>
+  </tr>
+
+  <tr>
+  <td> <a href="./ComplexLong/index.html">ComplexLong</a> </td>  
+  <td> <a href="./Double/index.html">Double</a> </td>
+  <td> <a href="./Float/index.html">Float</a> </td>  
+  <td> <a href="./Llong/index.html">Llong</a> </td>
+  <td> <a href="./Long/index.html">Long</a> </td>
+  </tr>
+
+  <tr>
+  <td> <a href="./Short/index.html">Short</a> </td>
+  <td> <a href="./String/index.html">String</a> </td>
+  <td> <a href="./Ullong/index.html">Ullong</a> </td>
+  <td> <a href="./Ulong/index.html">Ulong</a> </td>
+  <td> <a href="./Ushort/index.html">Ushort</a> </td>
+  </tr>
+  
+  </table>
+  </center>
+  
+  <br>
+  
+  The next level in the ISIP class hierarchy is
+  
+  <a href="../vector/index.html">vector</a>
+  
+  which provides a means of creating a vector of ISIP scalar objects.
+  The software corresponding to the examples
+  demonstrated in this document can be found in our
+
+  <a href="../../../doc/examples/">documentation directory</a>
+
+  under
+
+  <a href="../../../doc/examples/class/math/scalar/">class/math/scalar/</a>.
+
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

@@ -1,0 +1,776 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="Sof" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="name">
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h">Sof</a></b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre> 
+g++ [flags ...] file ... -l /isip/tools/lib/$ISIP_BINARY/lib_io.a
+
+#include &lt;Sof.h&gt;
+
+Sof();
+boolean open(const SysString& filename, File::MODE mode = File::READ_ONLY,
+	       File::TYPE type = File::DEF_TYPE);
+boolean put(const SysString& name, long size);
+long write(const void* ptr, long size, long nitems);
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+long j = 27;
+Sof sof1;
+SysString file1(L"temp.out");
+if (sof1.open(file1, File::WRITE_ONLY, File::BINARY) != true) {
+ return Error::handle(file1, L"open", Error::TEST, __FILE__, __LINE__);
+}
+SysString cname(L"MyLong");
+sof1.put(cname, 0, sizeof(long));
+sof1.write(&j, sizeof(j), 1);
+sof1.close();
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+Sof is used by all data objects in the ISIP environment to unify
+and simplify I/O. An index is maintained pointing to all objects
+within the file, but all data is left on the disk until needed. Sof
+deals with both ASCII and binary files.  Binary files inherently handle
+machine architecture differences with automatic byte
+transformations. User input parameter files in the ISIP environment
+are ASCII Sof files, but binary mode is typically used for large
+quantities of data for the obvious efficiency gains. Since Sof is at
+the base of all ISIP software, it has to be very efficient. To
+accomplish efficiency, the objects are stored in a binary tree and a
+symbol table is used to hold the object class names.
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li> <a href="../../system/File/index.html">File</a>
+  <li> <a href="../SofSymbolTable/index.html">SofSymbolTable</a>
+  <li> <a href="../SofList/index.html">SofList</a>
+  <li> <a href="../../system/Checksum/index.html">Checksum</a>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_00.cc&constant=CLASS_NAME">static const SysString CLASS_NAME = L"Sof";</a></pre>
+       
+  <li> define constants for file parsing:
+       
+       <pre>static const long MAX_MAGIC_LENGTH = 22;</pre>
+       
+  <li> define the version number:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_00.cc&constant=VERSION">static const SysString VERSION = L"v1.0";</a></pre>
+
+  <li> define message size and class name size:
+
+       <pre>static const long MESSAGE_SIZE = 1024;</pre>
+       <pre>static const long CLASS_NAME_SIZE = 256;</pre>
+
+  <li> define deletion characters:
+
+       <pre>static const char DELETE_CHAR_TEXT = ' ';</pre>
+       <pre>static const char DELETE_CHAR_BINARY = '\0';</pre>
+       
+  <li> define new line characters:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_00.cc&constant=NEWLINE_BUFFER">static const char NEWLINE_BUFFER[] = '\n';</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_00.cc&constant=NEWLINE_LENGTH">static const long NEWLINE_LENGTH = strlen(NEWLINE_BUFFER);</a></pre>
+       
+  <li> define descriptor string related to these byte modes:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_00.cc&constant=BSTR_NATIVE">static const SysString BSTR_NATIVE = L"abcd";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_00.cc&constant=BSTR_SWAP">static const SysString BSTR_SWAP = L"dcba";</a></pre>
+
+  <li> define the numbers that these string should convert to:
+
+       <pre>static const long BCODE_NATIVE = 1633837924;</pre>
+       <pre>static const long BCODE_SWAP = 1684234849;</pre>
+       
+  <li> define the length of the byte-string for testing:
+
+       <pre>static const long BSTR_LEN = 4;</pre>
+
+  <li> define constants to determine if the machine supports IEEE floating point:
+       <pre>static const float IEEE_FLOAT_NATIVE = 16777999408082104352768.000000;</pre>
+       <pre>static const float IEEE_FLOAT_SWAP = 261007875622861537280.000000;</pre>
+
+  <li> define constants for the implicit tag number regions:  <br>
+       (if you go over 1.07 billion implicitly numbered tags, it will error)
+
+       <pre>static const long NO_TAG = SofList::NO_TAG;</pre>
+       <pre>static const long ALL_TAGS = NO_TAG + 1;</pre>
+       <pre>static const long FREE_TAG = NO_TAG + 2;</pre>
+       <pre>static const long IMPLICIT_END = -1073741824;</pre>
+       <pre>static const long IMPLICIT_START = (NO_TAG + 3);</pre>
+
+  <li> define the buffer size to be used: <br>
+       when the sof binary index is written, it is aligned at this buffer size to expedite i/o.
+
+       <pre>static const long BUFFER_SIZE = FILE::BUF_SIZE;</pre>
+
+  <li> define positions in the sequentially output symbol table:
+       
+       <pre>static const long SYMBOL_BASE = (2 * sizeof(uint32) + sizeof(uint16) + sizeof(ubyte));</pre>
+       <pre>static const long SYMBOL_OFFSET_NEXT = 0;</pre>
+       <pre>static const long SYMBOL_OFFSET_CKSM = SYMBOL_OFFSET_NEXT + sizeof(byte);</pre>
+       <pre>static const long SYMBOL_OFFSET_IND = SYMBOL_OFFSET_CKSM + sizeof(uint16);</pre>
+       <pre>static const long SYMBOL_OFFSET_REFS = SYMBOL_OFFSET_IND + sizeof(int32);</pre>
+       <pre>static const long SYMBOL_OFFSET_NAME = SYMBOL_OFFSET_REFS + sizeof(int32);</pre>
+       
+  <li> define positions in the sequentially output binary index:
+       
+       <pre>static const long INDEX_SIZE = (4 * sizeof(long) + sizeof(uint16) + sizeof(byte));</pre>
+       <pre>static const long INDEX_OFFSET_NEXT = 0;</pre>
+       <pre>static const long INDEX_OFFSET_CKSM = INDEX_OFFSET_NEXT + sizeof(byte);</pre>
+       <pre>static const long INDEX_OFFSET_POS = INDEX_OFFSET_CKSM + sizeof(uint16);</pre>
+       <pre>static const long INDEX_OFFSET_TAG = INDEX_OFFSET_POS + sizeof(int32);</pre>
+       <pre>static const long INDEX_OFFSET_SIZE = INDEX_OFFSET_TAG + sizeof(int32);</pre>
+       <pre>static const long INDEX_OFFSET_NAME = INDEX_OFFSET_SIZE + sizeof(int32);</pre>
+
+  <li> define a constant for the skip table size (for partial i/o):
+       
+       <pre>static const long SKIP_TABLE_GROUP = 10;</pre>
+       
+  <li> define the default value(s) of the class data:
+       
+       <pre>static const unichar DEF_DELIMITER = L'#';</pre>
+       <pre>static const long DEF_POS = -1;</pre>
+       <pre>static const long DEF_IMPLICIT = IMPLICIT_START;</pre>
+       <pre>static const boolean DEF_DISABLE_LOCK = true;</pre>
+
+  <li> define default arguments to methods:
+       
+       <pre>static const long ANY_SIZE = -1;</pre>
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> error code indicating Sof class general error:
+       <pre><a href="/perl/ifc_document.pl?err=00010000">static const long ERR = 10000;</a></pre>
+
+  <li> error code indicating that the current file is not an Sof file:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00010001">static const long ERR_NOTSOF = 10001;</a></pre>
+
+  <li> error code indicating object not found:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00010002">static const long ERR_NOOBJ = 10002;</a></pre>
+       
+  <li> error code indicating tag not found:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00010003">static const long ERR_NOTAG = 10003;</a></pre>
+
+  <li> error code indicating error updating Sof headers:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00010011">static const long ERR_UPDATEH = 10011;</a></pre>
+
+  <li> error code indicating error updating Sof file structure:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00010012">static const long ERR_UPDATE = 10012;</a></pre>
+
+  <li> error code indicating error closing file:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00010015">static const long ERR_CLOSE = 10015;</a></pre>              
+
+  <li> error code indicating out of object's range:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00010020">static const long ERR_RANGE = 10020;</a></pre>              
+
+  <li> error code indicating no current position set to any object:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00010021">static const long ERR_CURPOS = 10021;</a></pre>              
+       
+  <li> error code indicating IEEE floating point standard not supported on architecture:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00010042">static const long ERR_FLOAT = 10042;</a></pre>
+
+  <li> error code indicating failure to read Sof header:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00010043">static const long ERR_READHD = 10043;</a></pre>
+
+  <li> error code indicating file type mismatch:
+
+       <pre><a href="/perl/ifc_document.pl?err=00010044">static const long ERR_TYPE = 10044;</a></pre>
+
+  <li> error code indicating invalid data in Sof file structure:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00010045">static const long ERR_STRUCT = 10045;</a></pre>
+       
+  <li> error code indicating failure to write ASCII label to Sof file:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00010051">static const long ERR_LABEL = 10051;</a></pre>
+  
+  <li> error code indicating too many implicitly tagged objects in file:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00010061">static const long ERR_IMPLIC = 10061;</a></pre>
+       
+  <li> error code indicating attempt to use a reserved Sof tag:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00010062">static const long ERR_TAG = 10062;</a></pre>
+
+  <li> error code indicating no implicitly numbered tags allowed in
+       binary files:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00010063">static const long ERR_BINARY = 10063;</a></pre>
+
+  <li> error code indicating an attempt to switch objects in partial
+       write mode:
+
+       <pre><a href="/perl/ifc_document.pl?err=00010070">static const long ERR_PARTIAL = 10070;</a></pre>
+       
+  <li> error code indicating an attempt to resize while not in partial write mode
+       <pre><a href="/perl/ifc_document.pl?err=00010071">static const long ERR_RESIZE = 10071;</a></pre>       
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> general information about a file:
+
+       <br><br>
+       
+       <ul>
+	 <li> define current filename
+
+	      <pre>SysString name_d;</pre>
+
+	 <li> define expanded filename
+
+	      <pre>SysString expanded_name_d;</pre>
+	      
+	 <li> define type of file (text or binary)       
+	      
+	      <pre>File::TYPE file_type_d;</pre>
+       </ul>
+       
+  <li>  I/O related variables:
+
+       <br><br>
+
+       <ul>
+	 <li> define active file pointer
+	      
+	      <pre>File fp_d;</pre>
+       </ul>
+
+  <li> auxiliary information:
+       
+       <br><br>
+       
+       <ul>
+	 <li> define object tag delimiter
+
+	      <pre>unichar delimiter_d;</pre>
+	      
+	 <li> define end of header, start of data
+	      
+	      <pre>long end_of_header_d;</pre>
+
+	 <li> define end of data, start of index
+
+	      <pre>long end_of_data_d;</pre>
+
+	 <li> define start of current object data
+	      
+	      <pre>long cur_data_d;</pre>
+
+	 <li> define current file position (from start of file)
+
+	      <pre>long cur_pos_d;</pre>
+	      
+	 <li> define next free implicit tag number
+
+	      <pre>long implicit_count_d;</pre>
+
+	 <li> define file locking
+
+	      <pre>boolean disable_lock_d;</pre>
+
+	      <pre>long lock_retry_d;</pre>
+
+	      <pre>long lock_delay_d;</pre>
+
+	 <li> define symbol table used for names
+
+	      <pre>SofSymbolTable table_d;</pre>
+
+	 <li> define list used to process the object index
+
+	      <pre>SofList index_d;</pre>
+       </ul>
+
+  <li> scratch space for magic number manipulations:
+
+       <br><br>
+       
+       <ul>
+	      
+	 <li> define sof file tag
+
+	      <pre>SysString cname_d;</pre>
+	      
+	 <li> define sof version
+
+	      <pre>SysString version_d;</pre>
+	      
+	 <li> define sof magic number
+
+	      <pre>SysString magic_d;</pre>
+       </ul>
+       
+  <li> the checksum read from the file header:
+       <pre>ushort file_checksum_d;</pre>
+     
+  <li> variables used to facilitate partial i/o:
+       <pre>boolen partial_write_d;</pre>
+       <pre>boolen partial_read_d;</pre>
+       <pre>SofParser* vec_parser_d;</pre>
+       <pre>int32* skip_table_d</pre>
+       <pre>long skip_table_incr_d;</pre>
+       <pre>long last_skip_table_pos_d;</pre>
+       <pre>long vec_start_pos_d;</pre>
+       <pre>long vec_size_d;</pre>
+       <pre>long vec_curr_elem_d;</pre>
+
+  <li> debug parameters:
+       
+       <pre>Integral::DEBUG debug_level_d;</pre>
+
+  <li> memory manager:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_00.cc&static=mgr_d">static MemoryManager mgr_d;</a></pre>
+
+  <li> checksum object for binary files:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/Checksum/cksm_00.cc&static=cksm_d">static Checksum cksm_d;</a></pre>
+
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li> static methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=name">static const SysString& name();</a></pre>
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_02.cc">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+
+  <li> debug methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=setDebug">boolean setDebug(Integral::DEBUG debug_level);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_01.cc">boolean debug(const unichar* msg) const;</a></pre>
+       
+  <li> destructor/constructor(s):
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_00.cc&method=destructor">~Sof();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_00.cc&method=default+constructor">Sof();</a></pre>
+            
+  <li> assign methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_03.cc&method=assign">boolean assign(const Sof& arg);</a></pre>
+       
+  <li> operator= methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=operator%3D&instance=0">Sof& operator=(const Sof& arg);</a></pre>
+       
+  <li> i/o methods:
+       
+       <pre>these methods are omitted because Sof object cannot write itself
+to an Sof file</pre>
+
+  <li> equality methods:
+       
+       <pre>these methods are omitted because they are not useful for Sof objects</pre>
+       
+  <li> memory management methods: the clear method is class-specific as it is different from the required clear method
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=new">static void* operator new(size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=new[]">static void* operator new[](size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=delete">static void operator delete(void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=delete[]">static void operator delete[](void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=setGrowSize">static boolean setGrowSize(long grow_size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_03.cc&method=clear">boolean clear(Integral::CMODE ctype_a = Integral::DEF_CMODE);</a></pre>
+</ul>
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>       
+  <li> memory size methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_03.cc&method=memSize">long memSize();</a></pre>
+       
+ 
+       
+  <li> file operations: open/close methods
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=open">boolean open(const unichar* filename, File::MODE mode = File::READ_ONLY, File::TYPE type = File::DEF_TYPE);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_04.cc&method=open&instance=0">boolean open(const SysString& filename, File::MODE mode = File::READ_ONLY, File::TYPE type = File::DEF_TYPE);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_04.cc&method=close">boolean close();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_10.cc&method=closeAll&instance=0">static boolean closeAll();</a></pre>
+       
+  <li> file operations: set methods
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=setLockDisable">boolean setLockDisable(boolean disable);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=setLockRetry">boolean setLockRetry(long retry, long delay = File::DEF_LOCK_DELAY);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=setDelimiter">boolean setDelimiter(unichar chr);</a></pre>
+       
+  <li> file operations: get methods
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=getDelimiter">unichar getDelimiter() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=getName">const SysString& getName() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=getExpandedName">const SysString& getExpandedName() const;</a></pre>
+       
+  <li> file operations: file queries
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_05.cc&method=isSof&instance=0">boolean isSof();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_05.cc&method=isSof&instance=1">static boolean isSof(const SysString& filename);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=isText">boolean isText() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=isBinary">boolean isBinary() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=isOpen">boolean isOpen() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=isSameFile">boolean isSameFile(Sof& sof_object);</a></pre>
+
+  <li> object operations: search methods
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=find">boolean find(const SysString& name, long tag);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_06.cc&method=first">long first(const SysString& name);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_06.cc&method=last">long last(const SysString& name);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=next">long next(const SysString& name, long cur_tag);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=prev">long prev(const SysString& name, long cur_tag);</a></pre>
+       
+  <li> object operations: put methods
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_07.cc&method=put&instance=0">boolean put(const SysString& name, long size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_07.cc&method=put&instance=1">boolean put(const SysString& name, long tag, long size);</a></pre>
+
+  <li> object operations: remove methods
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_07.cc&method=remove&instance=0">boolean remove(const SysString& name, long object_tag);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_07.cc&method=remove&instance=1">boolean remove(long name, long object_tag);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_07.cc&method=remove&instance=2">boolean remove(const SysString& name);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_07.cc&method=remove&instance=3">boolean remove(long name);</a></pre>
+     
+  <li> object operations: copy methods
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_07.cc&method=copy&instance=0">boolean copy(long o_tag, Sof& i_sof, const SysString& i_cname, long i_tag);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_07.cc&method=copy&instance=1">boolean copy(long o_tag, Sof& i_sof, long i_cname, long i_tag);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_07.cc&method=copy&instance=2">boolean copy(Sof& i_sof, const SysString& i_cname);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_07.cc&method=copy&instance=3">boolean copy(Sof& i_sof, long i_cname);</a></pre>
+       
+  <li> object operations: get methods
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_07.cc&method=getObjectSize&instance=0">long getObjectSize(const SysString& name, long tag);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_07.cc&method=getObjectSize&instance=1">long getObjectSize();</a></pre>
+       
+  <li> index operations: count methods
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=getCount&instance=0">long getCount(const SysString& name);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=getCount&instance=1">long getCount();</a></pre>
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=getNameCount">long getNameCount();</a></pre>       
+
+  <li> enumerate object methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=enumerate">boolean enumerate(SofList& index, SofSymbolTable& table) const;</a></pre>       
+       
+  <li> positioning methods: (relative to current object)
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_06.cc&method=seek">boolean seek(long offset, File::SEEK whence);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_06.cc&method=tell">long tell() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=rewind">boolean rewind();</a></pre>
+       
+  <li> binary i/o methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_08.cc&method=read">long read(void* ptr, long size, long nitems);</a></pre>   
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_08.cc&method=write">long write(const void* ptr, long size, long nitems);</a></pre>       
+  <li> text i/o methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_08.cc&method=gets">boolean gets(SysString& ptr, long size = BUFFER_SIZE);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_08.cc&method=puts">boolean puts(const SysString& ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_08.cc&method=writeLabelPrefix">boolean writeLabelPrefix(const SysString& param_name);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_08.cc&method=writeLabelSuffix">boolean writeLabelSuffix(const SysString& param_name);</a></pre>
+       
+  <li> indention control and line wrapping methods: (for text files)
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=increaseIndention">boolean increaseIndention();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=decreaseIndention">boolean decreaseIndention();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=setLineWrap">boolean setLineWrap(long ncols);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=Sof.h&method=getLineLength">long getLineLength() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=getLineWrap">long getLineWrap() const;</a></pre>
+       
+
+  <li> methods to start and stop partial i/o mode:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_10.cc&method=startPartialWrite">boolean startPartialWrite();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_10.cc&method=stopPartialWrite">boolean stopPartialWrite();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_10.cc&method=startPartialRead">boolean startPartialRead();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_10.cc&method=stopPartialRead">boolean stopPartialRead();</a></pre>
+
+
+  <li> get methods for partial i/o variables:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=getPartialWrite">boolean getPartialWrite() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=getPartialWrite">boolean getPartialRead() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=getSkipTable&instance=0">int32* getSkipTable();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=getSkipTable&instance=1">const int32* getSkipTable() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=getSkipTableIncr">long getSkipTableIncr() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=getSkipTablePos">long getSkipTablePos() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=getStartPos">long getStartPos() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=getVecSize">long getVecSize() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=getVecCurrentElement">long getVecCurrentElement() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_10.cc&method=getVecParser&instance=0">const SofParser& getVecParser() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_10.cc&method=getVecParser&instance=1">SofParser& getVecParser();</a></pre>
+
+  <li> set methods for partial i/o variables:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=setSkipTableIncr">boolean setSkipTableIncr(long pos);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=setSkipTablePos">boolean setSkipTablePos(long pos);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=setStartPos">boolean setStartPos(long pos);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=setVecSize">boolean setVecSize(long size);</a></pre>
+<pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=setVecCurrentElement">boolean setVecCurrentElement(long elem);</a></pre>
+
+  <li> support methods for partial i/o:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=clearSkipTable">boolean clearSkipTable();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=writeSkipTable">boolean writeSkipTable();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=readSkipTable">boolean readSkipTable();</a></pre>
+
+<li> resize entry methods (only be called in partial write mode)
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_09.cc&method=resize&instance=1">boolean resize(long size);</a></pre>
+
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+  <li> copy constructor methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=copy+constructor">Sof(const Sof& arg);</a></pre>
+       
+  <li> free memory methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_03.cc&method=cleanUp">boolean cleanUp();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_03.cc&method=freeIndex">boolean freeIndex();</a></pre>
+       
+  <li> update methods: update the header and index
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_05.cc&method=update">boolean update();</a></pre>
+
+  <li> binary index i/o methods
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_05.cc&method=readIndex">boolean readIndex();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_05.cc&method=writeIndex">boolean writeIndex();</a></pre>
+       
+  <li> symbol table i/o methods
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_05.cc&method=readTable">boolean readTable()</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_05.cc&method=writeTable">boolean writeTable();</a></pre>
+
+  <li> open read methods: open an sof file for read access
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_04.cc&method=openRead">boolean openRead();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=openReadText">boolean openReadText();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=openReadBinary">boolean openReadBinary();</a></pre>
+       
+  <li> open read methods: open sof file for reading the index
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_04.cc&method=openReadIndexText">boolean openReadIndexText();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_04.cc&method=openReadIndexBinary">boolean openReadIndexBinary();</a></pre>
+
+  <li> open write methods: open a file for write access
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_04.cc&method=openWrite">boolean openWrite(File::MODE access_mode);</a></pre>
+       
+  <li> text file label handling methods
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_08.cc&method=writeLabel&instance=0">boolean writeLabel(long name, long tag);</a></pre>       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_08.cc&method=writeLabel&instance=1">boolean writeLabel(const SysString& name, long tag);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_08.cc&method=parseLabel">boolean parseLabel(SysString& name, long& tag, const SysString& buf);</a></pre>       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_08.cc&method=skipLabel">boolean skipLabel();</a></pre>       
+       
+  <li> seek data methods: seek to the data of current object
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/Sof.h&method=seekData">boolean seekData();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_06.cc&method=seekDataText">boolean seekDataText();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_06.cc&method=seekDataBinary">boolean seekDataBinary();</a></pre>
+       
+  <li> internal objects manipulation methods
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_06.cc&method=find&instance=0">boolean find(long name, long tag);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_07.cc&method=add&instance=0">boolean add(const SysString& name, long size, long tag = FREE_TAG);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_07.cc&method=add&instance=1">boolean add(long name, long size, long tag = FREE_TAG);</a></pre>
+       
+  <li> resize methods: resize the current entry, preserving current data.
+       the method later should only be called in partial write mode.
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_09.cc&method=resize&instance=0">boolean resize(const SysString& name, long tag, long size);</a></pre>
+      
+  <li> binary i/o methods: read/write with byte swapping without range checking
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_08.cc&method=fwrite">long fwrite(const void* ptr, long size, long nitems);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_08.cc&method=fread">long fread(void* ptr, long size, long nitems);</a></pre>
+       
+  <li> position methods: 
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_06.cc&method=fseek">boolean fseek(long offset, File::SEEK whence);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_06.cc&method=ftell">long ftell();</a></pre>
+
+  <li> copy segment methods: efficient methods for clearing out a section of a file and copying a section of a file from one place to another.
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_03.cc&method=clearSpace">boolean clearSpace(long nbytes);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_09.cc&method=copySegment&instance=0">boolean copySegment(long src_pos, long size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_09.cc&method=copySegment&instance=1">boolean copySegment(long src_pos, long dest_pos, long size);</a></pre>
+       
+  <li> error pointer setting methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_10.cc&method=setErrorPointer&instance=0">boolean setErrorPointer();</a></pre>
+       
+  <li> register pointer maintaining methods: maintain an array of all open Sof pointers (part of clean exit)
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_10.cc&method=registerPtr">boolean registerPtr();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/Sof/sof_10.cc&method=unRegisterPtr">boolean unRegisterPtr();</a></pre>
+</ul>
+
+<b>friend classes:</b>
+<br><br>
+
+<ul>
+  <pre><a href="../../mmedia/AudioFile/">friend class AudioFile;</a></pre>
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+  <li> This example shows declaring Sof file objects and then
+       creating temporary file names. The next step involves writing
+       data into these files in text and binary format and reading
+       some of the data that was written.
+       
+<pre>
+  Sof sof0;
+  Sof sof1;
+  SysString file1;
+  SysString file2;
+  SysString long_cname(L"Long");
+  file1.assign(L"/tmp/foo_bin.sof");
+  file2.assign(L"/tmp/foo_asc.sof");
+       
+  // open files for write (text & binary)
+  //
+  if (!sof0.open(file1, File::WRITE_ONLY)) {
+    return Error::handle(long_cname, L"open", Error::TEST, __FILE__, __LINE__);
+  }
+  if (!sof1.open(file2, File::WRITE_ONLY, File::BINARY)) {
+    return Error::handle(long_cname, L"open", Error::TEST, __FILE__, __LINE__);
+  }
+       
+  // add a long entry to the files
+  //
+  long j = 27;
+  sof0.put(long_cname, Sof::ANY_SIZE);
+  sof1.put(long_cname, 0, sizeof(long));
+       
+  // write the text value
+  //
+  SysString output;
+  output.assign((long)j, (unichar*)("value = %ld\n"));
+  sof0.puts(output);
+       
+  // write the binary value
+  //
+  sof1.write(&j, sizeof(j), 1);
+       
+  // add another long entry to the files
+  //
+  j = 277;
+  sof0.put(long_cname, Sof::ANY_SIZE);
+  sof1.put(long_cname, 1, sizeof(long));
+       
+  // close the files
+  //
+  sof0.close();
+  sof1.close();
+       
+  // open files again in read plus
+  //
+  sof0.open(file1, File::READ_PLUS);
+       
+  // read all the text values
+  //
+  long tag;
+  for (tag = sof0.first(long_cname); tag != Sof::NO_TAG;
+       tag = sof0.next(long_cname, tag)) {
+       
+    // find the node
+    //
+    sof0.find(long_cname, tag);
+   }
+  sof0.close();
+</pre>
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> The preliminary implementation of Sof does not balance trees or
+       compact the indices to the symbol table, but these changes could be
+       easily added to the code. Additionally, the tree iteration routines
+       could be algorithmically optimized. Even with these planned
+       enhancements, a designer need not worry about lost effort. All Sof
+       file formats henceforth will be backwards compatible. Note that
+       multiple objects of the same class name can be written to a file.
+
+       <br><br>
+       
+  <li> Note that a 16 bit checksum is used for each symbol table entry
+       and index entry in binary mode.
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

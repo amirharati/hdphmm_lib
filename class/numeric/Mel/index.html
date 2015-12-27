@@ -1,0 +1,234 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="Mel" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="name">
+<b>
+name:
+<a href="/perl/ifc_document.pl?file=$isip/class/numeric/Mel/Mel.h">Mel</a></b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ... -l /isip/tools/lib/$ISIP_BINARY/lib_numeric.a
+
+#include &lt;Mel.h&gt;
+
+boolean compute(VectorFloat& mel, const VectorFloat& freq);
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+VectorFloat freq(1);
+VectorFloat mel;
+
+freq(0) = 1000;
+Mel::compute(mel, freq);
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The Mel class implements a function that is commonly used
+to map frequency in Hz to a scale that is more perceptually-meaningful.
+The units of this scale are referred to as mel (short for melody),
+a unit used to measure pitch.
+The approximation for the Mel scale that is implemented 
+in this class is given by:
+
+<pre>
+  Mel = 2595 log10 (1 + freq / 700.0)
+</pre>
+
+For more details about this transformation, see:
+
+<ul>
+  J. Picone,
+  <a href="http://www.isip.msstate.edu/publications/journals/ieee_proceedings/1993/signal_modeling/">
+  "Signal Modeling Techniques in Speech Recognition,"</a>
+  <i>IEEE Proceedings</i>, vol. 81, no. 9, pp. 1215-1247, September 1993. 
+</ul>
+
+See the Bark class for an alternate way to approximate this scale.
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li> <a href="../../math/vector/VectorFloat/index.html">VectorFloat</a>
+       
+  <li> <a href="../../system/MemoryManager/index.html">MemoryManager</a>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Mel/mel_00.cc&constant=CLASS_NAME">static const String CLASS_NAME = L"Mel";</a></pre>
+
+  <li> define i/o related constants:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Mel/mel_00.cc&constant=DEF_PARAM">static const String DEF_PARAM = L"";</pre></a>
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> error code indicating Mel class general error:
+
+       <pre><a href="/perl/ifc_document.pl?err=00035400">static const long ERR = (long)35400;</a></pre>
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> debug level:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Mel/mel_00.cc&static=debug_level_d">static Integral::DEBUG debug_level_d;</a></pre>
+       
+  <li> a static memory manager:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Mel/mel_00.cc&static=mgr_d">static MemoryManager mgr_d;</pre></a>
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li>  static methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Mel/Mel.h&method=name">static const String& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Mel/mel_02.cc&method=diagnose">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+
+  <li> debug methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Mel/Mel.h&method=setDebug">boolean setDebug(Integral::DEBUG debug_level);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Mel/mel_01.cc&method=debug">boolean debug(const unichar* message) const;</a></pre>
+
+  <li> destructor/constructor(s):
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Mel/Mel.h&method=destructor">~Mel();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Mel/Mel.h&method=default+constructor">Mel();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Mel/Mel.h&method=copy+constructor">Mel(const Mel& arg);</a></pre>     
+
+  <li> assign methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Mel/Mel.h&method=assign">boolean assign(const Mel& arg)</a></pre>
+
+  <li> operator= methods:
+       
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Mel/Mel.h&method=operator%3D">Mel& operator= (const Mel& arg);</a></pre>
+                     
+  <li> i/o methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Mel/Mel.h&method=sofSize">long sofSize() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Mel/Mel.h&method=read">boolean read(Sof& sof, long tag, const String& name = CLASS_NAME);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Mel/Mel.h&method=write">boolean write(Sof& sof, long tag, const String& name = CLASS_NAME) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Mel/Mel.h&method=readData">boolean readData(Sof& sof, const String& pname = DEF_PARAM,long size = SofParser::FULL_OBJECT, boolean param = true, boolean nested = false);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Mel/Mel.h&method=writeData">boolean writeData(Sof& sof, const String& pname = DEF_PARAM) const;</a></pre>
+       
+  <li> equality methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Mel/Mel.h&method=eq">boolean eq(const Mel& arg) const;</a></pre>
+
+  <li> memory management methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Mel/Mel.h&method=new">static void* operator new(size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Mel/Mel.h&method=new[]">static void* operator new[](size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Mel/Mel.h&method=delete">static void operator delete(void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Mel/Mel.h&method=delete[]">static void operator delete[](void* ptr);</a></pre>  
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Mel/Mel.h&method=setGrowSize">static boolean setGrowSize(long grow_size);</a></pre>  
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Mel/Mel.h&method=clear">boolean clear(Integral::CMODE ctype = Integral::DEF_CMODE);</a></pre>
+</ul>
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>
+  <li> computational methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Mel/mel_05.cc&method=compute&instance=0">static boolean compute(float& mel, float freq);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Mel/mel_05.cc&method=compute&instance=1">static boolean compute(VectorFloat& mel, const VectorFloat& freq);</a></pre>
+
+</ul>
+  
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+  <li> none.
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+
+  <li> This example shows how to perform a Mel transformation of an
+       input vector:
+
+<pre>
+#include &lt;Mel.h&gt;
+#include &lt;VectorFloat.h&gt;
+
+int main() {
+
+  // declare a Mel object
+  //
+  Mel ml;
+
+  // declare the input and output vectors
+  //
+  VectorFloat freq(L"100, 200, 300, 400, 500, 600");
+  VectorFloat mel;
+
+  // transform the input using the Mel scale
+  //
+  Mel::compute(mel, freq);
+
+  // exit gracefully
+  //
+  Integral::exit();
+}</pre>       
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> This class has no internal data, so its compute function
+       can be invoked as a static function call (the class need not
+       be instantiated).
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

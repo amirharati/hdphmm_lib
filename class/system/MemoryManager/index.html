@@ -1,0 +1,341 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+
+<!--#set var="isip_page_title" value="MemoryManager" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="Name">
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/MemoryManager.h">MemoryManager</a></b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ... -l /isip/tools/lib/$ISIP_BINARY/lib_system.a
+
+#include &lt;MemoryManager.h&gt;
+
+MemoryManager();
+void* get();
+boolean release(voidp ptr);
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+// declare MemoryManager object in TRACK mode
+//
+MemoryManager mgr_t(sizeof(float), 1024, TRACK);
+
+// declare local variable
+//
+long size = 100;
+
+// allocate a chunk of contiguous memory
+//
+float** ptrs_t = (float**)mgr_t.getBlock(size * sizeof(float*));
+
+// release that chunk of contiguous memory
+//
+mgr_t.releaseBlock(ptrs_t);
+
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The MemoryManager class handles all dynamic memory allocation and
+deletion.  Its primary design speeds up (via block allocation)
+programs where many objects of the same size are allocated and deleted
+over time.  All objects (scalars and above) override the new and
+delete methods by means of the MemoryManager, resulting in a
+significant speedup in dynamic data structures such as graphs and
+lists.
+
+<br><br>
+
+We support two different modes, TRACK and OPTIMIZE.
+MemoryManagerTrack is not time efficient and is used when we need to
+track what happens to memory when it is allocated or released.
+MemoryManagerOptimize preserves identically-sized blocks of memory.
+It increases efficiency when we need to allocate a large number of
+identically-sized blocks.  MemoryManagerOptimize and
+MemoryManagerTrack classes inherit the MemoryManagerBase class, which
+has virtual functions.
+
+<br><br>
+The MemoryMangerBase class defines the
+interface contract for MemoryManagerOptimize and MemoryManagerTrack.
+The MemoryManager class has a virtual pointer to either an optimized
+or tracking MemoryManager.  MemoryManagerBase includes virtual
+functions.  Thus, the actual function used is the one defined in the
+dynamic type of the class reference that invokes it.
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li> <a href="../Integral/index.html">Integral</a>
+  <li> <a href="../SysHeap/index.html">SysHeap</a>       
+  <li> <a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/MemoryNode.h">MemoryNode</a>
+  <li> <a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/MemoryManagerBase.h">MemoryManagerBase</a>
+  <li> <a href="../Error/index.html">Error</a>
+
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/mmgr_00.cc&constant=CLASS_NAME">static const SysString CLASS_NAME = L"MemoryManager";</a></pre>
+
+  <li> define default arguments to methods:
+
+       <pre>static const long ALLOC_SIZE = 32;</pre>
+       <pre>enum MODE {OPTIMIZE = 0, TRACK, DEF_MODE = OPTIMIZE};</pre>
+
+  <li> define the default values of the class data:
+
+       <pre>static const long DEF_GROW_SIZE = MemoryManagerBase::DEF_GROW_SIZE;</pre>
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> error code indicating MemoryManager class general error:
+
+       <pre><a href="/perl/ifc_document.pl?err=00001200">static const long ERR = 1200;</a></pre>
+
+  <li> error code indicating attempt to delete non-allocated pointer:
+
+       <pre><a href="/perl/ifc_document.pl?err=00001201">static const long ERR_NOTFND = 1201;</a></pre>
+
+  <li> error code indicating undeleted memory:
+
+       <pre><a href="/perl/ifc_document.pl?err=00001202">static const long ERR_NOTEMP = 1202;</a></pre>
+
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> define virtual pointer to either an optimized or tracking MemoryManager:
+
+       <pre>MemoryManagerBase* virtual_mgr_d;</pre>
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li> static methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/MemoryManager.h&method=name">static const SysString& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/mmgr_01.cc&method=diagnose">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+
+  <li> debug methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/MemoryManager.h&method=debug">boolean debug(const unichar* message);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/MemoryManager.h&method=setDebug">static boolean setDebug(Integral::DEBUG level_a);</a></pre>
+
+  <li> destructor/constructor(s): the default and copy constructors are private
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/MemoryManager.h&method=destructor">~MemoryManager();</a></pre>
+
+  <li> assign methods:
+       
+       <pre>these methods are omitted because moving memory between MemoryManager objects is nonsensical</pre>
+
+  <li> operator= methods:
+
+       <pre>these methods are omitted because moving memory between MemoryManager objects is nonsensical</pre>
+       
+  <li> i/o methods:
+
+       <pre>these methods are omitted because MemoryManager can not write itself to an sof file</pre>
+
+  <li> equality methods:
+
+       <pre>these methods are omitted because they do not make sense for MemoryManager objects</pre>
+
+  <li> memory management methods:
+
+       <pre>new and delete are omitted because memory for MemoryManager objects is not managed by the MemoryManager class. clear and cleanUp methods are omitted so the user is not allowed to be careless with memory while expecting cleanUp to mask the effects.</pre>
+  
+</ul>    
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>
+  <li> constructors:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/mmgr_00.cc&method=constructor&instance=0">MemoryManager(long elem_size, long grow_size = DEF_GROW_SIZE);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/mmgr_00.cc&method=constructor&instance=1">MemoryManager(long elem_size, const SysString& name, long grow_size = DEF_GROW_SIZE);</a></pre>
+       
+  <li> block-oriented memory allocation and deletion methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/MemoryManager.h&method=get">void* get();</a>&nbsp;&nbsp;(<a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/mmgrt_00.cc&method=get">TRACK</a>&nbsp; <a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/mmgro_00.cc&method=get">OPTIMIZE</a>)</pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/MemoryManager.h&method=release">boolean release(void* ptr);</a>&nbsp;&nbsp;(<a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/mmgrt_00.cc&method=release">TRACK</a>&nbsp; <a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/mmgro_00.cc&method=release">OPTIMIZE</a>)</pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/MemoryManager.h&method=getBlock">void* getBlock(long size);</a>&nbsp;&nbsp;(<a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/mmgrt_00.cc&method=getBlock">TRACK</a>&nbsp; <a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/MemoryManagerOptimize.h&method=getBlock">OPTIMIZE</a>)</pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/MemoryManager.h&method=releaseBlock">boolean releaseBlock(void* ptr);</a>&nbsp;&nbsp;(<a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/mmgrt_00.cc&method=releaseBlock">TRACK</a>&nbsp; <a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/MemoryManagerOptimize.h&method=releaseBlock">OPTIMIZE</a>)</pre>
+
+  <li> set methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/MemoryManager.h&method=setGrow">boolean setGrow(long size);</a>&nbsp;&nbsp;(<a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/MemoryManagerTrack.h&method=setGrow">TRACK</a>&nbsp; <a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/MemoryManagerOptimize.h&method=setGrow">OPTIMIZE</a>)</pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/MemoryManager.h&method=setAllocGrow">boolean setAllocGrow(long size);</a>&nbsp;&nbsp;(<a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/MemoryManagerTrack.h&method=setAllocGrow">TRACK</a>&nbsp; <a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/MemoryManagerOptimize.h&method=setAllocGrow">OPTIMIZE</a>)</pre>
+     
+  <li> wrap the operating system memory methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/MemoryManager.h&method=reallocateBlock">static boolean reallocateBlock(void*** ptr, long& current_size,long grow_size = DEF_GROW_SIZE);</a>&nbsp;&nbsp;(<a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/mmgrt_00.cc&method=reallocateBlock">TRACK</a>&nbsp; <a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/MemoryManagerOptimize.h&method=reallocateBlock">OPTIMIZE</a>)</pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/MemoryManager.h&method=memset">static boolean memset(void* ptr, long val, long size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/MemoryManager.h&method=memcpy">static boolean memcpy(void* dst, const void* src, long size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/MemoryManager.h&method=memcmp">static long memcmp(const void* s1, const void* s2, long size);</a></pre>
+
+  <li> static memory-management methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/mmgr_02.cc&method=newStatic">static void* newStatic(long nbytes);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/mmgr_02.cc&method=deleteStatic">static boolean deleteStatic(void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/mmgr_02.cc&method=releaseStatics">static boolean releaseStatics();</a></pre>
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+  <li> constructor(s): these methods are not required for this class so they are declared private
+
+       <pre>MemoryManager();</a></pre>
+       <pre>MemoryManager(const MemoryManager& arg);</a></pre>
+       
+  <li> grow methods:
+
+       <pre>boolean grow();(<a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/mmgrt_00.cc&method=grow">TRACK</a>&nbsp; <a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/mmgro_00.cc&method=grow">OPTIMIZE</a>)</pre>
+       
+  <li> count node methods:
+
+       <pre>boolean countNodes(long& used, long& free) const;(<a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/mmgrt_00.cc&method=countNodes">TRACK</a>&nbsp; <a href="/perl/ifc_document.pl?file=$isip/class/system/MemoryManager/mmgro_00.cc&method=countNodes">OPTIMIZE</a>)</pre>
+
+  <li> set mode method:
+       <pre>boolean setMode(MODE mode, long elem_size, long grow_size);</pre>
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+  <li> This example shows how we allocate and delete memory
+       with MemoryManager:
+
+<pre>
+// declare MemoryManager object
+//
+MemoryManager mgr_t(sizeof(float), 1024, TRACK);
+
+// allocate memory
+/
+for (long i = 0; i < 100; i++) {
+  ptrs_t[i] = (float*)mgr_t.get();
+}
+
+// release memory
+//
+for (long i = 0; i < 100; i++) {
+  mgr_t.release(ptrs_t[i]);
+}</pre> 
+
+  <li> This example shows how we allocate and delete a block of memory
+       with MemoryManager:
+       
+<pre>
+// declare MemoryManager object
+//
+MemoryManager mgr_t(sizeof(float), 1024, TRACK);
+
+// allocate a chunk of memory
+//
+long size = 1000;
+float** ptrs_t = (float**)mgr_t.getBlock(size * sizeof(float*));
+
+// release a chunk of memory
+//
+mgr_t.releaseBlock(ptrs_t);</pre>
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> MemoryManager class inherits the MemoryManagerBase which defines
+       the interface contract for MemoryManagerTrack and
+       MemoryManagerOptimize. The base class has pure virtual functions and
+       the MemoryManager class has a virtual pointer to either an optimized
+       or tracking MemoryManager. The base and derived classes have their own
+       versions of a function, so making the function virtual lets the
+       program automatically decide at run-time which version of the function
+       to use. Pure virtual methods are documented both for
+       MemoryManagerTrack and MemoryManagerOptimize.
+       <br><br>
+       
+  <li> You must determine at compile-time if you will run an OPTIMIZE
+       or TRACK memory manager. Both managers provide efficient
+       allocation, deletion, and reallocation of fixed size memory
+       chunks through block allocation. The TRACK manager, however,
+       also keeps track of every pointer allocated and deleted and
+       reports discrepencies. OPTIMIZE is the default mode since the
+       TRACK code slows down code considerably.
+       <br><br>
+
+  <li> This code also has a hook for Rational Purify and similar
+       memory trackers. Since the block allocation mode reduces the
+       ability of such software to track all allocations and
+       deletions, the code can be compiled with -DPURIFY to disable
+       the special block allocation (in either TRACK or OPTIMIZE).
+       <br><br>
+
+  <li> The tracking memory manager has another feature -- each
+       tracking manager registers itself to the system and upon exit
+       each tracking manager is queried to determine if any memory was
+       allocated but not deleted. The manager has to do this before
+       the static managers are deleted so that the output facilities
+       (Console, SysString, etc) are not deleted beforehand.<br><br>
+
+  <li> You can always tell which MemoryManager your program was
+       compiled with via the ident command. For example,
+
+       <pre>
+  isip111_[1]: ident DoubleLinkedListDiagnose.exe 
+  DoubleLinkedListDiagnose.exe:
+       $MemoryManager: TRACK $
+       </pre>
+
+       The string will either be TRACK or OPTIMIZE.
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

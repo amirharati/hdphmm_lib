@@ -1,0 +1,384 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="NameMap" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="Name">
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/io/NameMap/NameMap.h">NameMap</a></b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] NameMap ... -l /isip/tools/lib/$ISIP_BINARY/lib_io.a
+
+#include &lt;NameMap.h&gt;
+
+NameMap(const unichar* arg, unichar delim = DEF_DELIM);
+const SysString& getName(long index) const;
+const SysString& operator()(long index_a) const;
+long getName(const SysString& name) const;
+long operator()(const SysString& name) const;
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+class Choices {
+
+  // public constants
+  //
+  enum TYPES {FULL = 0, TRIANGULAR, SPARSE, SYMMETRIC, DIAGONAL};
+
+  static NameMap TYPE_MAP;
+
+};
+
+// the instantiation is outside the header file, probably at the
+// bottom of the default constructor's file
+//
+NameMap Choices::TYPE_MAP(L"FULL, TRIANGULAR, SPARSE, SYMMETRIC, DIAGONAL");
+
+boolean OtherClass::doSomething() {
+
+  Choices::TYPES type = Choices::FULL;
+
+  SysString output(L"they selected choice ");
+
+  // cast the enum to a long integer to get the index
+  //
+  output.concat(Choices::TYPE_MAP((long)type);
+  Console::put(output);
+}
+</pre></blockquote>
+
+<a name="description">
+<b>description:</b>
+<br><br>
+
+The NameMap class provides all classes using enumerated types with an
+ability to associate textual names for each value of the type. This
+class will generally be static class data where the names are set
+in the constructor.
+
+<br><br>
+
+Namemap is meant to be used for relatively small lists - typically 10
+items or less. The size of the list is restricted to 65,536 - a 16-bit
+index is used to store the index.  The list is searched linearly.
+
+<br><br>
+
+In order to conserve disk space for binary files,
+when the index of an item is written
+to disk, the index and a checksum for the map is written,
+rather than the entire map. This provides an added level
+of insurance that the map hasn't changed since the index
+was written to a file. For text files, the index is written
+as a name, which is a convenient way to deal with changes
+in the map (as long as the name is found in the map, processing
+will proceed as normal).
+
+<br><br>
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li> <a href="../../system/Checksum/index.html">Checksum</a>              
+
+  <li> <a href="../../system/SysString/index.html">SysString</a>
+
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/NameMap/nmap_00.cc&constant=CLASS_NAME">static const SysString CLASS_NAME = L"NameMap";</a></pre>
+
+  <li> define constraints on the size of the map:
+
+       <pre>static const ulong MAX_LENGTH = (ulong)Integral::TWO_EXP16;</pre>
+
+  <li> define default values and arguments:
+
+       <pre>static const unichar DEF_DELIM = L',';</pre>
+
+  <li> define generally useful NameMaps:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/NameMap/nmap_00.cc&constant=COLOR_MAP">static const NameMap COLOR_MAP = L"WHITE, GREY, BLACK, BLUE, GREEN";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/NameMap/nmap_00.cc&constant=ALLOCATION_MAP">static const NameMap ALLOCATION_MAP = L"SYSTEM, USER";</a></pre>
+       
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> error code indicating general NameMap class error
+       
+       <pre><a href="/perl/ifc_document.pl?err=00010400"">static const long ERR = 10400;</a></pre>
+       
+  <li> error code indicating the index is out of range
+       
+       <pre><a href="/perl/ifc_document.pl?err=00010401">static const long ERR_RANGE = 10401;</a></pre>
+       
+  <li> error code indicating the name was not found in reverse lookup
+       
+       <pre><a href="/perl/ifc_document.pl?err=00010402">static const long ERR_NOT_FOUND = 10402;</a></pre>
+       
+  <li> error code indicating a mismatch in checksums
+       
+       <pre><a href="/perl/ifc_document.pl?err=00010403">static const long ERR_CHKSUM = 10403;</a></pre>
+</ul> 
+ 
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> define the names:
+
+       <pre>SysString* names_d;</pre>
+       <pre>long size_d;</pre>
+
+  <li> define a 16-bit checksum:
+
+       <pre>ushort checksum_d;</pre>
+
+  <li> define the Checksum:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/NameMap/nmap_00.cc&static=cksm_d">static NameMap cksm_d;</a></pre>
+
+  <li> define debug level:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/NameMap/nmap_00.cc&static=debug_level_d">static Integral::DEBUG debug_level_d;</a></pre>
+
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li> static methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/NameMap/NameMap.h&method=name">static const SysString& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/NameMap/nmap_02.cc">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+
+  <li> debug methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/NameMap/nmap_01.cc">boolean debug(const unichar* message) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/NameMap/NameMap.h&method=setDebug">static boolean setDebug(Integral::DEBUG debug_level);</a></pre>  
+
+  <li> destructor/ constructor(s):
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/NameMap/nmap_00.cc&method=destructor">~NameMap();</a></pre>
+
+  <li> assign methods: <br><br>
+
+  <li> operator= methods: <br><br>
+
+  <li> i/o methods: <br><br>
+
+  <li> equality methods: <br><br>
+
+  <li> memory management methods: <br><br>
+
+</ul>
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>
+  <li> constructors from SysStrings:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/NameMap/NameMap.h&method=constructor&instance=0">NameMap(const SysString& data, const unichar delim = DEF_DELIM);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/NameMap/NameMap.h&method=constructor&instance=1">NameMap(const unichar* data, const unichar delim = DEF_DELIM);</a></pre>
+       
+  <li> get methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/NameMap/nmap_00.cc&method=getName">const SysString& getName(long index) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/NameMap/nmap_00.cc&method=getIndex">long getIndex(const SysString& name) const;</a></pre>
+       
+  <li> inline methods: cast conversion operator
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/NameMap/NameMap.h&method=operator\(\)&instance=0">const SysString& operator() (ushort index) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/NameMap/NameMap.h&method=operator\(\)&instance=1">long operator()(const SysString& name_a) const;</a></pre>
+
+  <li> direct access to Sof file methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/NameMap/nmap_03.cc&method=elementSofSize">long elementSofSize() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/NameMap/nmap_03.cc&method=readElementData">boolean readElementData(long& value, Sof& sof, const SysString& pname,long size = SofParser::FULL_OBJECT, boolean param = Integral::TRUE, boolean nested = Integral::FALSE);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/NameMap/nmap_03.cc&method=writeElementData">boolean writeElementData(Sof& sof, const SysString& pname, long index) const;</a></pre>
+
+  <li> method to produce an informative error message
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/NameMap/nmap_03.cc&method=displayChoices">boolean displayChoices(const SysString& bad_param) const;</a></pre>
+</ul> 
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+  <li> assignment from SysStrings:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/NameMap/nmap_00.cc&method=assign">boolean assign(const SysString& data, const unichar delim = DEF_DELIM);</a></pre>
+
+  <li> checksum methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/NameMap/nmap_00.cc&method=computeChecksum">boolean computeChecksum();</a></pre>
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+  <li> This example shows the most common use case: the class Choices has an
+       enumerated type and the TYPE_MAP static data member will store textual
+       representations of each enumerated value. Note that we ensure the
+       names line up properly by forcing the first value of the enumeration
+       to be zero.
+
+<pre>
+class Choices {
+
+  // public constants
+  //
+  enum TYPES {FULL = 0, TRIANGULAR, SPARSE, SYMMETRIC, DIAGONAL};
+
+  static NameMap TYPE_MAP;
+};
+
+// the instantiation is outside the header file, probably at the
+// bottom of the default constructor's file
+//
+NameMap Choices::TYPE_MAP(L"FULL, TRIANGULAR, SPARSE, SYMMETRIC, DIAGONAL");
+
+boolean OtherClass::doSomething() {
+
+  Choices::TYPES type = Choices::FULL;
+
+  SysString output(L"they selected choice ");
+
+  // cast the enum to a long integer to get the index
+  //
+  output.concat(Choices::TYPE_MAP.getName((long)type);
+  Console::put(output);
+}</pre>
+
+<li> The writeElementData and readElementData exist to simplify the i/o
+     methods of classes that have enums as internal data.
+
+<pre>
+AudioFile {
+
+  enum FILE_TYPE { RAW, WAV, SPHERE, DEF_FILE_TYPE = RAW };
+  enum COMP_TYPE { LINEAR, ULAW, ALAW, DEF_COMP_TYPE = LINEAR };
+
+  static NameMap FILE_TYPE_MAP;
+  static NameMap COMP_TYPE_MAP;
+
+  static const SysString PARAM_FILE_TYPE;
+  static const SysString PARAM_COMP_TYPE;
+  static const SysString PARAM_SAMPLE_FREQUENCY;   
+
+  FILE_TYPE file_type_d;             // file type
+  COMP_TYPE comp_type_d;             // compression type
+  Double sample_freq_d;              // sample frequency
+}
+
+boolean AudioFile::writeData(...) {
+			  
+  FILE_TYPE_MAP.writeElementData(sof_a, PARAM_FILE_TYPE, (long)file_type_d);
+  COMP_TYPE_MAP.writeElementData(sof_a, PARAM_COMP_TYPE, (long)comp_type_d);
+
+  sample_freq_d.writeData(sof_a, PARAM_SAMPLE_FREQUENCY);
+
+  ...
+}
+
+boolean AudioFile::readData(...) {
+  
+  SofParser parser;
+  parser.load(sof_a, size_a);
+			  
+  // read the file type
+  //
+  FILE_TYPE ftype;
+  if (parser.isPresent(sof_a, PARAM_FILE_TYPE)) {
+    if (!FILE_TYPE_MAP.readElementData((long&)ftype, sof_a,
+                                       PARAM_FILE_TYPE,
+                       parser.getEntry(sof_a, PARAM_FILE_TYPE))) {
+      return Error::handle(name(), L"readData", Error::READ,
+                           __FILE__, __LINE__, Error::WARNING);
+    }
+  }
+  
+  else {
+    ftype = DEF_FILE_TYPE;
+  }
+  
+  // read the sample frequency
+  //
+  if (parser.isPresent(sof_a, PARAM_SAMPLE_FREQUENCY)) {
+    if (!sample_freq_d.readData(sof_a,
+                                parser.getEntry(sof_a,
+                                                PARAM_SAMPLE_FREQUENCY))) {
+      return Error::handle(name(), L"readData", Error::READ,
+                           __FILE__, __LINE__, Error::WARNING);
+    }         
+  }
+  else {
+    sample_freq_d.assign(DEF_SAMPLE_FREQ);
+  }
+
+  ...
+}</pre>
+
+     Through the NameMap's methods you can simulate an enumeration's
+     I/O as though it were part of a normal object.
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+<ul>
+  <li> The default constructor, copy constructor, and assign methods
+       are private to prevent them from being used as part of the API.
+       Name maps are typically instantiated as static constants.
+       Programmers should not use these methods directly.
+
+       <br><br>
+
+  <li> String comparisons are performed by converting strings to
+       <b>lower case</b>. This allows users more flexibility in the
+       format of the input data (such as data coming from parameter files
+       that have been user or machine edited), but is a little
+       dangerous if you intend case to be a distinction.
+
+       <br><br>
+
+  <li> Note that the getName() method actually returns an object of
+       internal data. This is considered safe since the names returned
+       will be used in a read-only manner.
+</ul>
+     
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

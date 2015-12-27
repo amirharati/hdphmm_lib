@@ -1,0 +1,294 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="Node" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="name">
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h">Node&lt;class TObject&gt;</a></b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ...
+
+#include &lt;Node.h&gt;
+
+Node();
+boolean assign(const Node&lt;TObject&gt& copy_node);
+TObject* getItem() const;
+boolean clear();
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+// declare a character node and insert a character in it
+//
+Node&lt;Char&gt node0;
+Char item(L'a');
+node0.assign(&item);
+
+// use the copy constructor to create a second node
+//
+Node&lt;Char&gt node1(node0);
+
+// get the items out of each of the nodes
+//
+Char* char1 = node0.getItem();
+Char* char2 = node1.getItem();
+
+// test the characters for equality
+//
+if (!char1->eq(*char2)) {
+   // error
+}
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The Node class is a generic node template class. This is simply a
+container class for use by other classes. Most likely, data structures
+such as linked-lists, queues, graphs, etc. will create their own node
+type which inherits this Node object. A Node is always in
+USER-allocation mode. This means that it only holds references to
+other data.
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+<ul>
+  <li> <a href="../../math/scalar/String/"> String </a> <br>
+  <li> <a href="../../math/scalar/Char/"> Char </a> <br>
+  <li> <a href="../../system/Console/"> Console </a> <br>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&constant=CLASS_NAME">static const SysString CLASS_NAME = L"Node";</a></pre>
+              
+  <li> i/o related constants:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&constant=DEF_PARAM">static const SysString DEF_PARAM = L"item";</a></pre>
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> general Node class error:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00040000">static const long ERR = 40000;</a></pre>
+
+  <li> error related to NULL pointer: 
+       
+       <pre><a href="/perl/ifc_document.pl?err=00040001">static const long ERR_NOITEM = 40001;</a></pre>
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> a pointer to the item stored in this node:
+       
+       <pre>TObject* item_d;</pre>
+       
+  <li> debugging parameter:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&static=debug_level_d">static Integral::DEBUG debug_level_d;</a></pre>
+
+  <li> static memory manager:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&static=mgr_d">static MemoryManager mgr_d;</a></pre>
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+<ul>
+  
+  <li> static methods: diagnose method is moved outside the class
+       header file and defined in the NodeDiagnose.h in order to avoid the
+       issues with preprocessing of the diagnose code
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&method=name">static const String& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/NodeDiagnose.h&method=diagnose">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+       
+  <li> debug methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&method=debug">boolean debug(const unichar* message) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&method=setDebug">static boolean setDebug(Integral::DEBUG debug_level);</a></pre>
+       
+  <li> destructor/constructor(s):
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&method=destructor">~Node();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&method=default+constructor">Node();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&method=copy+constructor">Node(const Node&lt;TObject&gt;& copy_node);</a></pre>
+       
+  <li> assign methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&method=assign&instance=0">boolean assign(const Node&lt;TObject&gt;& copy_node);</a></pre>
+
+  <li> operator= methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&method=operator%3D">Node&lt;TObject&gt;& operator=(const Node&lt;TObject&gt;& arg);</a></pre>
+
+  <li> equality methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&method=eq">boolean eq(const Node&lt;TObject&gt;& compare_node) const;</a></pre>
+       
+  <li> i/o methods: refer to the <a href = "./index.html#notes">notes</a>
+       section for an explanation of having two read and write methods in
+       this class
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&method=sofSize">long sofSize() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&method=read&instance=0">boolean read(Sof& sof, long tag);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&method=write&instance=0">boolean write(Sof& sof, long tag) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&method=read&instance=1">boolean read(Sof& sof, long tag, const String& name);</a></pre>              
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&method=write&instance=1">boolean write(Sof& sof, long tag, const String& name) const;</a></pre>       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&method=readData">boolean readData(Sof& sof, const String& pname = DEF_PARAM,long size = SofParser::FULL_OBJECT, boolean param = true, boolean nested = false);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&method=writeData">boolean writeData(Sof& sof, const String& pname = DEF_PARAM) const;</a></pre>
+       
+  <li> memory management methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&method=new">static void* operator new(size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&method=new\[\]">static void* operator new[](size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&method=delete">static void operator delete(void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&method=delete\[\]">static void operator delete[](void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&method=setGrowSize">static boolean setGrowSize(long grow_size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&method=clear">boolean clear(Integral::CMODE cmode_a = Integral::DEF_CMODE);</a></pre>
+</ul>
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>
+  <li> constructors:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&method=constructor">Node(TObject* item);</a></pre> 
+
+  <li> assign methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&method=assign&instance=1">boolean assign(TObject* item);</a></pre> 
+       
+  <li> equality methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&method=ne">boolean ne(const Node&lt;TObject&gt;& compare_node) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&method=lt">boolean lt(const Node&lt;TObject&gt;& compare_node) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&method=gt">boolean gt(const Node&lt;TObject&gt;& compare_node) const;</a></pre>
+       
+  <li> item manipulation methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&method=getItem&instance=0">const TObject* getItem() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&method=getItem&instance=1">TObject* getItem();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&method=setItem">boolean setItem(TObject* item);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&method=accessByMode">TObject* accessByMode(TObject* ptr, ALLOCATION mode) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&method=assignByMode">boolean assignByMode(TObject* ptr, ALLOCATION mode);</a></pre>
+       
+  <li> hash method:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/Node.h&method=hash">const long hash(long capacity) const;</a></pre>
+       
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<br><br>
+<ul>
+  <li> none
+</ul>
+
+<a name="friend">
+<b>friend classes:</b>
+<br><br>
+
+<ul>
+  <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Node/NodeDiagnose.h">friend class NodeDiagnose;</a></pre>
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+
+  <li> This example shows how to check if two Nodes are equal:
+
+<pre>
+include &lt;Char.h&gt;
+include &lt;Node.h&gt;
+
+int main () {
+
+  // declare a character
+  //
+  Char item(L'a');
+
+  // declare a node
+  //
+  Node&lt;Char&gt; char_node_0;
+  char_node_0.assign(&item);
+
+  // declare another node
+  //
+  Node&lt;Char&gt; char_node_1(&item);
+
+  // see if the two nodes are equivalent
+  //
+  if (!char_node_0.eq(char_node_1)) {
+
+    // exit with error
+    //
+    Integral::exit();
+  }
+
+  // exit gracefully
+  //
+  Integral::exit();
+}</pre>
+</ul>
+
+<a name="notes">
+
+<b>notes:</b>
+<br><br>
+<ul>
+  <li> There are two memory allocation modes for most data structures,
+       USER and SYSTEM. USER mode indicates that the user explicitly
+       deals with memory, which usually entails allocating memory
+       before placing it on a dstr and deleting it upon removal. The
+       Node class always operates in USER mode.
+       
+       <br><br>
+       
+  <li> Unlike other classes, we have two read and write methods in dstr
+       classes. The interface is still the same as that in other
+       classes. The reason behind this is that we can not use
+       "CLASS_NAME" as default argument in the read and write methods
+       here because the data structures build the class name on the fly.       
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

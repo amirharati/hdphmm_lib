@@ -1,0 +1,366 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="MComplexScalar" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="name">
+<b>
+name:
+<a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/MComplexScalar.h">MComplexScalar</a> : public <a href="../MScalar/index.html">MScalar&lt;SysComplex&lt;TIntegral&gt;, TSize&gt;</a>
+</b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ... -l /isip/tools/lib/$ISIP_BINARY/lib_math_scalar.a
+
+#include &lt;MComplexScalar.h&gt;
+
+MComplexScalar(const MComplexScalar& arg);
+TIntegral rand(Random& generator = Random::GLOBAL_UNIFORM);
+TSize read() const;
+TSize imag() const;
+double mag() const;
+double angle() const;
+TIntegral conjugate() const;
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+MComplexScalar&lt;complexdouble, float64&gt; val0;
+MComplexScalar&lt;complexdouble, float64&gt; val1;
+MComplexScalar&lt;complexdouble, float64&gt; min_val;
+
+val0.assign(complexdouble(10,2));
+val0.exp2();
+val1.exp10(2);
+
+min_val.min(val0, val1);
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The MComplexScalar class is the base class for all complex scalar classes. 
+It includes commonly used mathematical, logical, DSP, i/o and operator
+overload methods. MComplexScalar methods should not be used by users
+directly. They are intended to be used by other scalar, vector, and
+matrix complex classes.
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li> <a href="../MScalar/index.html">MScalar</a>
+  <li> <a href="../../../io/SofParser/index.html">SofParser</a>
+  <li> <a href="../String/index.html">String</a>
+  <li> <a href="../../../system/MemoryManager/index.html">MemoryManager</a>
+  <li> <a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/MComplexScalarMethods.h">MComplexScalarMethods.h</a>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/mcscl_00.cc&constant=CLASS_NAME">static const String CLASS_NAME = L"MComplexScalar";</a></pre>
+
+  <li> i/o related constants:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/mcscl_00.cc&constant=DEF_PARAM">static const String DEF_PARAM = L"value";</a></pre>
+
+  <li> the default value(s) of the class data:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/mcscl_00.cc&constant=DEF_VALUE">static const MComplexScalar<TIntegral, TSize> DEF_VALUE;</a></pre>
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> error code indicating MComplexScalar class general error:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00021600">static const long ERR = 21600;</a></pre>	
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> declare a static debug level for all class instantiations:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/mcscl_00.cc&static=debug_level_d">static Integral::DEBUG debug_level_d;</a></pre>
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li> static methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/MComplexScalar.h&method=name">static const String& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/mcscl_02.cc&method=diagnose">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+
+  <li> debug methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/MComplexScalar.h&method=setDebug">static boolean setDebug(Integral::DEBUG level);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/mcscl_00.cc&method=debug">boolean debug(const unichar* msg) const;</a></pre>
+
+  <li> destructor/constructor(s):
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/MComplexScalar.h&method=destructor">~MComplexScalar()</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/MComplexScalar.h&method=default constructor">MComplexScalar()</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/MComplexScalar.h&method=copy constructor&instance=0">MComplexScalar(const MComplexScalar& arg);</a></pre>       
+
+  <li> assign methods:
+
+       <pre>assign methods are inherited from the <a href="../MScalar/index.html#public">MScalar</a> class</pre>
+
+  <li> operator= methods:
+
+       <pre>We need to have the overloaded operator '=' defined in the derived
+classes instead of the base template class. This is required since
+C++ predefines the operator '=' for any class by default, and this
+hides any other definition of this operator in the base class</pre>
+       
+  <li> i/o methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/MComplexScalar.h&method=sofSize">long sofSize() const;</a></pre>
+        <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/mcscl_03.cc&method=read">boolean read(Sof& sof, long tag, const String& name = CLASS_NAME);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/mcscl_04.cc&method=write">boolean write(Sof& sof, long tag, const String& name = CLASS_NAME) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/mcscl_03.cc&method=readData">boolean readData(Sof& sof, const String& pname = DEF_PARAM,long size = SofParser::FULL_OBJECT, boolean param_a = true, boolean nested_a = false);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/mcscl_04.cc&method=writeData">boolean writeData(Sof& sof, const String& pname = DEF_PARAM) const;</a></pre>
+
+  <li> equality methods:
+
+       <pre>equality methods are inherited from the <a href="../MScalar/index.html#public">MScalar</a> class</pre>
+
+  <li> clear methods:
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/MComplexScalar.h&method=clear">boolean clear(Integral::CMODE = Integral::DEF_CMODE);</a></pre>       
+       
+  <li> <pre>memory management methods: new and delete methods are omitted
+because they are defined in the classes that instantiate this template </pre>
+
+</ul>
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>
+
+  <li> constructors:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/MComplexScalar.h&method=constructor&instance=0">MComplexScalar(SysComplex<TIntegral> arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/MComplexScalar.h&method=constructor&instance=1">MComplexScalar(TIntegral arg);</a></pre>
+
+  <li> assign methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/MComplexScalar.h&method=assign&instance=1">template&lt;class TAIntegral&gt;<br>boolean assign(TAIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/MComplexScalar.h&method=assign&instance=2">template&lt;class TAIntegral&gt;<br>boolean assign(TAIntegral real, TAIntegral imag);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/MComplexScalar.h&method=assign&instance=3">boolean assign(const String& arg);</a></pre>
+
+  <li> methods to provide alternate implementations (listed alphabetically):
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/MComplexScalar.h&method=angle&instance=0">double angle() const;</a></pre>       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/MComplexScalar.h&method=conjugate&instance=0">TCScalar conjugate() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/mcscl_00.cc&method=grand&instance=0">TCScalar grand(TCScalar mean, TCScalar stddev, Random& generator = Random::GLOBAL_GAUSSIAN);;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/MComplexScalar.h&method=hash">ulong hash(ulong hsize) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/MComplexScalar.h&method=imag">TIntegral imag() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/MComplexScalar.h&method=mag">double mag() const;</a></pre>       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/mcscl_00.cc&method=rand&instance=0">SysComplex<TIntegral> rand(Random& generator = Random::GLOBAL_UNIFORM);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/mcscl_00.cc&method=rand&instance=4">SysComplex<TIntegral> rand(TCScalar min, TCScalar max, Random& generator = Random::GLOBAL_UNIFORM;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/MComplexScalar.h&method=real">TIntegral real() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/MComplexScalar.h&method=sign">TCScalar sign(TCScalar arg>);</a></pre>
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+ 
+   <li> friend functions:
+
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/MComplexScalarMethods.h">friend class MComplexScalarMethods;</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MScalar/MScalarMethods.h">friend class MScalarMethods;</a></pre>
+	
+   <li>	diagnose methods:
+	
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/mcscl_02.cc&method=diagnose0">static boolean diagnose0(Integral::DEBUG debug_level);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/mcscl_02.cc&method=diagnose1">static boolean diagnose1(Integral::DEBUG debug_level);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/MComplexScalar/mcscl_02.cc&method=diagnose2">static boolean diagnose2(Integral::DEBUG debug_level);</a></pre>
+      
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+  <li> This example shows how to do some basic mathematical and logical operations:
+       
+<pre>
+MComplexScalar&lt;long, int32&gt; val0;
+MComplexScalar&lt;long, int32&gt; val1;
+MComplexScalar&lt;long, int32&gt; val2;
+MComplexScalar&lt;double, float64&gt; val3;
+MComplexScalar&lt;double, float64&gt; val4;
+
+long data = 16;
+     
+val0.assign((long)8);
+val0 += 2;
+if(!val0.eq(10)) {
+    Error::handle(val0.name(), L"operator+=", Error::TEST,
+                         __FILE__, __LINE__);
+}
+
+val4.assign((double)0.15);
+       
+val3.log2(val4);
+val3*= val4;
+
+val0.round(val3);
+
+val1.assign(val0);
+val1.bor(data);</pre>
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> The various types with bit-length specifications (e.g. float64) are
+       defined in
+
+       <a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/IntegralTypes.h">
+       IntegralTypes.h</a>.
+
+       These are wrappers to encapsulate
+       system- or language-specific data types and provide a consistent
+       interface to data types throughout the IFCs.  They are not intended
+       to be used by system users.
+     
+       <br><br>
+
+  <li> Many template specialization methods are forbidden, such as the
+       neg() for MComplexScalar&lt;ushort&gt; and the bitwise methods for
+       MComplexScalar&lt;float&gt;.
+     
+       <br><br>
+
+  <li> The use of templates requires special documentation techniques.  For
+       example, in the <b>required public methods:</b> section, above,
+       if you click on the link to investigate the diagnose method,
+
+<ul>
+<pre>
+static boolean diagnose(Integral::DEBUG debug_level);</pre>
+</ul>  
+       you will be taken to a section showing the actual implementation
+       of the diagnose method:
+
+<ul>
+<pre>
+template&lt;class TIntegral, class TSize&gt;
+boolean MScalarMethods::diagnose(Integral::DEBUG level_a) {
+     // . . . code removed
+     //
+}</pre>
+</ul>
+     
+       Notice that the header linked to does not match the header shown in
+       the link.  The match for the link is actually a statement
+       occurring in MComplexScalar.h, which looks like this:
+     
+<ul>
+<pre>
+static boolean diagnose(Integral::DEBUG debug_level) {
+     return MScalarMethods::diagnose&lt;TIntegral, TSize&gt;(debug_level);
+}</pre>
+</ul>
+     
+     The code in the header file merely sets up the template specialization
+     and calls the template's diagnose class. Rather than pointing to the
+     intermediate code, we link to the code which actually implements the
+     call to diagnose so the user is able to see the actual details of the
+     implementation.
+     
+     <br><br>
+
+  <li> Generally, friend functions are discouraged but are used in the
+       MComplexScalar class to circumvent the template delayed
+       compilation problem.
+
+     
+     <br><br>
+
+  <li> The setDebug method for this class is static because the
+       debug_level is shared across all objects of this class type.
+
+     <br><br>
+
+  <li> Explicit template instantiations were replaced by a facility
+       that generates and compiles the code for each data type.
+       This is done using the make facility and some preprocessor macros.
+       Code that previously looked like this:
+
+<ul>
+<pre>
+// define all pre-provided template instances
+//
+template boolean
+MComplexScalarMethods::diagnose<short, int16> 
+(Integral::DEBUG level);
+       
+template boolean
+MComplexScalarMethods::diagnose<ullong, uint64> 
+(Integral::DEBUG level);
+       
+template boolean
+MComplexScalarMethods::diagnose<ulong, uint32> 
+(Integral::DEBUG level);
+  
+...</pre>
+</ul>
+
+     is replaced by this:
+
+<ul>
+<pre>
+MComplexScalarMethods::diagnose&lt;ISIP_TEMPLATE_TARGET&gt; 
+(Integral::DEBUG level);</pre>
+</ul>
+
+     ISIP_TEMPLATE_TARGET is replaced by the preprocessor using a value
+     defined in the make file.
+     Generally speaking, the implementation should be fairly straightforward
+     and clean.
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->
+

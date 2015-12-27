@@ -1,0 +1,31 @@
+# file: $isip/util/speech/isip_make_db/GNUmakefile
+# version: $Id: GNUmakefile 8739 2002-10-10 21:39:37Z parihar $
+#
+# this make file builds an example program
+#
+
+# define the source files
+#
+ISIP_FILES = *.cc
+
+# define the files these source files depend on (usually include files)
+#
+ISIP_DEPS = Sof.h 
+# define the compilation flags
+# 
+ISIP_CFLAGS =
+
+# define the name of the executable file (*.exe)
+#
+ISIP_EXE = x.exe
+
+# define the installation directory (override the watch on local installs)
+#       
+ISIP_BIN = $(ISIP_DEVEL)/bin/$(ISIP_BINARY)
+
+# include the isip standard make template
+#
+include $(ISIP_DEVEL)/lib/scripts/make/compile_and_link.make
+
+#
+# end of file

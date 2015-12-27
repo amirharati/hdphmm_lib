@@ -1,0 +1,290 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<!--#set var="isip_page_title" value="MULTIMEDIA" -->
+<!--#include virtual="/hse/ies/templates/documentation/body/title.html" -->
+
+<b>Library Name:</b> lib_mmedia.a
+
+<br><br>
+
+<b>Introduction:</b><br><br>
+
+<ul>
+  The Multimedia library consists of classes which will handle processing
+  associated with various media types. This allows programmers to use
+  media files through a standard interface that just return data
+  without knowing the details of the file format.
+
+  <br><br>
+
+  We currently support interfaces to audio data, feature data,
+  and speech language model formats in this library.
+  For example, the AudioFile class handles input and output
+  to audio data files, and support a number of formats including
+  Sof, raw, NIST SPHERE, and Microsoft wav.
+  The JSGFParser class supports an interface to language models
+  defined using the Java Speech Grammar Format.
+  The Annotation Graph classes provide an interface to a flexible
+  method for describing metadata related to an audio file.
+</ul>
+
+<b>Example:</b>
+
+<ul>
+  This <a href="../../doc/examples/class/mmedia/mmedia_example_00/example.cc">
+  example</a>
+  shows how to copy an audio file from one file to another. It uses a
+  buffer size of 50 samples.
+
+  <pre>
+    01	// file: $isip/doc/examples/class/mmedia/mmedia_example_00/example.cc
+    02	// version: $Id: index.html 10653 2007-02-24 20:33:16Z tm334 $
+    03	//
+    04	
+    05	// isip include files
+    06	//
+    07	#include &lt;AudioFile.h&gt;
+    08	
+    09	// main program starts here
+    10	//
+    11	int main() {
+    12	  
+    13	  // declare AudioFile objects for read and write
+    14	  //
+    15	  AudioFile src;
+    16	  src.open(L"./input.raw");
+    17	  
+    18	  AudioFile dst;
+    19	  dst.setFileType(AudioFile::SOF_TEXT);    
+    20	  String output(L"./output.sof");
+    21	  dst.open(output, File::WRITE_ONLY);
+    22	  
+    23	  // loop through 50 samples at a time
+    24	  //
+    25	  for (long i = 0; i &lt; 5; i++) {
+    26	    
+    27	    Vector&lt;VectorFloat&gt; data(1);
+    28	    
+    29	    // call
+    30	    // getData
+    31	    //
+    32	    src.getData(data(0), 0, i * 50, (long)50);
+    33	    
+    34	    // write these 50 samples to the output
+    35	    //
+    36	    dst.writeAudioData(data, 0);
+    37	  }
+    38	  src.close();
+    39	  dst.close();
+    40	  
+    41	  output.debug(L"output");
+    42	  
+    43	  // exit gracefully
+    44	  //
+    45	  Integral::exit();
+    46	}
+</pre>
+</ul>
+
+<b>Explanation:</b>
+
+<ul>
+  On lines 15 and 16, we open the input audio file. On lines 18-21, we
+  open the output audio file. We force the output file to be in mode
+  SOF_TEXT, the human readable form of our standard Sof file.
+
+  <br><br>
+
+  Inside the loop on line 32, we call the getData method. The first
+  argument is the output data buffer. The next argument is the channel
+  to read, in this case we only want to read the first channel. The
+  third argument is the starting offset, which is calculated by
+  multiplying the loop counter by the buffer size (50). The final
+  argument is the number of elements to read.
+
+  <br><br>
+
+  The next step is to write the data to the output. Note that there
+  are no position arguments to writeAudioData, the AudioFile class
+  assumes that every write is to adjacent blocks in the file.
+
+  <br><br>
+
+  Finally we close the files on lines 38 and 39.
+</ul>
+
+<b>Example:</b>
+
+<ul>
+  This
+
+  <a href="../../doc/examples/class/mmedia/mmedia_example_01/example.cc">
+  example</a>
+  shows a simple excise signal program. The user is expected to pass
+  in a start time, stop time, input file, and output file from the
+  command line. The output file will contain a copy of the data within
+  the specified window.
+
+  <pre>
+    01	// file: $isip/doc/examples/class/mmedia/mmedia_example_00/example.cc
+    02	// version: $Id: index.html 10653 2007-02-24 20:33:16Z tm334 $
+    03	//
+    04	
+    05	// isip include files
+    06	//
+    07	#include &lt;AudioFile.h&gt;
+    08	#include &lt;CommandLine.h&gt;
+    09	
+    10	// excise_signal: program to excise part of an audio signal from one
+    11	// file and output it to a new file.
+    12	//
+    13	// this is an example excise_signal utility
+    14	//
+    15	int main(int argc, const char** argv) {
+    16	
+    17	  // configure the command line parser and an Sdb object.
+    18	  //
+    19	  CommandLine cmdl;
+    20	
+    21	  // 2 parameters: start time and stop time
+    22	  //
+    23	  Float start_time;
+    24	  Float stop_time;
+    25	  String start_param(L"start_time");
+    26	  String stop_param(L"stop_time");
+    27	  cmdl.addOptionParam(start_time, start_param, 0.0);
+    28	  cmdl.addOptionParam(stop_time, stop_param, 0.0);
+    29	
+    30	  // parse the command line
+    31	  //
+    32	  cmdl.parse(argc,argv);
+    33	
+    34	  Filename input;
+    35	  Filename output;
+    36	
+    37	  // read the input and output as the arguments
+    38	  //
+    39	  cmdl.getArgument(input, 0);
+    40	  cmdl.getArgument(output, 1);
+    41	  
+    42	  // declare AudioFile objects for read and write
+    43	  //
+    44	  AudioFile src;
+    45	  AudioFile dst;
+    46	
+    47	  // open the input file
+    48	  //
+    49	  src.open(input);
+    50	
+    51	  // we want the output file to have the same format as the input, so
+    52	  // assign the object before opening the new file
+    53	  //
+    54	  dst.assign(src);
+    55	  dst.open(output, File::WRITE_ONLY);
+    56	
+    57	  // read in the data into a buffer and write it to the new file
+    58	  //
+    59	  Vector&lt;VectorFloat&gt; buf(src.getNumChannels());
+    60	  src.getData(buf, start_time, stop_time - start_time);
+    61	  dst.writeAudioData(buf);
+    62	
+    63	  // close the files
+    64	  //
+    65	  src.close();
+    66	  dst.close();
+    67	  
+    68	  // exit gracefully
+    69	  //
+    70	  Integral::exit();
+    71	}
+</pre>
+</ul>
+
+<b>Explanation:</b>
+<ul>
+
+  On lines 23-32 we set up the command line to parse our options of
+  start_time and stop_time. We then obtain the input and output
+  filenames as arguments in lines 34-40. We now have all user input so
+  we can move on to processing.
+
+  <br><br>
+
+  On line 49 we open the input file. Once opened, all internal
+  parameters of the <i>src</i> object will be set to the input file's
+  type. On line 54 we configure the output file <i>dst</i> to use the
+  same format as the input file.  Therefore, if the input file is a ulaw
+  encoded sphere file, the output file will also be a ulaw encoded
+  sphere file.
+
+  <br><br>
+
+  On line 59 we allocate our data buffer to hold all the channels in
+  the input file. On line 60 we call getData to read the audio data
+  from the input file, notice that we use a direct floating-point time
+  interface for positioning. We then write the data on line 61 and
+  close the files on 65 and 66.
+</ul>
+
+<ul>
+  These programs and some example audio files can be found in our
+  <a href="../../doc/examples/">documentation directory</a> under
+  <a href="../../doc/examples/class/mmedia/">class/mmedia/</a>. 
+
+  <br><br>
+
+  The following classes belong to mmedia:
+
+<center>
+<table border=5>
+
+  <tr>
+  <td><a href="./AlgorithmData/index.html">AlgorithmData</a>
+  <td><a href="./Anchor/index.html">Anchor</a>
+  <td><a href="./Annotation/index.html">Annotation</a>
+  <td><a href="./AnnotationGraph/index.html">AnnotationGraph</a>
+  </tr>
+
+  <tr>
+  <td><a href="./AnnotationIndex/index.html">AnnotationIndex</a>
+  <td><a href="./AudioDatabase/index.html">AudioDatabase</a>
+  <td><a href="./AudioFile/index.html">AudioFile</a>
+  <td><a href="./FeatureFile/index.html">FeatureFile</a>
+  </tr>
+
+  <tr>
+  <td><a href="./FeatureSelect/index.html">FeatureSelect</a>
+  <td><a href="./Identifier/index.html">Identifier</a>
+  <td><a href="./JSGFParser/index.html">JSGFParser</a>
+  <td><a href="./JSGFToken/index.html">JSGFToken</a>
+  </tr>
+
+  <tr>
+  <td><a href="./Machine/index.html">Machine</a>
+  <td><a href="./MachineDatabase/index.html"MachineDatabase>MachineDatabase</a>
+  <td><a href="./NGramNode/index.html">NGramNode</a>
+  <td><a href="./NGramParser/index.html">NGramParser</a>
+  </tr>
+
+  <tr>
+
+  <td><a href="./SegmentConcat/index.html">SegmentConcat</a>
+  <td><a href="./Splitter/index.html">Splitter</a>
+  <td><a href="./SymbolGraphDatabase/index.html">SymbolGraphDatabase</a>
+  <td><a href="./TranscriptionDatabase/index.html">TranscriptionDatabase</a>
+  </tr>
+
+  <tr>
+  <td><a href="./XMLParser/index.html">XMLParser</a>
+  <td><a href="./XMLToken/index.html">XMLToken</a>
+  </tr>
+
+</table>
+</center>
+</ul>
+  
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->
+
+

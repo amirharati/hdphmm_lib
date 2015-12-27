@@ -1,0 +1,313 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="Sigmoid" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="name">
+<b>
+name:
+<a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h">Sigmoid</a></b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ... -l /isip/tools/lib/$ISIP_BINARY/lib_numeric.a
+
+#include &lt;Sigmoid.h&gt;
+
+boolean set(float gain, float slope, float xoffset, float yoffset);
+boolean compute(float& y, float x);
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+Sigmoid sigm(1, 0.5);
+float y;
+float x = 0.5;
+
+// evaluate y = sigmoid(x)
+//
+sigm.compute(y, x);
+
+// evaluate y = derivative with respect to 'x' of the sigmoid function
+// evaluated at x
+//
+sigm.derivative(y, x);
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The Sigmoid class is used to analyze and evaluate sigmoid functions of
+the form:
+
+<ul>
+  <pre>
+                     gain
+  y(x) = -------------------------------  + y_offset
+         1 + e^(-slope * (x - x_offset))
+  </pre>
+</ul>
+
+Nominally, the gain is 1, the offset is 0 and the slope is 1, which
+produces a function that varies smoothly between 0 and 1. The gain,
+x_offset and y_offset, can be adjusted to control the effective domain
+and range of the output. The variable named slope is not truly the
+slope of the transition region but can be varied to control that
+slope.
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li> <a href="../../math/vector/VectorDouble/index.html">VectorDouble</a>
+       
+  <li> <a href="../../math/vector/VectorFloat/index.html">VectorFloat</a>
+       
+  <li> <a href="../../system/MemoryManager/index.html">MemoryManager</a>
+       
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/sigm_00.cc&constant=CLASS_NAME">static const String CLASS_NAME = L"Sigmoid";</a></pre>
+
+  <li> i/o related constants:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/sigm_00.cc&constant=DEF_PARAM">static const String DEF_PARAM = L"";</pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/sigm_00.cc&constant=PARAM_GAIN">static const String PARAM_GAIN = L"gain";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/sigm_00.cc&constant=PARAM_SLOPE">static const String PARAM_SLOPE = L"slope";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/sigm_00.cc&constant=PARAM_XOFFSET">static const String PARAM_XOFFSET = L"xoffset";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/sigm_00.cc&constant=PARAM_YOFFSET">static const String PARAM_YOFFSET = L"yoffset";</a></pre>
+
+  <li> define the default value(s) of the class data:
+       <pre>static const float DEF_GAIN = 1.0;</pre>
+       <pre>static const float DEF_SLOPE = 1.0;</pre>
+       <pre>static const float DEF_XOFFSET = 0.0;</pre>
+       <pre>static const float DEF_YOFFSET = 0.0;</pre>
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> error code indicating Sigmoid class general error:
+
+       <pre><a href="/perl/ifc_document.pl?err=00035000">static const long ERR = (long)35000;</a></pre>
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> parameters of the functional sigmoid form
+       
+       <pre>Float gain_d;</pre>
+       <pre>Float slope_d;</pre>       
+       <pre>Float xoffset_d;</pre>
+       <pre>Float yoffset_d;</pre>
+
+  <li> debug level:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/sigm_00.cc&static=debug_level_d">static Integral::DEBUG debug_level_d;</a></pre>
+       
+  <li> a static memory manager:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/sigm_00.cc&static=mgr_d">static MemoryManager mgr_d;</pre></a>
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li>  static methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=name">static const String& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/sigm_02.cc&method=diagnose">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+
+  <li> debug methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=setDebug">boolean setDebug(Integral::DEBUG debug_level);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/sigm_01.cc&method=debug">boolean debug(const unichar* message) const;</a></pre>
+
+  <li> destructor/constructor(s):
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=destructor">~Sigmoid();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=default+constructor">Sigmoid();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=copy+constructor">Sigmoid(const Sigmoid& arg);</a></pre>     
+
+  <li> assign methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=assign">boolean assign(const Sigmoid& arg)</a></pre>
+
+  <li> operator= methods:
+       
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=operator%3D">Sigmoid& operator= (const Sigmoid& arg);</a></pre>
+                     
+  <li> i/o methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=sofSize">long sofSize() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/sigm_03.cc&method=read">boolean read(Sof& sof, long tag, const String& name = CLASS_NAME);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/sigm_04.cc&method=write">boolean write(Sof& sof, long tag, const String& name = CLASS_NAME) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/sigm_03.cc&method=readData">boolean readData(Sof& sof, const String& pname = DEF_PARAM,long size = SofParser::FULL_OBJECT, boolean param = true, boolean nested = false);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/sigm_04.cc&method=writeData">boolean writeData(Sof& sof, const String& pname = DEF_PARAM) const;</a></pre>
+       
+  <li> equality methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=eq">boolean eq(const Sigmoid& arg) const;</a></pre>
+
+  <li> memory management methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=new">static void* operator new(size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=new[]">static void* operator new[](size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=delete">static void operator delete(void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=delete[]">static void operator delete[](void* ptr);</a></pre>  
+        <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=setGrowSize">static boolean setGrowSize(long grow_size);</a></pre>  
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=clear">boolean clear(Integral::CMODE ctype = Integral::DEF_CMODE);</a></pre>
+</ul>
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>
+  <li> set methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=setGain">boolean setGain(float gain);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=setSlope">boolean setSlope(float slope);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=setXOffset">boolean setXOffset(float xoffset);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=setYOffset">boolean setYOffset(float yoffset);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=set">boolean set(float gain, float slope, float xoffset, float yoffset);</a></pre>
+       
+  <li> get methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=getGain">float getGain();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=getSlope">float getSlope();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=getXOffset">float getXOffset();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=getYOffset">float getYOffset();</a></pre>
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=get">boolean get(float& gain, float& slope, float& xoffset, float& yoffset);</a></pre>
+       
+  <li> computational methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=compute&instance=0">boolean compute(float& y, float x) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=compute&instance=1">boolean compute(double& y, const double x) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=compute&instance=2">boolean compute(VectorFloat& y, const VectorFloat& x) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=compute&instance=3">boolean compute(VectorDouble& y, const VectorDouble& x) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=derivative&instance=0">boolean derivative(float& dydx, float x) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=derivative&instance=1">boolean derivative(double& dydx, const double x) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=derivative&instance=2">boolean derivative(VectorFloat& dydx, const VectorFloat& x) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=derivative&instance=3">boolean derivative(VectorDouble& dydx, const VectorDouble& x) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=derivativeGain&instance=0">boolean derivativeGain(float& dydgain, float x) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=derivativeGain&instance=1">boolean derivativeGain(double& dydgain, const double x) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=derivativeGain&instance=2">boolean derivativeGain(VectorFloat& dydgain, const VectorFloat& x) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=derivativeGain&instance=3">boolean derivativeGain(VectorDouble& dydgain, const VectorDouble& x) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=derivativeSlope&instance=0">boolean derivativeSlope(float& dydslope, float x) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=derivativeSlope&instance=1">boolean derivativeSlope(double& dydslope, const double x) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=derivativeSlope&instance=2">boolean derivativeSlope(VectorFloat& dydslope, const VectorFloat& x) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=derivativeSlope&instance=3">boolean derivativeSlope(VectorDouble& dydslope, const VectorDouble& x) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=derivativeXOffset&instance=0">boolean derivativeXOffset(float& dydxoffset, float x) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=derivativeXOffset&instance=1">boolean derivativeXOffset(double& dydxoffset, const double x) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=derivativeXOffset&instance=2">boolean derivativeXOffset(VectorFloat& dydxoffset, const VectorFloat& x) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=derivativeXOffset&instance=3">boolean derivativeXOffset(VectorDouble& dydxoffset, const VectorDouble& x) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=derivativeYOffset&instance=0">boolean derivativeYOffset(float& dydyoffset, float x) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=derivativeYOffset&instance=1">boolean derivativeYOffset(double& dydyoffset, const double x) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=derivativeYOffset&instance=2">boolean derivativeYOffset(VectorFloat& dydyoffset, const VectorFloat& x) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/Sigmoid.h&method=derivativeYOffset&instance=3">boolean derivativeYOffset(VectorDouble& dydyoffset, const VectorDouble& x) const;</a></pre>
+
+</ul>
+  
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+  <li> templatized computation methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/sigm_05.cc&method=computeScalar">template &lt;class TIntegral&gt; boolean computeScalar(TIntegral& y, const TIntegral x) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/sigm_05.cc&method=computeVector">template &lt;class TVector, class TIntegral&gt; boolean computeVector(TVector& y, const TVector& x) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/sigm_06.cc&method=derivativeScalar">template &lt;class TIntegral&gt; boolean derivativeScalar(TIntegral& dydx, const TIntegral x) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/sigm_06.cc&method=derivativeVector">template &lt;class TVector, class TIntegral&gt; boolean derivativeVector(TVector& dydx, const TVector& x) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/sigm_06.cc&method=derivativeGainScalar">template &lt;class TIntegral&gt; boolean derivativeGainScalar(TIntegral& dydgain, const TIntegral x) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/sigm_06.cc&method=derivativeGainVector">template &lt;class TVector, class TIntegral&gt; boolean derivativeGainVector(TVector& dydgain, const TVector& x) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/sigm_06.cc&method=derivativeSlopeScalar">template &lt;class TIntegral&gt; boolean derivativeSlopeScalar(TIntegral& dydslope, const TIntegral x) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/sigm_06.cc&method=derivativeSlopeVector">template &lt;class TVector, class TIntegral&gt; boolean derivativeSlopeVector(TVector& dydslope, const TVector& x) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/sigm_06.cc&method=derivativeXOffsetScalar">template &lt;class TIntegral&gt; boolean derivativeXOffsetScalar(TIntegral& dydxoffset, const TIntegral x) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/sigm_06.cc&method=derivativeXOffsetVector">template &lt;class TVector, class TIntegral&gt; boolean derivativeXOffsetVector(TVector& dydxoffset, const TVector& x) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/sigm_06.cc&method=derivativeYOffsetScalar">template &lt;class TIntegral&gt; boolean derivativeYOffsetScalar(TIntegral& dydyoffset, const TIntegral x) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Sigmoid/sigm_06.cc&method=derivativeYOffsetVector">template &lt;class TVector, class TIntegral&gt; boolean derivativeYOffsetVector(TVector& dydyoffset, const TVector& x) const;</a></pre>
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+
+  <li> This example shows how to create and evaluate a sigmoid function:
+
+<pre>
+#include &lt;Sigmoid.h&gt;
+#include &lt;VectorDouble.h&gt;
+
+int main() {
+
+  // declare a Sigmoid object
+  //
+  Sigmoid sigm;
+
+  // set the parameters of the sigmoid:
+  // gain = 0.5, slope = 0.2, xoffset = 1, yoffset = 0
+  //
+  sigm.set(0.5, 0.2, 1, 0);
+
+  // declare the input and output vectors
+  //
+  VectorDouble input(L"0, 1, -1, 2, -2");
+  VectorDouble output;
+
+  // compute the sigmoid function at the prescribed input points
+  //
+  sigm.compute(output, input);
+
+  // exit gracefully
+  //
+  Integral::exit();
+}</pre>       
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> This class has internal data (parameter settings for the Sigmoid)
+       and must be instantiated before being used.
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

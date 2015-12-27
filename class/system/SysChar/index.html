@@ -1,0 +1,325 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+
+<!--#set var="isip_page_title" value="SysChar" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+
+<a name="Name">
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h">SysChar</a></b>
+
+<br><br> 
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ... -l /isip/tools/lib/$ISIP_BINARY/lib_system.a
+
+#include &lt;SysChar.h&gt;
+
+SysChar();
+SysChar(const SysChar& arg);
+SysChar(byte* data, ENCODE encoding = DEF_ENCODE);
+
+boolean assign(byte arg);
+
+boolean isAlnum() const;
+boolean isAlpha() const;
+boolean isDigit() const;
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+SysChar c0;
+SysChar c1(c0);
+
+c0.assign(L't');
+c1.assign((byte)'e');
+
+if ((!c0.isAlnum()) ||
+   (!c1.isAlnum())) {
+  Console::put(L"Error in isAlnum");
+}
+
+if ((!c0.isAlpha()) ||
+   (!c1.isAlpha())) {
+  Console::put(L"Error in isAlpha");
+}
+
+if ((c0.isDigit()) ||
+    (c1.isDigit())) {
+  Console::put(L"Error in isDigit");
+}
+</pre>
+</blockquote>
+       
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The SysChar class manages unicode characters. The SysChar class is
+implemented as an index into the Unicode standard list of
+characters. The class supports automatic conversion to and from UTF8
+(which includes standard 7-bit ASCII) and UTF16 encoded byte
+streams. In the future this class will also support other character
+encoding formats, such as shift JIS and UEC.
+
+<br><br>
+
+The SysChar object may be
+assigned a value in many different ways. It can be directly passed a
+unicode index (in the form of a SysChar integral type), it can be
+passed a single byte, or it can be passed a byte-stream. When passed a
+single byte it assumes ASCII encoding. When passed a byte stream the
+default encoding is ASCII for byte streams as well as single bytes, but the
+user may specify any other coding for automatic conversion.
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li> <a href="../Integral/index.html">Integral</a>
+  <li> <a href="../Error/index.html">Error</a>
+  <li> <a href="../SysString/index.html">SysString</a>
+
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/schr_00.cc&constant=CLASS_NAME">static const SysString CLASS_NAME = L"SysChar";</a></pre>
+       
+  <li> define encoding constants:
+
+       <pre>static const byte UTF8_FIXED = 0x80;</pre>
+       <pre>static const unsigned short UTF16_FIXED = 0x0000;</pre>
+       
+  <li> define encoding flags & the default encoding:
+
+       <pre>enum ENCODE { ENCODE_ASCII = 0, ENCODE_UTF8, ENCODE_UTF16,DEF_ENCODE = ENCODE_ASCII };</pre>
+       
+  <li> define special characters:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/schr_00.cc&constant=NULLC">static const SysChar NULLC = (SysChar)0;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/schr_00.cc&constant=SPACEC">static const SysChar SPACEC = L' ';</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/schr_00.cc&constant=TILDE">static const SysChar TILDE = L'~';</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/schr_00.cc&constant=DOLLAR">static const SysChar DOLLAR = L'$';</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/schr_00.cc&constant=NEWLINE">static const SysChar NEWLINE = L'\n';</a></pre>
+
+  <li> define the default value(s) of the class data:
+
+       <pre>static const unichar DEF_VALUE = (unichar)0;</pre>
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> error code indicating SysChar class general error:
+
+       <pre><a href="/perl/ifc_document.pl?err=00001100">static const long ERR = 1100;</a></pre>
+
+  <li> error code indicating characters are not ascii:
+
+       <pre><a href="/perl/ifc_document.pl?err=00001101">static const long ERR_NOTASC = 1101;</a></pre>
+
+  <li> error code indicating multi-bit UTF8 character encountered:
+
+       <pre><a href="/perl/ifc_document.pl?err=00001102">static const long ERR_UNUTF8 = 1102;</a></pre>
+
+  <li> error code indicating multi-bit UTF16 character encountered:
+       <pre><a href="/perl/ifc_document.pl?err=00001103">static const long ERR_UNUTF16 = 1103;</a></pre>
+
+  <li> error code indicating unknown encoding:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00001104">static const long ERR_UNKENC = 1104;</a></pre>              
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> define unichar character:
+
+       <pre>unichar value_d;</pre>
+
+  <li> define debug level:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/schr_00.cc&static=debug_level_d">static Integral::DEBUG debug_level_d;</a></pre>
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li> static methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h&method=name">static const SysString& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/schr_02.cc&method=diagnose">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+       
+  <li> debug methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/schr_01.cc&method=debug">boolean debug(const unichar* message) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h&method=setDebug">static boolean setDebug(Integral::DEBUG debug_level);</a></pre>
+
+  <li> destructor/constructor(s):
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h&method=destructor">~SysChar();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h&method=default+constructor">SysChar(unichar arg = DEF_VALUE);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h&method=copy+constructor">SysChar(const SysChar& arg);</a></pre>
+
+  <li> assign methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h&method=assign&instance=0">boolean assign(const SysChar& arg);</a></pre>
+       
+  <li> operator= methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h&method=operator%3D">SysChar& operator=(const SysChar& arg);</a></pre>       
+  <li> i/o methods:
+       
+       <pre>these methods are omitted because this class can't write itself to an Sof file</pre>
+       
+  <li> equality methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h&method=eq&instance=0">boolean eq(const SysChar& arg) const;</a></pre>
+
+  <li> memory management methods: the new and delete methods are omitted
+       because only classes at the math library level and above are required
+       to override new and delete
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/schr_03.cc&method=clear">boolean clear(Integral::CMODE ctype);</a></pre>
+</ul>
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>
+  <li> constructors:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h&method=constructor">SysChar(byte* data, ENCODE encoding = DEF_ENCODE);</a></pre>
+       
+  <li> assign methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h&method=assign&instance=0">boolean assign(byte arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/schr_03.cc&method=assign&instance=0">boolean assign(unichar arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/schr_03.cc&method=assign&instance=1">boolean assign(long& len, const byte* arg, ENCODE encoding = DEF_ENCODE);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/schr_03.cc"&method=assign&instance=2>boolean assign(const SysString& arg);</a></pre>
+
+  <li> equality methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h&method=eq&instance=1">boolean eq(const unichar arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h&method=ne&instance=0">boolean ne(const SysChar& arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h&method=ne&instance=1">boolean ne(const unichar arg) const;</a></pre>        
+  <li> size methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h&method=memSize">long memSize() const;</a></pre>
+       
+  <li> casting methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h&method=operator()">operator unichar() const;</a></pre>
+
+  <li> type conversion methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h&method=get&instance=0">boolean get(byte& arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h&method=get&instance=1">boolean get(unichar& arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/schr_03.cc&method=get">boolean get(long& len, byte* arg, ENCODE encoding = DEF_ENCODE) const;</a></pre>
+
+  <li> case conversion methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h&method=toUpper">boolean toUpper();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h&method=toLower">boolean toLower();</a></pre>       
+       
+  <li> character classification methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h&method=isAlnum">boolean isAlnum() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h&method=isAlpha">boolean isAlpha() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h&method=isDigit">boolean isDigit() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h&method=isLower">boolean isLower() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h&method=isPrint">boolean isPrint() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h&method=isPunct">boolean isPunct() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h&method=isSpace">boolean isSpace() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h&method=isUpper">boolean isUpper() const;</a></pre>
+
+  <li> relational methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h&method=gt&instance=0">boolean gt(const SysChar& arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h&method=gt&instance=1">boolean gt(unichar arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h&method=lt&instance=0">boolean lt(const SysChar& arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h&method=lt&instance=1">boolean lt(unichar arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h&method=ge&instance=0">boolean ge(const SysChar& arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h&method=ge&instance=1">boolean ge(unichar arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h&method=le&instance=0">boolean le(const SysChar& arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/system/SysChar/SysChar.h&method=le&instance=1">boolean le(unichar arg) const;</a></pre>
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+  <li> none
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+  <li> This is a simple example to check whether the declared Syschar
+       data are alpha characters or digits:
+       
+<pre>
+SysChar c0;
+SysChar c1(c0);
+SysChar c2(L'e');
+SysChar c3((byte*)"h");
+SysChar c4(L'.');
+SysChar c5(L'\n');
+SysChar c6(L'9');
+       
+if ((c0.isAlnum()) ||
+   (c1.isAlnum()) ||
+   (!c2.isAlnum()) ||
+   (!c3.isAlnum()) ||
+   (c4.isAlnum()) ||
+   (c5.isAlnum()) ||
+   (!c6.isAlnum())) {
+     Console::put(L"Error in isAlnum");
+}</pre>
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> The SysChar class can turn the encoding into the actual bits
+       based on the given format. SysChar uses wchar_t as its data member.
+       Unicode is the universal character encoding standard used
+       for representation of text for computer processing. This class
+       provides methods for case conversion and
+       comparison in relational and logical operations.
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

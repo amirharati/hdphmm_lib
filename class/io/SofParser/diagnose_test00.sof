@@ -1,0 +1,55 @@
+@ Sof v1.0 @
+@ Features 0 @
+front_end = {
+  audio = {
+    file_type = "RAW";
+    comp_type = "LINEAR";
+    dynamic_range = 0.00000000000000000e+00;
+    sample_frequency = 8.00000000000000000e+03;
+    sample_num_bytes = 2;
+    sample_precision = 6.55360000000000000e+04;
+    num_channels = 1;
+    block_size = 8192;
+    buf_size = 4;
+    ma_coeff = 1.000000e+00;
+    ar_coeff = 1.000000e+00;
+  };
+  window = {
+    type = "HAMMING";
+    normalize_energy = false;
+    constants = 5.400000e-01;
+  };
+  fourier_transform = {
+    algorithm = "AUTO";
+    data_type = "REAL";
+  };
+  warp = {
+    algorithm = "MEL";
+  };
+  cepstrum = {
+    num_coeffs = 12;
+    lifter_l = 22;
+    lifter_h = 22;
+    maintain_czero = false;
+    lifter = false;
+  };
+  linear_prediction = {
+    order = 9;
+    algorithm = "autocorrelation";
+    dyn_range = -1.00000000000000000e+01;
+  };
+  filter_bank = {
+    order = 24;
+    sample_freq = 8.000000e+03;
+    scale = "MEL";
+    algorithm = "OVERLAPPING_TRIANGLES";
+  };
+  frame_duration = 1.00000000000000002e-02;
+  window_duration = 2.50000000000000014e-02;
+  num_channels = 2;
+  MFCC = 12;
+};
+values = {-3.251911e+00,-6.969351e-01,-1.471834e-01,1.227199e-01,-1.171401e-01,-2.158254e-01,-3.458355e-01,-7.039088e-02,-5.757773e-01,-2.352650e-01,-2.975613e-01,-8.902430e-01}, {-2.051554e+00,1.054953e-01,-4.698590e-01,2.369734e-01,-1.268727e-01,-3.371627e-01,-4.228900e-01,1.463709e-01,-4.609402e-01,-8.034071e-02,-1.428980e-01,-4.394866e-01};
+@ TestObject 0 @
+good_param = true;
+bad_param = true;

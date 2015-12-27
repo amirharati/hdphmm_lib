@@ -1,0 +1,387 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="SofList" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="name">
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/SofList.h">SofList</a></b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ... -l /isip/tools/lib/$ISIP_BINARY/lib_io.a
+
+#include &lt;SofList.h&gt;
+
+SofList();
+SofList(const SofList& arg);
+boolean add(long name, long tag, long pos, long size);
+long first(long name);
+long last(long name);
+long getCount();
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+SofList list;
+
+// setup a simple symbol table
+//
+SofSymbolTable table;      
+SysString n1(L"Long");
+long i1 = table.add(n1);
+
+// add a node to the soflist
+//
+list.setTable(table);
+list.add(i1, 0, -1, sizeof(long));
+list.debug(L"added nodes");
+      
+long tag = list.prev(i1, 1000);
+if (tag != 0) {
+  Console::put(L"Error in previous");
+}
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+SofList is a  binary search tree used to hold indices for Sof files. it is
+used to keep track of a sorted list of objects. programmers should never use
+the SofList directly.
+
+<br><br>
+
+a binary search tree is a linked data structure in which each node is
+an object. each node has keys as well as pointers to its left, right
+and parent nodes. let x be a node in a binary search tree:
+
+<ul>
+  <li> if y is a node in the left subtree of x, then key[y] <= key[x],
+  <li> if y is a node in the right subtree of x, then key[x] <= key[y]
+</ul>
+
+<br><br>
+
+in this SofList, a name and a tag are used as the keys of a node.
+when comparing two nodes, the names are compared first, if the names
+are the same, the tags are compared. a good tutorial on heaps can be
+found at :
+
+<ul>
+  T.H. Cormen, C.E. Leiserson and R.L. Rivest,
+  <i>Introduction to Algorithms</i>, McGraw-Hill,
+  New York, New York, USA, pp. 140-149, 1997.
+</ul>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li> <a href="../../system/SysString/index.html">SysString</a>
+  <li> <a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/SofNode.h">SofNode</a>
+  <li> <a href="../SofSymbolTable/index.html">SofSymbolTable</a>     
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/sofl_00.cc&constant=CLASS_NAME">static const SysString CLASS_NAME = L"SofList";</a></pre>
+       
+  <li> define the internal stack constants:
+       
+       <pre>static const long STACK_SIZE = 2048;</pre>
+       <pre>static const long GROW_SIZE = 1024;</pre>
+       
+  <li> define the default values for stack:
+       
+       <pre>static const long DEF_STACK_SIZE = 0;</pre>
+       <pre>static const long DEF_STACK_PTR = 0;</pre>
+       <pre>static const long DEF_STACK_FRAME = 0;</pre>
+
+  <li> define a dummy tag for a name not in the soflist:
+       
+       <pre>static const long NO_TAG = -2147483647;</pre>       
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> error code indicating SofList class general error:
+
+       <pre><a href="/perl/ifc_document.pl?err=00010100">static const long ERR = 10100;</a></pre>
+       
+  <li> error code indicating symbol error:
+
+       <pre><a href="/perl/ifc_document.pl?err=00010102">static const long ERR_SYMB = 10102;</a></pre>
+       
+  <li> error code indicating copy error:
+       <pre><a href="/perl/ifc_document.pl?err=00010104">static const long ERR_COPY = 10104;</a></pre>
+
+  <li> error code indicating delete error:
+       <pre><a href="/perl/ifc_document.pl?err=00010105">static const long ERR_DELETE = 10105;</a></pre>
+
+  <li> error code indicating failure to add object to index:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00010106">static const long ERR_ADD = 10106;</a></pre>
+
+  <li> error code indicating object already in index:
+
+       <pre><a href="/perl/ifc_document.pl?err=00010107">static const long ERR_EXISTS = 10107;</a></pre>
+
+  <li> error code indicating current node not set:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00010108">static const long ERR_CURR = 10108;</a></pre>              
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> the root node of the binary tree:
+
+       <pre>SofNode* root_d;</pre>
+
+  <li> the current node:
+
+       <pre>SofNode* current_d;</pre>       
+
+  <li> a pointer to the symbol table:
+
+       <pre>SofSymbolTable* table_d;</pre>
+
+  <li> an internal stack to avoid recursion in the binary tree search:
+       
+       <pre>SofNode** stack_d;</pre>
+       <pre>long stack_size_d;</pre>
+       <pre>long stack_ptr_d;</pre>
+       <pre>long stack_frame_d;</pre>
+
+  <li> debugging parameters
+	     
+       <pre>Integral::DEBUG debug_level_d;</pre>   
+
+  <li> define a memory manager
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/sofl_00.cc&static=mgr_d">static MemoryManager mgr_d;</a></pre>
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li> static methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/SofList.h&method=name">static const SysString& name();</a></pre>
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/sofl_02.cc&method=diagnose">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+       
+  <li> debug methods: 
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/sofl_01.cc&method=debug">boolean debug(const unichar* msg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/SofList.h&method=setDebug">boolean setDebug(Integral::DEBUG debug_level);</a></pre>
+       
+  <li> destructor/constructor(s):
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/sofl_00.cc&method=destructor">~SofList();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/sofl_00.cc&method=default+constructor">SofList();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/sofl_00.cc&method=copy+constructor">SofList(const SofList& arg);</a></pre>
+
+  <li> assign methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/sofl_03.cc&method=assign">boolean assign(const SofList& arg);</a></pre>
+       
+  <li> operator= methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/SofList.h&method=operator%3D">SofList& operator= (const SofList& arg);</a></pre>
+       
+  <li> i/o methods:
+
+       <pre>these methods are omitted because SofList can not write itself to an sof file</pre>
+       
+  <li> equality methods:
+       
+       <pre>these methods are omitted because they are not useful for SofList objects</pre>
+
+  <li> memory management methods:
+       
+       <pre>new and delete are omitted because memory for SofList objects is not managed by the MemoryManager class</pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/sofl_03.cc&method=clear">boolean clear();</a></pre>
+</ul>
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>
+  <li> memory size methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/sofl_03.cc&method=memSize">long memSize();</a></pre>
+       
+  <li> add object methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/sofl_05.cc&method=add">boolean add(long name, long tag, long pos, long size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/sofl_05.cc&method=addQuick">boolean addQuick(long name, long tag, long pos, long size);</a></pre>
+       
+  <li> remove object methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/sofl_05.cc&method=remove">boolean remove();</a></pre>
+       
+  <li> search objects methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/sofl_04.cc&method=find">boolean find(long name, long tag);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/sofl_04.cc&method=first">long first(long name);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/sofl_04.cc&method=last">long last(long name);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/sofl_04.cc&method=next">long next(long name, long cur_tag);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/sofl_04.cc&method=prev">long prev(long name, long cur_tag);</a></pre>       
+       
+  <li> set/get methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/SofList.h&method=setTable">boolean setTable(SofSymbolTable& table);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/SofList.h&method=setPosition">boolean setPosition(long pos);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/SofList.h&method=setSize">boolean setSize(long size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/SofList.h&method=getName">long getName() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/SofList.h&method=getTag">long getTag() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/SofList.h&method=getPosition">long getPosition() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/SofList.h&method=getSize">long getSize() const;</a></pre>       
+        <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/SofList.h&method=getNameCount">long getNameCount();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/sofl_04.cc&method=getCount&instance=0">long getCount();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/sofl_04.cc&method=getCount&instance=1">long getCount(long name);</a></pre>
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+  <li> memory management methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/sofl_05.cc&method=newNode">SofNode* newNode();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/sofl_05.cc&method=deleteNode">boolean deleteNode(SofNode* node);</a></pre>
+       
+  <li> add object methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/sofl_05.cc&method=addNode">boolean addNode(SofNode* node);</a></pre>
+       
+  <li> search objects methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/sofl_04.cc&method=findNode&instance=0">SofNode* findNode(long name, long tag);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/sofl_04.cc&method=findNode&instance=1">SofNode* findNode(long name);</a></pre>
+       
+  <li> compare nodes methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/SofList.h&method=nodeGt&instance=0">boolean nodeGt(const SofNode* node, long name, long tag) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/SofList.h&method=nodeLt&instance=0">boolean nodeLt(const SofNode* node, long name, long tag) const;</a></pre>
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/SofList.h&method=nodeGt&instance=1">boolean nodeGt(const SofNode* node, long name) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/SofList.h&method=nodeLt&instance=1">boolean nodeLt(const SofNode* node, long name) const;</a></pre>
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/SofList.h&method=nodeGt&instance=2">boolean nodeGt(const SofNode* node_1, const SofNode* node_2) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/SofList.h&method=nodeLt&instance=2">boolean nodeLt(const SofNode* node_1, const SofNode* node_2) const;</a></pre>
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/SofList.h&method=nodeEq&instance=0">boolean nodeEq(const SofNode* node, long name) const;</a></pre>
+
+  <li> count nodes methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/sofl_04.cc&method=getCount&instance=0">long getCount(SofNode* node);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/sofl_04.cc&method=getCount&instance=1">long getCount(SofNode* node, long name);</a></pre>
+
+  <li> internal stack management methods
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/SofList.h&method=push">boolean push(SofNode* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/SofList.h&method=pop">boolean pop(SofNode*& ptr);</a></pre>       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/sofl_04.cc&method=pushFrame">boolean pushFrame();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/sofl_04.cc&method=popFrame">boolean popFrame();</a></pre>
+       
+  <li> low-level debugging methods
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/sofl_01.cc&method=display&instance=0">boolean display();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/sofl_01.cc&method=display&instance=1">boolean display(SysString& str, SofNode* node);</a></pre>       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/SofList.h&method=displayTree">boolean displayTree();</a></pre>       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofList/sofl_01.cc&method=displayTree">boolean displayTree(SofNode* node, long level);</a></pre>       
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+  <li> This is a simple example wherein we define nodes. Then these
+       nodes are added to the list of objects and we use search methods
+       to test random access to the data.
+
+       <pre>
+SofList list;
+
+// setup a simple symbol table
+//
+SofSymbolTable table;
+     
+SysString n1(L"Long");    long i1 = table.add(n1);
+SysString n2(L"Short");   long i2 = table.add(n2);
+SysString n3(L"Float");   long i3 = table.add(n3);
+SysString n4(L"Char");    long i4 = table.add(n4);
+
+list.add(i1, 0, -1, sizeof(long));
+list.add(i2, 0, -1, sizeof(short));
+list.add(i3, 0, -1, sizeof(float));
+list.add(i4, 0, -1, sizeof(char));
+
+list.add(i2, 1, -1, sizeof(short));
+list.add(i1, -1, -1, sizeof(long));
+list.add(i4, 3, -1, sizeof(char));
+list.add(i4, 2, -1, sizeof(char));
+       
+long tag = list.first(i4);
+if (tag != 0) {
+ Console::put(L"Error in first");
+}
+
+tag = list.next(i4, tag);
+if (tag != 2) {
+ Console::put(L"Error in next");
+}
+
+tag = list.next(i2, -100);
+if (tag != 0) {
+ Console::put(L"Error in next");
+}
+
+tag = list.prev(i1, 1000);
+if (tag != 0) {
+ Console::put(L"Error in first");
+}</pre>
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br
+>
+<ul>
+  <li>none
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

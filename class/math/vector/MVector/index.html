@@ -1,0 +1,610 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="MVector" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="name">
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h">MVector</a></b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ... -l /isip/tools/lib/$ISIP_BINARY/lib_math_vector.a
+
+#include &lt;MVector.h&gt;
+
+MVector();
+MVector(const MVector& arg);
+MVector(long len);
+boolean setLength(long len, boolean preserve_values = true);
+boolean setCapacity(long cap, boolean preserve_values = true);
+boolean add(const MVector& source_vector);
+TIntegral min(long& position) const;
+TIntegral dotProduct(const MVector& vector) const;
+TIntegral norm(const MVector& vector) const;
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+MVector&lt;Double, double&gt val0;
+MVector&lt;Double, double&gt val1;
+MVector&lt;Double, double&gt vsum;
+
+double dotp;
+double norm_val;
+double min_val;
+long pos;
+
+val0.assign(L"1, 3, 5, 7");
+val0.add(2); 
+val1.assign(L"2, 4, 6, 8, 10");
+val1.setLength(4);
+
+vsum.add(val0, val1);
+
+dotp = val0.dotProduct(val1);
+norm_val = val1.norm();
+min_val = val1.min(pos);
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The MVector class is the base class of the vector classes. It includes
+the commonly used mathematical, logical, dsp and linear algebra methods for
+vectors. All the other vector classes are derived from it. A vector object
+can read itself from (or write itself to) a sof file. The MVector methods are
+not supposed to be used by the user directly. They are designed for the other
+vector classes and the MMatrix templates to use.
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li> <a href="../../scalar/Byte/index.html">Byte</a>
+  <li> <a href="../../scalar/Short/index.html">Short</a>
+  <li> <a href="../../scalar/Long/index.html">Long</a>
+  <li> <a href="../../scalar/Llong/index.html">Llong</a>
+  <li> <a href="../../scalar/Ulong/index.html">Ulong</a>
+  <li> <a href="../../scalar/Ushort/index.html">Ushort</a>
+  <li> <a href="../../scalar/Ullong/index.html">Ullong</a>
+  <li> <a href="../../scalar/Float/index.html">Float</a>
+  <li> <a href="../../scalar/Double/index.html">Double</a>
+  <li> <a href="../../scalar/String/index.html">String</a>
+  <li> <a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVectorMethods.h">MVectorMethods</a>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_00.cc&constant=CLASS_NAME">static const String CLASS_NAME = L"MVector";</a></pre>
+       
+  <li> i/o related constants:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_00.cc&constant=DEF_PARAM">static const String DEF_PARAM = L"value";</a></pre>
+
+  <li> i/o data buffering lengths:
+
+       <pre>static const long TEXT_READ_SIZE = 128;
+static const long TEXT_PARTIAL_READ_SIZE = 33;
+static const long TEXT_WRITE_SIZE = 512;</pre>
+       
+  <li> define the default value(s) of the class data:
+       
+       <pre>static const TIntegral DEF_VALUE = TScalar::DEF_VALUE;</pre>
+       <pre>static const long DEF_LENGTH = 0;</pre>
+       
+  <li> default arguments to methods:
+       
+       <pre>static const TIntegral DEF_OFFSET = (TIntegral)0;</pre>
+       <pre>static const TIntegral DEF_INCR = (TIntegral)1;</pre>
+       <pre>static const unichar DEF_DELIM = L',';</pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_00.cc&constant=DEF_DELIM_STR">static const String DEF_DELIM_STR = L", ";</a></pre>
+
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> error code indicating MVector class general error:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00022000">static const long ERR = 22000;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00022001">static const long ERR_LEN = 22001;</a></pre>
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> vector elements:
+       
+       <pre>TScalar* v_d;</pre>
+       
+  <li> the number of elements of this vector:
+       
+       <pre>Long length_d;</pre>
+       
+  <li> the maximum number of elements:
+       
+       <pre>Long capacity_d;</pre>
+       
+  <li> debug level:
+       
+       <pre>static Integral::DEBUG debug_level_d;</pre>
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li> static methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=name">static const String& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_02.cc&method=diagnose">static boolean diagnose(Integral::DEBUG level);</a></pre>
+
+  <li> debug methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=debug">boolean debug(const unichar* message) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=setDebug">static boolean setDebug(Integral::DEBUG level);</a></pre>
+       
+  <li> destructor/constructor(s):
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_00.cc&method=destructor">~MVector();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_00.cc&method=default+constructor">MVector();</a></pre>       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_00.cc&method=copy+constructor">MVector(const MVector& arg);</a></pre>
+       
+  <li> assign methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=assign&instance=0">template&lt;class TAScalar, class TAIntegral&gt;<br>boolean assign(const MVector&lt;TAScalar, TAIntegral&gt;& arg);</a></pre>
+
+  <li> operator= methods:
+       
+       <pre>these methods are omitted because they are defined in
+the classes that instantiate this template</pre>
+       
+  <li> i/o methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_04.cc&method=sofSize">long sofSize() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_03.cc&method=read">boolean read(Sof& sof, long tag, const String& name);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_04.cc&method=write">boolean write(Sof& sof, long tag, const String& name) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_03.cc&method=readData">boolean readData(Sof& sof, const String& pname, long size = SofParser::FULL_OBJECT, boolean param = true, boolean nested = true);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_04.cc&method=writeData">boolean writeData(Sof& sof, const String& name) const;</a></pre>
+
+  <li> equality methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_00.cc&method=eq&instance=0">boolean eq(const MVector& vector) const;</a></pre>
+       
+  <li> memory management methods:
+       
+       <pre>the new and delete methods are omitted because they are
+defined in the classes that instantiate this template</pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_00.cc&method=clear">boolean clear(Integral::CMODE cmode = Integral::DEF_CMODE);</a></pre>
+</ul>
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>
+  
+  <li> debug methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_00.cc&method=debug&instance=0">boolean debug(const String& name, const unichar* message) const;</a></pre>
+
+  <li> constructors:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_00.cc&method=constructor&instance=0">MVector(long len);</a></pre>
+       
+  <li> assign methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_00.cc&method=assign&instance=0">boolean assign(TIntegral arg);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_00.cc&method=assign&instance=1">boolean assign(long length, TIntegral arg);</a></pre>
+
+  <li> array conversion methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_05.cc&method=assign&instance=0">template&lt;class TAIntegral&gt; boolean assign(long num_elem, const TAIntegral* arg)</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_05.cc&method=assign&instance=9">boolean assign(long num_elem, const String* arg)</a></pre>
+
+  <li> conversion methods from string using parsing:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_05.cc&method=assign&instance=10">boolean assign(const String& arg, unichar delim = DEF_DELIM);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_05.cc&method=assign&instance=11">boolean assign(const unichar* arg, unichar delim = DEF_DELIM);</a></pre>
+       
+  <li> conversion methods to string:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_05.cc&method=get">boolean get(String& arg, const String& delim = DEF_DELIM_STR) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_05.cc&method=get">boolean get(String& arg, const unichar* delim) const;</a></pre>
+
+  <li> swap methods: swap the current vector with the input vector
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_05.cc&method=swap">boolean swap(MVector& arg);</a></pre>
+
+  <li> partial i/o methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_03.cc&method=readStart">boolean readStart(Sof& sof, const String& pname = DEF_PARAM, long size = SofParser::FULL_OBJECT, boolean param = true, boolean nested = true);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_03.cc&method=readPartialData">long readPartialData(Sof& sof, long start_pos, long num_elem, const String& pname = DEF_PARAM, long size = SofParser::FULL_OBJECT, boolean param = true, boolean nested = false);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=readTerminate">boolean readTerminate(Sof& sof);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_04.cc&method=writeStart">boolean writeStart(Sof& sof, const String& pname = DEF_PARAM) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_04.cc&method=writePartialData">long writePartialData(Sof& sof, long start_pos, long num_elem) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_04.cc&method=writeTerminate">boolean writeTerminate(Sof& sof, const String& pname = DEF_PARAM) const;</a></pre>
+
+  <li> memory size method:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_11.cc&method=memSize">long memSize() const;</a></pre>
+       
+  <li> equality and comparison methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=eq&instance=0">boolean eq(TIntegral arg) const;</a></pre>
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=ne&instance=0">boolean ne(const MVector& vector) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=ne&instance=1">boolean ne(TIntegral value) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=lt&instance=0">boolean lt(TIntegral value) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=le&instance=0">boolean le(TIntegral value) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=gt&instance=0">boolean gt(TIntegral value) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=ge&instance=0">boolean ge(TIntegral value) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=operator+%3d%3d">boolean operator == (TIntegral arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=operator+!%3d">boolean operator != (TIntegral arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=operator+%3c">boolean operator &lt; (TIntegral arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=operator+%3c%3d">boolean operator &lt;= (TIntegral arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=operator+%3e">boolean operator &gt; (TIntegral arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=operator+%3e%3d">boolean operator &gt;= (TIntegral arg) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_00.cc&method=almostEqual&instance=0">boolean almostEqual(const MVector& vector, double percent = Integral::DEF_PERCENTAGE, double bound = Integral::DEF_BOUND) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_00.cc&method=almostEqual&instance=1">boolean almostEqual(TIntegral value, double percent = Integral::DEF_PERCENTAGE, double bound = Integral::DEF_BOUND) const;</a></pre>
+
+  <li> operator overload methods:
+     
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=operator()&instance=0">TScalar& operator()(long index_a);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=operator()&instance=1">const TScalar& operator()(long index_a) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=length">long length() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=getCapacity">long getCapacity() const;</a></pre>
+       
+  <li> resize methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_00.cc&method=setLength">boolean setLength(long length, boolean preserve_values = true);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_00.cc&method=setCapacity">boolean setCapacity(long capacity, boolean preserve_values = true);</a></pre>
+       
+  <li> bitwise methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=band&instance=0">boolean band(const MVector& v2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=band&instance=1">boolean band(const MVector& v1, const MVector& v2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=band&instance=2">boolean band(TIntegral value;)</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=band&instance=3">boolean band(const MVector& v1, TIntegral value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=bor&instance=0">boolean bor(const MVector& v2;)</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=bor&instance=1">boolean bor(const MVector& v1, const MVector& v2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=bor&instance=2">boolean bor(TIntegral value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=bor&instance=3">boolean bor(const MVector& v1, TIntegral value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=bxor&instance=0">boolean bxor(const MVector& v2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=bxor&instance=1">boolean bxor(const MVector& v1, const MVector& v2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=bxor&instance=2">boolean bxor(TIntegral value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=bxor&instance=3">boolean bxor(const MVector& v1, TIntegral value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=brs&instance=0">boolean brs(TIntegral increment);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=brs&instance=1">boolean brs(const MVector& v1, TIntegral increment);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=bls&instance=0">boolean bls(TIntegral increment)</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=bls&instance=1">boolean bls(const MVector& v1, TIntegral increment);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=bcmpl&instance=0">boolean bcmpl(const MVector& v1);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=bcmpl&instance=1">boolean bcmpl();</a></pre>
+
+  <li> algebraic methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=add&instance=0">boolean add(const MVector& vector);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=add&instance=1">boolean add(const MVector& v1, const MVector& v2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=add&instance=2">boolean add(TIntegral value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=add&instance=3">boolean add(const MVector& vector, TIntegral value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=sub&instance=0">boolean sub(const MVector& vector);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=sub&instance=1">boolean sub(const MVector& v1, const MVector& v2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=sub&instance=2">boolean sub(TIntegral value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=sub&instance=3">boolean sub(const MVector& vector, TIntegral value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=mult&instance=0">boolean mult(const MVector& vector);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=mult&instance=1">boolean mult(const MVector& v1, const MVector& v2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=mult&instance=2">boolean mult(TIntegral value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=mult&instance=3">boolean mult(const MVector& vector, TIntegral value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=div&instance=0">boolean div(const MVector& vector);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=div&instance=1">boolean div(const MVector& v1, const MVector& v2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=div&instance=2">boolean div(TIntegral value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=div&instance=3">boolean div(const MVector& vector, TIntegral value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=mod&instance=0">boolean mod(const MVector& vector);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=mod&instance=1">boolean mod(const MVector& v1, const MVector& v2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=mod&instance=2">boolean mod(TIntegral value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=mod&instance=3">boolean mod(const MVector& vector, TIntegral value);</a></pre>
+
+  <li> common mathematical methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_11.cc&method=pow&instance=0">boolean pow(double y);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_11.cc&method=pow&instance=0">boolean pow(const MVector& x, double y);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=exp&instance=0">boolean exp();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=exp&instance=1">boolean exp(const MVector& vector);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=exp2&instance=0">boolean exp2();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=exp2&instance=1">boolean exp2(const MVector& vector);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=exp10&instance=0">boolean exp10();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=exp10&instance=1">boolean exp10(const MVector& vector);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=factorial&instance=0">boolean factorial();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=factorial&instance=1">boolean factorial(const MVector& x);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=log&instance=0">boolean log();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=log&instance=1">boolean log(const MVector& vector);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=log1p&instance=0">boolean log1p();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=log1p&instance=1">boolean log1p(const MVector& vector);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=log2&instance=0">boolean log2();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=log2&instance=1">boolean log2(const MVector& vector);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=log10&instance=0">boolean log10();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=log10&instance=1">boolean log10(const MVector& vector);</a></pre>
+
+  <li> sorting and indexing methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_10.cc&method=sort">boolean sort(Integral::ORDER order = Integral::DEF_ORDER);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_10.cc&method=sort">boolean sort(const MVector& vector, Integral::ORDER order = Integral::DEF_ORDER);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_10.cc&method=index">boolean index(VectorLong& sort_index);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_10.cc&method=randperm">boolean randperm(long size);</a></pre>
+     
+  <li> mathematical limits, ceiling, floor and rounding methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=abs&instance=0">boolean abs();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=abs&instance=1">boolean abs(const MVector& vector);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_11.cc&method=max">TIntegral max() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_11.cc&method=max">TIntegral max(long& position) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_11.cc&method=min">TIntegral min() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_11.cc&method=min">TIntegral min(long& position) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_11.cc&method=minMag">double minMag() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_11.cc&method=minMag">double minMag(long& position) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_11.cc&method=maxMag">double maxMag() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_11.cc&method=maxMag">double maxMag(long& position) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=neg&instance=0">boolean neg();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=neg&instance=1">boolean neg(const MVector& vector);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=round&instance=0">boolean round();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=round&instance=1">boolean round(const MVector& vector);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=ceil&instance=0">boolean ceil();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=ceil&instance=1">boolean ceil(const MVector& vector);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=rceil&instance=0">boolean rceil();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=rceil&instance=1">boolean rceil(const MVector& vector);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=floor&instance=0">boolean floor();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=floor&instance=1">boolean floor(const MVector& vector);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=rfloor&instance=0">boolean rfloor();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=rfloor&instance=1">boolean rfloor(const MVector& vector);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=fraction&instance=0">boolean fraction();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=fraction&instance=1">boolean fraction(const MVector& vector_a);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=sign&instance=0">boolean sign();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=sign&instance=1">boolean sign(const MVector& vector);</a></pre>
+
+  <li> trigonometric methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=sin&instance=0">boolean sin();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=sin&instance=1">boolean sin(const MVector& vector);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=sinh&instance=0">boolean sinh();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=sinh&instance=1">boolean sinh(const MVector& vector);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=cos&instance=0">boolean cos();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=cos&instance=1">boolean cos(const MVector& vector);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=cosh&instance=0">boolean cosh();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=cosh&instance=1">boolean cosh(const MVector& vector);</a></pre>       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=tan&instance=0">boolean tan();</a></pr></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=tan&instance=1">boolean tan(const MVector& vector);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=tanh&instance=0">boolean tanh();</a></pr></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=tanh&instance=1">boolean tanh(const MVector& vector);</a></pre>       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=asin&instance=0">boolean asin();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=asin&instance=1">boolean asin(const MVector& vector);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=asinh&instance=0">boolean asinh();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=asinh&instance=1">boolean asinh(const MVector& vector);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=acos&instance=0">boolean acos();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=acos&instance=1">boolean acos(const MVector& vector);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=acosh&instance=0">boolean acosh();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=acosh&instance=1">boolean acosh(const MVector& vector);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=atan&instance=0">boolean atan();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=atan&instance=1">boolean atan(const MVector& vector);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=atanh&instance=0">boolean atanh();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=atanh&instance=1">boolean atanh(const MVector& vector);</a></pre>
+
+  <li> ramp function generation methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_06.cc&method=ramp&instance=0">boolean ramp(TIntegral offset = DEF_OFFSET, TIntegral incr = DEF_INCR);</a></pre>
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_06.cc&method=ramp&instance=1">boolean ramp(TIntegral offset, TIntegral incr, TIntegral end);</a></pre>
+
+  <li> square methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=sqrt&instance=0">boolean sqrt();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=sqrt&instance=1">boolean sqrt(const MVector<TScalar,TIntegral>& x);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=square&instance=0">boolean square();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=square&instance=1">boolean square(const MVector<TScalar,TIntegral>& x);</a></pre>
+
+  <li> inverse methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=inverse&instance=0">boolean inverse();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=inverse&instance=0">boolean inverse(const MVector<TScalar,TIntegral>& x);</a></pre>
+  <li> vector to scalar mathematical methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_06.cc&method=sum">TIntegral sum() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_06.cc&method=sumSquare">TIntegral sumSquare() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_06.cc&method=mean">TIntegral mean() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_06.cc&method=rms">TIntegral rms() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_06.cc&method=var">TIntegral var() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_06.cc&method=stdev">TIntegral stdev() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_06.cc&method=dotProduct">TIntegral dotProduct(const MVector& vector) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=norm">TIntegral norm() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=distance">TIntegral distance(const MVector& vector) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_06.cc&method=distanceSquare">TIntegral distanceSquare(const MVector& vector) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_06.cc&method=numEqual">long numEqual(TIntegral test_value) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_06.cc&method=numNotEqual">long numNotEqual(TIntegral test_value) const;</a></pre>
+
+  <li> dsp methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_07.cc&method=limit">boolean limit(TIntegral min_val, TIntegral max_val);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_07.cc&method=limit">boolean limit(TIntegral min_val, TIntegral max_val, const MVector& vector);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_07.cc&method=limitMin">boolean limitMin(TIntegral min_val);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_07.cc&method=limitMin">boolean limitMin(TIntegral min_val, const MVector& vector);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_07.cc&method=limitMax">boolean limitMax(TIntegral max_val);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_07.cc&method=limitMax">boolean limitMax(TIntegral max_val, const MVector& vector);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_07.cc&method=limitMag">boolean limitMag(TIntegral cmp_val, TIntegral new_val);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_07.cc&method=limitMag">boolean limitMag(TIntegral cmp_val, TIntegral new_val, const MVector& vector);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_07.cc&method=centerClip">boolean centerClip(TIntegral min_val, TIntegral max_val);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_07.cc&method=centerClip">boolean centerClip(TIntegral min_val, TIntegral max_val, const MVector& vector);</a></pre>
+
+  <li> random number generation methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_08.cc&method=rand&instance=0">boolean rand(Random& generator = Random::GLOBAL_UNIFORM);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_08.cc&method=rand&instance=1">boolean rand(TIntegral min_val, TIntegral max_val, Random& generator = Random::GLOBAL_UNIFORM);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_08.cc&method=grand">boolean grand(TIntegral mean, TIntegral stdev, Random& generator = Random::GLOBAL_GAUSSIAN);</a></pre>
+       
+  <li> position operation methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_09.cc&method=move">boolean move(const MVector& vector, long num_elements, long source_offset, long dest_offset);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_09.cc&method=shift&instance=0">boolean shift(long delta);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_09.cc&method=shift&instance=1">boolean shift(const MVector& vector, long delta);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_09.cc&method=concat&instance=0">boolean concat(const MVector& v2);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_09.cc&method=concat&instance=1">boolean concat(const MVector& v1, const MVector& v2);</a></pre>
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_09.cc&method=deleteRange">boolean deleteRange(long offset, long num_elements);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_09.cc&method=deleteRange">boolean deleteRange(const MVector& v1, long offset, long num_elements);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_09.cc&method=setRange">boolean setRange(long offset, long num_elements, Integral value);</a></pre>
+
+  <li> search, ordering and reverse methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_10.cc&method=first">long first(TIntegral value, long start_pos = Integral::NO_POS);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_10.cc&method=last">long last(TIntegral value, long end_pos = Integral::NO_POS);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_10.cc&method=reorder&instance=0">boolean reorder(const MVector<Long,long>& indexes);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_10.cc&method=reorder&instance=1">boolean reorder(const MVector& arg, const MVector<Long,long>& indexes);</a></pre>
+        <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/mvec_10.cc&method=reverse">boolean reverse();</a></pre>
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>       
+  <li> apply methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=apply&instance=0">boolean apply(const MVector& v_a, TIntegral (TScalar::*method_a));</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=apply&instance=1">template&lt;class TAScalar, class TAIntegral&gt; boolean apply(const MVector& v_a, const MVector&lt;TAScalar, TAIntegral&gt;& arg2, TIntegral (TScalar::*method_a));</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=apply&instance=2">boolean apply(const MVector& v_a, TIntegral arg2, TIntegral (TScalar::*method_a));</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/MVector/MVector.h&method=apply&instance=3">boolean apply(TIntegral arg2, boolean (TScalar::*method) (TIntegral) const) const;</a></pre>
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+
+  <li> This example shows how to use the i/o methods for a MVector&lt;Long, long&gt; object
+       
+       <pre>
+       MVector&lt;Long, long&gt; val0;
+       MVector&lt;Long, long&gt; val1;
+
+       val0.assign(L"1, 2, 3, 4, 5");
+       val1.assign(L"2, 4, 6");
+       
+       String file_name(L"foo");
+       Sof tmp_file0;
+       tmp_file0.open(file_name, File::WRITE_ONLY, File::TEXT);
+       
+       // write the values
+       //
+       val0.write(tmp_file0, (long)0);
+       val1.write(tmp_file0, (long)1);
+
+       // close the files
+       //
+       tmp_file0.close();
+       
+       // open the files in read mode
+       //
+       tmp_file0.open(file_name);
+       
+       // read the values back in
+       //
+       if (!val1.read(tmp_file0, (long)0) || (!val1.almostEqual(val0))) {
+            val0.debug(L"val0");
+            val1.debug(L"val1");
+            return Error::handle(val0.name(), L"read-text", Error::TEST,
+                                 __FILE__,__LINE__);
+       }
+       // close the files
+       //
+       tmp_file0.close();
+
+       </pre>
+
+  <li> This example shows how to do some basic mathematical, logical and dsp operations for MVector objects
+       <pre>
+       MVector&lt;Double, double&gt val0;
+       MVector&lt;Long, long&gt;val1;
+       MVector&lt;Double, double&gt; val2;
+       
+       double mean;
+       double variance;
+       double sum;
+       
+       val0.assign(L"45.21, 38.23, 52.56, 47.80");
+       val0.round();
+       val1.assign(val0);
+
+       val2.log(val0);
+       
+       val1.limit(40, 50);
+       if (!val1.gt(39)){
+          return Error::handle(val0.name(), L"gt", Error::TEST, __FILE__, __LINE__);
+       }
+       mean = val0.mean();
+       variance = val0.var();
+       sum = val0.sum();
+</pre>
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+<li> Each vector has both "length" and "capacity". Capacity needs to be changed
+     only when we want to change the allocated memory for the vector object.
+     Length shows number of valid scalar objects in the vector.
+
+     <br><br>
+
+<li> Some methods in this template class are also template functions,
+     such as assign, add, sub, mult, and div. This means that these
+     functions accept any Vector type as input, so you can assign a
+     VectorFloat to a VectorLong, subtract a VectorShort from a
+     VectorDouble, etc. For more information see the
+     <a href="./../index.html">library level documentation</a>.
+     
+     <br><br>
+
+<li> The setDebug method for this class is static because the debug_level
+     is shared across all objects of this class type.
+
+     <br><br>
+
+<li> We implemented generalized dotProduct method. For complex vectors
+     it conjugates the elements of the second vector.
+       
+     <br><br>
+
+<li> While friend functions are generally discouraged in the ISIP
+     environment, they are used in the MVector class to circumvent the
+     template delayed compilation problem.
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

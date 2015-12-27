@@ -1,0 +1,401 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="Stack" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="name">
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h">Stack&lt;class TObject&gt</a>: public <a href = "../DstrBase/">DstrBase &lt;TObject&gt;</a></b>
+</b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ...
+
+#include &lt;Stack.h&gt;
+Stack();
+boolean assign(const Stack&lt;TObject&gt& copy_stack);
+boolean push(TObject* item);
+TObject* pop(TObject* item = (TObject*)NULL);
+const TObject* peek() const;
+boolean pop(Stack&lt;TObject&gt;& item_stack, long num_items);
+boolean clear();
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+// declare a character stack and push two characters into it
+//
+Stack&lt;Char&gt stack;
+Char item0(L'a');
+Char item1(L'b');
+stack.push(&item0);
+stack.push(&item1);
+
+// pop the top item from the stack
+//
+Char* item2 = new Char();
+stack.pop(item2);
+
+if(!item2->eq(item1)) {
+  // error
+}
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The Stack class is a container class that implements a standard
+stack (last-in, first-out) using a double linked list.
+For a good reference on stacks, see:
+
+<ul>
+  T. Cormen, C. Leiserson, R. Rivest,
+  <i>Introduction to Algorithms</i>,
+  MIT Press, Boston, Massachusetts, USA, pp. 200-203, 1998.
+</ul>
+
+This class uses the double linked list in USER mode, since this list
+is used to store either the actual data or a pointer to it.
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li> <a href="../DstrBase/"> DstrBase </a><br>
+  <li> <a href="../DoubleLinkedList/"> DoubleLinkedList </a><br>
+  <li> <a href="../../math/scalar/String/"> String </a> <br>
+  <li> <a href="../../math/scalar/Char/"> Char </a> <br>
+  <li> <a href="../../system/Console/"> Console </a> <br>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&constant=CLASS_NAME">static const String CLASS_NAME = L"Stack";</a></pre>
+       
+  <li> i/o related constants:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&constant=DEF_PARAM">static const String DEF_PARAM = L"values";</a></pre>
+
+  <li> default values and arguments:
+
+       <pre>static const long POP_ALL = -1;</pre>
+       <pre>static const long POP_TO_MARK = -2;</pre>       
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> general Stack class error:
+
+       <pre><a href="/perl/ifc_document.pl?err=00040500">static const long ERR = 40500;</a></pre>
+       
+  <li> error code indicating the stack is empty:
+
+       <pre><a href="/perl/ifc_document.pl?err=00040501">static const long ERR_EMPTY = 40501</a></pre>
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> the internal structure of the stack is a DoubleLinkedList:
+       
+       <pre>DoubleLinkedList&lt;TObject&gt; stack_d;</pre>
+       
+  <li> the allocation mode:
+
+       <pre>ALLOCATION alloc_d;</pre>
+       
+  <li> debugging parameters:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&static=debug_level_d">static Integral::DEBUG debug_level_d;</a></pre>
+
+  <li> static memory manager:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&static=mgr_d">static MemoryManager mgr_d;</a></pre>
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>  
+  <li> static methods: diagnose method is moved outside the class
+header file and defined in the StackDiagnose.h in order to avoid the
+issues related with the preprocessing of the diagnose code
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=name">static const String& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/StackDiagnose.h&method=diagnose">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+       
+  <li> debug methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=setDebug">static boolean setDebug(Integral::DEBUG debug_level);</a></pre>       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=debug">boolean debug(const unichar* message) const;</a></pre>
+       
+  <li> destructor/constructor(s):
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=destructor">~Stack();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=default+constructor">Stack(ALLOCATION alloc = DEF_ALLOCATION);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=copy+constructor">Stack(const Stack&lt;TObject&gt;& copy_stack);</a></pre>
+
+  <li> assign methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=assign&instance=0">boolean assign(const Stack&lt;TObject&gt;& copy_stack);</a></pre>
+
+  <li> operator= methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=operator%3D">Stack&lt;TObject&gt;& operator=(const Stack&lt;TObject&gt;& arg);</a></pre>
+
+  <li> equality methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=eq">boolean eq(const Stack&lt;TObject&gt;& compare_stack) const;</a></pre>
+       
+  <li> i/o methods: refer to the <a href = "./index.html#notes">notes</a>
+section for an explanation of having two read and write methods in
+this class
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=sofSize">long sofSize() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=read&instance=0">boolean read(Sof& sof_a, long tag_a);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=write&instance=0">boolean write(Sof& sof_a, long tag_a) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=read&instance=1">boolean read(Sof& sof_a, long tag_a, const String& name_a);</a></pre>                
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=write&instance=1">boolean write(Sof& sof_a, long tag_a, const String& name_a) const;</a></pre>       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=readData">boolean readData(Sof& sof, const String& pname = DEF_PARAM, long size = SofParser::FULL_OBJECT, boolean param = true, boolean nested = false);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=writeData">boolean writeData(Sof& sof, const String& pname = DEF_PARAM) const;</a></pre>
+
+  <li> memory management methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=new">static void* operator new(size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=new\[\]">static void* operator new[](size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=delete">static void operator delete(void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=delete\[\]">static void operator delete[](void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=setGrowSize">static boolean setGrowSize(long grow_size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=clear">boolean clear(Integral::CMODE cmode = Integral::DEF_CMODE);</a></pre>
+</ul>    
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+<ul>
+  <li> extensions to required methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=ne">boolean ne(const Stack&lt;TObject&gt;& compare_stack) const;</a></pre>
+       
+  <li> stack push methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=push&instance=0">boolean push(TObject* item);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=push&instance=1">boolean push(Stack&lt;TObject&gt;& item_stack);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=push&instance=2">boolean push(TObject** items, long num_items);</a></pre>
+
+  <li> other stack manipulation methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=peek&instance=0">const TObject* peek() const;</a></pre>       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=peek&instance=1">TObject* peek();</a></pre>       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=pop">TObject* pop(TObject* item = (TObject*)NULL);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=pop">long pop(Stack<TObject>& items, long num_items);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=popAll">boolean popAll(Stack&lt;TObject&gt;& item_stack);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=popToMark">boolean popToMark(Stack&lt;TObject&gt;& item_stack);</a></pre>
+       
+  <li> stack marker positioning methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=setMark">boolean setMark();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=clearMark">boolean clearMark();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=markIsSet">boolean markIsSet() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=getMark&instance=0">const TObject* getMark() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=getMark&instance=1">TObject* getMark();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=isMarkedElement">boolean isMarkedElement() const;</a></pre>
+       
+  <li> stack property methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=isEmpty">boolean isEmpty() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=length">long length() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=find">boolean find(TObject* value);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=contains">boolean contains(TObject* value) const;</a></pre>
+
+  <li> stack computation methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=apply&instance=0">boolean apply(boolean (TObject::*method)());</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=apply&instance=1">boolean apply(boolean (TObject::*method)(), Stack&lt;TObject&gt;& arg);</a></pre>
+       
+  <li> sort and reverse methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=sort">boolean sort(Integral::ORDER sort_order = Integral::ASCENDING, SORT_ALGO sort_algo =  DEF_SORT_ALGO);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=reverse">boolean reverse();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=getAllocationMode">ALLOCATION getAllocationMode() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/Stack/Stack.h&method=setAllocationMode">boolean setAllocationMode(ALLOCATION alloc);</a></pre>       
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+  <li> none.
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+    <li> This example shows the basic operation of a stack.
+       
+       <pre>
+#include &lt;Char.h&gt;
+#include &lt;Stack.h&gt;
+
+int main () {
+
+  // local variables
+  //
+  Stack&lt;Long&gt s;
+  Long j;
+
+  // add 10 items to the stack
+  //       
+  for (long i = 0; i < 10; i++) {
+    j = i * 3;
+    s.push(&j);
+  }
+
+  // see what is on the stack
+  //       
+  s.debug(L"after push");
+
+  // pull things off the stack and print them in order
+  //       
+  while (s.pop(&j) != (Long*)NULL) {
+    j.debug(L"pulled off stack");
+  }
+       
+  // exit gracefully
+  //
+  Integral::exit();
+}       
+       </pre>
+  <li> This example shows the basic operation of a stack in reference mode. Note that memory is manually allocated before pushing it to the stack and deleted upon popping.
+       
+       <pre>
+#include &lt;Char.h&gt;
+#include &lt;Stack.h&gt;
+
+int main () {
+
+  // local variables (note that the stack is set to reference mode)
+  //
+  Stack&lt;Long&gt s(USER);
+  Long* j;
+
+  // add 10 items to the stack
+  //       
+  for (long i = 0; i < 10; i++) {
+    j = new Long(i * 3);
+    s.push(j);
+  }
+
+  // see what is on the stack
+  //       
+  s.debug(L"after add");
+
+  // pull things off the stack and print them in order
+  //       
+  while ((j = s.pop()) != (Long*)NULL) {
+    j->debug(L"pulled off stack");
+    delete j;
+  }
+       
+  // exit gracefully
+  //
+  Integral::exit();
+}       
+       </pre>
+  <li> This example shows how to check if Stacks are equal:
+       
+       <pre>
+#include &lt;Char.h&gt;
+#include &lt;Stack.h&gt;
+
+int main () {
+
+  // prepare items for the stack
+  //
+  Char** items = new Char*[5];
+  for (long i = 0; i < 5; i++) {
+     items[i] = new Char((unichar)((long)(L'a') + i));
+  }
+
+  // declare a stack and push items into it
+  //
+  Stack&lt;Char&gt; char_stack;
+  char_stack.push(items, 5);
+
+  // copy the stack
+  //
+  Stack&lt;Char&gt; copy_char_stack(char_stack);
+
+  // see if these Stacks are equivalent
+  //
+  if(!char_stack.eq(copy_char_stack)) {
+       
+    // exit with error
+    //
+    Integral::exit();
+    
+  }
+       
+  // clean up the memory used
+  //
+  for (long i = 0; i < 5; i++) {
+    delete items[i]; 
+  }
+  delete [] items; 
+  
+  // exit gracefully
+  //
+  Integral::exit();
+}
+</pre>
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> There are two allocation modes for Stack. Only the internal DoubleLinkedList is always in USER mode. this linked list will never be SYSTEM-allocating as the user would not be able to use the pop'd elements if the list was SYSTEM-allocating.
+
+       <br><br>
+
+  <li> Unlike other classes, we have two read and write methods in dstr
+       classes. The interface is still the same as that in other
+       classes. The reason behind this is that we can not use
+       "CLASS_NAME" as default argument in the read and write methods
+       here because the data structures build the class name on the fly.       
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

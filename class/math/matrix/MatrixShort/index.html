@@ -1,0 +1,206 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="MatrixShort" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="name">
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixShort/MatrixShort.h">MatrixShort</a> : public  <a href="../MMatrix/index.html">MMatrix&lt;Short, short&gt;</a></b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ... -l /isip/tools/lib/$ISIP_BINARY/lib_math_matrix.a
+
+#include &lt;MatrixShort.h&gt;
+
+MatrixShort(long nrows = DEF_SIZE, long ncols = DEF_SIZE,
+             long type = DEF_TYPE);
+MatrixShort(const MatrixShort& matrix);
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote> 
+<pre>
+short data0[6] = {1, 2, 3, 4, 5, 6};
+short data1[6] = {4, 6, 7, 2, 3, 9};
+
+MatrixShort val0;
+MatrixShort val1(3, 3, Integral::LOWER_TRIANGLE);
+val0.assign(2, 3, data0);
+val1.assign(3, 3, data1);
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The MatrixShort class manages a matrix of Short objects. It is derived
+from the MMatrix class and inherits the commonly used mathematical,
+logical, linear algebra and i/o methods from it. A MatrixShort object
+can read itself from (or write itself to) a Sof file. It includes the
+memory management methods which use the MemoryManager class to
+allocate or delete memory from the heap.
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li> <a href="../MMatrix/index.html">MMatrix</a>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixShort/msht_00.cc&constant=CLASS_NAME">static const String CLASS_NAME = L"MatrixShort";</a></pre>
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> error code indicating MatrixShort class general error:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00024500">static const long ERR = 24500;</a></pre>
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> define memory manager:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixShort/msht_00.cc&static=mgr_d">static MemoryManager mgr_d;</a></pre> 
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li> static methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixShort/MatrixShort.h&method=name">static const String& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixShort/msht_02.cc">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+
+  <li> debug methods: the setDebug() method is inherited from the <a href=../MMatrix/index.html#public>MMatrix</a> template class
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixShort/MatrixShort.h&method=debug">boolean debug(const unichar* message) const;</a></pre>
+      
+ <li> destructor/constructor(s):
+      
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixShort/MatrixShort.h&method=destructor">~MatrixShort();</a></pre>
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixShort/MatrixShort.h&method=default+constructor">MatrixShort(long nrows = DEF_SIZE, long ncols = DEF_SIZE, long type = DEF_TYPE);</a></pre>
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixShort/MatrixShort.h&method=copy+constructor">MatrixShort(const MatrixShort& matrix);</a></pre>
+      
+ <li> assign methods:
+
+      <pre>these methods are inherited from the <a href="../MMatrix/index.html#public">MMatrix</a> template class</pre>
+      
+ <li> operator= methods:
+      
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixShort/MatrixShort.h&method=operator%3D&instance=0">MatrixShort& operator=(const MatrixShort& matrix);</a></pre>
+      
+   <li> i/o methods: the sofSize, readData and writeData methods are inherited from the <a href="../MMatrix/index.html#public">MMatrix</a> template class
+	
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixShort/MatrixShort.h&method=read">boolean read(Sof& sof, long tag, const String& name = CLASS_NAME);</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixShort/MatrixShort.h&method=write">boolean write(Sof& sof, long tag, const String& name = CLASS_NAME) const;</a></pre>
+       
+  <li> equality methods:
+       
+       <pre>these methods are inherited from the <a href=../MMatrix/index.html#public>MMatrix</a> template class</pre>
+       
+  <li> memory management methods: the clear method is inherited from the <a href="../MMatrix/index.html#public">MMatrix </a> template class
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixShort/MatrixShort.h&method=new">static void* operator new(size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixShort/MatrixShort.h&method=new\[\]">static void* operator new[](size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixShort/MatrixShort.h&method=delete">static void operator delete(void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixShort/MatrixShort.h&method=delete\[\]">static void operator delete[](void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixShort/MatrixShort.h&method=setGrowSize">static boolean setGrowSize(long grow_size);</a></pre>
+</ul>
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>
+  <li> constructor: this method constructs a matrix with a unichar* object
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixShort/MatrixShort.h&method=constructor">MatrixShort(long nrows, long ncols, const unichar* arg, long type = DEF_TYPE, const Char delim = DEF_DELIM);</a></pre>
+
+  <li> operator= methods: this method assigns a short value to the matrix
+                 
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixShort/MatrixShort.h&method=operator%3D&instance=1">MatrixShort& operator=(short value);</a></pre>
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+  <li> none
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+  <li> This example shows how to write a MatrixShort object into a Sof file
+
+<pre>
+// define a MatrixShort object
+//
+MatrixShort val0(3, 3, Integral::SYMMETRIC);
+
+// assign values to the matrix by calling operator= method
+//
+val0 = 5;
+
+// define a file name and declare an Sof object
+//       
+String tmp_filename(L"foo");
+Sof tmp_file;
+
+// open the file in write mode       
+//       
+tmp_file.open(tmp_filename, File::WRITE_ONLY, File::TEXT);
+
+// write the matrix object to the Sof file
+//       
+val0.write(tmp_file, (long)0);
+
+// close the file
+//       
+tmp_file.close();</pre>       
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> See the <a href="../MMatrix/index.html#notes">notes section of MMatrix</a>.
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

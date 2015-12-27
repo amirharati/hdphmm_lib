@@ -1,0 +1,201 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="Char" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="name">
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Char/Char.h">Char</a> : public  <a href="../../../system/SysChar/index.html">SysChar</a></b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ... -l /isip/tools/lib/$ISIP_BINARY/lib_math_scalar.a
+
+#include &lt;Char.h&gt;
+
+Char(char arg = DEF_VALUE);
+Char(const Char& arg);
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+Char* ptr;
+ptr = new Char();
+ptr->assign(L'5');
+delete ptr;
+
+Char val0;
+val0.assign((unichar)'w');
+Char val1(val0);
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br> <br>
+
+The Char class inherits the SysChar class functionality.  We only
+add I/O methods and scalar type conversions to SysChar, to enable
+Char to become a complete scalar object.
+The reason for having both Char and SysChar classes is that one
+is needed at the bottom of the class hierarchical structure to be
+used by lower-level classes including the I/O classes.  The Char class is
+above the i/o layer, so it can inherit the I/O methods that are not
+known at the SysChar level.
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li> <a href="../../../system/SysChar/index.html">SysChar</a>
+  <li> <a href="../../../system/MemoryManager/index.html">MemoryManager</a>
+  <li> <a href="../String/index.html">String</a>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Char/char_00.cc&constant=CLASS_NAME">static const String CLASS_NAME = L"Char";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Char/char_00.cc&constant=DEF_PARAM">static const String DEF_PARAM = L"value";</a></pre>
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> error code indicating console class general error:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00020300">static const long ERR = 20300;</a></pre>	 
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> a static memory manager:
+       
+       <pre>static MemoryManager mgr_d;</pre>
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li> static methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Char/Char.h&method=name">static const String& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Char/char_02.cc&method=diagnose">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+  <li> debug methods:
+       
+       <pre>setDebug is inherited from the <a href="../../../system/SysChar/index.html#public:debug">SysChar</a> class</pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Char/char_01.cc&method=debug">boolean debug(const unichar* message) const;</a></pre>
+       
+  <li> destructor/constructor(s):
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Char/Char.h&method=destructor">~Char();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Char/Char.h&method=default constructor">Char(unichar arg = DEF_VALUE);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Char/Char.h&method=copy constructor">Char(const Char& arg);</a></pre>     
+
+  <li> assign methods:
+       
+       <pre>assign methods are inherited from the <a href="../../../system/SysChar/index.html#public:assign">SysChar</a> class</pre>
+
+  <li> operator= methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Char/Char.h&method=operator%3D">Char& operator= (const Char& arg);</a></pre>
+           
+  <li> i/o methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Char/Char.h&method=sofSize">long sofSize() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Char/char_03.cc&method=read">boolean read(Sof& sof, long tag, const String& name = CLASS_NAME);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Char/char_04.cc&method=write">boolean write(Sof& sof, long tag, const String& name = CLASS_NAME) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Char/char_03.cc&method=readData">boolean readData(Sof& sof, const String& pname = DEF_PARAM, long size = SofParser::FULL_OBJECT, boolean param = true, boolean nested = false);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Char/char_04.cc&method=writeData">boolean writeData(Sof& sof, const String& name= DEF_PARAM) const;</a></pre>
+       
+   <li> equality methods:
+	
+       <pre>equality methods are inherited from the <a href="../../../system/SysChar/index.html#public:equality">SysChar</a> class</pre>
+	
+   <li> memory management methods:
+	
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Char/Char.h&method=new">static void* operator new(size_t size);</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Char/Char.h&method=new[]">static void* operator new[](size_t size);</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Char/Char.h&method=delete">static void operator delete(void* ptr);</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Char/Char.h&method=delete[]">static void operator delete[](void* ptr);</a></pre>
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Char/Char.h&method=setGrowSize">static boolean setGrowSize(long grow_size);</a></pre>
+	<pre>clear is inherited from the <a href="../../../system/SysChar/index.html#public:memory">SysChar</a> class</pre>
+ </ul>
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+ 
+<ul>
+  <li> constructors:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/Char/Char.h&method=Char">Char(const byte* data, ENCODE encoding = DEF_ENCODE);</a></pre>
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+  <li> none.
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+  <li> This example shows how to write a Char object into a Sof file:
+       
+<pre>
+Char val0;
+val0.assign((unichar)'h');
+String tmp_filename(L"foo");
+Sof tmp_file;
+tmp_file.open(tmp_filename, File::WRITE_ONLY, File::TEXT);
+       
+val0.write(tmp_file, (long)0);
+tmp_file.close();</pre>
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> See the
+       <a href="../MScalar/index.html#notes">notes section of MScalar</a>.
+
+       <br><br>
+       
+  <li> See the
+       <a href="../../../system/SysChar/index.html#notes">
+       notes section of SysChar</a>.     
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

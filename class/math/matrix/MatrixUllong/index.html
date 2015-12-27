@@ -1,0 +1,207 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="MatrixUllong" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="name">
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixUllong/MatrixUllong.h">MatrixUllong</a> : public  <a href="../MMatrix/index.html">MMatrix&lt;Ullong, ullong&gt;</a></b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ... -l /isip/tools/lib/$ISIP_BINARY/lib_math_matrix.a
+
+#include &lt;MatrixUllong.h&gt;
+
+MatrixUllong(long nrows = DEF_SIZE, long ncols = DEF_SIZE,
+             long type = DEF_TYPE);
+MatrixUllong(const MatrixUllong& matrix);
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+ullong data0[6] = {1, 2, 3, 4, 5, 6};
+ullong data1[6] = {4, 6, 7, 2, 3, 9};
+
+MatrixUllong val0;
+MatrixUllong val1(3, 3, Integral::LOWER_TRIANGLE);
+val0.assign(2, 3, data0);
+val0.assign(3, 3, data1);
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The MatrixUllong class manages a matrix of Ullong objects. It is
+derived from the MMatrix class and inherits the commonly used
+mathematical, logical, linear algebra and i/o methods from it. A
+MatrixUllong object can read itself from (or write itself to) a Sof
+file. It includes the memory management methods which use the
+MemoryManager class to allocate or delete memory from the heap.
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li> <a href="../MMatrix/index.html">MMatrix</a>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixUllong/mullg_00.cc&constant=CLASS_NAME">static const String CLASS_NAME = L"MatrixUllong";</a></pre>   
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> error code indicating MatrixUllong class general error:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00024400">static const long ERR = 24400;</a></pre>
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> define memory manager:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixUllong/mullg_00.cc&static=mgr_d">static MemoryManager mgr_d;</a></pre> 
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li> static methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixUllong/MatrixUllong.h&method=name">inline static const String& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixUllong/mullg_02.cc">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+
+  <li> debug methods: the setDebug() method is inherited from the <a href=../MMatrix/index.html#public>MMatrix</a> template class
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixUllong/MatrixUllong.h&method=debug">boolean debug(const unichar* message) const;</a></pre>
+
+  <li> destructor/constructor(s):
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixUllong/MatrixUllong.h&method=destructor">~MatrixUllong();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixUllong/MatrixUllong.h&method=default+constructor">MatrixUllong(long nrows = DEF_SIZE, long ncols = DEF_SIZE, long type = DEF_TYPE);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixUllong/MatrixUllong.h&method=copy+constructor">MatrixUllong(const MatrixUllong& matrix);</a></pre>
+
+  <li> assign methods:
+
+       <pre>these methods are inherited from the <a href="../MMatrix/index.html#public">MMatrix</a> template class</pre>
+
+  <li> operator= methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixUllong/MatrixUllong.h&method=operator%3D&instance=0">MatrixUllong& operator=(const MatrixUllong& matrix);</a></pre>
+       
+  <li> i/o methods: the sofSize, readData and writeData methods are inherited from the <a href="../MMatrix/index.html#public">MMatrix</a> template class
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixUllong/MatrixUllong.h&method=read">boolean read(Sof& sof, long tag, const String& name = CLASS_NAME);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixUllong/MatrixUllong.h&method=write">boolean write(Sof& sof, long tag, const String& name = CLASS_NAME) const;</a></pre>
+       
+  <li> equality methods:
+
+       <pre>these methods are inherited from the <a href=../MMatrix/index.html#public>MMatrix</a> template class</pre>
+       
+  <li> memory management methods: the clear method is inherited from the <a href="../MMatrix/index.html#public">MMatrix </a> template class
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixUllong/MatrixUllong.h&method=new">static void* operator new(size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixUllong/MatrixUllong.h&method=new\[\]">static void* operator new[](size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixUllong/MatrixUllong.h&method=delete">static void operator delete(void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixUllong/MatrixUllong.h&method=delete\[\]">static void operator delete[](void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixUllong/MatrixUllong.h&method=setGrowSize">static boolean setGrowSize(long grow_size);</a></pre>
+</ul>
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>
+  <li> constructor: this method constructs a matrix with a unichar* object
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixUllong/MatrixUllong.h&method=constructor">MatrixUllong(long nrows, long ncols, const unichar* arg, long type = DEF_TYPE, const Char delim = DEF_DELIM);</a></pre>
+  
+  <li> operator= methods: this method assigns a ullong value to the matrix
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/matrix/MatrixUllong/MatrixUllong.h&method=operator%3D&instance=1">MatrixUllong& operator= (ullong value);</a></pre>
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+  <li> none
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+  <li> This example shows how to write a MatrixUllong object into a Sof file
+
+<pre>
+// define a MatrixUllong object
+//
+MatrixUllong val0(3, 3, Integral::SYMMETRIC);
+
+// assign values to the matrix by calling operator= method
+//
+val0 = 5;
+
+// define a file name and declare an Sof object
+//       
+String tmp_filename(L"foo");
+Sof tmp_file;
+
+// open the file in write mode       
+//       
+tmp_file.open(tmp_filename, File::WRITE_ONLY, File::TEXT);
+
+// write the matrix object to the Sof file
+//       
+val0.write(tmp_file, (long)0);
+
+// close the file
+//       
+tmp_file.close();
+</pre>       
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> See the <a href="../MMatrix/index.html#notes">notes section of MMatrix</a>.
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

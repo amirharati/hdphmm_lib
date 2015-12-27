@@ -1,0 +1,276 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="ComplexFloat" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="name">
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/ComplexFloat/ComplexFloat.h">ComplexFloat</a> : public <a href="../MComplexScalar/index.html">MComplexScalar&lt;float, float32&gt;</a></b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ... -l /isip/tools/lib/$ISIP_BINARY/lib_math_scalar.a
+
+#include &lt;ComplexFloat.h&gt;
+
+ComplexFloat(complexfloat arg = DEF_VALUE);
+ComplexFloat(const ComplexFloat& arg);
+ComplexFloat& operator= (const ComplexFloat& arg);
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+ComplexFloat val0;
+val0 = 10.0;
+  
+ComplexFloat val1(2.3, 3.4);
+ComplexFloat val2(L"-2.9-4.1j");
+  
+val0 = val1;
+
+ComplexFloat val3;
+val3 = val2.log()/val1.log();
+  
+val3.pow(val0, val3);
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The ComplexFloat class manages a complex number for which each component is
+a 32-bit floating point number. This class largely inherits
+
+<a href="../MComplexScalar/index.html">MComplexScalar</a>
+
+template functionality.
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li> <a href="../MScalar/index.html">MScalar</a>
+  <li> <a href="../MComplexScalar/index.html">MComplexScalar</a>
+  <li> <a href="../Float/index.html">Float</a>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/ComplexFloat/cflt_00.cc&constant=CLASS_NAME">static const String CLASS_NAME = L"ComplexFloat";</a></pre>
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> error code indicating ComplexFloat class general error:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00021300">static const long ERR = 21300;</a></pre>
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> static memory manager:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/ComplexFloat/cflt_00.cc&static=mgr_d">static MemoryManager mgr_d;</a></pre>
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li> static methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/ComplexFloat/ComplexFloat.h&method=name">static const String& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/ComplexFloat/cflt_02.cc&method=diagnose">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+
+  <li> debug methods:
+
+       <pre>setDebug method is inherited from base class</pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/ComplexFloat/cflt_01.cc&method=debug">boolean debug(const unichar* message) const;</a></pre>
+
+  <li> destructor/constructor(s):
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/ComplexFloat/ComplexFloat.h&method=destructor">~ComplexFloat();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/ComplexFloat/ComplexFloat.h&method=default constructor">ComplexFloat(complexfloat arg = DEF_VALUE);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/ComplexFloat/ComplexFloat.h&method=copy constructor">ComplexFloat(const ComplexFloat& arg);</a></pre>     
+
+  <li> assign methods:
+
+       <pre>assign methods are inherited from the <a href="../MComplexScalar/index.html#public">MComplexScalar</a> template class</pre>
+
+  <li> operator= methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/ComplexFloat/ComplexFloat.h&method=operator%3D&instance=0">ComplexFloat& operator= (const ComplexFloat& arg);</a></pre>
+       
+  <li> i/o methods: sofSize, readData and writeData methods
+       are inherited from the
+
+       <a href="../MComplexScalar/index.html#public">MComplexScalar</a>
+
+       template class.
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/ComplexFloat/ComplexFloat.h&method=read">boolean read(Sof& sof, long tag, const String& name = CLASS_NAME);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/ComplexFloat/ComplexFloat.h&method=write">boolean write(Sof& sof, long tag, const String& name = CLASS_NAME) const;</a></pre>
+       
+  <li> equality methods:
+
+       <pre>equality methods are inherited from the <a href="../MComplexScalar/index.html#public">MComplexScalar</a> template class</pre>
+       
+  <li> memory management methods: the clear method is inherited from the
+
+       <a href="../MComplexScalar/index.html#public">MComplexScalar</a>
+
+       template class.
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/ComplexFloat/ComplexFloat.h&method=new">static void* operator new(size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/ComplexFloat/ComplexFloat.h&method=new[]">static void* operator new[](size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/ComplexFloat/ComplexFloat.h&method=delete">static void operator delete(void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/ComplexFloat/ComplexFloat.h&method=delete[]">static void operator delete[](void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/ComplexFloat/ComplexFloat.h&method=setGrowSize">static boolean setGrowSize(long grow_size);</a></pre>
+       <pre>other memory management methods are inherited from the MScalar template class</pre>
+</ul>
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>
+  <li> constructors:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/ComplexFloat/ComplexFloat.h&method=constructor&instance=0">ComplexFloat(float real, float imag = 0);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/ComplexFloat/ComplexFloat.h&method=constructor&instance=1">ComplexFloat(unichar* arg);</a></pre>
+</ul>
+
+<ul>
+  <li> operator overload methods:
+       
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/ComplexFloat/ComplexFloat.h&method=operator+complexdouble()">operator complexdouble() const;</a></pre>
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/scalar/ComplexFloat/ComplexFloat.h&method=operator+complexlong()">operator complexlong() const;</a></pre>
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+  <li> bitwise methods: declare these as private member functions because they
+       are not defined for floating point operations
+
+       <pre>using MScalar&lt;complexfloat, float32&gt;::bor;</pre>
+       <pre>using MScalar&lt;complexfloat, float32&gt;::band;</pre>
+       <pre>using MScalar&lt;complexfloat, float32&gt;::bxor;</pre>
+       <pre>using MScalar&lt;complexfloat, float32&gt;::brs;</pre>
+       <pre>using MScalar&lt;complexfloat, float32&gt;::bls;</pre>
+       <pre>using MScalar&lt;complexfloat, float32&gt;::bcmpl;</pre>
+
+  <li> modulus methods: declare these as private member functions because they
+       are not defined for floating point operations
+
+       <pre>using MScalar&lt;complexfloat, float32&gt;::operator%=;</pre>
+       <pre>using MScalar&lt;complexfloat, float32&gt;::operator%;</pre>
+       <pre>using MScalar&lt;complexfloat, float32&gt;::mod;</pre>
+       <pre>using MScalar&lt;complexfloat, float32&gt;::centerClip;</pre>
+       <pre>using MScalar&lt;complexfloat, float32&gt;::fraction;</pre>
+       <pre>using MScalar&lt;complexfloat, float32&gt;::limit;</pre>
+       <pre>using MScalar&lt;complexfloat, float32&gt;::limitmag;</pre>
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+  <li> This example shows how to do basic math with complex numbers:
+       
+<pre>
+ComplexFloat x(L"1+1j"), y(L"2+3j"), z(L"3+4j"), ans;
+ans = (x * y + z) / (x + y);</pre>
+
+       Basic math is fairly straightforward though casting is sometimes
+       required for mixed types.
+
+       <br><br>
+
+  <li> This example shows how to write a ComplexFloat object into an Sof file:
+       
+<pre>
+ComplexFloat val0(5.0, 0);
+String tmp_filename(L"foo");
+Sof tmp_file;
+tmp_file.open(tmp_filename, File::WRITE_ONLY, File::TEXT);
+       
+val0.write(tmp_file, (long)0);
+tmp_file.close();</pre>
+
+  <li> This example shows how to generate a random number:
+       
+<pre>
+ComplexFloat rand_num;
+ComplexFloat value;
+ComplexFloat value1;
+       
+// using default seed
+//
+value = rand_num.rand();
+     
+// Gaussian random number generation
+//
+ComplexFloat mean(5.2, 0.2);
+ComplexFloat std_dev(3.2, 0.7);
+value1 = rand_num.grand(mean, std_dev);</pre>
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> See the
+
+       <a href="../MComplexScalar/index.html#notes">notes section of MComplexScalar</a>.
+
+       <br><br>
+       
+  <li> See the
+
+       <a href="../index.html">math/scalar library introduction</a>
+
+       for more information on how to use complex numbers.
+
+       <br><br>
+       
+  <li> The ComplexFloat class defines the bor, band, bxor, brs, bls, bcmpl,
+       mod, and operator%=integer methods as private in order to block the
+       template functions in MComplexScalar&lt;complexfloat,float32&gt;.
+       This means if a user attempts to use ComplexFloat::mod() a
+       compilation error, not a runtime error, will occur.
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

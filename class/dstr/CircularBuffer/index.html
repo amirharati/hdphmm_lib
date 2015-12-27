@@ -1,0 +1,335 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="CircularBuffer" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="name">
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h">CircularBuffer&lt;class TObject&gt</a></b>
+
+<br><br>
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ...
+
+#include &lt;CircularBuffer.h&gt;
+CircularBuffer(long capacity = DEF_BUF_CAPACITY);
+boolean append(const TObject in);  
+boolean append(const Vector&gt;TObject&lt& in);
+boolean seekCurr(long offset);
+boolean setRead(long num_read = DEF_NUM_READ);
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+// declare a Float CircularBuffer of capacity 5
+//
+CircularBuffer&lt;Float&gt cbuf(5);
+
+for (long i = 0; i < 5; i++) {
+  Float num((float)i);
+  cbuf.append(num);
+}
+
+// check the number of elements and if the buffer is full
+//
+if (cbuf.getNumElements() != 5 || !cbuf.isFull()) {
+     // error
+  }
+}
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The CircularBuffer class is a circular Vector of <b>TObject</b>s. A
+CircularBuffer has a read, a write and a current index indicating
+positions in the Vector.  The elements between the read and write
+indices are the valid elements.  When new data is added to the
+CircularBuffer, it is appended to the position next to the write
+index, then the write index is advanced.  The read index is used to
+indicate that you have read those data, so they are allowed to be
+overwritten by the new data.  If the CircularBuffer is full, new data
+are not allowed to be added until some of the current data have been
+read.
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li> <a href="../Vector/"> Vector </a>
+  <li> <a href="../../math/scalar/Float/"> Float </a>
+  <li> <a href="../../system/Console/"> Console </a> 
+  <li> <a href="../../system/MemoryManager/"> MemoryManager </a>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&constant=CLASS_NAME">static const String CLASS_NAME = L"CircularBuffer";</a></pre>
+
+  <li> i/o related constants:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&constant=DEF_PARAM">static const String DEF_PARAM;</a></pre>              
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&constant=PARAM_VALUES">static const String PARAM_VALUES;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&constant=PARAM_CAPACITY">static const String PARAM_CAPACITY;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&constant=PARAM_READ">static const String PARAM_READ;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&constant=PARAM_WRITE">static const String PARAM_WRITE;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&constant=PARAM_CURR">static const String PARAM_CURR;</a></pre>
+       
+  <li> default values and arguments:
+       
+       <pre>static const long DEF_BUF_CAPACITY = 8192;</pre>
+       <pre>static const long DEF_READ_IDX = 0;</pre>
+       <pre>static const long DEF_WRITE_IDX = -1;</pre>
+       <pre>static const long DEF_CURR_IDX = 0;</pre>
+       <pre>static const long DEF_OFFSET = 0;</pre>
+       <pre>static const long DEF_NUM_READ = 1;</pre>
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> general CircularBuffer class error:
+       
+       <pre><a href="/perl/ifc_document.pl?err=00041600">static const long ERR = 41600;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?err=00041610">static const long ERR = 41610;</a></pre>
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> declare a vector of data objects:
+       
+       <pre>Vector&lt;TObject&gt v_d </pre>
+       
+  <li> declare the position indices:
+       
+       <pre> long read_d; </pre>
+       <pre> long write_d; </pre>
+       <pre> long curr_d; </pre>
+       
+  <li> declare the debugging parameters:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&static=debug_level_d">static Integral::DEBUG debug_level_d;</a></pre>
+
+  <li> static memory manager:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&static=mgr_d">static MemoryManager mgr_d;</a></pre>       
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>  
+  <li> static methods: diagnose method is moved outside the class
+header file and defined in the CircularBufferDiagnose.h in order to
+avoid the issues with the preprocessing of the diagnose code
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=name">static const String& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBufferDiagnose.h&method=diagnose">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>       
+       
+  <li> debug methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=setDebug">static boolean setDebug(Integral::DEBUG debug_level);</a></pre>       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=debug">boolean debug(const unichar* message) const;</a></pre>
+       
+  <li> destructor/constructor(s):
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=destructor">~CircularBuffer();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=default+constructor">CircularBuffer(long capacity = DEF_BUF_CAPACITY);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=copy+constructor">CircularBuffer(const CircularBuffer&lt;TObject&gt;& copy_cbuf);</a></pre>
+
+  <li> assign methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=assign&instance=0">boolean assign(const CircularBuffer&lt;TObject&gt;& copy_cbuf);</a></pre>
+
+  <li> operator= methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=operator%3D&instance=0">CircularBuffer<TObject>& operator=(const CircularBuffer&lt;TObject&gt;& arg);</a></pre>
+       
+  <li> i/o methods: refer to the <a href = "./index.html#notes">notes</a>
+section for an explanation of having two read and write methods in
+this class
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=sofSize">long sofSize() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=read&instance=0">boolean read(Sof& sof, long tag);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=write&instance=0">boolean write(Sof& sof, long tag) const;</a></pre>       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=read&instance=1">boolean read(Sof& sof, long tag, const String& name);</a></pre>       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=write&instance=1">boolean write(Sof& sof, long tag, const String& name) const;</a></pre>       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=readData">boolean readData(Sof& sof, const String& pname = DEF_PARAM,long size = SofParser::FULL_OBJECT, boolean param_a = true, boolean nested_a = false);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=writeData">boolean writeData(Sof& sof, const String& name = DEF_PARAM) const;</a></pre>
+
+  <li> equality methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=eq">boolean eq(const CircularBuffer&lt;TObject&gt;& compare_cbuf) const;</a></pre>
+
+  <li> memory management methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=new">static void* operator new(size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=new\[\]">static void* operator new[](size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=delete">static void operator delete(void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=delete\[\]">static void operator delete[](void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=setGrowSize">static boolean setGrowSize(long grow_size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=clear">boolean clear(Integral::CMODE cmode = Integral::DEF_CMODE);</a></pre>
+</ul>    
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>
+  <li> operator overload methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=operator()&instance">CircularBuffer&lt;TObject&gt;& operator() (long offset);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=operator()&instance=1">const CircularBuffer&lt;TObject&gt;& operator() (long offset) const;</a></pre>
+
+  <li> get element methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=getElement&instance=0">boolean getElement(TObject& out, long offset = DEF_OFFSET) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=getElement&instance=1">boolean getElement(Vector&lt;TObject&gt;& out, long num_elem, long offset = DEF_OFFSET) const;</a></pre>
+       
+  <li> get number of element methods:       
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=getNumElements">long getNumElements() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=getNumForward">long getNumForward() const</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=getNumBackward">long getNumBackward() const;</a></pre>
+       
+  <li> status checking methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=isFull">boolean isFull() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=isEmpty">boolean isEmpty() const;</a></pre>
+       
+  <li> resize methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=getCapacity">long getCapacity() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=setCapacity">boolean setCapacity(long capacity, boolean preserve_values = true);</a></pre>
+       
+  <li> data manipulation methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=append&instance=0">boolean append(const TObject& in);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=append&instance=1">boolean append(const Vector&lt;TObject&gt;& in);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=append&instance=2">boolean append(const Vector&lt;TObject&gt& in, long num_elem, long invec_offset = DEF_OFFSET);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=prepend&instance=0">boolean prepend(const TObject& in);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=prepend&instance=1">boolean prepend(const Vector&lt;TObject&gt;& in);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=prepend&instance=2">boolean prepend(const Vector&lt;TObject&gt& in, long num_elem, long invec_offset = DEF_OFFSET);</a></pre>
+       
+  <li> position methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=resetCurr">boolean resetCurr();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=seekCurr">boolean seekCurr(long offset);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/dstr/CircularBuffer/CircularBuffer.h&method=setRead">boolean setRead(long num_read = DEF_NUM_READ);</a></pre>
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+  <li> none.
+</ul>
+
+<b>friend classes:</b>
+<br><br>
+<ul>
+  <li> none
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+  <li> This example shows how to construct a CircularBuffer and check
+       its status:
+       
+       <pre>
+#include &lt;Long.h&gt;
+#include &lt;CircularBuffer.h&gt;
+
+int main () {
+
+  // declare a circular buffer of long
+  //
+  CircularBuffer&lt;Long&gt cbuf(50);
+
+  // prepare data  
+  //
+  Vector&lt;Long&gt; longs(100);
+  for (long i = 0; i <100; i++) {
+    longs(i) = i;
+  }
+  
+  // add the data to the buffer
+  //
+  cbuf.append(longs, 50, 0);               // [0 - 50] were appended
+
+  // the buffer should be full now
+  //
+  if (!cbuf.isFull()) {
+    
+    // exit
+    //
+    Integral::exit();
+  }
+
+  // release some data in buffer and append more data
+  //
+  cbuf.setRead(40);
+
+  cbuf.append(longs, 10, 50);               // [0 - 9] were overwritten
+  
+  // display the contents of the circular buffer
+  //
+  cbuf.debug(L"cbuf");
+  
+  // exit gracefully
+  //
+  Integral::exit();
+}</pre>
+
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> There is no memory allocation mode for the CircularBuffer class.
+       CircularBuffer always operates in SYSTEM mode. The objects contained
+       within a CircularBuffer can use either allocation mode by invoking
+       their setAllocationMode method.
+       <br><br>
+
+  <li> Unlike other classes, we have two read and write methods in dstr
+       classes. The interface is still the same as that in other
+       classes. The reason behind this is that we cannot use
+       "CLASS_NAME" as a default argument in the read and write methods
+       here because the data structures build the class name on the fly.
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

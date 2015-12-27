@@ -1,0 +1,248 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="Bark" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="name">
+<b>
+name:
+<a href="/perl/ifc_document.pl?file=$isip/class/numeric/Bark/Bark.h">
+Bark</a>
+</b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ... -l /isip/tools/lib/$ISIP_BINARY/lib_numeric.a
+
+#include &lt;Bark.h&gt;
+
+boolean compute(VectorFloat& bark, const VectorFloat& freq);
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+VectorFloat freq(1);
+VectorFloat bark;
+
+freq(0) = 1000;
+Bark::compute(bark, freq);
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The Bark class implements a function that is commonly used
+to map frequency in Hz to a scale that is more perceptually-meaningful.
+The units of this scale are referred to as critical band rate, or Bark.
+The approximation for the Bark scale that is implemented 
+in this class is given by:
+
+<pre>
+  Bark = 13 atan(0.76 * freq / 1000) + 3.5 atan(freq ^ 2 / 7500 ^ 2)
+</pre>
+
+For more details about this transformation, see:
+
+<ul>
+  J. Picone,
+  <a href="http://www.isip.msstate.edu/publications/journals/ieee_proceedings/1993/signal_modeling/">
+  "Signal Modeling Techniques in Speech Recognition,"</a>
+  <i>IEEE Proceedings</i>, vol. 81, no. 9, pp. 1215-1247, September 1993. 
+</ul>
+
+See the Mel class for an alternate way to approximate this scale.
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li> <a href="../../math/vector/VectorFloat/index.html">VectorFloat</a>
+       
+  <li> <a href="../../system/MemoryManager/index.html">MemoryManager</a>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Bark/bark_00.cc&constant=CLASS_NAME">static const String CLASS_NAME = L"Bark";</a></pre>
+
+  <li> define i/o related constants:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Bark/bark_00.cc&constant=DEF_PARAM">static const String DEF_PARAM = L"";</pre></a>
+
+  <li> define constants used to implement the approximation:
+       
+       <pre>static const float A1 = 13.0;</pre>
+       <pre>static const float A2 = 0.76 / 1000.0;</pre>
+       <pre>static const float B1 = 3.5;</pre>
+       <pre>static const float B2 = 1.0 / 7500.0;</pre>
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> error code indicating Bark class general error:
+
+       <pre><a href="/perl/ifc_document.pl?err=00035300">static const long ERR = (long)35300;</a></pre>
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> debug level:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Bark/bark_00.cc&static=debug_level_d">static Integral::DEBUG debug_level_d;</a></pre>
+       
+  <li> a static memory manager:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Bark/bark_00.cc&static=mgr_d">static MemoryManager mgr_d;</pre></a>
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li>  static methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Bark/Bark.h&method=name">static const String& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Bark/bark_02.cc&method=diagnose">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+
+  <li> debug methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Bark/Bark.h&method=setDebug">boolean setDebug(Integral::DEBUG debug_level);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Bark/bark_01.cc&method=debug">boolean debug(const unichar* message) const;</a></pre>
+
+  <li> destructor/constructor(s):
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Bark/Bark.h&method=destructor">~Bark();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Bark/Bark.h&method=default+constructor">Bark();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Bark/Bark.h&method=copy+constructor">Bark(const Bark& arg);</a></pre>     
+
+  <li> assign methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Bark/Bark.h&method=assign">boolean assign(const Bark& arg)</a></pre>
+
+  <li> operator= methods:
+       
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Bark/Bark.h&method=operator%3D">Bark& operator= (const Bark& arg);</a></pre>
+                     
+  <li> i/o methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Bark/Bark.h&method=sofSize">long sofSize() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Bark/Bark.h&method=read">boolean read(Sof& sof, long tag, const String& name = CLASS_NAME);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Bark/Bark.h&method=write">boolean write(Sof& sof, long tag, const String& name = CLASS_NAME) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Bark/Bark.h&method=readData">boolean readData(Sof& sof, const String& pname = DEF_PARAM,long size = SofParser::FULL_OBJECT, boolean param = true, boolean nested = false);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Bark/Bark.h&method=writeData">boolean writeData(Sof& sof, const String& pname = DEF_PARAM) const;</a></pre>
+       
+  <li> equality methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Bark/Bark.h&method=eq">boolean eq(const Bark& arg) const;</a></pre>
+
+  <li> memory management methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Bark/Bark.h&method=new">static void* operator new(size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Bark/Bark.h&method=new[]">static void* operator new[](size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Bark/Bark.h&method=delete">static void operator delete(void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Bark/Bark.h&method=delete[]">static void operator delete[](void* ptr);</a></pre>  
+        <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Bark/Bark.h&method=setGrowSize">static boolean setGrowSize(long grow_size);</a></pre>  
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Bark/Bark.h&method=clear">boolean clear(Integral::CMODE ctype = Integral::DEF_CMODE);</a></pre>
+</ul>
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>
+  <li> computational methods
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Bark/bark_05.cc&method=compute&instance=0">static boolean compute(float& bark, float freq); </a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Bark/bark_05.cc&method=compute&instance=1">static boolean compute(VectorFloat& bark, const VectorFloat& freq);</a></pre>
+
+</ul>
+  
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+  <li> none.
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+
+  <li> This example shows how to apply the Bark transformation of
+       an input vector:
+
+<pre>
+#include &lt;Bark.h&gt;
+#include &lt;VectorFloat.h&gt;
+
+int main() {
+
+  // declare the input and output vectors
+  //
+  VectorFloat freq(L"100, 200, 300, 400, 500, 600");
+  VectorFloat bark;
+
+  // transform the input using the Bark scale
+  //
+  Bark::compute(bark, freq);
+
+  // exit gracefully
+  //
+  Integral::exit();
+}</pre>       
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> This class has no internal data, so its compute function
+       can be invoked as a static function call (the class need not
+       be instantiated).
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->
+
+
+
+
+
+
+
+
+
+

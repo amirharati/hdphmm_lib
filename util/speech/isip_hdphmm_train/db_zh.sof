@@ -1,0 +1,599 @@
+@ Sof v1.0 @
+@ info 0 @
+database_type = HTK;
+@ record 0 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR1/FVMH0/SX296.MFC;
+start_frame = 127;
+end_frame = 134;
+@ record 1 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR1/FETB0/SX428.MFC;
+start_frame = 113;
+end_frame = 120;
+@ record 2 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR1/MWAR0/SI2305.MFC;
+start_frame = 30;
+end_frame = 42;
+@ record 3 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR1/FJSP0/SX174.MFC;
+start_frame = 292;
+end_frame = 297;
+@ record 4 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR1/MMRP0/SX54.MFC;
+start_frame = 287;
+end_frame = 293;
+@ record 5 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR1/MDPK0/SX153.MFC;
+start_frame = 160;
+end_frame = 165;
+@ record 6 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR1/MCPM0/SX204.MFC;
+start_frame = 93;
+end_frame = 102;
+@ record 7 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR1/FTBR0/SX201.MFC;
+start_frame = 258;
+end_frame = 270;
+@ record 8 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR1/MRAI0/SX72.MFC;
+start_frame = 113;
+end_frame = 127;
+@ record 9 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR1/FECD0/SX248.MFC;
+start_frame = 170;
+end_frame = 185;
+@ record 10 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR1/MWAD0/SX252.MFC;
+start_frame = 41;
+end_frame = 43;
+@ record 11 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR1/MRCG0/SI798.MFC;
+start_frame = 181;
+end_frame = 190;
+@ record 12 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR2/MEFG0/SX15.MFC;
+start_frame = 114;
+end_frame = 122;
+@ record 13 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR2/MEFG0/SX15.MFC;
+start_frame = 137;
+end_frame = 144;
+@ record 14 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR2/MMAA0/SX305.MFC;
+start_frame = 42;
+end_frame = 51;
+@ record 15 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR2/FMJB0/SI1177.MFC;
+start_frame = 88;
+end_frame = 99;
+@ record 16 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR2/FMJB0/SX277.MFC;
+start_frame = 118;
+end_frame = 132;
+@ record 17 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR2/FPJF0/SX56.MFC;
+start_frame = 177;
+end_frame = 185;
+@ record 18 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR2/MJAE0/SX174.MFC;
+start_frame = 285;
+end_frame = 291;
+@ record 19 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR2/MJHI0/SX248.MFC;
+start_frame = 127;
+end_frame = 135;
+@ record 20 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR2/MDEM0/SX248.MFC;
+start_frame = 160;
+end_frame = 170;
+@ record 21 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR2/MRAB0/SX54.MFC;
+start_frame = 209;
+end_frame = 218;
+@ record 22 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR2/FDAS1/SI1461.MFC;
+start_frame = 33;
+end_frame = 42;
+@ record 23 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR2/FDAS1/SI831.MFC;
+start_frame = 277;
+end_frame = 287;
+@ record 24 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR2/FDAS1/SI831.MFC;
+start_frame = 300;
+end_frame = 311;
+@ record 25 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR2/FDAS1/SX201.MFC;
+start_frame = 276;
+end_frame = 285;
+@ record 26 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR2/MBJV0/SX347.MFC;
+start_frame = 107;
+end_frame = 112;
+@ record 27 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR2/MDLC2/SX174.MFC;
+start_frame = 250;
+end_frame = 259;
+@ record 28 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR2/MDLC2/SI984.MFC;
+start_frame = 256;
+end_frame = 264;
+@ record 29 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR2/MRLJ0/SI790.MFC;
+start_frame = 231;
+end_frame = 237;
+@ record 30 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR2/MRFK0/SX266.MFC;
+start_frame = 161;
+end_frame = 171;
+@ record 31 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR2/MMXS0/SI876.MFC;
+start_frame = 24;
+end_frame = 33;
+@ record 32 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR2/MJPM0/SX198.MFC;
+start_frame = 50;
+end_frame = 58;
+@ record 33 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR2/MCTM0/SX360.MFC;
+start_frame = 179;
+end_frame = 196;
+@ record 34 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR2/MDBP0/SX78.MFC;
+start_frame = 45;
+end_frame = 50;
+@ record 35 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR2/MRCW0/SX201.MFC;
+start_frame = 232;
+end_frame = 238;
+@ record 36 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR2/FSCN0/SX266.MFC;
+start_frame = 275;
+end_frame = 284;
+@ record 37 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR3/MAPV0/SI1293.MFC;
+start_frame = 414;
+end_frame = 422;
+@ record 38 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR3/MAPV0/SX213.MFC;
+start_frame = 68;
+end_frame = 75;
+@ record 39 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR3/FSLS0/SI1686.MFC;
+start_frame = 275;
+end_frame = 287;
+@ record 40 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR3/MREE0/SX204.MFC;
+start_frame = 97;
+end_frame = 106;
+@ record 41 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR3/MREE0/SI1104.MFC;
+start_frame = 166;
+end_frame = 173;
+@ record 42 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR3/MDNS0/SI2271.MFC;
+start_frame = 80;
+end_frame = 91;
+@ record 43 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR3/MDNS0/SX201.MFC;
+start_frame = 255;
+end_frame = 263;
+@ record 44 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR3/MJJB0/SI1769.MFC;
+start_frame = 55;
+end_frame = 62;
+@ record 45 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR3/MAKR0/SI722.MFC;
+start_frame = 170;
+end_frame = 178;
+@ record 46 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR3/MAKR0/SX92.MFC;
+start_frame = 35;
+end_frame = 42;
+@ record 47 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR3/FMJF0/SX174.MFC;
+start_frame = 336;
+end_frame = 344;
+@ record 48 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR3/MTPP0/SX248.MFC;
+start_frame = 133;
+end_frame = 141;
+@ record 49 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR3/MDSS1/SX427.MFC;
+start_frame = 103;
+end_frame = 106;
+@ record 50 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR3/MTKP0/SX213.MFC;
+start_frame = 70;
+end_frame = 77;
+@ record 51 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR3/MVJH0/SI2186.MFC;
+start_frame = 160;
+end_frame = 165;
+@ record 52 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR3/MDEF0/SX123.MFC;
+start_frame = 199;
+end_frame = 205;
+@ record 53 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR3/MMAM0/SX67.MFC;
+start_frame = 133;
+end_frame = 137;
+@ record 54 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR3/MGAF0/SX112.MFC;
+start_frame = 173;
+end_frame = 185;
+@ record 55 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR3/MDTB0/SI570.MFC;
+start_frame = 172;
+end_frame = 179;
+@ record 56 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR3/MTLB0/SX324.MFC;
+start_frame = 163;
+end_frame = 167;
+@ record 57 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR3/MTLB0/SX54.MFC;
+start_frame = 233;
+end_frame = 241;
+@ record 58 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR3/MILB0/SI807.MFC;
+start_frame = 147;
+end_frame = 154;
+@ record 59 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR3/MTJM0/SX56.MFC;
+start_frame = 196;
+end_frame = 204;
+@ record 60 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR3/MBEF0/SI651.MFC;
+start_frame = 283;
+end_frame = 287;
+@ record 61 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR3/MBEF0/SX201.MFC;
+start_frame = 207;
+end_frame = 214;
+@ record 62 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR4/MJPM1/SX131.MFC;
+start_frame = 167;
+end_frame = 176;
+@ record 63 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR4/MMBS0/SI521.MFC;
+start_frame = 212;
+end_frame = 220;
+@ record 64 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR4/FLHD0/SX174.MFC;
+start_frame = 286;
+end_frame = 294;
+@ record 65 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR4/FPAF0/SI2314.MFC;
+start_frame = 114;
+end_frame = 125;
+@ record 66 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR4/MNET0/SI2076.MFC;
+start_frame = 90;
+end_frame = 99;
+@ record 67 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR4/MMGC0/SI1305.MFC;
+start_frame = 212;
+end_frame = 217;
+@ record 68 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR4/MMGC0/SI1935.MFC;
+start_frame = 231;
+end_frame = 241;
+@ record 69 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR4/MBWP0/SX349.MFC;
+start_frame = 312;
+end_frame = 321;
+@ record 70 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR4/MPRK0/SI1097.MFC;
+start_frame = 538;
+end_frame = 546;
+@ record 71 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR4/MMDM0/SI681.MFC;
+start_frame = 150;
+end_frame = 157;
+@ record 72 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR4/MMDM0/SX141.MFC;
+start_frame = 34;
+end_frame = 43;
+@ record 73 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR4/MJWS0/SX153.MFC;
+start_frame = 199;
+end_frame = 204;
+@ record 74 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR4/MJXL0/SI1795.MFC;
+start_frame = 116;
+end_frame = 127;
+@ record 75 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR4/FKLC0/SX85.MFC;
+start_frame = 113;
+end_frame = 123;
+@ record 76 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR4/MJMM0/SX85.MFC;
+start_frame = 96;
+end_frame = 101;
+@ record 77 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR4/MFWK0/SI619.MFC;
+start_frame = 179;
+end_frame = 183;
+@ record 78 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR4/MJLB0/SX266.MFC;
+start_frame = 168;
+end_frame = 177;
+@ record 79 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR4/MJLB0/SI2246.MFC;
+start_frame = 140;
+end_frame = 146;
+@ record 80 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR4/MKAM0/SX56.MFC;
+start_frame = 183;
+end_frame = 194;
+@ record 81 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR4/MJJJ0/SI1163.MFC;
+start_frame = 414;
+end_frame = 421;
+@ record 82 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR4/FBAS0/SI2066.MFC;
+start_frame = 459;
+end_frame = 472;
+@ record 83 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR5/MJPG0/SX201.MFC;
+start_frame = 199;
+end_frame = 207;
+@ record 84 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR5/MFER0/SX412.MFC;
+start_frame = 161;
+end_frame = 167;
+@ record 85 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR5/FEXM0/SX201.MFC;
+start_frame = 349;
+end_frame = 363;
+@ record 86 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR5/MJFH0/SX207.MFC;
+start_frame = 121;
+end_frame = 128;
+@ record 87 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR5/MWEM0/SX60.MFC;
+start_frame = 36;
+end_frame = 42;
+@ record 88 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR5/MWEM0/SX60.MFC;
+start_frame = 171;
+end_frame = 175;
+@ record 89 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR5/MRLD0/SI964.MFC;
+start_frame = 232;
+end_frame = 242;
+@ record 90 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR5/MRLD0/SI964.MFC;
+start_frame = 324;
+end_frame = 331;
+@ record 91 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR5/MRLD0/SX154.MFC;
+start_frame = 31;
+end_frame = 36;
+@ record 92 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR5/MEGJ0/SI707.MFC;
+start_frame = 246;
+end_frame = 253;
+@ record 93 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR5/MJWG0/SX85.MFC;
+start_frame = 99;
+end_frame = 109;
+@ record 94 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR5/MMAB1/SX54.MFC;
+start_frame = 265;
+end_frame = 272;
+@ record 95 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR5/MRKM0/SI1391.MFC;
+start_frame = 341;
+end_frame = 351;
+@ record 96 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR5/FBMH0/SX56.MFC;
+start_frame = 197;
+end_frame = 205;
+@ record 97 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR5/MGSH0/SI1176.MFC;
+start_frame = 332;
+end_frame = 337;
+@ record 98 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR5/MGSH0/SI546.MFC;
+start_frame = 380;
+end_frame = 386;
+@ record 99 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR5/MGSH0/SX276.MFC;
+start_frame = 206;
+end_frame = 217;
+@ record 100 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR5/MEWM0/SX178.MFC;
+start_frame = 65;
+end_frame = 73;
+@ record 101 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR5/MREW1/SI1500.MFC;
+start_frame = 121;
+end_frame = 128;
+@ record 102 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR5/MREW1/SX60.MFC;
+start_frame = 171;
+end_frame = 178;
+@ record 103 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR5/MRML0/SI791.MFC;
+start_frame = 301;
+end_frame = 313;
+@ record 104 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR5/FLJA0/SX358.MFC;
+start_frame = 44;
+end_frame = 56;
+@ record 105 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR5/FLJA0/SX178.MFC;
+start_frame = 77;
+end_frame = 89;
+@ record 106 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR5/MDHL0/SX89.MFC;
+start_frame = 228;
+end_frame = 235;
+@ record 107 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR5/MCLM0/SX196.MFC;
+start_frame = 86;
+end_frame = 89;
+@ record 108 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR5/MVLO0/SI517.MFC;
+start_frame = 58;
+end_frame = 64;
+@ record 109 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR5/FSMM0/SX54.MFC;
+start_frame = 237;
+end_frame = 246;
+@ record 110 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR5/FGDP0/SX178.MFC;
+start_frame = 138;
+end_frame = 144;
+@ record 111 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR5/MMVP0/SX204.MFC;
+start_frame = 99;
+end_frame = 104;
+@ record 112 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR5/FCDR1/SI556.MFC;
+start_frame = 355;
+end_frame = 361;
+@ record 113 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR5/FCDR1/SX106.MFC;
+start_frame = 72;
+end_frame = 83;
+@ record 114 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR5/MGES0/SX131.MFC;
+start_frame = 119;
+end_frame = 126;
+@ record 115 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR5/MSDH0/SI2113.MFC;
+start_frame = 38;
+end_frame = 44;
+@ record 116 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR5/FTBW0/SX85.MFC;
+start_frame = 98;
+end_frame = 105;
+@ record 117 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR6/MEAL0/SX377.MFC;
+start_frame = 55;
+end_frame = 60;
+@ record 118 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR6/MBMA1/SX324.MFC;
+start_frame = 162;
+end_frame = 171;
+@ record 119 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR6/MBMA1/SX54.MFC;
+start_frame = 213;
+end_frame = 221;
+@ record 120 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR6/FLAG0/SX204.MFC;
+start_frame = 150;
+end_frame = 160;
+@ record 121 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR6/FHXS0/SX85.MFC;
+start_frame = 115;
+end_frame = 123;
+@ record 122 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR6/MKLN0/SX248.MFC;
+start_frame = 136;
+end_frame = 144;
+@ record 123 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR6/MCAE0/SI817.MFC;
+start_frame = 347;
+end_frame = 356;
+@ record 124 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR6/MCAE0/SX277.MFC;
+start_frame = 160;
+end_frame = 173;
+@ record 125 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR6/MAJP0/SX174.MFC;
+start_frame = 264;
+end_frame = 271;
+@ record 126 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR7/FLET0/SX277.MFC;
+start_frame = 107;
+end_frame = 113;
+@ record 127 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR7/MDLR0/SI1233.MFC;
+start_frame = 371;
+end_frame = 376;
+@ record 128 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR7/MTPR0/SX430.MFC;
+start_frame = 286;
+end_frame = 294;
+@ record 129 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR7/FBLV0/SX248.MFC;
+start_frame = 139;
+end_frame = 148;
+@ record 130 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR7/MGAW0/SX85.MFC;
+start_frame = 99;
+end_frame = 104;
+@ record 131 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR7/MBOM0/SX204.MFC;
+start_frame = 76;
+end_frame = 83;
+@ record 132 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR7/MCTH0/SI1839.MFC;
+start_frame = 180;
+end_frame = 189;
+@ record 133 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR7/MCTH0/SI579.MFC;
+start_frame = 32;
+end_frame = 40;
+@ record 134 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR7/MDLM0/SX154.MFC;
+start_frame = 30;
+end_frame = 44;
+@ record 135 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR7/MDLR1/SX39.MFC;
+start_frame = 205;
+end_frame = 210;
+@ record 136 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR7/FSPM0/SI1241.MFC;
+start_frame = 467;
+end_frame = 478;
+@ record 137 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR7/MFXS0/SX54.MFC;
+start_frame = 245;
+end_frame = 253;
+@ record 138 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR7/MGSL0/SX174.MFC;
+start_frame = 277;
+end_frame = 286;
+@ record 139 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR7/MDPB0/SI866.MFC;
+start_frame = 315;
+end_frame = 324;
+@ record 140 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR7/MDPB0/SX56.MFC;
+start_frame = 187;
+end_frame = 198;
+@ record 141 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR7/MJRA0/SI1866.MFC;
+start_frame = 173;
+end_frame = 178;
+@ record 142 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR7/MDED0/SI540.MFC;
+start_frame = 180;
+end_frame = 188;
+@ record 143 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR7/MDLC1/SX85.MFC;
+start_frame = 93;
+end_frame = 100;
+@ record 144 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR8/MRLK0/SX123.MFC;
+start_frame = 212;
+end_frame = 227;
+@ record 145 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR8/MBSB0/SI1353.MFC;
+start_frame = 121;
+end_frame = 125;
+@ record 146 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR8/FCLT0/SI1438.MFC;
+start_frame = 217;
+end_frame = 225;
+@ record 147 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR8/MRDM0/SI1044.MFC;
+start_frame = 372;
+end_frame = 381;
+@ record 148 @
+file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR8/MMEA0/SI758.MFC;
+start_frame = 254;
+end_frame = 262;

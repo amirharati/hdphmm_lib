@@ -1,0 +1,30 @@
+@ Sof v1.0 @
+@ Sdb 0 @
+sdb_aoe_00.cc
+sdb_apnd_00.cc
+sdb_clr_00.cc
+sdb_clr_01.cc
+sdb_cstr_00.cc
+sdb_cstr_01.cc
+sdb_dbg_00.cc
+sdb_dbg_01.cc
+sdb_dbg_02.cc
+sdb_eq_00.cc
+sdb_get_00.cc
+sdb_io_00.cc
+@ Sdb 1 @
+sdb_io_01.cc
+sdb_io_02.cc
+sdb_io_03.cc
+sdb_mem_00.cc
+sdb_mem_01.cc
+sdb_mem_02.cc
+sdb_mem_03.cc
+sdb_mem_04.cc
+@ Sdb 9 @
+sdb_name_00.cc
+sdb_parse_00.cc
+sdb_pos_00.cc
+sdb_pos_01.cc
+sdb_size_00.cc
+sdb_trans_00.cc

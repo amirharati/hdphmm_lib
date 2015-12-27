@@ -1,0 +1,82 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<!--#set var="isip_page_title" value="MATH" -->
+<!--#include virtual="/hse/ies/templates/documentation/body/title.html" -->
+
+The Math foundation classes form the backbone of the foundation classes
+and provide support for general
+
+<a href="./scalar/index.html">scalar</a>,
+<a href="./vector/index.html">vector</a>,
+
+and
+
+<a href="./matrix/index.html">matrix</a>
+
+mathematics. These classes are designed to provide high-level
+interfaces to most linear algebra operations, yet are designed to be
+computationally efficient.  For each category (e.g., vector), we
+provide a template (e.g., MVector), that implements all operations
+common to all classes in that category.  We then proceed to implement
+specific types of vectors (e.g. VectorFloat), that contain selected
+specializations.
+
+<br><br>
+
+The
+
+<a href="./scalar/index.html">scalar</a>
+
+classes mirror the design of our
+
+<a href="/perl/ifc_document.pl?file=$isip/class/system/Integral/IntegralTypes.h">IntegralTypes</a>
+
+and provide C++ classes that implement each integral type.
+The vector and matrix classes then build on these and provide
+the associated data structures for each scalar.
+The principal use for these classes should be the implementation
+of mathematical operations.
+The
+
+<a href="../dstr/index.html">data structures</a>
+
+library also contains implementations of vectors and other such things
+that are intended to be general containers for those applications
+needing math-like data structures, but not the corresponding mathematical
+operations.
+
+<br><br>
+
+In addition to mirroring the types of classes in each category
+(i.e., Float, VectorFloat, MatrixFloat), we also provide common
+sets of functions across all categories. This degree
+of uniformity makes it easier to understand how to use these classes,
+and makes it straightforward to move between vector and matrix
+representations. We also abstract the user from many details of
+C programming with vectors, including efficient memory allocation
+(implemented through a centralized memory manager), automatic
+type conversions, and mixed-type mathematics (adding a constant to
+a vector, multiplying a vector by a matrix). Programming with
+the Math foundation classes is mainly procedural, looks similar
+to MATLAB or other such abstract languages, and yet provides the runtime
+efficiency of a compiled language.
+
+<br><br>
+
+There are three types of math classes:
+
+<center>
+<table border=5>
+<tr>
+<td><center><a href="./scalar/index.html">math/scalar</a><center></td>
+<td><center><a href="./vector/index.html">math/vector</a><center></td>
+<td><center><a href="./matrix/index.html">math/matrix</a><center></td>
+</tr>
+</table>
+</center>
+
+<br>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

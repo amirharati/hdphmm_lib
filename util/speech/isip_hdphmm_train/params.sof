@@ -1,0 +1,15 @@
+@ Sof v1.0 @
+@ HDPHMM_PARAMS 0 @
+itr = 10;
+init_itr = 0;
+structure_type = LEFT_TO_RIGHT;
+emission_type = DPM;
+kz = 10;
+output_mode = TEXT;
+hmm_params = 10,1,10,1,100,1;
+emission_params = 5,0,10,1,.1,1000;
+raw_model = raw_model.text;
+burn_in = 5;
+verbose = NONE;
+debug_level = NONE;
+final_model = final_model.text;

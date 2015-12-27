@@ -1,0 +1,298 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+<!--#set var="isip_page_title" value="NUMERIC" -->
+<!--#include virtual="/hse/ies/templates/documentation/body/title.html" -->
+
+<b>Library Name:</b>
+lib_numeric.a
+
+<br><br>
+
+<b>Introduction:</b>
+
+<br><br>
+
+<ul>
+  The numeric library contains implementations of general mathematical
+  functions and operations that don't fit nicely into the Math class
+  framework. Some well-established functions, such as a Sigmoid, are
+  found here. Linear algebra operations, such as linear equation solving,
+  that involve multiple data types, can also be found here.
+  These functions and operations are implemented
+  in as generic a way as possible to maximize reusability.
+  Most of these are integral parts of the algorithms used in the
+  speech recognition system found at higher levels of the class hierarchy.
+  
+  <br><br>
+
+  There are generally three types of things found in this library.
+  First, there are well-known mathematical or speech-related functions,
+  such as
+
+  <a href="Bark/index.html">Bark</a>
+
+  ,
+
+  <a href="Sigmoid/index.html">Sigmoid</a>
+
+  and different
+
+  <a href="Kernel/index.html">Kernel</a>
+
+  functions.
+
+  Second, there are math operations that utilize many of the lower
+  mathematical classes to build complex sequences of operations.
+
+  <a href="LinearAlgebra/index.html">LinearAlgebra</a>
+
+  is a good example of this type of class. Third, there are numerical
+  methods such as optimization. The
+
+  <a href="NonlinearOptimization/index.html">NonlinearOptimization</a>
+  
+  class is a good example of the latter. It includes standard nonlinear
+  optimization techniques such as parametric curve fitting and
+  nonparametric quadratic optimization.
+</ul>
+
+<b>Example:</b>
+
+<ul>
+  Here is a basic <a href="../../doc/examples/class/numeric/numeric_example_00/">example</a> to introduce
+  some of the methods for LinearAlgebra:
+  
+<pre>
+       01  // file: $isip/doc/examples/class/numeric/numeric_example_00/example.cc
+       02  // version: $Id: index.html 10653 2007-02-24 20:33:16Z tm334 $
+       03  //
+       04
+       05  // isip include files
+       06  //
+       07  #include &lt;LinearAlgebra.h&gt;
+       08  #include &lt;Console.h&gt;
+       09
+       10  // main program starts here
+       11  //
+       12  int main (int argc, const char **argv) {
+       13  
+       14    // declare a multiplier float matrix (2x2)
+       15    //
+       16    MatrixFloat A_fl(2, 2, L" 2, 4, 7, 5");
+       17    
+       18    // declare a multiplier double matrix (2x2)
+       19    //
+       20    MatrixDouble A_doub(2, 2, L" 2, 4, 7, 5");
+       21
+       22    // declare the vector of knowns (2x1)
+       23    //
+       24    VectorFloat b_fl(L"16, 29");
+       25    VectorDouble b_doub(L"16, 29");
+       26
+       27    // test vectors
+       28    //
+       29    VectorFloat x_fl;
+       30    VectorDouble x_doub;
+       31
+       32    // use linearSolve
+       33    //
+       34    LinearAlgebra::linearSolve(x_fl, A_fl, b_fl);
+       35    LinearAlgebra::linearSolve(x_doub, A_doub, b_doub);
+       36
+       37    // print the output
+       38    //
+       39    x_fl.debug(L"Result vector for float type");
+       40    x_fl.debug(L"Result vector for double type");
+       41
+       42    // exit gracefully
+       43    //
+       44    Integral::exit();
+       45  }
+  
+</pre>
+</ul>
+
+<b>Explanation:</b>
+
+<ul>
+  
+  Lines 7 and 8 contain the ISIP class definitions.  The main
+  program starts on line 12 with the main function definition.
+<br><br>
+  This example shows how to solve the linear function of type 'A * x = b'.
+  On lines 16 and 20, we create a matrix of Float and Double objects
+  respectively to be used as multiplier matrices (A). On lines 24 and 25,
+  we create vector of Float and Double objects respectively (b). On lines 29
+  and 30, we declare the result vectors of Float and Double objects (x).
+  On lines 34 and 35, we call the linearSolve method of the LinearAlgebra
+  class to solve the linear function 'A * x = b' for float and double
+  types.
+
+  <br><br>
+
+  If the executable file name is example.exe, and we execute the following
+  command:
+
+  <br><br>
+
+  <ul>
+    example.exe
+  </ul>
+  <br>
+  The output for this code is generated using the debug method
+  on lines 39 and 40. On our systems, the output is shown below. Due to the
+  random function, your output may vary.
+  
+  <br><br>
+  <ul>
+<pre>
+&lt;VectorFloat::Result vector for float type&gt; length_d = 2
+&lt;VectorFloat::Result vector for float type&gt; capacity_d = 2
+&lt;VectorFloat::Result vector for float type&gt; v_d = 2, 3
+&lt;VectorDouble::Result vector for double type&gt; length_d = 2
+&lt;VectorDouble::Result vector for double type&gt; capacity_d = 2
+&lt;VectorDouble::Result vector for double type&gt; v_d = 2, 3
+</pre>
+  </ul>
+</ul>
+
+<b>Example:</b>
+
+<ul>
+  Here is a second <a href="../../doc/examples/class/numeric/numeric_example_01/">example</a> to show the nonlinear transformations by Mel and Bark:
+  
+<pre>
+       01  // file: $isip/doc/examples/class/numeric/numeric_example_01/example.cc
+       02  // version: $Id: index.html 10653 2007-02-24 20:33:16Z tm334 $
+       03  //
+       04
+       05  // isip include files
+       06  //
+       07  #include &lt;Mel.h&gt;
+       08  #include &lt;Bark.h&gt;  
+       09  #include &lt;Console.h&gt;
+       10
+       11  // main program starts here
+       12  //
+       13  int main (int argc, const char **argv) {
+       14  
+       15     // declare a Mel and a Bark object
+       16     //
+       17     Mel mel_obj;
+       18     Bark bark_obj;
+       19
+       20     // declare the test variables
+       21     //
+       22     VectorFloat vec_input;
+       23     vec_input.assign(L"100, 500, 1000, 1500");  
+       24
+       25     // the result for Mel
+       26     //
+       27     VectorFloat vec_output_mel;
+       28
+       29     // call Mel::compute method for mel transformations
+       30     //
+       31     mel_obj.compute(vec_output_mel, vec_input);
+       32
+       33     // print the output
+       34     //
+       35     vec_output_mel.debug(L"Output of Mel Transformation");
+       36
+       37     // the result for Bark
+       38     //
+       39     VectorFloat vec_output_bark;
+       40
+       41     // call Bark::compute method for bark transformations
+       42     //
+       43     bark_obj.compute(vec_output_bark, vec_input);
+       44
+       45     // print the output
+       46     //
+       47     vec_output_bark.debug(L"Output of Bark Transformation");
+       48
+       49    // exit gracefully
+       50    //
+       51    Integral::exit();  
+       52  }
+
+</pre>
+</ul>
+
+<b>Explanation:</b>
+
+<ul>
+  
+  Lines 07 through 09 contain the ISIP class definitions.  The main
+  program starts on line 13 with the main function definition.
+<br><br>
+  This example shows how to apply the "mel" and "bark" nonlinear
+  transformations to the input data. On lines 17 and 18, we create
+  a Mel and a Bark object. On lines 22 and 23, we define a test vector.
+  On line 31, we call the Mel::compute method to apply nonlinear mel
+  transformation. Similarly, on line 43, we call the Bark::compute
+  method to apply nonlinear bark transformation.
+
+  <br><br>
+
+  If the executable file name is example.exe, and we execute the following
+  command:
+
+  <br><br>
+
+  <ul>
+    example.exe
+  </ul>
+  <br>
+  The output for this code is generated using the debug method
+  on lines 35 and 47. On our systems, the output is shown below. Due to the
+  random function, your output may vary.
+  
+  <br><br>
+  <ul>
+<pre>
+&lt;VectorFloat::Output of Mel Transformation&gt; length_d = 4
+&lt;VectorFloat::Output of Mel Transformation&gt; capacity_d = 4
+&lt;VectorFloat::Output of Mel Transformation&gt; v_d = 150.489, 607.446, 999.986, 1290.56
+&lt;VectorFloat::Output of Bark Transformation&gt; length_d = 4
+&lt;VectorFloat::Output of Bark Transformation&gt; capacity_d = 4
+&lt;VectorFloat::Output of Bark Transformation&gt; v_d = 0.986727, 4.73647, 8.51053, 11.1994
+</pre>
+  </ul>
+</ul>
+
+<ul>
+  The following classes belong to numeric:
+
+  <center>
+  <table border=5>
+  <tr>
+  <td><a href="./Bark/index.html">Bark</a>
+  <td><a href="./Kernel/index.html">Kernel</a>
+  <td><a href="./LinearAlgebra/index.html">LinearAlgebra</a>
+  <td><a href="./Mel/index.html">Mel</a>
+  <td><a href="./NonlinearOptimization/index.html">NonlinearOptimization</a>
+  <td><a href="./Sigmoid/index.html">Sigmoid</a>
+  </tr>
+  </table>
+  </center>
+
+  <br>
+
+  The next level in the ISIP class hierarchy is
+
+  <a href="../dstr/index.html">data-structure</a>
+
+  which provides classes that are generic data structure container
+  classes, including commonly used data structures such as a linked
+  list, a stack, a tree, and a graph. The software corresponding to
+  the examples demonstrated in this document can be found in our
+
+  <a href="../../doc/examples/">documentation directory</a>
+
+  under
+
+  <a href="../../doc/examples/class/numeric/">class/numeric/</a>.
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

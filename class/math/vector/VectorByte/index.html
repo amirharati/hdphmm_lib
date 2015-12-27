@@ -1,0 +1,212 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="VectorByte" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="name">
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/math/vector/VectorByte/VectorByte.h">VectorByte</a> : public  <a href="../MVector/index.html">MVector&lt;Byte, byte&gt;</a></b>
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ... -l /isip/tools/lib/$ISIP_BINARY/lib_math_vector.a
+
+#include &lt;VectorByte.h&gt;
+
+VectorByte(long length = DEF_LENGTH, byte value = DEF_VALUE);
+VectorByte(const VectorByte& vector);
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+VectorByte val0(5);
+
+byte mean;
+byte variance;
+val0.assign(L"1, 2, 3, 4, 5");
+
+mean = val0.mean();
+
+if (mean != 3) {
+  Error::handle(val0.name(), L"mean", Error::TEST, __FILE__, __LINE__);
+  Integral::exit();
+}
+
+variance = val0.var();
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The VectorByte class manages a vector of Byte objects. It is derived from the
+<a href="../MVector/index.html">MVector</a>
+class and inherits the commonly-used mathematical, logical, DSP
+and i/o methods from it. A VectorByte object can read itself from
+(or write itself to) a Sof file. It includes the memory management methods
+which use the MemoryManager class to allocate or delete memory. 
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li><a href="../MVector/index.html">MVector</a>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+
+<ul>
+  <li> define the class name:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/VectorByte/vbyt_00.cc&constant=CLASS_NAME">static const String CLASS_NAME = L"VectorByte";</a></pre>
+
+</ul>
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> error code indicating VectorByte class general error:
+       <pre><a href="/perl/ifc_document.pl?err=00022100">static const long ERR = 22100;</a></pre>
+	 
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> define memory manager:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/VectorByte/vbyt_00.cc&static=mgr_d">static MemoryManager mgr_d;</a></pre>
+
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li> static methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/VectorByte/VectorByte.h&method=name">static const String& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/VectorByte/vbyt_02.cc">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+       
+  <li> debug methods: the setDebug() method is inherited from the <a href="../MVector/index.html#public:debug">MVector</a> template class
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/VectorByte/VectorByte.h&method=debug">boolean debug(const unichar* message) const;</a></pre>
+
+  <li> destructor/constructor(s):
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/VectorByte/VectorByte.h&method=destructor">~VectorByte();</a></pre>
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/VectorByte/VectorByte.h&method=default+constructor">VectorByte(long length = DEF_LENGTH, byte value = DEF_VALUE );</a></pre>
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/VectorByte/VectorByte.h&method=copy+constructor">VectorByte(const VectorByte& vector);</a></pre>     
+
+  <li> assign methods:
+
+       <pre>assign methods are inherited from the <a href="../MVector/index.html#public:assign">MVector</a> class</pre>
+
+  <li> operator= methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/VectorByte/VectorByte.h&method=operator%3D&instance=0">VectorByte& operator= (const VectorByte& vector);</a></pre>
+       
+   <li> i/o methods: the sofSize, readData and writeData methods are inherited from the <a href="../MVector/index.html#public">MVector</a> template class
+	
+	<pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/VectorByte/VectorByte.h&method=read">boolean read(Sof& sof, long tag, const String& name = CLASS_NAME);</a></pre>       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/VectorByte/VectorByte.h&method=write">boolean write(Sof& sof, long tag, const String& name = CLASS_NAME);</a></pre>
+       
+  <li> equality methods:
+
+       <pre>these methods are inherited from the <a href="../MVector/index.html#public:equality">MVector</a> class</pre>
+       
+  <li> memory management methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/VectorByte/VectorByte.h&method=new">static void* operator new(size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/VectorByte/VectorByte.h&method=new[]">static void* operator new[](size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/VectorByte/VectorByte.h&method=delete">static void operator delete(void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/VectorByte/VectorByte.h&method=delete[]">static void operator delete[](void* ptr);</a></pre>  
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/VectorByte/VectorByte.h&method=setGrowSize">static boolean setGrowSize(long grow_size);</a></pre>  
+
+</ul>
+    
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>
+  <li> constructors:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/VectorByte/VectorByte.h&method=constructor&instance=0">VectorByte(const String& arg, unichar delim_a = DEF_DELIM);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/VectorByte/VectorByte.h&method=constructor&instance=1">VectorByte(const unichar* arg, unichar delim_a = DEF_DELIM);</a></pre>
+  <li> operator overload methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/math/vector/VectorByte/VectorByte.h&method=operator%3D&instance=1">VectorByte& operator= (byte value);</a></pre>
+       
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<ul>
+  
+  <li> none
+       
+</ul>
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+  <li> This example shows how to write a VectorByte object into a Sof file
+       
+<pre>
+VectorByte val0(3);
+val0.assign(L"5, 7, 9");
+String tmp_filename(L"foo");
+Sof tmp_file;
+tmp_file.open(tmp_filename, File::WRITE_ONLY, File::TEXT);
+     
+val0.write(tmp_file, (long)0);
+tmp_file.close();</pre>
+
+  <li> This example shows how to get the norm and dot product
+       
+<pre>
+VectorByte val0;
+VectorByte val1(4);
+     
+byte dotp;
+byte norm_val;
+      
+val0.assign(L"1, 3, 5, 7");
+val1.assign(L"2, 4, 6, 3");
+
+dotp = val0.dotProduct(val1);
+norm_val = val1.norm();</pre>
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> See the <a href="../MVector/index.html#notes">MVector notes section.</a>
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

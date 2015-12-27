@@ -1,0 +1,233 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+<!--#set var="isip_page_title" value="Chebyshev" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="name">
+<b>
+name:
+<a href="/perl/ifc_document.pl?file=$isip/class/numeric/Chebyshev/Chebyshev.h">Chebyshev</a></b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre>
+g++ [flags ...] file ... -l /isip/tools/lib/$ISIP_BINARY/lib_numeric.a
+
+#include &lt;Chebyshev.h&gt;
+
+boolean compute(float& output, float input, long order, long nterms);
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+float output;
+Chebyshev::compute(output, 1.0);
+Chebyshev::compute(output, 1.0, 2);
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The Chebyshev class implements a family of Chebyshev functions.
+For more details about this implementation, see:
+
+<ul>
+  S.K. Mitra,
+  <i>Digital Signal Processing</i>,
+  McGraw-Hill, Boston, Massuchessetts, USA, 2001, pp. 456.
+</ul>
+
+An lth order Chebyshev function is defined by:
+power series:
+
+<ul>
+  <img src="./index_eq_00.jpg">
+</ul>
+
+This is implemented in terms of hyperbolic functions defined
+in the system library class Integral.
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li> <a href="../../math/vector/VectorFloat/index.html">VectorFloat</a>
+  <li> <a href="../../system/MemoryManager/index.html">MemoryManager</a>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Chebyshev/Chebyshev_00.cc&constant=CLASS_NAME">static const String CLASS_NAME = L"Chebyshev";</a></pre>
+
+  <li> define i/o related constants:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Chebyshev/Chebyshev_00.cc&constant=DEF_PARAM">static const String DEF_PARAM = L"";</pre></a>
+</ul>
+
+  <li> define default values and arguments: DEF_ORDER represents the default
+       Chebyshev function order to be used by the compute method.
+       
+       <pre>static const long DEF_ORDER = 1;</pre>
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> error code indicating Chebyshev class general error:
+
+       <pre><a href="/perl/ifc_document.pl?err=00035600">static const long ERR = (long)035500;</a></pre>
+</ul>
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> debug level:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Chebyshev/cheb_00.cc&static=debug_level_d">static Integral::DEBUG debug_level_d;</a></pre>
+       
+  <li> a static memory manager:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Chebyshev/cheb_00.cc&static=mgr_d">static MemoryManager mgr_d;</pre></a>
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li>  static methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Chebyshev/Chebyshev.h&method=name">static const String& name();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Chebyshev/cheb_02.cc&method=diagnose">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+
+  <li> debug methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Chebyshev/Chebyshev.h&method=setDebug">boolean setDebug(Integral::DEBUG debug_level);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Chebyshev/cheb_01.cc&method=debug">boolean debug(const unichar* message) const;</a></pre>
+
+  <li> destructor/constructor(s):
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Chebyshev/Chebyshev.h&method=destructor">~Chebyshev();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Chebyshev/Chebyshev.h&method=default+constructor">Chebyshev();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Chebyshev/Chebyshev.h&method=copy+constructor">Chebyshev(const Chebyshev& arg);</a></pre>     
+
+  <li> assign methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Chebyshev/Chebyshev.h&method=assign">boolean assign(const Chebyshev& arg)</a></pre>
+
+  <li> operator= methods:
+       
+      <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Chebyshev/Chebyshev.h&method=operator%3D">Chebyshev& operator= (const Chebyshev& arg);</a></pre>
+                     
+  <li> i/o methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Chebyshev/Chebyshev.h&method=sofSize">long sofSize() const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Chebyshev/Chebyshev.h&method=read">boolean read(Sof& sof, long tag, const String& name = CLASS_NAME);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Chebyshev/Chebyshev.h&method=write">boolean write(Sof& sof, long tag, const String& name = CLASS_NAME) const;</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Chebyshev/Chebyshev.h&method=readData">boolean readData(Sof& sof, const String& pname = DEF_PARAM,long size = SofParser::FULL_OBJECT, boolean param = true, boolean nested = false);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Chebyshev/Chebyshev.h&method=writeData">boolean writeData(Sof& sof, const String& pname = DEF_PARAM) const;</a></pre>
+       
+  <li> equality methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Chebyshev/Chebyshev.h&method=eq">boolean eq(const Chebyshev& arg) const;</a></pre>
+
+  <li> memory management methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Chebyshev/Chebyshev.h&method=new">static void* operator new(size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Chebyshev/Chebyshev.h&method=new[]">static void* operator new[](size_t size);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Chebyshev/Chebyshev.h&method=delete">static void operator delete(void* ptr);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Chebyshev/Chebyshev.h&method=delete[]">static void operator delete[](void* ptr);</a></pre>  
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Chebyshev/Chebyshev.h&method=setGrowSize">static boolean setGrowSize(long grow_size);</a></pre>  
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Chebyshev/Chebyshev.h&method=clear">boolean clear(Integral::CMODE ctype = Integral::DEF_CMODE);</a></pre>
+</ul>
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>
+  <li> computational methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Chebyshev/cheb_05.cc&method=compute&instance=0">static boolean compute(float& output, float input, long order=DEF_ORDER);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/numeric/Chebyshev/cheb_05.cc&method=compute&instance=1">static boolean compute(VectorFloat& output, const VectorFloat& input, long order=DEF_ORDER);</a></pre>
+</ul>
+  
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+  <li> none.
+</ul>
+
+<a name="examples">
+<b>examples:</b>
+<br><br>
+
+<ul>
+
+  <li> This example shows how to compute a value using a Chebyshev function:
+
+<pre>
+#include &lt;Chebyshev.h&gt;
+
+int main() {
+
+  // declare variables for the input and output
+  //
+  float input;
+  float output;
+
+  // compute a value using the defaults
+  //
+  input = 1.0;
+  Chebyshev::compute(output, input);
+
+  // compute a value using a specific order
+  //
+  input = 0.5;
+  Chebyshev::compute(output, input, 2);
+
+  // exit gracefully
+  //
+  Integral::exit();
+}</pre>       
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> This class has no internal data, so its compute function
+       can be invoked as a static function call (the class need not
+       be instantiated).
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

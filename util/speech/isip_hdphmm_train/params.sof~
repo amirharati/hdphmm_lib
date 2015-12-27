@@ -1,0 +1,15 @@
+@ Sof v1.0 @
+@ HDPHMM_PARAMS 0 @
+itr = 1;
+init_itr = 0;
+structure_type = ERGODIC;
+emission_type = DPM;
+kz = 100;
+output_mode = TEXT;
+hmm_params = 10,1,10,1,100,1;
+emission_params = 10,0,10,1,.1,1000;
+raw_model = raw_model.text;
+burn_in = 0;
+verbose = NONE;
+debug_level = NONE;
+final_model = final_model.text;

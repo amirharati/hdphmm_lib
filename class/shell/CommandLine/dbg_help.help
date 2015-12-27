@@ -1,0 +1,10 @@
+//----------------------------------------------------------------------------
+// this is the help message used in the diagnose method of the
+// CommandLine class - its content is for testing purposes and
+// does not represent any actual program functionality
+//
+//----------------------------------------------------------------------------
+L"name: isip_doit\n synopsis: isip_doit file [options]\n descr: does audio files over the audio system \n example: isip_doit file.raw -sf 16000 \n\noptions:\n   -sf: sample frequency (default 16000)\n   -num_chan: number of audio channels (1)\n   -v: volume amp. factor (default 1)\n   -device: audio_system to send audio to (default NULL)\n   -dev_type: (see below for default) either DAT, NCD, or PC\n   -t: type of file (default extrapolated from file extension)\n   -byte_swap: default none, converts 0123->1032\n   -word_swap: default none, converts 0123->2301\n   -quiet: suppress all standard output\n   -debug: print full debug info, overrides -quiet\n   -help: display this help message\n\ncurrently, we handle sphere (pcm or ulaw), au, ul, and raw data\n\nisip_doit tries to determine dev_type from the device itself.\nIf it does not work properly, use the -dev_type to force correct operation.\n\nman page: none"
+
+// end of file
+//

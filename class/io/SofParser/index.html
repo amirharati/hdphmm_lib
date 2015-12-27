@@ -1,0 +1,413 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+
+
+<!--#set var="isip_page_title" value="SofParser" -->
+<?php include("/data/isip/www/templates/documentation/body/index_class.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+
+<a name="name">
+<b>name: <a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/SofParser.h">SofParser</a></b>
+
+<br><br>
+
+<a name="synopsis">
+<b>synopsis:</b>
+<br><br>
+
+<blockquote>
+<pre> 
+g++ [flags ...] file ... -l /isip/tools/lib/$ISIP_BINARY/lib_io.a
+
+#include &lt;SofParser.h&gt;
+
+SofParser();
+boolean setImplicitParam();
+boolean setNest();
+long countTokens(const SysString& param);
+</pre>
+</blockquote>
+
+<a name="quick_start">
+<b>quick start:</b>
+<br><br>
+
+<blockquote>
+<pre>
+SofParser parser;
+static String implicit((unichar*)SofParser::IMPLICIT_PARAM);
+
+// interface for data-only object
+//
+parser.setImplicitParam();
+ 
+SysString pname(L"values");
+pname.assign(implicit);
+
+parser.setNest();
+</pre>
+</blockquote>
+
+<a name="description"> 
+<b>description:</b>
+<br><br>
+
+The file parsing routines used to extract information from
+user-formatted parameter files are far from new technology. the
+tendency in software design, however, is to re-invent these methods
+for every new piece of software. this creates a two-fold problem.
+first, a significant amount of time is wasted in redeveloping existing
+technology. secondly, different implementors may choose to develop
+languages with varying complexity, so file conventions accepted by one
+program may not work with another.
+
+<br><br>
+
+SofParser is a parser class for parsing name=value from ASCII Sof files.
+it sits atop Sof in our environment.
+
+<br><br>
+
+<a name="dependencies">
+<b>dependencies:</b>
+<br><br>
+
+<ul>
+  <li> <a href="../Sof/index.html">Sof</a>
+  <li> <a href="../../system/Console/index.html">Console</a>
+</ul>
+
+<a name="constants">
+<b>public constants:</b>
+<br><br>
+
+<ul>
+  <li> define the class name
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/sofp_00.cc&constant=CLASS_NAME">static const SysString CLASS_NAME = L"SofParser";</a></pre>
+       
+  <li> define the buffer size used for the preparser
+
+       <pre>static const long MAX_BUFFER_SIZE = SysString::MAX_LENGTH;</pre>
+       
+  <li> define implicit parameter constants
+
+       <pre>static const long IMPLICIT_NAME = SofSymbolTable::NO_SYMB - 1;</pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/sofp_00.cc&constant=IMPLICIT_PARAM">static const SysString IMPLICIT_PARAM = L"__SOF_PARSER_IMPLICIT_PARAM";</a></pre>
+
+  <li> define states to control the state machine
+       
+       <pre>GPI stands for good previous input; LWS stands for last character whitespace</pre>
+       <pre>enum STATE { NO_GPI = 0, COMMENT_OP_NO_GPI, LITERAL_OP, GPI,
+    QUOTE_OP, LITERAL_OP_IN_QUOTE, GPI_LWS, COMMENT_OP_GPI, TERMINAL_TRIM_LWS,
+    BLOCK_GPI, BLOCK_GPI_LWS,DEF_STATE = NO_GPI }; </pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/sofp_00.cc&constant=STATE_NO_GPI">static const SysString STATE_NO_GPI = L"no_gpi";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/sofp_00.cc&constant=STATE_COMMENT_OP_NO_GPI">static const SysString STATE_COMMENT_OP_NO_GPI = L"comment_op_no_gpi";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/sofp_00.cc&constant=STATE_LITERAL_OP">static const SysString STATE_LITERAL_OP = L"literal_op";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/sofp_00.cc&constant=STATE_GPI">static const SysString STATE_GPI = L"gpi";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/sofp_00.cc&constant=STATE_QUOTE_OP">static const SysString STATE_QUOTE_OP = L"quote_op";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/sofp_00.cc&constant=STATE_LITERAL_OP_IN_QUOTE">static const SysString STATE_LITERAL_OP_IN_QUOTE = L"literal_op_in_quote";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/sofp_00.cc&constant=STATE_GPI_LWS">static const SysString STATE_GPI_LWS = L"gpi_lws";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/sofp_00.cc&constant=STATE_COMMENT_OP_GPI">static const SysString STATE_COMMENT_OP_GPI = L"comment_op_gpi";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/sofp_00.cc&constant=STATE_TERMINAL_TRIM_LWS">static const SysString STATE_TERMINAL_TRIM_LWS = L"terminal_trim_lws";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/sofp_00.cc&constant=STATE_BLOCK_GPI">static const SysString STATE_BLOCK_GPI = L"block_gpi";</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/sofp_00.cc&constant=STATE_BLOCK_GPI_LWS">static const SysString STATE_BLOCK_GPI_LWS = L"block_gpi_lws";</a></pre>
+       
+  <li> define characters that have special meaning to the state machine
+
+       <pre>static const unichar LITERAL_CHAR = L'\\'';</pre>
+       <pre>static const unichar QUOTE_CHAR = L'"';</pre>
+       <pre>static const unichar NEWLINE_CHAR = L'\n';</pre>
+       <pre>static const unichar NULL_CHAR = L'\0';</pre>
+       <pre>static const unichar SPACE_CHAR = L' ';</pre>
+       
+  <li> define the default values of the class data
+       
+       <pre>static const unichar DEF_TERMINATOR_CHAR = L';';</pre>
+       <pre>static const unichar DEF_ASSIGNMENT_CHAR = L'=';</pre>
+       <pre>static const unichar DEF_COMMENT_CHAR = L'\'';</pre>
+       <pre>static const unichar DEF_BLOCKSTART_CHAR = L'{';</pre>
+       <pre>static const unichar DEF_BLOCKSTOP_CHAR = L'}';</pre>
+       <pre>static const unichar DEF_DELIMITER_CHAR = L',';</pre>
+
+  <li> define the default arguments to methods
+
+       <pre>static const long NO_SYMB = -1;</pre>
+       <pre>static const long ALL_TOKENS = -1;</pre>
+       <pre>static const long FULL_OBJECT = -1;</pre>
+       <pre>static const long BASE_TAG = 0;</pre>
+</ul>
+
+<a name="error">
+<b>error codes:</b>
+<br><br>
+
+<ul>
+  <li> error code indicating SofParser class general error       
+
+       <pre><a href="/perl/ifc_document.pl?err=00010300">static const long ERR = 10300;</a></pre>
+       
+  <li> error code indicating attempt to parse empty object
+
+       <pre><a href="/perl/ifc_document.pl?err=00010302">static const long ERR_PARSE = 10302;</a></pre>
+       
+  <li> error code indicating error in parsing statement
+
+       <pre><a href="/perl/ifc_document.pl?err=00010303">static const long ERR_LVALUE = 10303;</a></pre>
+       
+  <li> error code indicating error in parsing left value
+
+       <pre><a href="/perl/ifc_document.pl?err=00010304">static const long ERR_RVALUE = 10304;</a></pre>
+
+  <li> error code indicating error in parsing right value
+       
+       <pre><a href="/perl/ifc_document.pl?err=00010305">static const long ERR_RANGE = 10305;</a></pre>
+</ul>
+
+
+<a name="protected">
+<b>protected data:</b>
+<br><br>
+
+<ul>
+  <li> storage for the parameters and values:
+
+       <pre>SofSymbolTable table_d;</pre>
+       <pre>SofList index_d;</pre>
+
+  <li> keep track of what parameters are accessed:
+
+       <pre>boolean* used_d;</pre>
+       <pre>long used_size_d;</pre>
+       
+  <li> special characters:
+       
+       <pre>SysChar terminator_char_d;</pre>
+       <pre>SysChar assignment_char_d;</pre>
+       <pre>SysChar comment_char_d;</pre>
+       <pre>SysChar blockstart_char_d;</pre>
+       <pre>SysChar blockstop_char_d;</pre>
+       <pre>SysChar delimiter_char_d;</pre>
+
+  <li> states and variables in the preParse FSM:
+
+       <pre>STATE state_d;</pre>
+       <pre>long param_d;</pre>
+       <pre>long block_count_d;</pre>
+       <pre>long token_count_d;</pre>
+       <pre>long token_start_d;</pre>
+       <pre>long token_stop_d;</pre>
+  
+  <li> positions within the current statement:
+
+       <pre>long statement_asgn_d;</pre>
+       <pre>long statement_term_d;</pre>
+       <pre>long statement_last_token_d;</pre>
+
+  <li> the limits of our file space:
+
+       <pre>long base_position_d;</pre>
+       <pre>long full_size_d;</pre>
+
+  <li> a few flags for the parser:
+
+       <pre>boolean open_index_d;</pre>
+       <pre>boolean implicit_object_d;</pre>
+       <pre>boolean implicit_block_d;</pre>
+       <pre>boolean nest_d;</pre>
+       <pre>boolean is_token_d;</pre>
+       <pre>boolean load_error_d;</pre>
+
+  <li> debugging parameters:
+
+       <pre>Integral::DEBUG debug_level_d;</pre>       
+</ul>
+
+<a name="public">
+<b>required public methods:</b>
+<br><br>
+
+<ul>
+  <li> static methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/SofParser.h&method=name">static const SysString& name();</a></pre>
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/sofp_02.cc&method=diagnose">static boolean diagnose(Integral::DEBUG debug_level);</a></pre>
+       
+  <li> debug methods:
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/sofp_01.cc&method=debug">boolean debug(const unichar* msg) const;</a></pre>
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/SofParser.h&method=setDebug">boolean setDebug(Integral::DEBUG debug_level);</a></pre>
+       
+  <li> destructor/constructor(s):
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/sofp_00.cc&method=destructor">~SofParser();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/sofp_00.cc&method=default+constructor">SofParser();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/sofp_00.cc&method=copy+constructor">SofParser(const SofParser& arg);</a></pre>
+       
+  <li> assign methods:
+       
+       <pre>these methods are omitted because they are not useful for SofParser objects</pre>
+       
+  <li> operator= methods:
+       
+       <pre>these methods are omitted because they are not useful for SofParser objects</pre>
+       
+  <li> i/o methods:
+       
+       <pre>these methods are omitted because SofParser can not write itself to an sof file</pre>
+       
+  <li> equality methods:
+       
+       <pre> these methods are omitted because they are not useful for SofParser objects</pre>
+       
+  <li> memory management methods:
+
+       <pre>new and delete are omitted because memory for SofParser objects
+is not managed by the MemoryManager class. the clear method is omitted so the
+user is forced to use the destructor for handling the SofParser</pre>       
+</ul>
+
+<a name="specific">
+<b>class-specific public methods:</b>
+<br><br>
+
+<ul>  
+  <li> constructors:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/sofp_00.cc&method=constructor">SofParser(const SysChar terminator, const SysChar assignment, const SysChar comment, const SysChar block_start, const SysChar block_stop, const SysChar delim);</a></pre>
+
+  <li> memory size methods:
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/sofp_01.cc&method=memSize">long memSize();</a></pre>
+
+  <li> load methods: parse through and build index from current file space
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/sofp_03.cc&method=load">boolean load(Sof& sof_a, long size = FULL_OBJECT);</a></pre>
+  <li> read methods: read in text from the file
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/sofp_03.cc&method=read">boolean read(SysString& value, Sof& sof, long size = FULL_OBJECT);</a></pre>
+       
+  <li> getEntry methods: position the Sof file and return the size of the parameter, the second method allows partial input/output
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/sofp_04.cc&method=getEntry&instance=0">long getEntry(Sof& sof, const SysString& param, long tag = BASE_TAG);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/sofp_04.cc&method=getEntry&instance=1">long getEntry(Sof& sof, const SysString& param, long token_offset, long num_tokens);</a></pre>
+       
+  <li> parameter names interfacing methods
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/SofParser.h&method=countParams">long countParams();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/sofp_04.cc&method=checkParams&instance=0">boolean checkParams(const SysString* param_list, long num);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/sofp_04.cc&method=checkParams&instance=1">boolean checkParams(Sof& sof);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/sofp_04.cc&method=getParams">long getParams(SysString* param_list, long max_num);</a></pre>
+   
+  <li> data-only objects interfacing methods
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/SofParser.h&method=implicitPname">static const SysString& implicitPname();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/SofParser.h&method=setImplicitParam">boolean setImplicitParam();</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/SofParser.h&method=setNest">boolean setNest();</a></pre>
+
+  <li> parameter checking methods
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/SofParser.h&method=isPresent">boolean isPresent(const SysString& param_name);</a></pre>
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/SofParser.h&method=countTokens">long countTokens(const SysString& param);</a></pre>
+  <li> reset method: used between calls
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/sofp_03.cc&method=reset">boolean reset();</a></pre>
+</ul>
+
+<a name="private">
+<b>private methods:</b>
+<br><br>
+
+<ul>
+  <li> preParse methods: this is an FSM which cleans the format of
+       the input text for easier parsing. it destructively changes the
+       input buffer.
+
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/sofp_05.cc&method=preParse">boolean preParse(long& olen, unichar* buffer, long ilen, long offset);</a></pre>
+
+  <li> assignName methods: assigns the parameter at the current position in the state machine
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/sofp_05.cc&method=assignName">boolean assignName(const unichar* buffer, long clen);</a></pre>
+
+  <li> get state name methods
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/sofp_01.cc&method=setString">boolean setString(SysString& str, STATE state) const;</a></pre>
+       
+       <pre><a href="/perl/ifc_document.pl?file=$isip/class/io/SofParser/sofp_05.cc&method=reportIndexError">reportIndexError(long param, long tag, long pos);</a></pre>
+       
+</ul>       
+
+<a name="examples"> <b>examples:</b> <br><br>
+
+<ul>
+  <li> this is a simple example using SofParser for scalar class.
+       First the file format is checked and then the sof file
+       object is loaded. The data is read from the default
+       parameter file. The amount of data read  depends upon the
+       file format.
+
+       <pre>
+       SofParser parser;
+       String buffer;
+       SysString pname(L"value");
+       String cname(L"Buffer");
+       
+       // create an sof file
+       //
+       Sof sof0;
+       String tmp_file;
+       Integral::makeTemp(tmp_file);
+       
+       // open the file in write mode
+       //
+       sof0.open(tmp_file, File::WRITE_ONLY);
+       
+       // add an entry to sof file
+       //
+       sof0.put(cname, 0, Sof::ANY_SIZE);
+       String data(L"value = some text;\n");
+       sof0.puts(data);
+       
+       sof0.close();
+       
+       // open the file in read mode
+       //
+       sof0.open(tmp_file);
+       
+       // find object in index and make this current
+       //
+       sof0.find(cname, 0);
+       
+       // load the parser
+       //
+       parser.load(sof0);
+       
+       // read the elements
+       //
+       if (!parser.read(buffer, sof0, parser.getEntry(sof0, pname))) {
+         return false;
+       }
+       
+       // close the sof file
+       //
+       sof0.close();
+       buffer.debug(L"read this buffer");
+       
+       </pre>
+</ul>
+
+<a name="notes">
+<b>notes:</b>
+<br><br>
+
+<ul>
+  <li> SofParser also supports the string parsing routines typical for
+       parameter settings, including tokenization, quoting, and literal
+       character translation. While the user has some control of special
+       characters, the finite state transducer is hard-coded for a
+       pre-defined assignment language format.
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->

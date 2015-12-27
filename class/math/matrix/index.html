@@ -1,0 +1,275 @@
+<?php $isip_window_title = "ISIP Homepage"; ?>
+<?php include("/data/isip/www/templates/documentation/header/header.html"); ?>
+<?php include("/data/isip/www/templates/documentation/body/bar.html"); ?>
+<!--#set var="isip_page_title" value="MATH MATRIX" -->
+<!--#include virtual="/hse/ies/templates/documentation/body/title.html" -->
+
+<b>Library Name:</b>
+lib_math_matrix.a
+
+<br><br>
+
+<b>Introduction:</b>
+
+<br><br>
+
+<ul>
+  Many signal processing algorithms can be compactly represented
+  as a series of linear algebra operations. Linear prediction and
+  multivariate Gaussian statistical models are good examples of this.
+  The matrix classes provided here offer the convenience of high-level
+  representations of complex linear algebra operations, as well as
+  low-level control over arithmetic precision, memory requirements,
+  and matrix size. As the example below illustrates, it is quite
+  easy to do simple mathematical operations such as matrix addition
+  and multiplication. We support all such operations for a wide variety
+  of matrix storage formats including full, diagonal, symmetric,
+  lower triangular and sparse.
+</ul>
+
+<b>Example:</b>
+
+<ul>
+  Let's demonstrate some basic matrix manipulations with a simple
+
+  <a href="../../../doc/examples/class/math/matrix/math_matrix_example_00/">
+  example</a>:
+  
+<pre>  
+  01  // file: $isip/doc/examples/class/math/matrix/math_matrix_example_00/example.cc
+  02  // version: $Id: index.html 10653 2007-02-24 20:33:16Z tm334 $
+  03  
+  04  // isip include files
+  05  //
+  06  #include &lt;MatrixDouble.h&gt;
+  07  
+  08  // main program starts here
+  09  //
+  10  int main () {
+  11    
+  12    // declare two matrices
+  13    //
+  14    MatrixDouble a;
+  15    MatrixDouble b;
+  16  
+  17    // assign the matrices. the first two arguments are the number of
+  18    // rows and columns of the matrix, respectively. next comes a stream
+  19    // of values that are assigned in row-order to the matrix.
+  20    //
+  21    a.assign(3, 3, L"4.0, 3.0, 1.0, 7.0, 0.0, 4.0, 2.0, 8.0, 1.0");
+  22    b.assign(3, 3, L"3.0, 7.0, 34.0, 6.0, 1.0, 88.0, 6.0, 3.0, 5.0");
+  23    
+  24    // compute the sum and store it in a new matrix. note that the
+  25    // dimensions of 'c' will be set automatically.
+  26    //
+  27    MatrixDouble c;
+  28    c.add(a, b);
+  29    
+  30    // output the result to the console output
+  31    //
+  32    c.debug(L"a + b = ");
+  33    
+  34    // exit gracefully
+  35    //
+  36    Integral::exit();
+  37  }
+</pre>
+</ul>
+
+<b>Explanation:</b>
+
+<ul>
+  On lines 14 through 22, we declare two matrices and initialize the
+elements to the values shown.  The values are assigned to the matrix
+in row-major format: the first row of the matrix gets assigned to the
+first three elements in the list, the second row of the matrix gets
+assigned to the next three elements, etc.  On line 27, we add the
+matrices "a" and "b" using the add method. The result of this
+operation is output to the terminal using the debug method, one of
+several methods that are required for all ISIP classes.
+  
+  <br><br>
+
+<pre>
+    &lt;MatrixDouble::a + b = &gt; type_d = FULL
+    &lt;MatrixDouble::a + b = &gt; nrows_d = 3
+    &lt;MatrixDouble::a + b = &gt; ncols_d = 3
+    [ 7 10 35 ]
+    [ 13 1 92 ]
+    [8 11 6 ]
+</pre>
+</ul>
+
+<ul>
+  Matrix classes contain implementations of all of the basic mathematical
+  operators such as addition, subtraction, multiplication, transposition,
+  and inversion. Complex linear algebra operations can be quickly and
+  easily implemented with code that is fairly runtime efficient.
+</ul>
+
+<b>Example:</b>
+
+<ul>
+  In our second
+
+  <a href="../../../doc/examples/class/math/matrix/math_matrix_example_01/">
+  example</a>,
+  
+  we demonstrate the implementation of
+  a quadratic form (essentially a weighted Euclidean distance):
+  
+<pre>
+  01  // file: $isip/doc/examples/class/math/matrix/math_matrix_example_01/example.cc
+  02  // version: $Id: index.html 10653 2007-02-24 20:33:16Z tm334 $
+  03  //
+  04  
+  05  // isip include files
+  06  //
+  07  #include &lt;VectorFloat.h&gt;
+  08  #include &lt;MatrixFloat.h&gt;
+  09  
+  10  // main program starts here:
+  11  //
+  12  // this program implements a sequence of matrix operations known
+  13  // as a quadratic form: scalar = x_t * u_t * e * u * x
+  14  //
+  15  int main() {
+  16    
+  17    // declare the vector x
+  18    //
+  19    VectorFloat x;
+  20    x.assign(L"1.0, 2.0, 3.0");
+  21    
+  22    // declare the required matrices. matrix u is declared to be a FULL
+  23    // matrix (the default type), which means all possible matrix
+  24    // locations have storage available. matrix e is DIAGONAL, which
+  25    // means only elements along the diagonal are allowed to be
+  26    // non-zero. an attempt to set an off-diagonal element will result
+  27    // in an error, so use the non-FULL types with care.
+  28    //
+  29    MatrixFloat u;
+  30    u.assign(3, 3, L"1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0",
+  31  	   Integral::FULL);
+  32    
+  33    MatrixFloat e;
+  34    e.assign(3, 3, L"1.0, 2.0, 1.0", Integral::DIAGONAL);
+  35    
+  36    // compute the transpose of u.
+  37    //
+  38    MatrixFloat u_t;
+  39    u_t.transpose(u);
+  40    
+  41    // compute the inner product: u_t * e * u
+  42    //
+  43    MatrixFloat w;
+  44    w.mult(u_t, e);
+  45    w.mult(u);
+  46    
+  47    // compute the outer product: x_t * w * x
+  48    //  the vmult function multiples a vector to a matrix and stores the
+  49    //  result in a matrix. mathematically speaking, the input vector is
+  50    //  really a 1xn matrix and the output vector is really a nx1
+  51    //  matrix.
+  52    //
+  53    VectorFloat y;
+  54    w.vmult(y, x);
+  55    Float result = y.dotProduct(x);
+  56    
+  57    // output the result
+  58    //
+  59    result.debug(L"The result is ");
+  60  
+  61    // exit gracefully
+  62    //
+  63    Integral::exit();
+  64  }
+</pre>
+</ul>
+
+<b>Explanation:</b>
+
+<ul>
+  On lines 29 and 33, we use the assign method to initialize the required
+  matrices. Note that the diagonal matrix is set with only 3 elements,
+  but the full matrix requires all 9 elements to be set.
+  On line 39, we compute the transpose of the matrix "u".
+  On lines 44 and 45, we compute the inner portion of the computation,
+  while on lines 54 and 55, we compute the outer portion of the equation.
+
+  <br><br>
+
+  The output for the above program will be:
+
+<pre>
+  &lt;Float::The result is &gt; value_d = 4744
+</pre>
+  
+  These matrix classes support several storage models transparently.
+  For example, one matrix can be stored as a diagonal matrix,
+  a second matrix as a symmetric, and the two can be added directly.
+  The matrix class will do the proper conversions automatically.
+  Similarly, matrices will resize themselves automatically in a
+  manner similar to that implemented in the
+
+  <a href="../vector/index.html">vector</a>
+
+  classes.
+
+  <br><br>
+
+  A detailed listing of all the relational, logical and mathematical
+  operations for the matrices can be found in the
+  
+  <a href="./MMatrix/index.html">template header file</a>
+
+  documentation (for functions shared across all classes)
+  or the individual class documentation (for example, see the
+
+  <a href="./MatrixFloat/index.html">MatrixFloat</a>
+
+  class). The matrix classes that are available include:
+
+  <br><br>
+  
+  <center>
+  <table border=5>
+  
+  <tr>
+  <td> <a href="./MatrixByte/index.html">MatrixByte</a> </td>
+  <td> <a href="./MatrixDouble/index.html">MatrixDouble</a> </td>
+  <td> <a href="./MatrixFloat/index.html">MatrixFloat</a> </td>
+  
+  <tr>
+  <td> <a href="./MatrixLlong/index.html">MatrixLlong</a> </td>
+  <td> <a href="./MatrixLong/index.html">MatrixLong</a> </td>
+  <td> <a href="./MatrixShort/index.html">MatrixShort</a> </td>
+  
+  <tr>
+  <td> <a href="./MatrixUllong/index.html">MatrixUllong</a> </td>
+  <td> <a href="./MatrixUlong/index.html">MatrixUlong</a> </td>
+  <td> <a href="./MatrixUshort/index.html">MatrixUshort</a> </td>
+  </tr>
+  
+  </table>
+  </center>
+  
+  <br>
+
+  The next level in the ISIP class hierarchy is
+
+  <a href="../../dstr/index.html">data structures</a>
+
+  which provide many useful generic data structures such
+  as linked lists implemented using templates.
+  The software corresponding to the examples
+  demonstrated in this document can be found in our
+
+  <a href="../../../doc/examples/">documentation directory</a>
+
+  under
+
+  <a href="../../../doc/examples/class/math/matrix/">class/math/matrix/</a>.
+
+</ul>
+
+<!--#include virtual="/hse/ies/templates/documentation/footer/footer.html" -->
