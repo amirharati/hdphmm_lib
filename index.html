@@ -128,7 +128,22 @@ Teh, Y., Jordan, M., Beal, M., &amp; Blei, D. (2006). Hierarchical Dirichlet Pro
 
 <p>[ to complete later]</p>
 
-<p>Installation</p>
+<p>Installation
+The code is intended for Linux machines. I have compiled and used the code on Ubuntu (virtual machine) and RedHat (Cluster). It might also get compiled in other flavors or even Mac OS  but has never been tested by me.</p>
+
+<p>1-After downloading the code (or cloning it) go to the main directory, type:
+cd hdphmm_lib
+2-Now you have to run a shell script that defines necessary variables for compile time, type:
+source ISIP_BASE_ENV.sh
+3-In the terminal, type: 
+make
+4- Now type:
+make install
+5- You can find a binary named "isip_hdphmm_train"  under bin/linux-gnu/  and library files will be installed under lib/linux-gnu. isip_hdphmm_train is a command-line tool that can be used to train and decode (finding VIterbi path and likelihood) for HDPHMM and DHDPHMM modeld (in addition to DPM and HDP models). [Notice: the tool  name is misleading since it can do both  training and decoding for  not only HDPHMM but all the other models.]
+In addition to the command line tool (which does not need any C++ knowledge or any programming). You can also use the libraries and include files to develop your own specific models/applications that are not covered by the command-line tool.</p>
+
+<p>In the next sections, I will give examples about usage of the command-line tool to model DPM, HDP, HDPHMM and DHDPHMM.
+Also notice that if your computer has more than one core/CPU  and  support the openMP you will be able to run the tool in parallel and accelerate the computation time proportional to the number of cores you have on your system. </p>
 
 <p>[to complete later]</p>
 
