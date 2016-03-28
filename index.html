@@ -19,51 +19,58 @@
     </section>
 
     <section class="main-content">
-      <h1>
-<a id="-hdphmm-lib" class="anchor" href="#-hdphmm-lib" aria-hidden="true"><span class="octicon octicon-link"></span></a>######################################## HDPHMM LIB</h1>
+      <h6>
+<a id="-hdphmm-lib" class="anchor" href="#-hdphmm-lib" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>################################### HDPHMM LIB</h6>
 
 <h3>
-<a id="amir-harati-2015" class="anchor" href="#amir-harati-2015" aria-hidden="true"><span class="octicon octicon-link"></span></a>Amir Harati 2015</h3>
+<a id="amir-harati-2016" class="anchor" href="#amir-harati-2016" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Amir Harati 2016</h3>
 
 <h3>
-<a id="this-code-can-be-used-as-it-is-no--support-will-be-provided" class="anchor" href="#this-code-can-be-used-as-it-is-no--support-will-be-provided" aria-hidden="true"><span class="octicon octicon-link"></span></a>This code can be used as it is. No  support will be provided.</h3>
+<a id="this-code-can-be-used-as-it-is-no--support-will-be-provided" class="anchor" href="#this-code-can-be-used-as-it-is-no--support-will-be-provided" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>This code can be used as it is. No  support will be provided.</h3>
 
 <h3>
-<a id="if-using-this-code-please-cite-at-least-one-of-the-followings" class="anchor" href="#if-using-this-code-please-cite-at-least-one-of-the-followings" aria-hidden="true"><span class="octicon octicon-link"></span></a>If using this code, please cite at least one of the followings:</h3>
+<a id="if-using-this-code-please-cite-at-least-one-of-the-followings" class="anchor" href="#if-using-this-code-please-cite-at-least-one-of-the-followings" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><strong>If using this code, please cite at least one of the followings:</strong>
+</h3>
 
-<p>Harati Nejad Torbati, A. H., &amp; Picone, J. (2016). A Doubly Hierarchical Dirichlet Process Hidden Markov Model with a Non-Ergodic Structure. Audio, Speech, and Language Processing, IEEE/ACM Transactions on, 24(1), 174-184.
-<a href="https://www.isip.piconepress.com/publications/journals_refereed/2015/ieee_aslp/dhdphmm/paper_double_v17.pdf">https://www.isip.piconepress.com/publications/journals_refereed/2015/ieee_aslp/dhdphmm/paper_double_v17.pdf</a></p>
+<p>Harati Nejad Torbati, A. H., &amp; Picone, J. (2016). <strong>A Doubly Hierarchical Dirichlet Process Hidden Markov Model with a Non-Ergodic Structure. Audio, Speech, and Language Processing</strong>, IEEE/ACM Transactions on, 24(1), 174-184.
+<a href="https://www.isip.piconepress.com/publications/journals_refereed/2016/ieee_aslp/dhdphmm/paper_double_v22.pdf">https://www.isip.piconepress.com/publications/journals_refereed/2016/ieee_aslp/dhdphmm/paper_double_v22.pdf</a></p>
 
-<p>Harati Nejad Torbati, A. H., Picone, J., &amp; Sobel, M. (2014). A Left-to-Right HDP-HMM with HDPM Emissions. 48th Annual Conference on  on Information Sciences and Systems (CISS).
+<p>Harati Nejad Torbati, A. H., Picone, J., &amp; Sobel, M. (2014).** A Left-to-Right HDP-HMM with HDPM Emissions**. 48th Annual Conference on  on Information Sciences and Systems (CISS).
 <a href="https://www.isip.piconepress.com/publications/conference_proceedings/2014/ciss/hdp_hmm/paper_v08.pdf">https://www.isip.piconepress.com/publications/conference_proceedings/2014/ciss/hdp_hmm/paper_v08.pdf</a></p>
 
-<p>Harati Nejad Torbati, A. (2015). Nonparametric Bayesian Approaches for Acoustic Modeling. Temple University. Retrieved from <a href="http://www.isip.piconepress.com/publications/phd_dissertations/2015/nb_acoustic_modeling/thesis/">http://www.isip.piconepress.com/publications/phd_dissertations/2015/nb_acoustic_modeling/thesis/</a></p>
+<p>Harati Nejad Torbati, A. (2015). <strong>Nonparametric Bayesian Approaches for Acoustic Modeling</strong>. Temple University. Retrieved from <a href="http://www.isip.piconepress.com/publications/phd_dissertations/2015/nb_acoustic_modeling/thesis/">http://www.isip.piconepress.com/publications/phd_dissertations/2015/nb_acoustic_modeling/thesis/</a></p>
 
-<p>Quick Start:</p>
+<h1>
+<a id="quick-start" class="anchor" href="#quick-start" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quick Start:</h1>
 
-<p>This code is a part of my PhD dissertation and implements HDPHMM(fox et al.,2011) and DHDPHMM (harati et al.,2014,2015). It also can be used to implement DPM and HDP.
-Note 1: DHDPHMM is also known as HDPHMM with HDPM emissions.
+<p>This code is a part of my PhD dissertation and implements HDPHMM(fox et al.,2011) and DHDPHMM (harati et al.,2014,2015). It also can be used to implement DPM and HDP.</p>
+
+<p>Note 1: DHDPHMM is also known as HDPHMM with HDPM emissions.
 Note 2: This code support ergodic/non-ergodic structures for both HDPHMM/DHDPHMM.
 Note 3: The inference algorithm is based on block-sampler proposed by Fox et al.(2011) with necessary extenstions to support DHDPHMM.</p>
 
-<p>The code is written using ISIP Fundamental Class (IFC); However sice IFC is not currently supported I decided to make a small library (still using some of the IFC classes) that can easily compiled on most systems. The code is tested on Red Hat (64  bit) and Ununtu (32 bit). This code also supports openMP and therefore can use multiple cores if existed.
+<p>The code is written using ISIP Fundamental Class (IFC); However since IFC is no longer supported I decided to make a small library (still using some of the IFC classes) that can easily compiled on most systems. The code is tested on RedHat (64  bit) and Ubuntu (both 32 bit/64 bit). This code also supports openMP and therefore can use multiple cores if existed.
 Currently only one  tool  (isip_hdphmm_train) is provided that can:
 1- train  HDPHMM/DHDPHMM and DPM/HDP models.<br>
 2- Decode the models.
 3- Find optimum path in a model given the observation.</p>
 
-<p>Alternatively source code can be used for an application.</p>
+<p>Alternatively, one can use the library to write their own code that use the functionality provided in this package to implement different nonparametric Bayesian models.  </p>
 
-<p>Installation:
-1- go to hdphmm_lib  directory.
-2- source ISIP_BASE_ENV.sh
-3- make depend
-4- make install</p>
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation:</h2>
 
-<p>Example usages:</p>
+<p>1- Download the hdpdhmm_lib (either zip code or clone it using git).
+2- go to hdphmm_lib  directory.
+3- type: source ISIP_BASE_ENV.sh
+4- type: make depend
+5- type: make install</p>
 
-<h1>
-<a id="usage-1train" class="anchor" href="#usage-1train" aria-hidden="true"><span class="octicon octicon-link"></span></a>usage 1(train):</h1>
+<h2>
+<a id="example-usages" class="anchor" href="#example-usages" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example usages:</h2>
+
+<h3>
+<a id="usage-1train" class="anchor" href="#usage-1train" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>usage 1(train):</h3>
 
 <p>isip_hdphmm_train -params_file params.sof -train_file train.db  -itr $itr -raw_model raw_model  -final_model final_model -burn_in $burnin</p>
 
@@ -72,32 +79,37 @@ Currently only one  tool  (isip_hdphmm_train) is provided that can:
  if  we want to to continue from a saved model (should be saved in raw format):
 isip_hdphmm_train -params_file params.sof -train_file train.db  -itr $itr -raw_model raw_model  -final_model final_model -load old_raw_model -burn_in $burnin</p>
 
-<h1>
-<a id="usage-2-decode" class="anchor" href="#usage-2-decode" aria-hidden="true"><span class="octicon octicon-link"></span></a>usage 2 (decode):</h1>
+<h3>
+<a id="usage-2-decode" class="anchor" href="#usage-2-decode" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>usage 2 (decode):</h3>
 
 <p>isip_hdphmm_train -final_model final_model -log_likelihood eval.db
  this command  read a final model in final_model and compute likelihood of all data points in eval.db and print them in the screen</p>
 
-<h1>
-<a id="usage-3-viterbi-pathstate" class="anchor" href="#usage-3-viterbi-pathstate" aria-hidden="true"><span class="octicon octicon-link"></span></a>usage 3 (Viterbi Path/State)</h1>
+<h3>
+<a id="usage-3-viterbi-pathstate" class="anchor" href="#usage-3-viterbi-pathstate" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>usage 3 (Viterbi Path/State)</h3>
 
 <p>isip_hdphmm_train -final_model final_model -alignment train.db  -alignment_algorithm viterbi -alignment_dir out_dir -alignment_time frame -alignment_mode state</p>
 
 <p>where  we used viterbi algorith, and output in out_dir(one file per utterance in HTK format). We have also used state model</p>
 
-<p>usage 4 (forward algorithm path generate posteriorgram probablities over state)</p>
+<h3>
+<a id="usage-4-forward-algorithm-path-generate-posteriorgram-probablities-over-state" class="anchor" href="#usage-4-forward-algorithm-path-generate-posteriorgram-probablities-over-state" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>usage 4 (forward algorithm path generate posteriorgram probablities over state)</h3>
 
 <p>isip_hdphmm_train -final_model final_model -alignment train.db  -alignment_algorithm forward -alignment_dir out_dir -alignment_time frame -alignment_mode state </p>
 
-<p>Example  :
-go to util/speech/isip_hdphmm_train/
+<h2>
+<a id="example" class="anchor" href="#example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example:</h2>
+
+<p>go to util/speech/isip_hdphmm_train/
 type:
 isip_hdphmm_train.exe -params_file params.sof -train_file train_zh.db -itr 10 -burn_in 5 -final_model fin_model  -raw_model raw_model</p>
 
 <p>This will train a model phoneme zh with 10 iterations and discard the first 5 iterations. </p>
 
-<p>Param file:
-Kz = 10; &lt;- maximum number of states 
+<h2>
+<a id="param-file" class="anchor" href="#param-file" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Param file:</h2>
+
+<p>Kz = 10; &lt;- maximum number of states 
 emission_type = DPM ; -&gt; HDPHMM model
 emission_type = HDP; -&gt;DHDPHMM model
 hmm_parameter = alpha_a,alpha_b,beta_a,beta_b,c,d; (refer to Fox  et al.2011 paper)
@@ -111,12 +123,17 @@ Ks: maximum number of Gaussians in the whole model (which can also be for each s
 Ks2: is optional and should be less or equal to Ks. it specifiy the maximum number of  Gaussian per state
 (For more details  refer to Harati 2015, Harati et al. 2014, Harati and Picone 201x).</p>
 
-<p>References:
-HDPHMM/HDP/DPM:
-Fox, E., Sudderth, E., Jordan, M., &amp; Willsky, A. (2011). A Sticky HDP-HMM with Application to Speaker Diarization. The Annalas of Applied Statistics, 5(2A), 1020
+<h1>
+<a id="references" class="anchor" href="#references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>References:</h1>
+
+<h2>
+<a id="hdphmmhdpdpm" class="anchor" href="#hdphmmhdpdpm" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>HDPHMM/HDP/DPM:</h2>
+
+<p>Fox, E., Sudderth, E., Jordan, M., &amp; Willsky, A. (2011). A Sticky HDP-HMM with Application to Speaker Diarization. The Annalas of Applied Statistics, 5(2A), 1020
 Teh, Y., Jordan, M., Beal, M., &amp; Blei, D. (2006). Hierarchical Dirichlet Processes. Journal of the American Statistical Association, 101(47), 1566</p>
 
-<p>DHDPHMM:</p>
+<h2>
+<a id="dhdphmm" class="anchor" href="#dhdphmm" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DHDPHMM:</h2>
 
 <p>Harati Nejad Torbati, A. H., &amp; Picone, J. (2016). A Doubly Hierarchical Dirichlet Process Hidden Markov Model with a Non-Ergodic Structure. Audio, Speech, and Language Processing, IEEE/ACM Transactions on, 24(1), 174-184.</p>
 
@@ -124,12 +141,15 @@ Teh, Y., Jordan, M., Beal, M., &amp; Blei, D. (2006). Hierarchical Dirichlet Pro
 
 <p>Harati Nejad Torbati, A. (2015). Nonparametric Bayesian Approaches for Acoustic Modeling. Temple University. Retrieved from <a href="http://www.isip.piconepress.com/publications/phd_dissertations/2015/nb_acoustic_modeling/thesis/">http://www.isip.piconepress.com/publications/phd_dissertations/2015/nb_acoustic_modeling/thesis/</a></p>
 
-<p>Tutorials</p>
+<h1>
+<a id="tutorials" class="anchor" href="#tutorials" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Tutorials</h1>
 
 <p>[ to complete later]</p>
 
-<p>Installation
-The code is intended for Linux machines. I have compiled and used the code on Ubuntu (virtual machine) and RedHat (Cluster). It might also get compiled in other flavors or even Mac OS  but has never been tested by me.</p>
+<h2>
+<a id="installation-1" class="anchor" href="#installation-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>The code is intended for Linux machines. I have compiled and used the code on Ubuntu (virtual machine) and RedHat (Cluster). It might also get compiled in other flavors or even Mac OS  but has never been tested by me.</p>
 
 <p>1-After downloading the code (or cloning it) go to the main directory, type:
 cd hdphmm_lib
@@ -139,7 +159,7 @@ source ISIP_BASE_ENV.sh
 make
 4- Now type:
 make install
-5- You can find a binary named "isip_hdphmm_train"  under bin/linux-gnu/  and library files will be installed under lib/linux-gnu. isip_hdphmm_train is a command-line tool that can be used to train and decode (finding VIterbi path and likelihood) for HDPHMM and DHDPHMM modeld (in addition to DPM and HDP models). [Notice: the tool  name is misleading since it can do both  training and decoding for  not only HDPHMM but all the other models.]
+5- You can find a binary named "isip_hdphmm_train"  under bin/linux-gnu/  and library files will be installed under lib/linux-gnu. isip_hdphmm_train is a command-line tool that can be used to train and decode (finding VIterbi path and likelihood) for HDPHMM and DHDPHMM models (in addition to DPM and HDP models). [Notice: the tool  name is misleading since it can do both  training and decoding for  not only HDPHMM but all the other models.]
 In addition to the command line tool (which does not need any C++ knowledge or any programming). You can also use the libraries and include files to develop your own specific models/applications that are not covered by the command-line tool.</p>
 
 <p>In the next sections, I will give examples about usage of the command-line tool to model DPM, HDP, HDPHMM and DHDPHMM.
@@ -147,45 +167,63 @@ Also notice that if your computer has more than one core/CPU  and  support the o
 
 <p>[to complete later]</p>
 
-<p>Dirichlet Process Mixture (DPM) using HDPHMM Lib</p>
+<h2>
+<a id="dirichlet-process-mixture-dpm-using-hdphmm-lib" class="anchor" href="#dirichlet-process-mixture-dpm-using-hdphmm-lib" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dirichlet Process Mixture (DPM) using HDPHMM Lib</h2>
 
 <p>[to complete later]</p>
 
-<p>Hierarchical Dirichlet Process (HDP) using HDPHMM Lib</p>
+<h2>
+<a id="hierarchical-dirichlet-process-hdp-using-hdphmm-lib" class="anchor" href="#hierarchical-dirichlet-process-hdp-using-hdphmm-lib" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Hierarchical Dirichlet Process (HDP) using HDPHMM Lib</h2>
 
 <p>[to complete later]</p>
 
-<p>HDP-HMM  using HDPHMM Lib</p>
+<h2>
+<a id="hdp-hmm--using-hdphmm-lib" class="anchor" href="#hdp-hmm--using-hdphmm-lib" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>HDP-HMM  using HDPHMM Lib</h2>
 
 <p>[to complete later]</p>
 
-<p>DHDP-HMM using HDPHMM Lib</p>
+<h2>
+<a id="dhdp-hmm-using-hdphmm-lib" class="anchor" href="#dhdp-hmm-using-hdphmm-lib" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DHDP-HMM using HDPHMM Lib</h2>
 
 <p>[to complete later]</p>
 
-<p>Using HDPHMM LIB with HTK/KALDI</p>
+<h2>
+<a id="using-hdphmm-lib-with-htkkaldi" class="anchor" href="#using-hdphmm-lib-with-htkkaldi" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Using HDPHMM LIB with HTK/KALDI</h2>
 
 <p>[to complete later]</p>
 
-<p>Examples</p>
+<h2>
+<a id="examples" class="anchor" href="#examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Examples</h2>
 
-<p>TIMIT Classification
-[to complete later]</p>
+<h3>
+<a id="timit-classification" class="anchor" href="#timit-classification" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>TIMIT Classification</h3>
 
-<p>Speech segmentation
-[to complete later]</p>
+<p>[to complete later]</p>
 
-<p>Automatic learning of Acoustic units
-[to complete later]</p>
+<h3>
+<a id="speech-segmentation" class="anchor" href="#speech-segmentation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Speech segmentation</h3>
 
-<p>Query based Spoken Term Detection (STD) 
-[to complete later]</p>
+<p>[to complete later]</p>
 
-<p>Other applications
-[to complete later]</p>
+<h3>
+<a id="automatic-learning-of-acoustic-units" class="anchor" href="#automatic-learning-of-acoustic-units" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Automatic learning of Acoustic units</h3>
 
-<p>Extending the code
-[to complete later]</p>
+<p>[to complete later]</p>
+
+<h3>
+<a id="query-based-spoken-term-detection-std" class="anchor" href="#query-based-spoken-term-detection-std" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Query based Spoken Term Detection (STD)</h3>
+
+<p>[to complete later]</p>
+
+<h3>
+<a id="other-applications" class="anchor" href="#other-applications" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Other applications</h3>
+
+<p>[to complete later]</p>
+
+<h1>
+<a id="extending-the-code" class="anchor" href="#extending-the-code" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Extending the code</h1>
+
+<p>[to complete later]</p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/amir1981/hdphmm_lib">HDPHMM lib</a> is maintained by <a href="https://github.com/amir1981">amir1981</a>.</span>
