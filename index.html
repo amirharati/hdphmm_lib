@@ -45,9 +45,11 @@
 
 <p>This code is a part of my PhD dissertation and implements HDPHMM(fox et al.,2011) and DHDPHMM (harati et al.,2014,2015,2016). It also can be used to implement DPM and HDP.</p>
 
-<p>Note 1: DHDPHMM is also known as HDPHMM with HDPM emissions.
-Note 2: This code support ergodic/non-ergodic structures for both HDPHMM/DHDPHMM.
-Note 3: The inference algorithm is based on block-sampler proposed by Fox et al.(2011) with necessary extenstions to support DHDPHMM.</p>
+<p>Note 1: DHDPHMM is also known as HDPHMM with HDPM emissions.</p>
+
+<p>Note 2: This code support ergodic/non-ergodic structures for both HDPHMM/DHDPHMM.</p>
+
+<p>Note 3: The inference algorithm is based on block-sampler proposed by Fox et al.(2011) with necessary extenstions to support DHDPHMM.</p>
 
 <p>The code is written using ISIP Fundamental Class (IFC); However since IFC is no longer supported I decided to make a small library (still using some of the IFC classes) that can easily get compiled on most systems. The code is tested on RedHat (64  bit) and Ubuntu (both 32 bit/64 bit). This code also supports openMP and therefore can use multiple cores if available.
 Currently only one  tool  (isip_hdphmm_train) is provided that can:
