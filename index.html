@@ -19,8 +19,8 @@
     </section>
 
     <section class="main-content">
-      <h6>
-<a id="-hdphmm-lib" class="anchor" href="#-hdphmm-lib" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>################################### HDPHMM LIB</h6>
+      <h1>
+<a id="hdphmm-lib" class="anchor" href="#hdphmm-lib" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>HDPHMM LIB</h1>
 
 <h3>
 <a id="amir-harati-2016" class="anchor" href="#amir-harati-2016" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Amir Harati 2016</h3>
@@ -35,7 +35,7 @@
 <p>Harati Nejad Torbati, A. H., &amp; Picone, J. (2016). <strong>A Doubly Hierarchical Dirichlet Process Hidden Markov Model with a Non-Ergodic Structure</strong>. Audio, Speech, and Language Processing, IEEE/ACM Transactions on, 24(1), 174-184.
 <a href="https://www.isip.piconepress.com/publications/journals_refereed/2016/ieee_aslp/dhdphmm/paper_double_v22.pdf">https://www.isip.piconepress.com/publications/journals_refereed/2016/ieee_aslp/dhdphmm/paper_double_v22.pdf</a></p>
 
-<p>Harati Nejad Torbati, A. H., Picone, J., &amp; Sobel, M. (2014).** A Left-to-Right HDP-HMM with HDPM Emissions**. 48th Annual Conference on  on Information Sciences and Systems (CISS).
+<p>Harati Nejad Torbati, A. H., Picone, J., &amp; Sobel, M. (2014).<strong>A Left-to-Right HDP-HMM with HDPM Emissions</strong>. 48th Annual Conference on  on Information Sciences and Systems (CISS).
 <a href="https://www.isip.piconepress.com/publications/conference_proceedings/2014/ciss/hdp_hmm/paper_v08.pdf">https://www.isip.piconepress.com/publications/conference_proceedings/2014/ciss/hdp_hmm/paper_v08.pdf</a></p>
 
 <p>Harati Nejad Torbati, A. (2015). <strong>Nonparametric Bayesian Approaches for Acoustic Modeling</strong>. Temple University. Retrieved from <a href="http://www.isip.piconepress.com/publications/phd_dissertations/2015/nb_acoustic_modeling/thesis/">http://www.isip.piconepress.com/publications/phd_dissertations/2015/nb_acoustic_modeling/thesis/</a></p>
@@ -43,7 +43,7 @@
 <h1>
 <a id="quick-start" class="anchor" href="#quick-start" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quick Start:</h1>
 
-<p>This code is a part of my PhD dissertation and implements HDPHMM(fox et al.,2011) and DHDPHMM (harati et al.,2014,2015). It also can be used to implement DPM and HDP.</p>
+<p>This code is a part of my PhD dissertation and implements HDPHMM(fox et al.,2011) and DHDPHMM (harati et al.,2014,2015,2016). It also can be used to implement DPM and HDP.</p>
 
 <p>Note 1: DHDPHMM is also known as HDPHMM with HDPM emissions.
 Note 2: This code support ergodic/non-ergodic structures for both HDPHMM/DHDPHMM.
@@ -77,12 +77,12 @@ Currently only one  tool  (isip_hdphmm_train) is provided that can:
 <p>isip_hdphmm_train -params_file params.sof -train_file train.db  -itr $itr -raw_model raw_model  -final_model final_model -burn_in $burnin</p>
 
 <p>where:
- <strong>train.db</strong> is a database file (look at class/mmedia/Database.h). In the following sections, I describe the format of database file that user can use to introduce data-points to the algorithm.
- <strong>$burnin</strong> is the number of iterations to be discarded. 
- <strong>$itr</strong> is the number of iterations.
- <strong>params.sof</strong> is the parameter file (see below). The command line values overwrite values in this file.
- *<em>raw_model *</em>is the file that record the raw model (the model includes internal states and can be used to resume learning).
- *<em>final_model *</em>is the final model ( does not includes internal values).</p>
+ +<strong>train.db</strong> is a database file (look at class/mmedia/Database.h). In the following sections, I describe the format of database file that user can use to introduce data-points to the algorithm.
+ +<strong>$burnin</strong> is the number of iterations to be discarded. 
+ +<strong>$itr</strong> is the number of iterations.
+ +<strong>params.sof</strong> is the parameter file (see below). The command line values overwrite values in this file.
+ +<strong>raw_model **is the file that record the raw model (the model includes internal states and can be used to resume learning).
+ +</strong>final_model **is the final model ( does not includes internal values).</p>
 
 <p>if  we want to to <strong>continue</strong> from a saved model (should be saved in raw format):
 isip_hdphmm_train -params_file params.sof -train_file train.db  -itr $itr -raw_model raw_model  -final_model final_model -load old_raw_model -burn_in $burnin</p>
