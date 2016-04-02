@@ -218,7 +218,64 @@ where:</p>
 
 <hr>
 
-<p>Where the model structure is left to right, the other option is Ergodic. Also notice the model is <strong>HDPHMM *<em>(since emissions are DPM), the other option is *</em>DHDPHMM</strong> (emission should be HDP and emission_params should be a vector of 8 numbers as mentioned above.)</p>
+<p>Where the model structure is left to right, the other option is Ergodic. Also notice the model is <strong>HDPHMM</strong>(since emissions are DPM), the other option is <strong>DHDPHMM</strong>(emission should be HDP and emission_params should be a vector of 8 numbers as mentioned above.)</p>
+
+<h1>
+<a id="database-file" class="anchor" href="#database-file" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DATABASE FILE</h1>
+
+<p>A database file, is a simple text or binary file (for now it is only text). And has two possible format. The first format is called "Direct" where we include the data inside the file. The other format called "HTK" where data is in some other files (binary files) but we only include the file name and start and end index for each data item in the database file. FOr now, we only support the HTK format (HTK is toolkit mostly used for speech recognition using HMMs) but users can use the "Direct" format to introduce any non-HTK data. Extending the code to use any other format is also straightforward.   </p>
+
+<h2>
+<a id="direct--example" class="anchor" href="#direct--example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DIRECT  EXAMPLE:</h2>
+
+<p>@ Sof v1.0 @</p>
+
+<p>@ info 0 @</p>
+
+<p>database_type = DIRECT;</p>
+
+<p>@ record 0 @</p>
+
+<p>data = {</p>
+
+<pre><code>    type = "FULL";
+
+    num_rows = 2;
+
+    num_cols = 3;
+
+    values = 10.898123,-1.504190,9.084051,1.131181,11.151644,-0.075106;
+    };
+    labels = 1,1,2;
+</code></pre>
+
+<p>@ record 1 @</p>
+
+<p>...</p>
+
+<p>In this example, data dimensionality is 2 and for example record 0 is a sequence with length 3 (the first to numbers are the first data point in the sequence, the third and forth numbers are the second data point in the sequence and so on). Labels are optional.</p>
+
+<p>HTK EXAMPLE</p>
+
+<p>@ Sof v1.0 @</p>
+
+<p>@ info 0 @</p>
+
+<p>database_type = HTK;</p>
+
+<p>@ record 0 @</p>
+
+<p>file_name = /usr/local/isip/data/TIMIT/MFCC/TRAIN/DR1/FCJF0/SI648.MFC;</p>
+
+<p>start_frame = 0;</p>
+
+<p>end_frame = 9;</p>
+
+<p>@ record 1 @</p>
+
+<p>...</p>
+
+<p>where file_name refer to a feature file (in HTK  format), start_frame is the frame that sequence started in the feature file and end_frame   is the frame that sequence ends in the feature file. Data dimensionality is automatically obtained from the feature file.</p>
 
 <h1>
 <a id="references" class="anchor" href="#references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>References:</h1>
