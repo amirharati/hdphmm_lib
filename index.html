@@ -181,6 +181,45 @@ where:</p>
 <p>pseudo_mean: just used for NIW .
 (refer to Fox et al. 2011  for details).</p>
 
+<h2>
+<a id="example-for-parameter-file-from-utilspeechisip_hdphmm_train" class="anchor" href="#example-for-parameter-file-from-utilspeechisip_hdphmm_train" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example for Parameter file (from util/speech/isip_hdphmm_train):</h2>
+
+<hr>
+
+<p>@ Sof v1.0 @</p>
+
+<p>@ HDPHMM_PARAMS 0 @</p>
+
+<p>itr = 10;</p>
+
+<p>init_itr = 0;</p>
+
+<p>structure_type = LEFT_TO_RIGHT;</p>
+
+<p>emission_type = DPM;</p>
+
+<p>kz = 10;</p>
+
+<p>output_mode = TEXT;</p>
+
+<p>hmm_params = 10,1,10,1,100,1;</p>
+
+<p>emission_params = 5,0,10,1,.1,1000;</p>
+
+<p>raw_model = raw_model.text;</p>
+
+<p>burn_in = 5;</p>
+
+<p>verbose = NONE;</p>
+
+<p>debug_level = NONE;</p>
+
+<p>final_model = final_model.text;</p>
+
+<hr>
+
+<p>Where the model structure is left to right, the other option is Ergodic. Also notice the model is <strong>HDPHMM *<em>(since emissions are DPM), the other option is *</em>DHDPHMM</strong> (emission should be HDP and emission_params should be a vector of 8 numbers as mentioned above.)</p>
+
 <h1>
 <a id="references" class="anchor" href="#references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>References:</h1>
 
