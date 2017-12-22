@@ -1,1 +1,1 @@
-/home/tuc56736/hdphmm_lib/class/dstr/DstrBase/DstrBase.h
+../class/dstr/DstrBase/DstrBase.h

@@ -1,1 +1,1 @@
-/home/tuc56736/hdphmm_lib/class/dstr/SingleLinkedList/SingleLinkedNode.h
+../class/dstr/SingleLinkedList/SingleLinkedNode.h

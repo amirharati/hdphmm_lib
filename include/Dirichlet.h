@@ -1,1 +1,1 @@
-/home/tuc56736/hdphmm_lib/class/numeric/Dirichlet/Dirichlet.h
+../class/numeric/Dirichlet/Dirichlet.h

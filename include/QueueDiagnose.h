@@ -1,1 +1,1 @@
-/home/tuc56736/hdphmm_lib/class/dstr/Queue/QueueDiagnose.h
+../class/dstr/Queue/QueueDiagnose.h

@@ -1,1 +1,1 @@
-/home/tuc56736/hdphmm_lib/class/numeric/Mel/Mel.h
+../class/numeric/Mel/Mel.h

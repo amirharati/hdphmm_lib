@@ -1,1 +1,1 @@
-/home/tuc56736/hdphmm_lib/class/math/matrix/MMatrix/MMatrix.h
+../class/math/matrix/MMatrix/MMatrix.h

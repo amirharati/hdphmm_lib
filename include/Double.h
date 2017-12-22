@@ -1,1 +1,1 @@
-/home/tuc56736/hdphmm_lib/class/math/scalar/Double/Double.h
+../class/math/scalar/Double/Double.h

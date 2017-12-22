@@ -1,1 +1,1 @@
-/home/tuc56736/hdphmm_lib/class/numeric/Bark/Bark.h
+../class/numeric/Bark/Bark.h

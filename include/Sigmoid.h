@@ -1,1 +1,1 @@
-/home/tuc56736/hdphmm_lib/class/numeric/Sigmoid/Sigmoid.h
+../class/numeric/Sigmoid/Sigmoid.h

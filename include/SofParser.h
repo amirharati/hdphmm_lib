@@ -1,1 +1,1 @@
-/home/tuc56736/hdphmm_lib/class/io/SofParser/SofParser.h
+../class/io/SofParser/SofParser.h

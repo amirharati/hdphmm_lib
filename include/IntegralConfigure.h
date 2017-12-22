@@ -1,1 +1,1 @@
-/home/tuc56736/hdphmm_lib/class/system/Integral/IntegralConfigure.h
+../class/system/Integral/IntegralConfigure.h

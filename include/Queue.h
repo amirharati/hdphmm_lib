@@ -1,1 +1,1 @@
-/home/tuc56736/hdphmm_lib/class/dstr/Queue/Queue.h
+../class/dstr/Queue/Queue.h

@@ -1,1 +1,1 @@
-/home/tuc56736/hdphmm_lib/class/system/Integral/IntegralNameSpace.h
+../class/system/Integral/IntegralNameSpace.h

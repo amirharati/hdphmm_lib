@@ -1,1 +1,1 @@
-/home/tuc56736/hdphmm_lib/class/io/SofList/SofList.h
+../class/io/SofList/SofList.h

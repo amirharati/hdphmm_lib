@@ -1,1 +1,1 @@
-/home/tuc56736/hdphmm_lib/class/math/vector/VectorByte/VectorByte.h
+../class/math/vector/VectorByte/VectorByte.h

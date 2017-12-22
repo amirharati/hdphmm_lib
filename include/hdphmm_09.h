@@ -1,1 +1,1 @@
-/home/tuc56736/hdphmm_lib/class/pr/hdp_hmm/hdphmm_09.h
+../class/pr/hdp_hmm/hdphmm_09.h

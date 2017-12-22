@@ -1,1 +1,1 @@
-/home/tuc56736/hdphmm_lib/class/pr/hdp/HDP.h
+../class/pr/hdp/HDP.h

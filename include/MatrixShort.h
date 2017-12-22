@@ -1,1 +1,1 @@
-/home/tuc56736/hdphmm_lib/class/math/matrix/MatrixShort/MatrixShort.h
+../class/math/matrix/MatrixShort/MatrixShort.h

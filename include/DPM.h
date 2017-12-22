@@ -1,1 +1,1 @@
-/home/tuc56736/hdphmm_lib/class/pr/dpm/DPM.h
+../class/pr/dpm/DPM.h

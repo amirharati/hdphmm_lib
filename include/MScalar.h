@@ -1,1 +1,1 @@
-/home/tuc56736/hdphmm_lib/class/math/scalar/MScalar/MScalar.h
+../class/math/scalar/MScalar/MScalar.h

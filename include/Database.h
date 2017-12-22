@@ -1,1 +1,1 @@
-/home/tuc56736/hdphmm_lib/class/mmedia/Database/Database.h
+../class/mmedia/Database/Database.h

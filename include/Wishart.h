@@ -1,1 +1,1 @@
-/home/tuc56736/hdphmm_lib/class/numeric/Wishart/Wishart.h
+../class/numeric/Wishart/Wishart.h

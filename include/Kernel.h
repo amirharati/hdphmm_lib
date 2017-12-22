@@ -1,1 +1,1 @@
-/home/tuc56736/hdphmm_lib/class/numeric/Kernel/Kernel.h
+../class/numeric/Kernel/Kernel.h

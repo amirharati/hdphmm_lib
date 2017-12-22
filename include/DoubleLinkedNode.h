@@ -1,1 +1,1 @@
-/home/tuc56736/hdphmm_lib/class/dstr/DoubleLinkedList/DoubleLinkedNode.h
+../class/dstr/DoubleLinkedList/DoubleLinkedNode.h

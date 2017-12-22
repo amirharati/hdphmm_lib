@@ -1,1 +1,1 @@
-/home/tuc56736/hdphmm_lib/class/dstr/Stack/Stack.h
+../class/dstr/Stack/Stack.h
